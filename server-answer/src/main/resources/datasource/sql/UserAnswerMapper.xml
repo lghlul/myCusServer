@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.UserAnswerMapper">
+	<!-- 该类型已答总题数 -->
+	<select id="queryAnswerCountByUserType" parameterType="map" resultType="int">
+		select count(DISTINCT(questionID)) from t_user_answer 
+		<where>
+			<if test="openID != null and openID != ''">
+				and openID = #{openID}
+			</if>
+			<if test="typeID != null and typeID != 0">
+				and typeID = #{typeID}
+			</if>
+			  <if test="isRight != null and isRight != 0">
+				and isRight = #{isRight}
+			</if>
+		</where>
+	</select>
+	
+	
+	<insert id="addUserAnswer" parameterType="userAnswer">
+		insert into t_user_answer(openID,questionID,typeID,answerID,isRight,status,createTime) values(#{openID},#{questionID},#{typeID},#{answerID},#{isRight},1,#{createTime})
+	</insert>
+	
+	<select id="queryAnswerRightCount" parameterType="string" resultType="int">
+		select count(1) from t_user_answer where openID = #{openID} and status = 1 and isRight = 1
+	</select>
+	
+	<update id="updateUserAnswer" parameterType="string">
+		update t_user_answer set status = 2 where openID = #{openID}
+	</update>
+	
+	
+	<select id="queryMaxIDByOpenID" parameterType="map" resultType="long">
+		select max(questionID) as questionID from t_user_answer where openID = #{openID} and typeID = #{typeID}
+	</select>
+	
+	
+	<select id="queryUserAnswerByMap" parameterType="map" resultType="userAnswer">
+		select * from t_user_answer
+		<where>
+			<if test="questionId != null and questionId != 0">
+				and questionId = #{questionId}
+			</if>
+			<if test="openID != null and openID != ''">
+				and openID = #{openID}
+			</if>
+		</where>
+	</select>
+</mapper>

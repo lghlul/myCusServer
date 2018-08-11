@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.OrderMapper">
+	<select id="queryOrderPage" parameterType="map" resultType="order">
+		SELECT
+			a.orderID,a.orderNo,a.goodsID,a.createTime,a.orderStatus, b.goodsScore,b.goodsName,b.goodsIcon
+		FROM
+			t_order a
+		JOIN t_goods b ON a.goodsID = b.goodsID
+		AND openID = #{openID}
+		ORDER BY
+			a.createTime DESC
+		LIMIT #{start},#{pageSize}
+		
+	</select>
+	
+	<select id="queryOrderCount" parameterType="map" resultType="int">
+		SELECT
+			count(orderID)
+		FROM
+			t_order 
+		where openID = #{openID}
+	</select>
+	
+	
+	<select id="queryCountByNo" parameterType="string" resultType="int">
+		SELECT
+			count(orderID)
+		FROM
+			t_order where orderNo = #{orderNo}
+	</select>
+	
+	<insert id="addOrder" parameterType="order">
+		insert into t_order(orderNo,goodsID,openID,createTime,orderStatus) values(#{orderNo},#{goodsID},#{openID},#{createTime},1)
+	</insert>
+	
+	<update id="updateOrder" parameterType="map">
+		update t_order set orderStatus = #{orderStatus} where orderID = #{orderStatus}
+	</update>
+	
+</mapper>

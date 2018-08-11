@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cad.mapper.ProjectMaterialMapper">
+ 
+ 	<!-- 得到所有的工程材料 -->
+ 	<select id="findProjectMaterial" resultType="ProjectMaterial">
+ 		select * from t_projectmaterial
+ 	</select>
+ 	
+ 	<!-- 取值 -->
+ 	<select id="findProjectMaterialValue" parameterType="int" resultType="ProjectMaterial">
+		select * from t_projectmaterial
+		<where>
+			and pm_id = #{pm_id}
+		</where>
+ 	</select>
+ 	
+ 	
+ 	<select id="findChina" resultType="ProjectMaterial">
+ 		select pm_id,china from t_projectmaterial group by china
+ 	</select>
+ 	
+ 	<select id="findGermany" resultType="ProjectMaterial">
+ 		select pm_id,germany from t_projectmaterial group by germany
+ 	</select>
+ 	
+ 	<select id="findSpain" resultType="ProjectMaterial">
+ 		select pm_id,spain from t_projectmaterial group by spain
+ 	</select>
+ 	
+ 	<select id="findTurkey" resultType="ProjectMaterial">
+ 		select pm_id,turkey from t_projectmaterial group by turkey
+ 	</select>
+ 	
+ 	<select id="findUsa" resultType="ProjectMaterial">
+ 		select pm_id,usa from t_projectmaterial group by usa
+ 	</select>
+ 	
+ 	<select id="findMexico" resultType="ProjectMaterial">
+ 		select pm_id,mexico from t_projectmaterial group by mexico
+ 	</select>
+ 	
+ 	<select id="findIndia" resultType="ProjectMaterial">
+ 		select pm_id,india from t_projectmaterial group by india
+ 	</select>
+ 	
+</mapper>

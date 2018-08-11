@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.QuesTypeMapper">
+
+	<resultMap type="quesType" id="quesTypeMap">
+		<result column="typeID" property="typeID"/> 
+		<result column="parentID" property="parentID"/> 
+		<result column="typeName" property="typeName"/> 
+		<result column="typeImg" property="typeImg"/>
+		<collection property="typeList" ofType="quesType">
+			<result column="sonTypeID" property="typeID"/> 
+			<result column="sonParentID" property="parentID"/> 
+			<result column="sonType" property="typeName"/>  
+		</collection>
+	</resultMap>
+	<select id="queryQuesTypeList" resultMap="quesTypeMap">
+		SELECT
+			a.typeID,a.parentID,a.typeName,
+			b.typeID as sonTypeID,
+			b.parentID as sonParentID,
+			b.typeName as sonType,
+			a.typeImg
+		FROM
+			t_type a
+		JOIN t_type b ON a.typeID = b.parentID
+		AND a.typeStatus = 1
+	</select>
+	
+	
+	<select id="queryQuesByID" parameterType="long" resultType="quesType">
+		SELECT * from t_type where typeID = #{typeID}
+	</select>
+</mapper>

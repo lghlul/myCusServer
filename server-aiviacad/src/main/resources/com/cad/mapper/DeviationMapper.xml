@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cad.mapper.DeviationMapper">
+ 	<resultMap type="deviation" id="deviationMap">
+ 		<id column="DEVIATION_ID" property="deviation_id" jdbcType="INTEGER"/>
+ 		<result column="SIZE_ID" property="size_id" jdbcType="INTEGER"/>
+ 		<result column="SIZE_TYPE" property="size_type" jdbcType="INTEGER"/>
+ 		<result column="DEVIATION_TYPE" property="deviation_type" jdbcType="INTEGER"/>
+ 		<result column="DEVIATION_NAME" property="deviation_name" jdbcType="VARCHAR"/>
+ 		<result column="DEVIATION_VALUE_1" property="value_one" jdbcType="VARCHAR"/>
+ 		<result column="DEVIATION_VALUE_2" property="value_two" jdbcType="VARCHAR"/>
+ 	</resultMap>
+ 	<!-- 得到所有的孔和轴 -->
+ 	<select id="findDeviation" parameterType="deviation" resultMap="deviationMap">
+ 		select DISTINCT(deviation_name),size_type,deviation_type from t_deviation 
+			<where>
+				<if test="is_often == 1">
+					is_often = #{is_often}	
+				</if>
+			</where>
+		order by order_num
+ 	</select>
+ 	
+ 	<!-- 取值 -->
+ 	<select id="findDeviationValue" parameterType="deviation" resultMap="deviationMap">
+		SELECT
+			*
+		FROM
+			t_deviation
+		WHERE
+			DEVIATION_NAME = #{deviation_name}
+		AND DEVIATION_TYPE = #{deviation_type}
+		<if test="have_zero == 1">
+			AND HAVE_ZERO = 1
+		</if>
+		AND SIZE_ID = (
+			SELECT
+				SIZE_ID
+			FROM
+				t_size
+			WHERE
+			<if test="have_zero == 1">
+				#{size_value} &gt;= SIZE_MIN
+			</if>
+			<if test="have_zero == 0">
+				#{size_value} &gt; SIZE_MIN
+			</if>
+			AND #{size_value} &lt;= SIZE_MAX
+			AND SIZE_TYPE = #{size_type}
+		)
+ 	</select>
+</mapper>

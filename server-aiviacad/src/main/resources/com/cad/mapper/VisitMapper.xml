@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cad.mapper.VisitMapper">
+ 	
+ 	<select id="insertVisit" parameterType="visit" >
+ 		insert into t_visit(ip,country,visitTime,province,city,method) values(#{ip},#{country},now(),#{province},#{city},#{method})
+ 	</select>
+ 	
+ 	
+ 	<select id="findVisitCount" resultType="Integer" >
+ 		select count(*) from t_visit
+	</select>
+</mapper>

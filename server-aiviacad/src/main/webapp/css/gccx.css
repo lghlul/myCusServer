@@ -1,0 +1,96 @@
+body{
+	margin: 0px;
+	font-family: Microsoft YaHei;
+	font-size: 15px;
+}
+.title{
+	color: white;float: left;line-height: 50px;font-weight: bold;font-size: 20px;margin-left: 10px;
+}
+a{
+	font-size: 20px;
+	color: rgb(191,191,191);
+	text-decoration: none;
+}
+
+
+.top{
+	top:0px;
+	right:0px;
+	height: 50px;
+	width: 100%;
+	background-color: #141b1b;
+}
+
+input{font-family: Arial Narrow;}
+
+select{font-family: Arial Narrow;}
+
+.gccx{width: 600px;height: 200px;margin:150px auto;}
+
+.item{width: 180px;margin-left: 15px;float: left;margin-top: 10px;height:180px;}
+
+.item>span{margin-left: 10px;font-weight: bold;font-size: 20px;height: 20px;}
+
+.search{margin: 10px 20px;width: 150px;height:140px;}
+
+.search .botton{color:white;text-align: center;width: 80%;border-radius:5px;background-color: #727d8d;height: 30px;line-height: 30px;margin-left: 10%;margin-top: 5px;cursor:pointer;font-size:15px;}
+
+.select-name{height:60px;width:100%;line-height:60px;text-align:center;}
+
+.select-name>span{font-size: 15px;}
+
+.length{height: 88px;line-height: 88px;text-align: center;width: 45px;float: left;font-weight: bold;color: blue; }
+
+.detail{width: 100px;height: 140px;margin-left: 45px;color: blue; }
+
+.line{width: 90px;height: 0px;border: 1px solid;}
+
+.name{width:30px;height:44px;line-height:44px;float: left;font-weight: bold;font-family: Arial Narrow;}
+
+.value{width:60px;height:44px;float: left;}
+
+.value>div{height:22px;line-height:22px;font-size: 12px;width: 60px;text-align: center;font-family: Arial Narrow;}
+
+.result{margin: 10px 20px;width: 150px;height:90px;margin-top: 25px;}
+
+.bottom{
+	position:fixed;
+	bottom:0px;
+	right:0px;
+	height: 50px;
+	width: 100%;
+	background-color: #141b1b;
+}
+
+.bottom .email{
+	float: left;
+	margin-left: 50px;
+	height: 100%;
+}
+
+.bottom .count{
+	float: right;
+	margin-right: 50px;
+}
+
+#visitCount{
+	color:white;
+	line-height: 50px;
+}
+
+#email{
+	color:white;
+	line-height: 50px;
+}
+
+#email a{
+	font-size:15px;
+	text-decoration:underline;
+}
+
+.email img{
+	width: 30px;
+	line-height: 50px;
+	vertical-align:middle;
+}
+
