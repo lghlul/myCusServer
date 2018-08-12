@@ -18,7 +18,18 @@ public class Result {
 	 * 访问数量
 	 */
 	private String visitNum;
-	
+
+
+	private int code;
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
 	public Object getResultData() {
 		return resultData;
 	}
