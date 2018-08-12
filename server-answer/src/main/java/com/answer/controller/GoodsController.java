@@ -33,7 +33,7 @@ public class GoodsController {
 			pageNo = 1;
 		}
 		if(pageSize == null){
-			pageNo = 10;
+			pageSize = 10;
 		}
 		Result result = this.goodsService.getGoodsList(pageNo, pageSize);
 		Log4jUtil.info("goodsList end...result=" + JSON.toJSONString(result));
