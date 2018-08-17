@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.answer.mapper.BindRecordMapper">
 	<select id="queryRecord" parameterType="bindRecord" resultType="int">
-		select count(id) from t_bind_record where openID = #{openID} and operYear = #{operYear} and operMonth =#{operMonth} and #{operDay}
+		select count(id) from t_bind_record where openID = #{openID} and operYear = #{operYear} and operMonth =#{operMonth} and operDay = #{operDay}
 	</select>
 	
 	<insert id="addRecord" parameterType="bindRecord">

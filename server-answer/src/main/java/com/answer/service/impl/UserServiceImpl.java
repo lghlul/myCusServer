@@ -136,8 +136,7 @@ public class UserServiceImpl implements IUserService {
 			result.setResultCode(Constant.returnCode.NO_BIND_REPEAT);
 			return result;
 		}
-		JobNumBean jobBean = this.jobNumMapper.queryJobNumByID(jobNum);
-		
+
 		BindRecord bindRecord = new BindRecord();
 		bindRecord.setJobNum(jobNum);
 		bindRecord.setOpenID(session.getOpenID());
@@ -146,8 +145,6 @@ public class UserServiceImpl implements IUserService {
 		bindRecord.setOperMonth((now.get(Calendar.MONTH) + 1));
 		bindRecord.setOperDay(now.get(Calendar.DAY_OF_MONTH));
 		bindRecord.setOperTime(now.getTimeInMillis());
-		
-		
 		int bindCount = this.bindRecordMapper.queryRecord(bindRecord);
 		Log4jUtil.info("queryRecord...bindCount=" + bindCount);
 		//每天最多绑定三次   测试环境不做限制
@@ -155,7 +152,7 @@ public class UserServiceImpl implements IUserService {
 			result.setResultCode(Constant.returnCode.BIND_OVER_THREE);
 			return result;
 		}
-		
+		JobNumBean jobBean = this.jobNumMapper.queryJobNumByID(jobNum);
 		if(jobBean == null || jobBean.getStatus() == Constant.JOBNUM_USELESS){
 			result.setResultCode(Constant.returnCode.USELESS_JOBNUM);
 		}else{
