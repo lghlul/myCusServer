@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,6 +109,10 @@ var checkNum = function(number){
 			压力转换
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="../projectMaterial/toIndex.do">工程材料</a>
+		</div>
+		<div class="login">
+			<c:if test="${user == null}"> <a href="../user/toLogin.do">登录</a></c:if>
+			<c:if test="${user != null}"> 你好,${user.userAccount} <a href="../user/logout.do">退出</a></c:if>
 		</div>
 	</div>
 

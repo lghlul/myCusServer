@@ -55,13 +55,14 @@ public class ControllerAspect {
 		String method = request.getServletPath();
 		//String methodName = method.getName();
 		String ip = this.getIp(request);
+		//if(false){
 		if(!ip.equals("127.0.0.1")){
 			//String url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php";
 			String url = "http://ip.taobao.com/service/getIpInfo.php";
 			String param = "ip=" + ip;
 			LogUtil.i(TAG, "sendGet start...url = " + url + ",ip=" + ip);
-			String address = HttpUtil.sendGet(url, param);
-			LogUtil.i(TAG, "sendGet end...address = " + address);
+			//String address = HttpUtil.sendGet(url, param);
+			//LogUtil.i(TAG, "sendGet end...address = " + address);
 			visit.setIp(ip);
 			visit.setMethod(method);
 			/*if(!address.equals("-2")){
@@ -70,15 +71,14 @@ public class ControllerAspect {
 				visit.setCountry(UnicodeUtil.convertUnicode(jObj.getString("country")));
 				visit.setProvince(UnicodeUtil.convertUnicode(jObj.getString("province")));
 			}*/
-			JSONObject jObj = (JSONObject) JSON.parseObject(address);
+			/*JSONObject jObj = (JSONObject) JSON.parseObject(address);
 			Integer code = jObj.getInteger("code");
 			if(code == 0){
 				JSONObject jsonObject = jObj.getJSONObject("data");
 				visit.setCity(jsonObject.getString("city"));
 				visit.setCountry(jsonObject.getString("country"));
 				visit.setProvince(jsonObject.getString("region"));
-			}
-			
+			}*/
 			visitMapper.insertVisit(visit);
 		}
 		
@@ -152,5 +152,6 @@ public class ControllerAspect {
 /*	private boolean isEmpty(String str) {
         return str == null || str.length() == 0;
     }*/
-	
+
+
 }

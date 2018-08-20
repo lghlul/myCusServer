@@ -8,8 +8,8 @@ body{
 }
 a{
 	font-size: 20px;
-	color: rgb(191,191,191);
-	text-decoration: none;
+	color: rgb(191,191,191)!important;
+	text-decoration: none!important;
 }
 
 
@@ -94,3 +94,36 @@ select{font-family: Arial Narrow;}
 	vertical-align:middle;
 }
 
+.top .login{
+	color: white;float: right;line-height: 50px;font-weight: bold;font-size: 20px;margin-left: 10px;margin-right: 10px;
+}
+.login{
+	font-size: 1rem!important;
+}
+.login a{
+	font-size: 1rem!important;
+}
+.form-inline{
+	width: 30rem;
+	margin: auto;
+}
+
+.form-inline .form-group{
+	display:block!important;
+	margin: 10px 0px;
+}
+
+.form-inline input{
+	width: 100%!important;
+}
+
+.form-inline button{
+	width:100%;
+}
+
+.register a{
+	float: right;
+	font-size: 1.5rem;
+	margin:10px;
+	color:#006699!important;
+}

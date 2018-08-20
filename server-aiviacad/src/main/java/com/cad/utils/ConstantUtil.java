@@ -118,6 +118,15 @@ public interface ConstantUtil {
 		 */
 		public static String PROJECT_MATERIAL_GERMANY_KEY = "project_material_germany";
 	}
+
+	interface Page{
+		public static final String INDEX = "index";
+
+		public static final String LOGIN = "login";
+	}
+
+
+	public static final String SESSION_USER = "user";
 	
 	
 }

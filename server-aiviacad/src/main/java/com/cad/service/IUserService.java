@@ -11,4 +11,7 @@ public interface IUserService {
 
     public int register(User user);
 
+
+    public User userLogin(String userAccount , String userPwd);
+
 }
