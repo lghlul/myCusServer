@@ -23,7 +23,7 @@
 		</div>
 		<div class="login">
 			<c:if test="${user == null}"> <a href="user/toLogin.do">登录</a></c:if>
-			<c:if test="${user != null}"> 你好,${user.userAccount} <a href="user/logout.do">退出</a></c:if>
+			<c:if test="${user != null}"> 你好,<span class="accountStyle">${user.userAccount}</span> <a href="user/logout.do">退出</a></c:if>
 		</div>
 	</div>
 

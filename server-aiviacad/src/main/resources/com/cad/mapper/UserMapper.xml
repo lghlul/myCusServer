@@ -3,7 +3,7 @@
 <mapper namespace="com.cad.mapper.UserMapper">
  	
  	<insert id="insert" parameterType="user" >
- 		insert into t_user(userId,userAccount,userPwd,registerTime) values(#{userId},#{userAccount},#{userPwd},#{registerTime})
+ 		insert into t_user(userId,userAccount,userPwd,registerTime,phone,email) values(#{userId},#{userAccount},#{userPwd},#{registerTime},#{phone},#{email})
  	</insert>
  	
  	
@@ -15,6 +15,12 @@
 			</if>
             <if test="userPwd != null">
                 and userPwd = #{userPwd}
+            </if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="email != null">
+                and email = #{email}
             </if>
 		</where>
 	</select>

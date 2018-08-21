@@ -17,9 +17,7 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     UserMapper userMapper;
 
-    public int queryAccountCount(String userAccount) {
-        Map<String , Object> map = new HashMap<String , Object>();
-        map.put("userAccount",userAccount);
+    public int searchCount(Map<String , Object> map) {
         int count = this.userMapper.searchCount(map);
         return count;
     }

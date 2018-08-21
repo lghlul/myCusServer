@@ -31,7 +31,7 @@ $(function(){
             msg.show();
             return false;
         }
-        regOrLogin(userAccount,userPwd,1);
+        login(userAccount,userPwd);
         return false;
     });
 
@@ -39,6 +39,7 @@ $(function(){
     $("#registerForm button").click(function(){
         var msg = $("#registerForm .msg");
         msg.hide();
+        //校验用户名
         var userAccount = $("#registerForm input[name='userAccount']").val();
         if(!userAccount){
             msg.html("请输入用户名");
@@ -50,6 +51,7 @@ $(function(){
             msg.show();
             return false;
         }
+        //校验用户密码
         var userPwd = $("#registerForm input[name='userPwd']").val();
         if(!userPwd){
             msg.html("请输入密码");
@@ -72,7 +74,26 @@ $(function(){
             msg.show();
             return false;
         }
-        regOrLogin(userAccount,userPwd,2);
+        //校验邮箱和手机号码
+        var phone = $("#registerForm input[name='phone']").val();
+        var email = $("#registerForm input[name='email']").val();
+        if(!(phone || email)){
+            msg.html("请输入手机或者邮箱");
+            msg.show();
+            return false;
+        }
+        if(phone && !isPoneAvailable(phone)){
+            msg.html("请输入正确的手机");
+            msg.show();
+            return false;
+        }
+        if(email && !isEmail(email)){
+            msg.html("请输入正确的邮箱");
+            msg.show();
+            return false;
+        }
+
+        register(userAccount,userPwd,phone,email);
         return false;
     });
 
@@ -90,13 +111,24 @@ var changeForm = function(index){
 }
 
 
-var regOrLogin = function(userAccount , userPwd ,type){
+var login = function(userAccount , userPwd){
     var data = {"userAccount":userAccount , "userPwd" : userPwd};
     var url = "login.do";
+    $.post(url,data,function(data){
+        if(data.code == 0){
+            window.location.href = "../index.jsp";
+        }else{
+            var msg = $("#loginForm .msg");
+            msg.html("用户名或密码错误");
+            msg.show();
+        }
+    });
+}
 
-    if(type == 2){
-        url = "register.do";
-    }
+var register = function(userAccount , userPwd ,phone , email){
+    var data = {"userAccount":userAccount , "userPwd" : userPwd , "phone" : phone , "email":email};
+    var url = "register.do";
+
     $.post(url,data,function(data){
         if(data.code == 0){
            window.location.href = "../index.jsp";
@@ -104,16 +136,28 @@ var regOrLogin = function(userAccount , userPwd ,type){
             var msg = $("#registerForm .msg");
             msg.html("用户名已被注册");
             msg.show();
+        }else if(data.code == 998) {
+            var msg = $("#registerForm .msg");
+            msg.html("手机重复");
+            msg.show();
+        }else if(data.code == 997) {
+            var msg = $("#registerForm .msg");
+            msg.html("邮箱重复");
+            msg.show();
         }else{
-            if(type == 1){
-                var msg = $("#loginForm .msg");
-                msg.html("用户名或密码错误");
-                msg.show();
-            }else{
                 var msg = $("#registerForm .msg");
                 msg.html("注册失败");
                 msg.show();
-            }
         }
     });
+}
+
+var isPoneAvailable = function(phone) {
+    var myreg = /^[1][3,4,5,7,8,9][0-9]{9}$/;
+    return myreg.test(phone);
+}
+
+var isEmail = function(email) {
+    var reg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+    return reg.test(email);
 }

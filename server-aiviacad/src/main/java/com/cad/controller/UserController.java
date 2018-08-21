@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -34,7 +36,9 @@ public class UserController extends BaseController{
     @ResponseBody
     @RequestMapping("/checkAccount")
     public Object checkAccount(String userAccount){
-        int count = this.userService.queryAccountCount(userAccount);
+        Map<String , Object> map = new HashMap<String , Object>();
+        map.put("userAccount",userAccount);
+        int count = this.userService.searchCount(map);
         Result result = new Result();
         if(count < 1){
             result.setCode(ResultCode.SUCCESS);
@@ -60,11 +64,36 @@ public class UserController extends BaseController{
     @RequestMapping("/register")
     public Object register(User user , HttpServletRequest request){
         Result result = new Result();
-        int count = this.userService.queryAccountCount(user.getUserAccount());
+        //校验账号是否重复
+        Map<String , Object> map = new HashMap<String , Object>();
+        map.put("userAccount",user.getUserAccount());
+        int count = this.userService.searchCount(map);
         if(count > 0){
             result.setCode(ResultCode.ACCOUNT_REPEAT);
             return result;
         }
+        //校验手机是否重复
+        if(user.getPhone() != null && !"".equals(user.getPhone())){
+            map.clear();
+            map.put("phone",user.getPhone());
+            count = this.userService.searchCount(map);
+            if(count > 0){
+                result.setCode(ResultCode.PHONE_REPEAT);
+                return result;
+            }
+        }
+        if(user.getEmail() != null && !"".equals(user.getEmail())){
+            //校验邮箱是否重复
+            map.clear();
+            map.put("email",user.getEmail());
+            count = this.userService.searchCount(map);
+            if(count > 0){
+                result.setCode(ResultCode.EMAIL_REPEAT);
+                return result;
+            }
+        }
+
+
         user.setUserId(this.getUserId());
         user.setRegisterTime(System.currentTimeMillis());
         if(this.userService.register(user) > 0){

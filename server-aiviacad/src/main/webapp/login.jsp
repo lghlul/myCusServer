@@ -47,14 +47,21 @@
 		<form class="form-inline" id="registerForm" style="display: none;">
 			<div class="alert alert-danger msg" style="display: none!important;">
 			</div>
+
 			<div class="form-group  has-feedback">
-				<input type="text" class="form-control input-lg" name="userAccount" value="" placeholder="请输入用户名">
+				<span>*</span><input type="text" class="form-control input-lg" name="userAccount" value="" onkeyup="value=value.replace(/[\u4E00-\u9FA5]/g,'')" placeholder="请输入用户名(不区分大小写)">
 			</div>
 			<div class="form-group  has-feedback">
-				<input type="password" class="form-control input-lg" name="userPwd" value="" placeholder="请输入密码">
+				<span>*</span><input type="password" class="form-control input-lg" name="userPwd" value="" placeholder="请输入密码">
 			</div>
 			<div class="form-group  has-feedback">
-				<input type="password" class="form-control input-lg" name="userConfirmPwd" value="" placeholder="请输入确认密码">
+				<span>*</span><input type="password" class="form-control input-lg" name="userConfirmPwd" value="" placeholder="请输入确认密码">
+			</div>
+			<div class="form-group  has-feedback">
+				<span></span><input type="text" class="form-control input-lg" name="phone" value="" placeholder="请输入手机号码">
+			</div>
+			<div class="form-group  has-feedback">
+				<span></span><input type="text" class="form-control input-lg" name="email" value="" placeholder="请输入邮箱">
 			</div>
 			<div class="form-group  has-feedback">
 				<button type="submit" class="btn btn-success">注册</button>
