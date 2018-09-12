@@ -49,7 +49,7 @@
 			</div>
 
 			<div class="form-group  has-feedback">
-				<span>*</span><input type="text" class="form-control input-lg" name="userAccount" value="" onkeyup="value=value.replace(/[\u4E00-\u9FA5]/g,'')" placeholder="请输入用户名(不区分大小写)">
+				<span>*</span><input type="text" class="form-control input-lg" name="userAccount" value="" onkeyup="value=value.replace(/[\u4E00-\u9FA5]/g,'')" placeholder="请输入用户名（不区分大小写）">
 			</div>
 			<div class="form-group  has-feedback">
 				<span>*</span><input type="password" class="form-control input-lg" name="userPwd" value="" placeholder="请输入密码">
