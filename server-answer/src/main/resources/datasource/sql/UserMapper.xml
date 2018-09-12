@@ -25,6 +25,9 @@
 				<if test="userImg != null and userImg != ''">
 					userImg = #{userImg}
 				</if>
+				<if test="usedScore != null and usedScore != ''">
+					usedScore = #{usedScore}
+				</if>
 			</set>
 		where openID = #{openID}
 	</update>
@@ -61,6 +64,15 @@
 			count(userID)
 		FROM
 			t_user
-		where (score + usedScore) &gt;= #{score}
+		where (score + usedScore) &gt; #{score}
+	</select>
+
+	<select id="queryUserByScore" parameterType="int" resultType="user">
+		SELECT
+			*,
+			(score + usedScore) AS score
+
+		FROM
+			t_user where (score + usedScore) = #{score}
 	</select>
 </mapper>
