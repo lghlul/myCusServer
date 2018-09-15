@@ -38,7 +38,7 @@ public class CacheInit {
 	 * 
 	* @Title: initCache 
 	* @Description: 缓存预热
-	* @param     设定文件 
+	* @param
 	* @return void    返回类型 
 	* @throws
 	 */

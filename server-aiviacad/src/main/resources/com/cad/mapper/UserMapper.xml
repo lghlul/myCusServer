@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cad.mapper.VisitMapper">
+<mapper namespace="com.cad.mapper.UserMapper">
  	
- 	<select id="insert" parameterType="user" >
- 		insert into t_user(userId,userAccount,userPwd,registerTime) values(#{userId},#{userAccount},#{userPwd},#{registerTime})
- 	</select>
+ 	<insert id="insert" parameterType="user" >
+ 		insert into t_user(userId,userAccount,userPwd,registerTime,phone,email) values(#{userId},#{userAccount},#{userPwd},#{registerTime},#{phone},#{email})
+ 	</insert>
  	
  	
  	<select id="searchCount" parameterType="map" resultType="Integer" >
@@ -13,6 +13,27 @@
 			<if test="userAccount != null">
 				and userAccount = #{userAccount}
 			</if>
+            <if test="userPwd != null">
+                and userPwd = #{userPwd}
+            </if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="email != null">
+                and email = #{email}
+            </if>
 		</where>
 	</select>
+
+    <select id="search" parameterType="map" resultType="user" >
+        select * from t_user
+        <where>
+            <if test="userAccount != null">
+                and userAccount = #{userAccount}
+            </if>
+            <if test="userPwd != null">
+                and userPwd = #{userPwd}
+            </if>
+        </where>
+    </select>
 </mapper>

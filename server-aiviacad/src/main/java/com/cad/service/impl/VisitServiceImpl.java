@@ -14,7 +14,8 @@ public class VisitServiceImpl implements IVisitService {
 
 	public int getVisitCount() {
 		int count = this.visitMapper.findVisitCount();
+		count = count / 2;
 		return count;
 	}
-	
+
 }

@@ -19,4 +19,6 @@ public interface UserMapper {
 	public int queryMyRank(int score);
 	
 	public int queryUserCount();
+
+	public List<User> queryUserByScore(int score);
 }

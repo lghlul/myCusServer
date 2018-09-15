@@ -1,6 +1,6 @@
 body{
 	margin: 0px;
-	font-family: Microsoft YaHei;
+	font-family: Microsoft YaHei!important;
 	font-size: 15px;
 }
 .title{
@@ -8,8 +8,8 @@ body{
 }
 a{
 	font-size: 20px;
-	color: rgb(191,191,191);
-	text-decoration: none;
+	color: rgb(191,191,191)!important;
+	text-decoration: none!important;
 }
 
 
@@ -21,9 +21,12 @@ a{
 	background-color: #141b1b;
 }
 
-input{font-family: Arial Narrow;}
+input{font-family: Arial Narrow!important;}
 
-select{font-family: Arial Narrow;}
+select{font-family: Arial Narrow!important;}
+.accountStyle{
+	font-family: Arial Narrow!important;
+}
 
 .gccx{width: 600px;height: 200px;margin:150px auto;}
 
@@ -94,3 +97,57 @@ select{font-family: Arial Narrow;}
 	vertical-align:middle;
 }
 
+.top .login{
+	color: white;float: right;line-height: 50px;font-weight: bold;font-size: 20px;margin-left: 10px;margin-right: 10px;
+}
+.login{
+	font-size: 1rem!important;
+}
+.login a{
+	font-size: 1rem!important;
+}
+.form-inline{
+	width: 35rem;
+	margin: auto;
+}
+
+.form-inline .form-group{
+	display:block!important;
+	margin: 10px 0px;
+}
+.form-group span{
+	display:-moz-inline-box;
+	display:inline-block;
+	width: 5%;
+	text-align: center;
+	color: red;
+}
+
+
+
+.gccx .form-inline input{
+	width: 100%;
+}
+
+.gccx .form-inline button{
+	width:100%;
+}
+
+#registerForm input{
+	width: 95%;
+}
+#registerForm button{
+	width: 95%;
+	float: right;
+}
+.register a{
+	float: right;
+	font-size: 1.5rem;
+	margin:10px;
+	color:#006699!important;
+}
+
+#registerForm .msg{
+	width: 95%;
+	margin-left: 5%;
+}

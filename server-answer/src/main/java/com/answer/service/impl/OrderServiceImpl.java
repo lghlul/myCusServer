@@ -75,6 +75,7 @@ public class OrderServiceImpl implements IOrderService {
 		User user = new User();
 		user.setOpenID(session.getOpenID());
 		user.setScore(-goods.getGoodsScore());
+		user.setUsedScore(goods.getGoodsScore());
 		Log4jUtil.info("updateUser start...user=" + JSON.toJSONString(user));
 		userMapper.updateUser(user);
 		

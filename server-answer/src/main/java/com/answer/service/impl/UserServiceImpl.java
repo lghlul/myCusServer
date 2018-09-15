@@ -104,6 +104,16 @@ public class UserServiceImpl implements IUserService {
 		User user = this.userMapper.queryUserByOpenID(session.getOpenID());
 		//自己排名
 		int myRank = this.userMapper.queryMyRank(user.getScore() + user.getUsedScore());
+		List<User> users = this.userMapper.queryUserByScore(user.getScore() + user.getUsedScore());
+		if(users != null && users.size() > 0){
+			for(int i = 0 ; i < users.size() ; i++){
+				if(users.get(i).getUserID() == user.getUserID()){
+					myRank = myRank + i + 1;
+					break;
+				}
+			}
+		}
+
 		Result result = new Result();
 		Map<String,Object> resultMap = new HashMap<>();
 		resultMap.put("list", userList);
