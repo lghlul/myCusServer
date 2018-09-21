@@ -1,0 +1,230 @@
+body{
+	font-family: '微软雅黑';
+	font-size:12px;
+}
+.login .login-box{
+    margin-top: 20px;
+}
+.login #errorInfo{
+	height: 22px;
+	line-height: 22px;
+	color: red;
+	display: none;
+}
+.leftMenu .sidebar-shortcuts-large>.btn{
+  width: 90px;
+  font-size: 20px;
+}
+
+.menu-min .sidebar-shortcuts-large {
+	width: 200px;
+}
+
+/**
+账户管理CSS
+*/
+.userList #sample-table-2{font-size: 13px;}
+.userList #sample-table-2>tbody{font-size: 12px;}
+
+.userList>h1{overflow: hidden;}
+.userList>h1>button{
+    float: right;
+    font-size: 12px;
+}
+/**
+角色管理CSS
+*/
+.roleList #sample-table-2{font-size: 13px;}
+.roleList #sample-table-2>tbody{font-size: 12px;}
+
+.roleList>h1{overflow: hidden;}
+.roleList>h1>button{
+    float: right;
+    font-size: 12px;
+}
+/**
+渠道管理CSS
+*/
+
+.channellist #sample-table-2{font-size: 13px;}
+.channellist #sample-table-2>tbody{font-size: 12px;}
+.channellist #sample-table-2>th{text-align: center;}
+.channellist #sample-table-2>tr>td{text-align: center;}
+
+.channellist>h1{overflow: hidden;}
+.channellist>h1>button{
+    float: right;
+    font-size: 12px;
+}
+.channellist>h5{overflow: hidden;}
+.channellist>div>span>h5>button{
+  	margin-left:10px;
+    font-size: 12px;
+}
+.channellist>div>span>h5>input{
+    font-size: 12px;
+    height: 28px;
+}
+/**
+菜单角色管理CSS
+*/
+.roleMenuList #sample-table-2{font-size: 13px;}
+.roleMenuList #sample-table-2>tbody{font-size: 12px;}
+
+.roleMenuList>button{
+    font-size: 12px;
+}
+/**
+	工单管理CSS
+*/
+.managelist #sample-table-2{font-size: 13px;}
+.managelist #sample-table-2>tbody{font-size: 12px;}
+.managelist #sample-table-2>th{text-align: center;}
+.managelist #sample-table-2>>tbody>tr>td{text-align: center;}
+
+.managelist>h1{overflow: hidden;}
+.managelist>h1>button{
+    float: right;
+    font-size: 12px;
+}
+.managelist>h5{overflow: hidden;}
+.managelist>div>span>h5>button{
+  	margin-left:10px;
+    font-size: 12px;
+}
+.managelist>div>span>h5>input{
+    font-size: 12px;
+    height: 28px;
+}
+
+/**
+工单处理的CSS
+*/
+.processlist #sample-table-2{font-size: 13px;}
+.processlist #sample-table-2>tbody{font-size: 12px;}
+.processlist #sample-table-2>th{text-align: center;}
+.processlist #sample-table-2>>tbody>tr>td{text-align: center;}
+
+.processlist>h1{overflow: hidden;}
+.processlist>h1>button{
+    float: right;
+    font-size: 12px;
+}
+.processlist>h5{overflow: hidden;}
+.processlist>div>span>h5>button{
+  	margin-left:10px;
+    font-size: 12px;
+}
+.processlist>div>span>h5>input{
+    font-size: 12px;
+    height: 28px;
+}
+
+/**
+订单管理CSS
+*/
+.orderlist #sample-table-2{font-size: 13px;}
+.orderlist #sample-table-2>tbody{font-size: 12px;}
+.orderlist #sample-table-2>th{text-align: center;}
+.orderlist #sample-table-2>>tbody>tr>td{text-align: center;}
+
+.orderlist>h1{overflow: hidden;}
+.orderlist>h1>button{
+    float: right;
+    font-size: 12px;
+}
+.orderlist>h5{overflow: hidden;}
+.orderlist>div>span>h5>button{
+  	margin-left:10px;
+    font-size: 12px;
+}
+
+.orderlist>div>span>h5>input{
+    font-size: 12px;
+    height: 28px;
+}
+.editPass #sample-table-2{font-size: 13px;}
+.editPass #sample-table-2>tbody{font-size: 12px;}
+
+.editPass>h1{overflow: hidden;}
+.editPass>h1>button{
+    float: right;
+    font-size: 12px;
+}
+/**
+联系我们
+*/
+.linklist #sample-table-2{font-size: 13px;}
+.linklist #sample-table-2>tbody{font-size: 12px;}
+.linklist #sample-table-2>th{text-align: center;}
+.linklist #sample-table-2>>tbody>tr>td{text-align: center;}
+
+.linklist>h1{overflow: hidden;}
+.linklist>h1>button{
+    float: right;
+    font-size: 12px;
+}
+.linklist>h5{overflow: hidden;}
+.linklist>div>span>h5>button{
+  	margin-left:10px;
+    font-size: 12px;
+}
+
+.linklist>div>span>h5>input{
+    font-size: 12px;
+    height: 28px;
+}
+
+.roleSelect{
+	width:20%;
+}
+.workChannelList #sample-table-2{font-size: 13px;}
+.workChannelList #sample-table-2>tbody{font-size: 12px;}
+.workChannelList #sample-table-2>th{text-align: center;}
+.workChannelList #sample-table-2>>tbody>tr>td{text-align: center;}
+
+.workChannelList>h1{overflow: hidden;}
+.workChannelList>h1>button{
+    float: right;
+    font-size: 12px;
+}
+.workChannelList>h5{overflow: hidden;}
+.workChannelList>div>span>h5>button{
+  	margin-left:10px;
+    font-size: 12px;
+}
+
+.workChannelList>div>span>h5>input{
+    font-size: 12px;
+    height: 28px;
+}
+/*
+* 配置管理	
+*/
+.configList #sample-table-2{font-size: 13px;}
+.configList #sample-table-2>tbody{font-size: 12px;}
+.configList #sample-table-2>th{text-align: center;}
+.configList #sample-table-2>>tbody>tr>td{text-align: center;}
+
+.configList>h1{overflow: hidden;}
+.configList>h1>button{
+    float: right;
+    font-size: 12px;
+}
+.configList>h5{overflow: hidden;}
+.configList>div>span>h5>button{
+  	margin-left:10px;
+    font-size: 12px;
+}
+
+.configList>div>span>h5>input{
+    font-size: 12px;
+    height: 28px;
+}
+
+.index{
+	
+    margin-top: 50px;
+    text-align: center;
+	
+}

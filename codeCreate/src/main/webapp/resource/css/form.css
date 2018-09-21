@@ -1,0 +1,282 @@
+/*form css*/
+
+* {
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+.bgGrey {
+    background-color: #F6F6F6;
+}
+
+.padding05 {
+    padding: 0.5rem
+}
+
+.paddingTB_11rem,div.paddingTB_11rem {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.textCenter {
+    text-align: center
+}
+
+.form_widthSize {
+    width: 10rem;
+    height: 8rem;
+}
+
+.marginB1,p.marginB1 {
+    margin-bottom: 1rem;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.positionA {
+    position: absolute;
+}
+.positionR {
+    position: relative;
+}
+
+.bgHese {
+    background-color: #A5783F;
+}
+
+.white {
+    color: #fff;
+}
+
+.fontSize15 {
+    font-size: 15px;
+}
+
+.marginTd3 {
+    margin-top: 0.3rem;
+}
+
+.marginR2 {
+  margin-right: 2rem;
+}
+
+.inputStyle {
+    width: calc( 100% - 80px);
+    width: -webkit-calc( 100% - 80px);
+    height: 1.9rem;
+    border-radius: 0.3rem;
+    outline: none;
+    border: 1px solid #ddd;
+}
+
+.overflowH {
+  overflow: hidden;
+}
+
+.calcWidth {
+    width: calc( 100% - 7rem);
+}
+
+.calcWidth6 {
+    width: calc( 100% - 6rem);
+}
+
+.calcWidth7 {
+    width: calc( 100% - 7rem);
+}
+
+.calcWidth9 {
+    width: calc( 100% - 9rem);
+}
+
+.textL {
+    text-align: left;
+}
+
+
+
+.paddingL05 {
+    padding-left: 0.5rem;
+}
+
+.paddingL2 {
+    padding-left: 2rem;
+}
+
+.paddingL3 {
+    padding-left: 3rem;
+}
+
+.marginR2 {
+  margin-right: 2rem;
+}
+
+.marginR1 {
+  margin-right: 0.8rem;
+}
+
+
+.ele_inputB {
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 0.3rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    background-color: #62B243;
+    border: none;
+    font-size: 1rem;
+}
+
+.paddingLR_1rem {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.marginT3 {
+    margin-top: 3rem;
+}
+
+.calcwidth10 {
+    width: calc( 100% - 10rem);
+}
+
+.calcwidth9 {
+    width: calc( 100% - 9rem);
+}
+
+.calcWidth8 {
+    width: calc( 100% - 8rem);
+}
+
+.calcwidth3 {
+    width: calc( 100% - 3rem);
+}
+
+.paddingL3p5 {
+    padding-left: 3.5rem;
+}
+
+.paddingL4p5 {
+    padding-left: 4.5rem;
+}
+
+.placeholderColor::-webkit-input-placeholder {          
+   color: #fff;
+}
+.placeholderColor:-moz-placeholder {/* Firefox 18- */
+    color: #fff;
+}
+
+.placeholderColor::-moz-placeholder{/* Firefox 19+ */
+    color: #fff;
+}
+
+.placeholderColor:-ms-input-placeholder {
+    color: #fff;
+}
+
+input:disabled{
+}
+
+.borderNone {
+    border: none;
+}
+
+.displayInB {
+    display: inline-block;
+}
+
+.widthh {
+    width:  2rem;height: 1rem;
+}
+.fontStyle_N {
+    font-style: normal ;
+}
+.widthheight2 {
+    width: 2rem;
+    height: 2rem;
+}
+i.bgSize40 {
+    background-size: 40%;
+}
+
+i.radio_bg {
+    background: url(../images/form/cir1.png) no-repeat;
+    background-position: bottom;
+    width: 1.3rem;
+    height: 1.2rem;
+    display: inline;
+    padding-right: 10px;
+}
+i.radio_bg_check{
+    background: url(../images/form/circheck1.png) no-repeat;
+    background-position: bottom;
+    width: 1.3rem;
+    height: 1.2rem;
+    display: inline;
+    padding-right: 10px;
+}
+
+.width40 {
+    width: 40%;
+}
+    
+.lineH2p5 {
+    line-height: 2.5rem;
+}
+
+.top2 {
+        top: -0.2rem;
+}
+.checkbox_bg  {
+        background: url(../../imgs/form/checkbox.png) no-repeat;
+        
+      }
+      .checkbox_bg_check{
+        background: url(../../imgs/form/checkchecked.png) no-repeat;
+      }
+    body{overflow: hidden;}
+
+      #bgImg {    width: 100%;position: absolute; top: 0px;}
+      #formdiv {width: 100%;position: absolute;margin-top: 150px;bottom: 56px;top: 0px;overflow: hidden;overflow-y: scroll;}
+      #signupdiv{position:absolute;bottom:0px;width: 100%;padding: 8px 2rem;height: 56px;line-height: 40px;}
+      #signupdiv div{background-color: #61b142;border-radius: 0.5rem;}
+      select[name=prov],select[name=city]{width: 48%}
+
+      .displayInB {
+          display: inline-block;
+      }
+      .marginL1 {
+        margin-left: 1rem;
+      }
+      .top2{
+        width: 5rem;
+      }
+      #content{
+      	background-color:#A57841;
+      	    padding: 8px;
+      }
+
+
+
+#content input[type='radio'],#content input[type='checkbox'] {
+    width: 0.5rem;
+    height: 0.5rem;
+    vertical-align: middle;
+    opacity: 0;
+}
+
+
+
+
+
+
+
+

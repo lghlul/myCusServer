@@ -1,0 +1,15 @@
+div.zTreeDemoBackground {
+	width: 530px;
+	height: 430px;
+	text-align: left;
+	overflow-y: scroll;
+}
+
+ul.ztree {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+div.ctrl_style {
+	margin-top: 20px;
+}
