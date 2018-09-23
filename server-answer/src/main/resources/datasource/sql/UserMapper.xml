@@ -34,7 +34,7 @@
 	
 	
 	
-	<select id="queryScore" parameterType="string" resultType="int">
+	<select id="queryScore" parameterType="string" resultType="float">
 		select score from t_user where openID = #{openID}
 	</select>
 	
@@ -59,7 +59,7 @@
 			t_user
 	</select>
 	
-	<select id="queryMyRank" parameterType="int" resultType="int">
+	<select id="queryMyRank" parameterType="float" resultType="int">
 		SELECT
 			count(userID)
 		FROM
@@ -67,7 +67,7 @@
 		where (score + usedScore) &gt; #{score}
 	</select>
 
-	<select id="queryUserByScore" parameterType="int" resultType="user">
+	<select id="queryUserByScore" parameterType="float" resultType="user">
 		SELECT
 			*,
 			(score + usedScore) AS score

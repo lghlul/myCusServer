@@ -38,7 +38,7 @@ public class SignServiceImpl implements ISignService {
 			//签到加分
 			User user = new User();
 			user.setOpenID(session.getOpenID());
-			user.setScore(Constant.score.FIVE);
+			user.setScore(Constant.score.SIGN_SCORE);
 			userMapper.updateUser(user);
 		} else {
 			result.setResultCode(Constant.returnCode.SIGN_FAIL);

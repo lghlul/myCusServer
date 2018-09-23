@@ -22,7 +22,7 @@ public class Goods {
 	/**
 	 * 所需积分
 	 */
-	private int goodsScore;
+	private float goodsScore;
 	/**
 	 * 状态 1上架2下架
 	 */
@@ -56,12 +56,6 @@ public class Goods {
 	public void setGoodsDesc(String goodsDesc) {
 		this.goodsDesc = goodsDesc;
 	}
-	public int getGoodsScore() {
-		return goodsScore;
-	}
-	public void setGoodsScore(int goodsScore) {
-		this.goodsScore = goodsScore;
-	}
 	public byte getGoodsStatus() {
 		return goodsStatus;
 	}
@@ -80,6 +74,12 @@ public class Goods {
 	public void setGoodsSort(int goodsSort) {
 		this.goodsSort = goodsSort;
 	}
-	
-	
+
+	public float getGoodsScore() {
+		return goodsScore;
+	}
+
+	public void setGoodsScore(float goodsScore) {
+		this.goodsScore = goodsScore;
+	}
 }

@@ -60,7 +60,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public Result getScore(String wxSession) {
 		WXSessionCache session = this.cacheHelper.getSession(wxSession);
-		int score = this.userMapper.queryScore(session.getOpenID());
+		float score = this.userMapper.queryScore(session.getOpenID());
 		Result result = new Result();
 		Map<String , Object> map = new HashMap<>();
 		map.put("score", score);
