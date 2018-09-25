@@ -134,7 +134,7 @@ public class QuestionServiceImpl implements IQuestionService {
 				//答对
 				userAnswer.setIsRight(Constant.ANSWER_RIGHT);
 				int rightCount = this.userAnswerMapper.queryAnswerRightCount(session.getOpenID());
-				if(rightCount == 2){
+				if(rightCount == 100){
 					//累计100题加十分
 					User user = new User();
 					user.setOpenID(session.getOpenID());

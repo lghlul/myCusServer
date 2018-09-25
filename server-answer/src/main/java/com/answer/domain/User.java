@@ -4,8 +4,8 @@ public class User {
 	private long userID;
 	private String openID;
 	private long createTime;
-	private int score;
-	private int usedScore;
+	private float score;
+	private float usedScore;
 	private String userImg;
 	private String jobNum;
 	private String userName;
@@ -28,13 +28,7 @@ public class User {
 		this.jobNum = jobNum;
 	}
 
-	public int getUsedScore() {
-		return usedScore;
-	}
 
-	public void setUsedScore(int usedScore) {
-		this.usedScore = usedScore;
-	}
 
 	public long getUserID() {
 		return this.userID;
@@ -60,16 +54,22 @@ public class User {
 		this.createTime = createTime;
 	}
 
-	public int getScore() {
-		return this.score;
+	public float getScore() {
+		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(float score) {
 		this.score = score;
 	}
 
-	
-	
+	public float getUsedScore() {
+		return usedScore;
+	}
+
+	public void setUsedScore(float usedScore) {
+		this.usedScore = usedScore;
+	}
+
 	public String getUserImg() {
 		return userImg;
 	}

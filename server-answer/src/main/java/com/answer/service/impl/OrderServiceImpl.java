@@ -41,7 +41,7 @@ public class OrderServiceImpl implements IOrderService {
 	public Result addOrder(String wxSession, long goodsID) {
 		Result result = new Result();
 		WXSessionCache session = this.cacheHelper.getSession(wxSession);
-		int score = userMapper.queryScore(session.getOpenID());
+		float score = userMapper.queryScore(session.getOpenID());
 		Goods goods = goodsMapper.queryGoodsByID(goodsID);
 		if (goods == null) {
 			// 商品不存在

@@ -12,13 +12,13 @@ public interface UserMapper {
 	
 	public int updateUser(User user);
 	
-	public int queryScore(String openID);
+	public float queryScore(String openID);
 	
 	public List<User> queryRank(Map<String , Object> map);
 	
-	public int queryMyRank(int score);
+	public int queryMyRank(float score);
 	
 	public int queryUserCount();
 
-	public List<User> queryUserByScore(int score);
+	public List<User> queryUserByScore(float score);
 }
