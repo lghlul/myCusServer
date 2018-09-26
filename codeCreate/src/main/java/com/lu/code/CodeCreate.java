@@ -5,6 +5,7 @@ import com.lu.code.handler.DomainHandler;
 import com.lu.code.handler.MapperHandler;
 import com.lu.code.mapper.TableMapper;
 import com.lu.code.mybatis.DynamicDataSource;
+import com.lu.project.PathConfig;
 import com.lu.project.ProjectCreate;
 import com.lu.utils.CodeUtil;
 import com.lu.utils.PropertiesUtil;
@@ -28,18 +29,23 @@ public class CodeCreate {
         PropertiesUtil.initProperties();
         ProjectCreate projectHandler = new ProjectCreate();
         projectHandler.init("testOne4", "com.lu.code");
+        projectHandler.create();
         String basePackage = projectHandler.getPathConfig().getBasePackage();
+        tableList = tableList.subList(0 , 2);
         //BaseMapper.java
-        MapperHandler.writeBaseJavaMapper(basePackage , projectHandler.getPathConfig().getJavaMapperPath());
+        MapperHandler mapperHandler = new MapperHandler(projectHandler.getPathConfig());
+        mapperHandler.writeBaseJavaMapper( );
+        DomainHandler domainHandler = new DomainHandler(basePackage  , projectHandler.getPathConfig().getDomainPah());
+
         for(String tableName : tableList){
             String domainName = CodeUtil.delSpecialMark(tableName , 1);
             List<Columns> columnsList = tableMapper.getFieldList(tableName , databaseName);
             //处理列名称
             CodeUtil.colimnConver(columnsList);
             //写入domain
-            DomainHandler.writeDoamin(domainName , columnsList ,basePackage  , projectHandler.getPathConfig().getDomainPah());
+            domainHandler.writeDoamin(domainName , columnsList);
             //写入mapper
-            MapperHandler.writeMapper(columnsList,projectHandler.getPathConfig() , domainName , tableName);
+            mapperHandler.writeMapper(columnsList, domainName , tableName);
         }
 
     }

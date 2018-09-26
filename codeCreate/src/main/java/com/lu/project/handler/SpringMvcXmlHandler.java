@@ -5,6 +5,7 @@ import com.lu.tag.spring.base.Bean;
 import com.lu.tag.spring.base.NonValueProperty;
 import com.lu.tag.spring.mvc.*;
 import com.lu.utils.XmlUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,15 @@ import java.util.List;
  **/
 public class SpringMvcXmlHandler {
 
+    private String rootTag = "beans";
+
+    private String path;
+
+    public SpringMvcXmlHandler(String path) {
+        this.path = path;
+    }
+
+
     /*
      * @author ll
      * @Description 获取根节点
@@ -24,14 +34,14 @@ public class SpringMvcXmlHandler {
      * @param []
      * @return com.lu.tag.spring.mvc.MvcBeans
      */
-    private static MvcBeans getMvcBeans(){
+    private MvcBeans getMvcBeans() {
         MvcBeans beans = new MvcBeans();
         List<Bean> beanList = new ArrayList<>();
         beanList.add(getViewBean());
         beans.setBean(beanList);
         List<XmlAttr> mvcResourcesAttrList = new ArrayList<>();
-        mvcResourcesAttrList.add(new XmlAttr("mapping" , "/resource/**"));
-        mvcResourcesAttrList.add(new XmlAttr("location" , "/resource/"));
+        mvcResourcesAttrList.add(new XmlAttr("mapping", "/resource/**"));
+        mvcResourcesAttrList.add(new XmlAttr("location", "/resource/"));
         beans.setMvc3resources(new MvcResources(mvcResourcesAttrList));
         return beans;
     }
@@ -43,35 +53,35 @@ public class SpringMvcXmlHandler {
      * @param []
      * @return com.lu.tag.spring.base.Bean
      */
-    private static Bean getViewBean(){
+    private Bean getViewBean() {
         Bean bean = new ViewBean();
         List<NonValueProperty> properties = new ArrayList<>();
         // 视图解析器  property
         NonValueProperty viewProperty = new NonValueProperty();
         List<XmlAttr> viewAttrList = new ArrayList<>();
-        viewAttrList.add(new XmlAttr("name" , "viewClass"));
-        viewAttrList.add(new XmlAttr("value" , "org.springframework.web.servlet.view.InternalResourceView"));
+        viewAttrList.add(new XmlAttr("name", "viewClass"));
+        viewAttrList.add(new XmlAttr("value", "org.springframework.web.servlet.view.InternalResourceView"));
         viewProperty.setAttrList(viewAttrList);
         properties.add(viewProperty);
 
         List<XmlAttr> prefixAttrList = new ArrayList<>();
-        prefixAttrList.add(new XmlAttr("name" , "prefix"));
-        prefixAttrList.add(new XmlAttr("value" , "/WEB-INF/pages/"));
+        prefixAttrList.add(new XmlAttr("name", "prefix"));
+        prefixAttrList.add(new XmlAttr("value", "/WEB-INF/pages/"));
         NonValueProperty prefixProperty = new NonValueProperty();
         prefixProperty.setAttrList(prefixAttrList);
         properties.add(prefixProperty);
 
         List<XmlAttr> suffixAttrList = new ArrayList<>();
-        suffixAttrList.add(new XmlAttr("name" , "suffix"));
-        suffixAttrList.add(new XmlAttr("value" , ".jsp"));
+        suffixAttrList.add(new XmlAttr("name", "suffix"));
+        suffixAttrList.add(new XmlAttr("value", ".jsp"));
         NonValueProperty suffixProperty = new NonValueProperty();
         suffixProperty.setAttrList(suffixAttrList);
         properties.add(suffixProperty);
 
         ((ViewBean) bean).setPropertyList(properties);
         List<XmlAttr> beanAttrList = new ArrayList<>();
-        beanAttrList.add(new XmlAttr("id" , "viewResolver"));
-        beanAttrList.add(new XmlAttr("class" , "org.springframework.web.servlet.view.InternalResourceViewResolver"));
+        beanAttrList.add(new XmlAttr("id", "viewResolver"));
+        beanAttrList.add(new XmlAttr("class", "org.springframework.web.servlet.view.InternalResourceViewResolver"));
         ((ViewBean) bean).setAttrList(beanAttrList);
 
         return bean;
@@ -85,10 +95,9 @@ public class SpringMvcXmlHandler {
      * @param [path]
      * @return void
      */
-    public static void writeSpringMvcXml(String path ){
-        String rootName = "beans";
+    public void writeSpringMvcXml() {
         MvcBeans mvcBeans = getMvcBeans();
-        XmlUtil.writeXml(path ,mvcBeans , rootName );
+        XmlUtil.writeXml(path, mvcBeans, rootTag);
     }
 
 }

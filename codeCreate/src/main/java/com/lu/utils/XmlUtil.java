@@ -98,7 +98,7 @@ public class XmlUtil {
                     }
 
                 }else{
-                    e = element.addElement(name);
+                    element.addElement(name);
                 }
             }
         }
@@ -117,7 +117,7 @@ public class XmlUtil {
             OutputFormat format = new OutputFormat(document);
             format.setLineWidth(65);
             format.setIndenting(true);
-            format.setIndent(2);
+            format.setIndent(4);
             Writer out = new StringWriter();
             XMLSerializer serializer = new XMLSerializer(out, format);
             serializer.serialize(document);
@@ -181,7 +181,12 @@ public class XmlUtil {
         }
         //设置编号为utf-8
         document.setXMLEncoding("utf-8");
-        Element root = document.addElement(rootName , nameSpaceUri.uriName());
+        Element root = null;
+        if(nameSpaceUri != null){
+            root = document.addElement(rootName , nameSpaceUri.uriName());
+        }else{
+            root = document.addElement(rootName);
+        }
         try {
             XmlUtil.create(obj, root,attrMap,spaceMap );
             StringWriter out = new StringWriter();
@@ -193,6 +198,8 @@ public class XmlUtil {
             System.out.println(xmlStr);
             xmlStr = XmlUtil.format(xmlStr);
             //写入文件
+            xmlStr = xmlStr.replaceAll("<nonTag>","");
+            xmlStr = xmlStr.replaceAll("</nonTag>","");
             FileUtil.writeFileByStr(xmlStr , path);
         } catch (Exception e) {
             e.printStackTrace();
@@ -227,6 +234,32 @@ public class XmlUtil {
             Map<String, Object> memberValues = (Map<String, Object>) value.get(invocationHandler);
             memberValues.put("attrName", attrName);
             memberValues.put("attrValue", attrValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /*
+     * @author ll
+     * @Description 给方法设置属性
+     * @date 2018/9/26 16:40
+     * @param [field, attrName, attrValue]
+     * @return void
+     */
+    public static void setAttrByMethod(Object obj , String [] attrName , String [] attrValue){
+        try {
+            Attribute attribute = obj.getClass().getAnnotation(Attribute.class);
+            InvocationHandler invocationHandler = Proxy.getInvocationHandler(attribute);
+            Field value = invocationHandler.getClass().getDeclaredField("memberValues");
+            value.setAccessible(true);
+            Map<String, Object> memberValues = (Map<String, Object>) value.get(invocationHandler);
+            if(attrName != null){
+                memberValues.put("attrName", attrName);
+            }
+            if(attrValue != null){
+                memberValues.put("attrValue", attrValue);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

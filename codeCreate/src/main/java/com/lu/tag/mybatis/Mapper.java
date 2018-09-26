@@ -1,6 +1,7 @@
 package com.lu.tag.mybatis;
 
 
+import com.lu.annotation.Attribute;
 
 /**
  * @CLassName Mapper
@@ -8,6 +9,7 @@ package com.lu.tag.mybatis;
  * @Author ll
  * @Date 2018/9/26 15:51
  **/
+@Attribute(attrName = {"namespace"} , attrValue = {})
 public class Mapper {
     private Insert insert;
 

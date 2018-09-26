@@ -14,6 +14,19 @@ import com.lu.utils.XmlUtil;
  * @Date 2018/9/21 16:07
  **/
 public class WebXmlHandler {
+
+
+    private  String rootTag = "web-app";
+
+    private String path;
+
+    private String projectName;
+
+    public WebXmlHandler(String path , String projectName){
+        this.path = path;
+        this.projectName = projectName;
+    }
+
     /*
      * @author ll
      * @Description 获取wen.xml 根节点
@@ -21,7 +34,7 @@ public class WebXmlHandler {
      * @param [projectName]
      * @return com.lu.tag.web.WebApp
      */
-    private static WebApp getWebApp(String projectName){
+    private WebApp getWebApp(){
         WebApp webApp = new WebApp();
         webApp.setDisplay4name(projectName);
         webApp.setServlet(getServlet());
@@ -35,7 +48,7 @@ public class WebXmlHandler {
      * @param []
      * @return com.lu.tag.web.Servlet
      */
-    private static Servlet getServlet(){
+    private Servlet getServlet(){
         Servlet servlet = new Servlet();
         servlet.setServletName("dispatcherServlet");
         servlet.setServletClass("org.springframework.web.servlet.DispatcherServlet");
@@ -55,7 +68,7 @@ public class WebXmlHandler {
      * @param []
      * @return com.lu.tag.web.ServletMapping
      */
-    private static ServletMapping getServletMapping(){
+    private ServletMapping getServletMapping(){
         ServletMapping servletMapping = new ServletMapping();
         servletMapping.setServlet4name("dispatcherServlet");
         servletMapping.setUrl4pattern("/");
@@ -69,10 +82,9 @@ public class WebXmlHandler {
      * @param [path, projectName]
      * @return void
      */
-    public static void writeWebXml(String path , String projectName){
-        String rootName = "web-app";
-        WebApp webApp = getWebApp(projectName);
-        XmlUtil.writeXml(path ,webApp , rootName );
+    public void writeWebXml(){
+        WebApp webApp = getWebApp();
+        XmlUtil.writeXml(path ,webApp , rootTag );
     }
 
 }

@@ -12,7 +12,9 @@ import java.util.List;
  **/
 public class Insert {
 
-    private Trim trim;
+    private String nonTag;
+
+    private List<Trim> trim;
 
     /**
      * 属性列表
@@ -27,11 +29,19 @@ public class Insert {
         this.attrList = attrList;
     }
 
-    public Trim getTrim() {
+    public List<Trim> getTrim() {
         return trim;
     }
 
-    public void setTrim(Trim trim) {
+    public void setTrim(List<Trim> trim) {
         this.trim = trim;
+    }
+
+    public String getNonTag() {
+        return nonTag;
+    }
+
+    public void setNonTag(String nonTag) {
+        this.nonTag = nonTag;
     }
 }

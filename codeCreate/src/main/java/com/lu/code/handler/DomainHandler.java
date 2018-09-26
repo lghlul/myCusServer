@@ -15,6 +15,14 @@ import java.util.List;
 public class DomainHandler {
 
 
+    private String basePackage;
+    private String domainPath;
+
+    public DomainHandler(String basePackage , String domainPath){
+        this.basePackage = basePackage;
+        this.domainPath = domainPath;
+    }
+
     /*
      * @author ll
      * @Description 写入domain代码
@@ -22,8 +30,8 @@ public class DomainHandler {
      * @param [tableName, columnList, basePackage, domainPath]
      * @return void
      */
-    public static void writeDoamin(String domainName , List<Columns> columnList , String basePackage , String domainPath){
-        String codeStr = getDomainCode(domainName , columnList , basePackage);
+    public void writeDoamin(String domainName , List<Columns> columnList){
+        String codeStr = getDomainCode(domainName , columnList );
         String path = domainPath + "/" + domainName + ".java";
         FileUtil.writeFileByStr(codeStr , path);
 
@@ -36,7 +44,7 @@ public class DomainHandler {
      * @param [tableName]
      * @return java.lang.String
      */
-    private static String getDomainCode(String domainName , List<Columns> columnList , String basePackage){
+    private String getDomainCode(String domainName , List<Columns> columnList ){
         StringBuffer domainCode = new StringBuffer();
         domainCode.append("package " + basePackage + "." + PropertiesUtil.PACKAGE_DOMAIN + ";");
         domainCode.append(CodeUtil.getChangeLine(2));

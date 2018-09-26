@@ -269,11 +269,11 @@ public class PathConfig {
         this.basePackage = basePackage;
         String basePackagePath = basePackage.replaceAll("\\." , "/");
         basePackagePath = this.javaPath + "/" + basePackagePath;
-        controllerPath = basePackagePath + "/controller";
-        domainPah = basePackagePath + "/tag";
-        servicePath = basePackagePath + "/service";
-        serviceImplPath = servicePath + "/service/impl";
-        javaMapperPath = basePackagePath + "/mapper";
+        controllerPath = basePackagePath + "/" + PropertiesUtil.PACKAGE_CONTROLLER;
+        domainPah = basePackagePath + "/" + PropertiesUtil.PACKAGE_DOMAIN;
+        servicePath = basePackagePath + "/" + PropertiesUtil.PACKAGE_SERVICE;
+        serviceImplPath = servicePath + "/" + PropertiesUtil.PACKAGE_SERVICE + "/" + PropertiesUtil.PACKAGE_SERVICE_IMPL;
+        javaMapperPath = basePackagePath + "/" + PropertiesUtil.PACKAGE_MAPPER;
     }
 
     public String getSpringFilePath() {

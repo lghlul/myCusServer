@@ -2,10 +2,17 @@ package com.lu.code.handler;
 
 import com.lu.code.domain.Columns;
 import com.lu.project.PathConfig;
+import com.lu.tag.XmlAttr;
+import com.lu.tag.mybatis.If;
+import com.lu.tag.mybatis.Insert;
+import com.lu.tag.mybatis.Mapper;
+import com.lu.tag.mybatis.Trim;
 import com.lu.utils.CodeUtil;
 import com.lu.utils.FileUtil;
 import com.lu.utils.PropertiesUtil;
+import com.lu.utils.XmlUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +23,21 @@ import java.util.List;
  **/
 public class MapperHandler {
 
-    private static String BASEMAPPER_NAME = "BaseMapper";
+    private String baseMapperName = "BaseMapper";
+
+
+    private PathConfig pathConfig;
+
+    private String basePackage ;
+    private String javaMapperPath ;
+    private String xmlMapperPath ;
+
+    public MapperHandler(PathConfig pathConfig){
+        this.pathConfig = pathConfig;
+        this.basePackage = pathConfig.getBasePackage();
+        this.javaMapperPath = pathConfig.getJavaMapperPath();
+        this.xmlMapperPath = pathConfig.getXmlMapperPath();
+    }
 
     /*
      * @author ll
@@ -25,11 +46,9 @@ public class MapperHandler {
      * @param [columnsList, basePackage, javaMapperPath, resourcesMapperPath, domainName]
      * @return void
      */
-    public static void writeMapper(List<Columns> columnsList , PathConfig pathConfig , String domainName , String tableName){
-        String basePackage = pathConfig.getBasePackage();
-        String javaMapperPath = pathConfig.getJavaMapperPath();
-        String xmlMapperPath = pathConfig.getXmlMapperPath();
-        writeJavaMapper(javaMapperPath,basePackage,domainName);
+    public  void writeMapper(List<Columns> columnsList , String domainName , String tableName){
+        writeJavaMapper(domainName);
+        writeMapperXml(columnsList ,tableName ,domainName );
     }
 
     /***************************************BASE MAPPER*************************************************/
@@ -40,9 +59,9 @@ public class MapperHandler {
      * @param [basePackage, javaMapperPath]
      * @return void
      */
-    public static void writeBaseJavaMapper(String basePackage , String javaMapperPath){
-        String baseJavaMapperCode = getBaseJavaMapperCode(basePackage);
-        String path = javaMapperPath + "/" + BASEMAPPER_NAME + ".java";
+    public void writeBaseJavaMapper(){
+        String baseJavaMapperCode = getBaseJavaMapperCode();
+        String path = javaMapperPath + "/" + baseMapperName + ".java";
         FileUtil.writeFileByStr(baseJavaMapperCode , path);
     }
     /*
@@ -52,7 +71,7 @@ public class MapperHandler {
      * @param [basePackage]
      * @return java.lang.String
      */
-    private static String getBaseJavaMapperCode(String basePackage){
+    private  String getBaseJavaMapperCode(){
         StringBuffer baseMapperCode = new StringBuffer();
         baseMapperCode.append("package " + basePackage + "." + PropertiesUtil.PACKAGE_MAPPER + ";");
         baseMapperCode.append(CodeUtil.getChangeLine(1));
@@ -87,8 +106,8 @@ public class MapperHandler {
      * @param [javaMapperPath, basePackage, domainName]
      * @return void
      */
-    private static void writeJavaMapper(String javaMapperPath , String basePackage , String domainName){
-        String javaMapperCode = getJavaMapperCode(basePackage , domainName);
+    private  void writeJavaMapper(  String domainName){
+        String javaMapperCode = getJavaMapperCode( domainName);
         String className = domainName + "Mapper.java";
         String path = javaMapperPath + "/" + className;
         FileUtil.writeFileByStr(javaMapperCode , path);
@@ -101,14 +120,14 @@ public class MapperHandler {
      * @param [basePackage, domainName]
      * @return java.lang.String
      */
-    private static String getJavaMapperCode(String basePackage , String domainName){
+    private  String getJavaMapperCode( String domainName){
         String className = domainName + "Mapper";
         StringBuffer javaMapperCode = new StringBuffer();
         javaMapperCode.append("package " + basePackage + "." + PropertiesUtil.PACKAGE_MAPPER + ";");
         javaMapperCode.append(CodeUtil.getChangeLine(2));
         javaMapperCode.append("import " + basePackage + "." + PropertiesUtil.PACKAGE_DOMAIN + "." + domainName + ";");
         javaMapperCode.append(CodeUtil.getChangeLine(2));
-        javaMapperCode.append("public interface " + className + " extends " + BASEMAPPER_NAME + "<" +domainName + ">{");
+        javaMapperCode.append("public interface " + className + " extends " + baseMapperName + "<" +domainName + ">{");
         javaMapperCode.append(CodeUtil.getChangeLine(2));
         javaMapperCode.append("}");
         return javaMapperCode.toString();
@@ -122,15 +141,82 @@ public class MapperHandler {
      * @param [columnsList]
      * @return void
      */
-    private static void writeMapperXml(List<Columns> columnsList){
+    private  void writeMapperXml(List<Columns> columnsList , String tableName   , String domainName ){
+        String rootName = "mapper";
+        Mapper mapper = getMapper(columnsList,tableName , domainName);
 
+        String [] attrValue = {basePackage + "." + PropertiesUtil.PACKAGE_MAPPER + "." + domainName + "Mapper"};
+        XmlUtil.setAttrByMethod(mapper , null , attrValue );
+        XmlUtil.writeXml(xmlMapperPath + "/" + domainName + "Mapper.xml" ,mapper , rootName,"mapper","-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd",null );
     }
 
+    /*
+     * @author ll
+     * @Description 获取mapper 标签
+     * @date 2018/9/26 18:22
+     * @param [columnsList, tableName]
+     * @return com.lu.tag.mybatis.Mapper
+     */
+    private  Mapper getMapper(List<Columns> columnsList , String tableName , String domainName){
+        Mapper mapper = new Mapper();
+        mapper.setInsert(getInset(columnsList , tableName , domainName));
+        return mapper;
+    }
 
-    private String getInsertSql(List<Columns> columnsList , String tableName){
-        StringBuffer insertSql = new StringBuffer();
-        insertSql.append("insert into" + tableName + "(");
-        return null;
+    /*
+     * @author ll
+     * @Description 生成insert标签
+     * @date 2018/9/26 17:36
+     * @param [columnsList, tableName]
+     * @return com.lu.tag.mybatis.Insert
+     */
+    private  Insert getInset(List<Columns> columnsList , String tableName , String domainName){
+        Insert insert = new Insert();
+        insert.setNonTag("insert into" + tableName  );
+        List<Trim> trimList = new ArrayList<>();
+        trimList.add(getTrim(columnsList , 1));
+        trimList.add(getTrim(columnsList , 2));
+        insert.setTrim(trimList);
+
+        List<XmlAttr> attrList = new ArrayList<>();
+        attrList.add(new XmlAttr("id" , "insert"));
+        attrList.add(new XmlAttr("parameterType" , domainName));
+        insert.setAttrList(attrList);
+        return insert;
+    }
+    /*
+     * @author ll
+     * @Description 生成trim标签
+     * @date 2018/9/26 17:33
+     * @param [columnsList, type] 1 是 数据库字段  2是插入时的values字段
+     * @return com.lu.tag.mybatis.Trim
+     */
+    private  Trim getTrim(List<Columns> columnsList , int type){
+        Trim trim = new Trim();
+        List<XmlAttr> attrList = new ArrayList<>();
+        if(type == 1){
+            attrList.add(new XmlAttr("prefix","("));
+        }else{
+            attrList.add(new XmlAttr("prefix","values ("));
+        }
+        attrList.add(new XmlAttr("suffix",")"));
+        attrList.add(new XmlAttr("suffixOverrides",","));
+        List<If> ifList = new ArrayList<>();
+        for(Columns columns : columnsList){
+            If if2 = null;
+            if(type == 1){
+                if2 = new If(columns.getColumnName() + ",");
+            }else{
+                if2 = new If("#{" + columns.getVariableName() + "},");
+            }
+            List<XmlAttr> ifAttrList = new ArrayList<>();
+            ifAttrList.add(new XmlAttr("test",columns.getVariableName() + " != null"));
+            if2.setAttrList(ifAttrList);
+            ifList.add(if2);
+        }
+        trim.setIf2(ifList);
+        trim.setAttrList(attrList);
+        return trim;
     }
 
 

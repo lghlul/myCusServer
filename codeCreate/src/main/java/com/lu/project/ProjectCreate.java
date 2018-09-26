@@ -67,23 +67,25 @@ public class ProjectCreate {
         folderCreate(pathConfig.getManifestPath());
         //复制MANIFEST.MF模板
         this.fileCopy(PropertiesUtil.MANIFESTPATH , pathConfig.getManifestFilePath());
-        //复制web.xml模板
-        WebXmlHandler.writeWebXml(pathConfig.getWebFilePath() ,pathConfig.getProjectName() );
-        //this.fileCopy(PropertiesUtil.WEBPATH , pathConfig.getWebFilePath());
+        //web.xml
+        WebXmlHandler webXmlHandler = new WebXmlHandler(pathConfig.getWebFilePath() ,pathConfig.getProjectName());
+        webXmlHandler.writeWebXml();
 
 
-        //创建pom.xml文件
-        PomXmlHandler.writePomXml(pathConfig.getPomFilePath() , pathConfig.getProjectName());
+        //pom.xml文件
+        PomXmlHandler pomXmlHandler = new PomXmlHandler(pathConfig.getPomFilePath() , pathConfig.getProjectName());
+        pomXmlHandler.writePomXml();
 
 
         //spring配置文件目录
         folderCreate(pathConfig.getSpringPath());
-        //复制spring相关配置文件
-        SpringXmlHandler.writeSpringXml(pathConfig.getSpringFilePath() , pathConfig.getBasePackage());
-        SpringMvcXmlHandler.writeSpringMvcXml(pathConfig.getSpringMvcFilePath());
-        //this.fileCopy(PropertiesUtil.SPRINGMVCPATH , pathConfig.getSpringMvcFilePath());
-        SpringDaoXmlHandler.writeSpringDaoXml(pathConfig.getSpringDaoFilePath() , pathConfig.getBasePackage());
-        //this.fileCopy(PropertiesUtil.SPRINGDAOPATH , pathConfig.getSpringDaoFilePath());
+        //spring相关配置文件
+        SpringXmlHandler springXmlHandler = new SpringXmlHandler(pathConfig.getSpringFilePath() , pathConfig.getBasePackage());
+        springXmlHandler.writeSpringXml();
+        SpringMvcXmlHandler springMvcXmlHandler = new SpringMvcXmlHandler(pathConfig.getSpringMvcFilePath());
+        springMvcXmlHandler.writeSpringMvcXml();
+        SpringDaoXmlHandler springDaoXmlHandler = new SpringDaoXmlHandler(pathConfig.getSpringDaoFilePath() , pathConfig.getBasePackage());
+        springDaoXmlHandler.writeSpringDaoXml();
 
         //mapper.xml目录
         folderCreate(pathConfig.getXmlMapperPath() );

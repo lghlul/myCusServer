@@ -18,6 +18,17 @@ import java.util.List;
  **/
 public class SpringXmlHandler {
 
+    private String path ;
+
+    private String basePackage;
+
+    private String rootTag = "beans";
+
+    public SpringXmlHandler(String path , String basePackage){
+        this.path = path;
+        this.basePackage = basePackage;
+    }
+
     /*
      * @author ll
      * @Description 获取import标签
@@ -25,7 +36,7 @@ public class SpringXmlHandler {
      * @param []
      * @return com.lu.tag.spring.Import
      */
-    private static List<Import> getImportList(){
+    private List<Import> getImportList(){
         List<Import> importList = new ArrayList<>();
         List<XmlAttr> attrList = new ArrayList<>();
         attrList.add(new XmlAttr("resource" , "spring-mvc.xml"));
@@ -48,7 +59,7 @@ public class SpringXmlHandler {
      * @param [basePackage]
      * @return com.lu.tag.spring.ContextComponentScan
      */
-    private static ContextComponentScan getContextComponentScan(String basePackage){
+    private ContextComponentScan getContextComponentScan(){
         ContextComponentScan contextComponentScan = new ContextComponentScan();
         List<XmlAttr> attrList = new ArrayList<>();
         attrList.add(new XmlAttr("base-package" , basePackage));
@@ -63,10 +74,10 @@ public class SpringXmlHandler {
      * @param []
      * @return com.lu.tag.spring.SpringBeans
      */
-    private static SpringBeans getContextBeans(String basePackage){
+    private SpringBeans getContextBeans(){
         SpringBeans beans = new SpringBeans();
         beans.setImport2(getImportList());
-        beans.setContext3component4scan(getContextComponentScan(basePackage));
+        beans.setContext3component4scan(getContextComponentScan());
         return beans;
     }
 
@@ -77,9 +88,8 @@ public class SpringXmlHandler {
      * @param [path]
      * @return void
      */
-    public static void writeSpringXml(String path , String basePackage){
-        String rootName = "beans";
-        SpringBeans contextBeans = getContextBeans(basePackage);
-        XmlUtil.writeXml(path ,contextBeans , rootName );
+    public void writeSpringXml(){
+        SpringBeans contextBeans = getContextBeans();
+        XmlUtil.writeXml(path ,contextBeans , rootTag );
     }
 }

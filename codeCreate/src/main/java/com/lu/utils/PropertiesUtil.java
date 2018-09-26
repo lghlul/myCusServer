@@ -70,7 +70,7 @@ public class PropertiesUtil {
 
 
     /**
-     * tag 包名
+     * domain 包名
      */
     public static String PACKAGE_DOMAIN;
 
@@ -78,6 +78,18 @@ public class PropertiesUtil {
      * mapper 包名
      */
     public static String PACKAGE_MAPPER;
+    /**
+     * controller 包名
+     */
+    public static String PACKAGE_CONTROLLER;
+    /**
+     *  service 包名
+     */
+    public static String PACKAGE_SERVICE;
+    /**
+     * service.impl 包名
+     */
+    public static String PACKAGE_SERVICE_IMPL;
 
     /**
      * BaseMapper.java 需要的方法
@@ -120,10 +132,16 @@ public class PropertiesUtil {
         PropertiesUtil.ARTIFACTIDS = properties.getProperty("dependency.artifactId");
         PropertiesUtil.VERSIONS = properties.getProperty("dependency.version");
         PropertiesUtil.NAMESPACEURL = properties.getProperty("namespace.url");
-        PropertiesUtil.PACKAGE_DOMAIN = properties.getProperty("package.domain");
-        PropertiesUtil.PACKAGE_MAPPER = properties.getProperty("package.mapper");
+
         PropertiesUtil.BASEMAPPER_METHOD = properties.getProperty("baseMapper.method");
         PropertiesUtil.BASEMAPPER_IMPORT = properties.getProperty("baseMapper.import");
+
+
+        PropertiesUtil.PACKAGE_DOMAIN = properties.getProperty("package.domain");
+        PropertiesUtil.PACKAGE_MAPPER = properties.getProperty("package.mapper");
+        PropertiesUtil.PACKAGE_CONTROLLER = properties.getProperty("package.controller");
+        PropertiesUtil.PACKAGE_SERVICE = properties.getProperty("package.service");
+        PropertiesUtil.PACKAGE_SERVICE_IMPL = properties.getProperty("package.service.impl");
     }
 
 }

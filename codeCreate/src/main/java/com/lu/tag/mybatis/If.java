@@ -1,24 +1,35 @@
 package com.lu.tag.mybatis;
 
-import com.lu.annotation.Attribute;
 import com.lu.tag.XmlAttr;
 
 import java.util.List;
 
 /**
- * @CLassName Trim
+ * @CLassName If
  * @Description TODO
  * @Author ll
- * @Date 2018/9/26 15:48
+ * @Date 2018/9/26 17:28
  **/
-public class Trim {
+public class If {
 
-    private List<If> if2;
+
+    public If(){
+
+    }
+
+    public If(String nonTag){
+        this.nonTag = nonTag;
+    }
+
+    private String nonTag;
 
     /**
      * 属性列表
      */
     private List<XmlAttr> attrList;
+
+
+
 
     public List<XmlAttr> getAttrList() {
         return attrList;
@@ -28,11 +39,11 @@ public class Trim {
         this.attrList = attrList;
     }
 
-    public List<If> getIf2() {
-        return if2;
+    public String getNonTag() {
+        return nonTag;
     }
 
-    public void setIf2(List<If> if2) {
-        this.if2 = if2;
+    public void setNonTag(String nonTag) {
+        this.nonTag = nonTag;
     }
 }
