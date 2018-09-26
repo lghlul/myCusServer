@@ -1,6 +1,9 @@
 package com.lu.utils;
 
-import com.lu.project.domain.XmlAttr;
+import com.lu.annotation.Attribute;
+import com.lu.annotation.NameSpace;
+import com.lu.annotation.NameSpaceUri;
+import com.lu.tag.XmlAttr;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import org.dom4j.DocumentHelper;
@@ -13,13 +16,16 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * @CLassName XmlUtil
- * @Description TODO
+ * @Description xml文件工具类
  * @Author ll
  * @Date 2018/9/18 18:15
  **/
@@ -34,7 +40,7 @@ public class XmlUtil {
      * @return void
      */
     public static void create(Object obj, Element elment) throws Exception{
-        create( obj,  elment , null , null);
+        create( obj,  elment , null , null );
     }
 
 
@@ -45,7 +51,7 @@ public class XmlUtil {
      * @param [obj, elment]
      * @return void
      */
-    public static void create(Object obj, Element element,Map<String , String> spaceMap,Map<String , String> attrMap) throws Exception{
+    public static void create(Object obj, Element element,Map<String , String> attrMap,Map<String , String> spaceMap) throws Exception{
         Class<?> clazz = obj.getClass();
         Field[] fields = clazz.getDeclaredFields();
         if(spaceMap != null){
@@ -53,6 +59,7 @@ public class XmlUtil {
                 element.addNamespace(key , spaceMap.get(key));
             }
         }
+
         if(attrMap != null){
             for(String key : attrMap.keySet()){
                 element.addAttribute(key , attrMap.get(key));
@@ -128,7 +135,6 @@ public class XmlUtil {
      */
     private static Document parseXmlFile(String in) {
         try {
-            System.out.println(in);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             InputSource is = new InputSource(new StringReader(in));
@@ -141,31 +147,90 @@ public class XmlUtil {
     /*
      * @author ll
      * @Description 写xml文件
-     * @date 2018/9/21 16:28
-     * @param [path, xmlStr, obj, attrMap, rootName]
+     * @date 2018/9/26 16:45
+     * @param [path, obj, rootName, name, publicId, systemId]
      * @return void
      */
-    public static void writeXml(String path , Object obj , Map<String , String> spaceMap , Map<String , String> attrMap , String rootName  ){
+    public static void writeXml(String path , Object obj , String rootName ,String name, String publicId, String systemId  ){
+        NameSpace nameSpace = obj.getClass().getAnnotation(NameSpace.class);
+
+        Attribute attribute = obj.getClass().getAnnotation(Attribute.class);
+
+        NameSpaceUri nameSpaceUri = obj.getClass().getAnnotation(NameSpaceUri.class);
+
+        Map<String , String > attrMap = new HashMap<>();
+        if(attribute != null){
+            String [] nameAttr = attribute.attrName();
+            String [] valueAttr = attribute.attrValue();
+            for(int i = 0 ; i < nameAttr.length ; i++){
+                attrMap.put(nameAttr[i] , valueAttr[i]);
+            }
+        }
+
+        Map<String , String > spaceMap = new HashMap<>();
+        if(nameSpace != null){
+            String [] spaceName = nameSpace.spaceName();
+            String [] spaceValue = nameSpace.spaceValue();
+            for(int i = 0 ; i < spaceValue.length ; i++){
+                spaceMap.put(spaceName[i] , spaceValue[i]);
+            }
+        }
         org.dom4j.Document document = DocumentHelper.createDocument();
+        if(name !=null || publicId != null || systemId != null){
+            document.addDocType(name , publicId , systemId);
+        }
         //设置编号为utf-8
         document.setXMLEncoding("utf-8");
-        Element root = document.addElement(rootName , PropertiesUtil.NAMESPACEURL);
+        Element root = document.addElement(rootName , nameSpaceUri.uriName());
         try {
-            XmlUtil.create(obj, root,spaceMap ,attrMap );
+            XmlUtil.create(obj, root,attrMap,spaceMap );
             StringWriter out = new StringWriter();
             XMLWriter xw = new XMLWriter(out);
             xw.write(document);
             xw.flush();
             out.flush();
             String xmlStr=out.toString();
+            System.out.println(xmlStr);
             xmlStr = XmlUtil.format(xmlStr);
             //写入文件
-            FileWriter writer = new FileWriter(path);
-            writer.write(xmlStr);
-            writer.flush();
-            writer.close();
+            FileUtil.writeFileByStr(xmlStr , path);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    /*
+     * @author ll
+     * @Description 写xml文件
+     * @date 2018/9/21 16:28
+     * @param [path, xmlStr, obj, attrMap, rootName]
+     * @return void
+     */
+    public static void writeXml(String path , Object obj , String rootName   ){
+        writeXml(path , obj , rootName , null , null , null );
+
+    }
+
+    /*
+     * @author ll
+     * @Description 给字段设置属性
+     * @date 2018/9/26 16:40
+     * @param [field, attrName, attrValue]
+     * @return void
+     */
+    public static void setAttrByFiled(Field field , String [] attrName , String [] attrValue){
+        try {
+            Attribute attribute = field.getAnnotation(Attribute.class);
+            InvocationHandler invocationHandler = Proxy.getInvocationHandler(attribute);
+            Field value = invocationHandler.getClass().getDeclaredField("memberValues");
+            value.setAccessible(true);
+            Map<String, Object> memberValues = (Map<String, Object>) value.get(invocationHandler);
+            memberValues.put("attrName", attrName);
+            memberValues.put("attrValue", attrValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

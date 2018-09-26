@@ -68,6 +68,27 @@ public class PropertiesUtil {
      */
     public static String NAMESPACEURL;
 
+
+    /**
+     * tag 包名
+     */
+    public static String PACKAGE_DOMAIN;
+
+    /**
+     * mapper 包名
+     */
+    public static String PACKAGE_MAPPER;
+
+    /**
+     * BaseMapper.java 需要的方法
+     */
+    public static String BASEMAPPER_METHOD;
+
+    /**
+     * BaseMapper.java 需要引用的包
+     */
+    public static String BASEMAPPER_IMPORT;
+
     /*
      * @author ll
      * @Description 初始化配置文件信息
@@ -99,6 +120,10 @@ public class PropertiesUtil {
         PropertiesUtil.ARTIFACTIDS = properties.getProperty("dependency.artifactId");
         PropertiesUtil.VERSIONS = properties.getProperty("dependency.version");
         PropertiesUtil.NAMESPACEURL = properties.getProperty("namespace.url");
+        PropertiesUtil.PACKAGE_DOMAIN = properties.getProperty("package.domain");
+        PropertiesUtil.PACKAGE_MAPPER = properties.getProperty("package.mapper");
+        PropertiesUtil.BASEMAPPER_METHOD = properties.getProperty("baseMapper.method");
+        PropertiesUtil.BASEMAPPER_IMPORT = properties.getProperty("baseMapper.import");
     }
 
 }

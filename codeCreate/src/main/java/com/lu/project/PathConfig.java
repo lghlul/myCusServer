@@ -11,6 +11,7 @@ import com.lu.utils.PropertiesUtil;
  **/
 public class PathConfig {
 
+    private String projectName;
 
     private String projectPath;
 
@@ -52,7 +53,7 @@ public class PathConfig {
 
     private String configPath;
 
-    private String resourcesMapperPath;
+    private String xmlMapperPath;
 
     private String springPath;
 
@@ -63,6 +64,14 @@ public class PathConfig {
     private String springDaoFilePath;
 
     private String jdbcFilePath;
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
 
     public String getSpringPath() {
         return springPath;
@@ -217,14 +226,13 @@ public class PathConfig {
         this.configPath = configPath;
     }
 
-    public String getResourcesMapperPath() {
-        return resourcesMapperPath;
+    public String getXmlMapperPath() {
+        return xmlMapperPath;
     }
 
-    public void setResourcesMapperPath(String resourcesMapperPath) {
-        this.resourcesMapperPath = resourcesMapperPath;
+    public void setXmlMapperPath(String xmlMapperPath) {
+        this.xmlMapperPath = xmlMapperPath;
     }
-
 
     public String getServicePath() {
         return servicePath;
@@ -235,6 +243,7 @@ public class PathConfig {
     }
 
     public void initPath(String basePath , String projectName) {
+        this.projectName = projectName;
         projectPath = basePath + projectName;
         pomFilePath = projectPath + "/pom.xml";
         srcPath = projectPath + "/src";
@@ -249,7 +258,7 @@ public class PathConfig {
         webFilePath = webappPath + "/WEB-INF/web.xml";
         springPath = resourcesPath + "/spring";
         configPath = resourcesPath + "/config";
-        resourcesMapperPath = resourcesPath + "/mapper";
+        xmlMapperPath = resourcesPath + "/mapper";
         springFilePath = springPath + "/spring.xml";
         springDaoFilePath = springPath  + "/spring-dao.xml";
         springMvcFilePath = springPath  + "/spring-mvc.xml";
@@ -261,7 +270,7 @@ public class PathConfig {
         String basePackagePath = basePackage.replaceAll("\\." , "/");
         basePackagePath = this.javaPath + "/" + basePackagePath;
         controllerPath = basePackagePath + "/controller";
-        domainPah = basePackagePath + "/domain";
+        domainPah = basePackagePath + "/tag";
         servicePath = basePackagePath + "/service";
         serviceImplPath = servicePath + "/service/impl";
         javaMapperPath = basePackagePath + "/mapper";

@@ -140,7 +140,7 @@ function stopDefault(e) {
 			}
 
 			return (document.cookie = [encode(key), '=', stringifyCookieValue(value), options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
-			options.path ? '; path=' + options.path: '', options.domain ? '; domain=' + options.domain: '', options.secure ? '; secure': ''].join(''));
+			options.path ? '; path=' + options.path: '', options.domain ? '; tag=' + options.domain: '', options.secure ? '; secure': ''].join(''));
 		}
 		// Read
 		var result = key ? undefined: {},
@@ -6222,7 +6222,7 @@ function($) {
 	// Reference to Slider constructor
 	var Slider; (function($) {
 		'use strict';
-		// -------------------------- utils -------------------------- //
+		// -------------------------- handler -------------------------- //
 		var slice = Array.prototype.slice;
 		function noop() {}
 		// -------------------------- definition -------------------------- //

@@ -5455,7 +5455,7 @@ vjs.Flash = vjs.MediaTechController.extend({
 
     // There's on particularly annoying issue with this method which is that Firefox throws a security error on an offsite Flash object loaded into a dynamically created iFrame.
     // Even though the iframe was inserted into a page on the web, Firefox + Flash considers it a local app trying to access an internet file.
-    // I tried mulitple ways of setting the iframe src attribute but couldn't find a src that worked well. Tried a real/fake source, in/out of domain.
+    // I tried mulitple ways of setting the iframe src attribute but couldn't find a src that worked well. Tried a real/fake source, in/out of tag.
     // Also tried a method from stackoverflow that caused a security error in all browsers. http://stackoverflow.com/questions/2486901/how-to-set-document-domain-for-a-dynamically-generated-iframe
     // In the end the solution I found to work was setting the iframe window.location.href right before doing a document.write of the Flash object.
     // The only downside of this it seems to trigger another http request to the original page (no matter what's put in the href). Not sure why that is.
@@ -5520,8 +5520,8 @@ vjs.Flash = vjs.MediaTechController.extend({
 
         // Tried ensuring both document domains were the same, but they already were, so that wasn't the issue.
         // Even tried adding /. that was mentioned in a browser security writeup
-        // document.domain = document.domain+'/.';
-        // iDoc.domain = document.domain+'/.';
+        // document.tag = document.tag+'/.';
+        // iDoc.tag = document.tag+'/.';
 
         // Tried adding the object to the iframe doc's innerHTML. Security error in all browsers.
         // iDoc.body.innerHTML = swfObjectHTML;
@@ -5530,7 +5530,7 @@ vjs.Flash = vjs.MediaTechController.extend({
         // iDoc.body.appendChild(swfObject);
 
         // Using document.write actually got around the security error that browsers were throwing.
-        // Again, it's a dynamically generated (same domain) iframe, loading an external Flash swf.
+        // Again, it's a dynamically generated (same tag) iframe, loading an external Flash swf.
         // Not sure why that's a security issue, but apparently it is.
         iDoc.write(vjs.Flash.getEmbedCode(options['swf'], flashVars, params, attributes));
 
