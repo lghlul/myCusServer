@@ -3,7 +3,7 @@ package com.lu.tag.spring.mvc;
 import com.lu.annotation.Attribute;
 import com.lu.annotation.NameSpace;
 import com.lu.annotation.NameSpaceUri;
-import com.lu.tag.spring.base.Bean;
+import com.lu.tag.spring.Bean;
 
 import java.util.List;
 

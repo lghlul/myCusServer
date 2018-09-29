@@ -1,5 +1,6 @@
 package com.lu.tag.spring.base;
 
+import com.lu.tag.BaseTag;
 import com.lu.tag.XmlAttr;
 
 import java.util.List;
@@ -10,23 +11,13 @@ import java.util.List;
  * @Author ll
  * @Date 2018/9/25 9:56
  **/
-public class NonValueProperty {
+public class NonValueProperty extends BaseTag {
 
     public NonValueProperty(){
 
     }
 
     public NonValueProperty(List<XmlAttr> attrList){
-        this.attrList = attrList;
-    }
-
-    private List<XmlAttr> attrList;
-
-    public List<XmlAttr> getAttrList() {
-        return attrList;
-    }
-
-    public void setAttrList(List<XmlAttr> attrList) {
-        this.attrList = attrList;
+        super(attrList);
     }
 }

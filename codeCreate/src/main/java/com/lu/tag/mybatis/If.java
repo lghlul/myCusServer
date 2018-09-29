@@ -1,8 +1,11 @@
 package com.lu.tag.mybatis;
 
+import com.lu.tag.BaseTag;
 import com.lu.tag.XmlAttr;
+import com.sun.deploy.xml.XMLable;
 
 import java.util.List;
+
 
 /**
  * @CLassName If
@@ -10,34 +13,21 @@ import java.util.List;
  * @Author ll
  * @Date 2018/9/26 17:28
  **/
-public class If {
+public class If extends BaseTag {
 
 
     public If(){
 
     }
 
-    public If(String nonTag){
+    public If(String nonTag , List<XmlAttr> attrList){
+        super(attrList);
         this.nonTag = nonTag;
     }
 
     private String nonTag;
 
-    /**
-     * 属性列表
-     */
-    private List<XmlAttr> attrList;
 
-
-
-
-    public List<XmlAttr> getAttrList() {
-        return attrList;
-    }
-
-    public void setAttrList(List<XmlAttr> attrList) {
-        this.attrList = attrList;
-    }
 
     public String getNonTag() {
         return nonTag;

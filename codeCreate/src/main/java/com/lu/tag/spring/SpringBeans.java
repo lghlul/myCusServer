@@ -21,7 +21,7 @@ import java.util.List;
 @NameSpace(spaceName = {"xsi" , "context"} ,
         spaceValue = {"http://www.w3.org/2001/XMLSchema-instance" , "http://www.springframework.org/schema/context"})
 @NameSpaceUri(uriName = "http://www.springframework.org/schema/beans")
-public class SpringBeans {
+public class SpringBeans{
     private List<Import> import2;
 
     private String context3annotation4config ;

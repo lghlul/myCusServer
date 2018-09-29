@@ -1,7 +1,7 @@
 package com.lu.project.handler;
 
 import com.lu.tag.XmlAttr;
-import com.lu.tag.spring.base.Bean;
+import com.lu.tag.spring.Bean;
 import com.lu.tag.spring.base.NonValueProperty;
 import com.lu.tag.spring.base.Value;
 import com.lu.tag.spring.dao.*;

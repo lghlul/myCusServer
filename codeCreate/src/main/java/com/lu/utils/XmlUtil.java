@@ -6,6 +6,7 @@ import com.lu.annotation.NameSpaceUri;
 import com.lu.tag.XmlAttr;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
+import org.apache.commons.lang.ArrayUtils;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.XMLWriter;
@@ -43,6 +44,23 @@ public class XmlUtil {
         create( obj,  elment , null , null );
     }
 
+    /*
+     * @author ll
+     * @Description 获取一个对象的所有字段 包括父类
+     * @date 2018/9/28 17:05
+     * @param [obj]
+     * @return java.lang.reflect.Field[]
+     */
+    private static Field[]  getAllField(Object obj){
+        Class<?> clazz = obj.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        while(clazz.getSuperclass() != null){
+            clazz = clazz.getSuperclass();
+            fields = (Field[])ArrayUtils.addAll(clazz.getDeclaredFields() , fields );
+
+        }
+        return fields;
+    }
 
     /*
      * @author ll
@@ -53,7 +71,8 @@ public class XmlUtil {
      */
     public static void create(Object obj, Element element,Map<String , String> attrMap,Map<String , String> spaceMap) throws Exception{
         Class<?> clazz = obj.getClass();
-        Field[] fields = clazz.getDeclaredFields();
+        //Field[] fields = clazz.getDeclaredFields();
+        Field[] fields = getAllField(obj);
         if(spaceMap != null){
             for(String key : spaceMap.keySet()){
                 element.addNamespace(key , spaceMap.get(key));
@@ -98,7 +117,10 @@ public class XmlUtil {
                     }
 
                 }else{
-                    element.addElement(name);
+                    //属性列表为空时不添加节点
+                    if(!(field.getType() == List.class)){
+                        element.addElement(name);
+                    }
                 }
             }
         }
@@ -183,7 +205,7 @@ public class XmlUtil {
         document.setXMLEncoding("utf-8");
         Element root = null;
         if(nameSpaceUri != null){
-            root = document.addElement(rootName , nameSpaceUri.uriName());
+            root = document.addElement(rootName , nameSpaceUri. uriName());
         }else{
             root = document.addElement(rootName);
         }

@@ -1,5 +1,6 @@
 package com.lu.tag.spring.mvc;
 
+import com.lu.tag.BaseTag;
 import com.lu.tag.XmlAttr;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @Author ll
  * @Date 2018/9/25 14:50
  **/
-public class MvcResources {
+public class MvcResources extends BaseTag {
 
 
     public MvcResources(){
@@ -18,16 +19,7 @@ public class MvcResources {
     }
 
     public MvcResources(List<XmlAttr> attrList){
-        this.attrList = attrList;
+        super(attrList);
     }
 
-    private List<XmlAttr> attrList;
-
-    public List<XmlAttr> getAttrList() {
-        return attrList;
-    }
-
-    public void setAttrList(List<XmlAttr> attrList) {
-        this.attrList = attrList;
-    }
 }

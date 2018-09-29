@@ -36,7 +36,7 @@ public class CodeCreate {
         MapperHandler mapperHandler = new MapperHandler(projectHandler.getPathConfig());
         mapperHandler.writeBaseJavaMapper( );
         DomainHandler domainHandler = new DomainHandler(basePackage  , projectHandler.getPathConfig().getDomainPah());
-
+        domainHandler.writeBaseDoamin();
         for(String tableName : tableList){
             String domainName = CodeUtil.delSpecialMark(tableName , 1);
             List<Columns> columnsList = tableMapper.getFieldList(tableName , databaseName);

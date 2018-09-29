@@ -32,6 +32,20 @@ public class Columns {
      */
     private String variableMethod;
 
+    /**
+     * 识别主键
+     */
+    private String columnKey;
+
+
+    public String getColumnKey() {
+        return columnKey;
+    }
+
+    public void setColumnKey(String columnKey) {
+        this.columnKey = columnKey;
+    }
+
     public String getVariableMethod() {
         return variableMethod;
     }

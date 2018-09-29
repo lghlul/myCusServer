@@ -1,7 +1,7 @@
 package com.lu.project.handler;
 
 import com.lu.tag.XmlAttr;
-import com.lu.tag.spring.base.Bean;
+import com.lu.tag.spring.Bean;
 import com.lu.tag.spring.base.NonValueProperty;
 import com.lu.tag.spring.mvc.*;
 import com.lu.utils.XmlUtil;
@@ -51,7 +51,7 @@ public class SpringMvcXmlHandler {
      * @Description 获取视图解析器标签
      * @date 2018/9/25 14:54
      * @param []
-     * @return com.lu.tag.spring.base.Bean
+     * @return com.lu.tag.spring.Bean
      */
     private Bean getViewBean() {
         Bean bean = new ViewBean();

@@ -101,6 +101,9 @@ public class PropertiesUtil {
      */
     public static String BASEMAPPER_IMPORT;
 
+
+    public static  String BASE_RESULTMAP;
+
     /*
      * @author ll
      * @Description 初始化配置文件信息
@@ -142,6 +145,8 @@ public class PropertiesUtil {
         PropertiesUtil.PACKAGE_CONTROLLER = properties.getProperty("package.controller");
         PropertiesUtil.PACKAGE_SERVICE = properties.getProperty("package.service");
         PropertiesUtil.PACKAGE_SERVICE_IMPL = properties.getProperty("package.service.impl");
+
+        PropertiesUtil.BASE_RESULTMAP = properties.getProperty("mapper.baseResultName");
     }
 
 }

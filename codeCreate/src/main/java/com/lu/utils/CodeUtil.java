@@ -14,6 +14,38 @@ public class CodeUtil {
 
     /*
      * @author ll
+     * @Description 添加 get 方法
+     * @date 2018/9/28 18:26
+     * @param [code, variableType, variableName, variableMethod]
+     * @return void
+     */
+    public static void addGetMethod(StringBuffer code , String variableType , String variableName , String variableMethod){
+        code.append(CodeUtil.getIndent(1) + "public " + variableType + " get" + variableMethod + "(){");
+        code.append(CodeUtil.getChangeLine(1));
+        code.append(CodeUtil.getIndent(2) + "return this." + variableName + ";");
+        code.append(CodeUtil.getChangeLine(1));
+        code.append(CodeUtil.getIndent(1) + "}");
+        code.append(CodeUtil.getChangeLine(2));
+    }
+
+    /*
+     * @author ll
+     * @Description 添加 set方法
+     * @date 2018/9/28 18:26
+     * @param [code, variableType, variableName, variableMethod]
+     * @return void
+     */
+    public static void addSetMethod(StringBuffer code , String variableType , String variableName , String variableMethod){
+        code.append(CodeUtil.getIndent(1) + "public void set" + variableMethod + "(" + variableType + " " + variableName + "){");
+        code.append(CodeUtil.getChangeLine(1));
+        code.append(CodeUtil.getIndent(2) + "this." + variableName + " = " + variableName + ";");
+        code.append(CodeUtil.getChangeLine(1));
+        code.append(CodeUtil.getIndent(1) + "}");
+        code.append(CodeUtil.getChangeLine(2));
+    }
+
+    /*
+     * @author ll
      * @Description 获取层深缩进
      * @date 2018/9/26 11:06
      * @param [level]

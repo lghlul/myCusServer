@@ -1,4 +1,6 @@
-package com.lu.tag.spring.base;
+package com.lu.tag.spring;
+
+import com.lu.tag.BaseTag;
 
 /**
  * @CLassName Bean
@@ -6,5 +8,5 @@ package com.lu.tag.spring.base;
  * @Author ll
  * @Date 2018/9/25 11:49
  **/
-public class Bean {
+public class Bean extends BaseTag {
 }

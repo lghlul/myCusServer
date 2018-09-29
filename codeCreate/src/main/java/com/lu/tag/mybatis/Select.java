@@ -1,28 +1,26 @@
 package com.lu.tag.mybatis;
 
 import com.lu.tag.BaseTag;
+import com.lu.tag.XmlAttr;
 
 import java.util.List;
 
 /**
- * @CLassName Insert
- * @Description insert 标签
+ * @CLassName Select
+ * @Description TODO
  * @Author ll
- * @Date 2018/9/26 15:48
+ * @Date 2018/9/28 15:54
  **/
-public class Insert extends BaseTag {
+public class Select extends BaseTag {
 
     private String nonTag;
 
-    private List<Trim> trim;
+    public Select(){
 
-
-    public List<Trim> getTrim() {
-        return trim;
     }
 
-    public void setTrim(List<Trim> trim) {
-        this.trim = trim;
+    public Select(List<XmlAttr> attrList){
+        super(attrList);
     }
 
     public String getNonTag() {

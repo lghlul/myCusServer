@@ -1,9 +1,7 @@
 package com.lu.tag.spring.dao;
 
-import com.lu.tag.XmlAttr;
-import com.lu.tag.spring.base.Bean;
+import com.lu.tag.spring.Bean;
 
-import java.util.List;
 
 /**
  * @CLassName NonValuePropertyBean
@@ -15,15 +13,7 @@ public class PropertyBean extends Bean {
 
     private PropertyProperty property;
 
-    private List<XmlAttr> attrList;
 
-    public List<XmlAttr> getAttrList() {
-        return attrList;
-    }
-
-    public void setAttrList(List<XmlAttr> attrList) {
-        this.attrList = attrList;
-    }
 
     public PropertyProperty getProperty() {
         return property;
