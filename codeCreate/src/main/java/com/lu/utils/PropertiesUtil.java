@@ -6,7 +6,7 @@ import java.util.Properties;
 
 /**
  * @CLassName PropertiesUtil
- * @Description TODO
+ * @Description 配置文件读取
  * @Author ll
  * @Date 2018/8/30 11:20
  **/
@@ -48,7 +48,6 @@ public class PropertiesUtil {
      * jdbc配置文件路径
      */
     public static String JDBCPATH;
-
 
     /**
      * pom.xml 需要的jar包 groupId
@@ -101,8 +100,47 @@ public class PropertiesUtil {
      */
     public static String BASEMAPPER_IMPORT;
 
-
+    /**
+     *  BaseResultMap名称
+     */
     public static  String BASE_RESULTMAP;
+
+    /**
+     * BaseService 方法
+     */
+    public static String BASESERVICE_METHOD;
+
+    /**
+     * BaseService import
+     */
+    public static String BASESERVICE_IMPORT;
+
+    /**
+     *  @Service
+     */
+    public static String SPRING_SERVICE;
+    /**
+     * 	@Autowired
+     */
+    public static String SPRING_AUTOWIRED;
+    /**
+     * @controller
+     */
+    public static String SPRING_CONTROLLER;
+
+
+
+
+
+    public static String CLASS_BASE_DOMAIN;
+
+    public static String CLASS_BASE_MAPPER;
+
+    public static String CLASS_IBASE_SERVICE;
+
+    public static String CLASS_BASE_SERVICE_IMPL;
+
+    public static String SERVICE_IMPL_MAPPER_METHOD;
 
     /*
      * @author ll
@@ -135,18 +173,24 @@ public class PropertiesUtil {
         PropertiesUtil.ARTIFACTIDS = properties.getProperty("dependency.artifactId");
         PropertiesUtil.VERSIONS = properties.getProperty("dependency.version");
         PropertiesUtil.NAMESPACEURL = properties.getProperty("namespace.url");
-
         PropertiesUtil.BASEMAPPER_METHOD = properties.getProperty("baseMapper.method");
         PropertiesUtil.BASEMAPPER_IMPORT = properties.getProperty("baseMapper.import");
-
-
+        PropertiesUtil.BASESERVICE_METHOD = properties.getProperty("baseService.method");
+        PropertiesUtil.BASESERVICE_IMPORT = properties.getProperty("baseService.import");
         PropertiesUtil.PACKAGE_DOMAIN = properties.getProperty("package.domain");
         PropertiesUtil.PACKAGE_MAPPER = properties.getProperty("package.mapper");
         PropertiesUtil.PACKAGE_CONTROLLER = properties.getProperty("package.controller");
         PropertiesUtil.PACKAGE_SERVICE = properties.getProperty("package.service");
         PropertiesUtil.PACKAGE_SERVICE_IMPL = properties.getProperty("package.service.impl");
-
         PropertiesUtil.BASE_RESULTMAP = properties.getProperty("mapper.baseResultName");
+        PropertiesUtil.SPRING_SERVICE = properties.getProperty("annotation.service");
+        PropertiesUtil.SPRING_AUTOWIRED = properties.getProperty("annotation.autowired");
+        PropertiesUtil.SPRING_CONTROLLER = properties.getProperty("annotation.controller");
+        PropertiesUtil.CLASS_BASE_DOMAIN = properties.getProperty("class.baseDomain");
+        PropertiesUtil.CLASS_BASE_MAPPER = properties.getProperty("class.baseMapper");
+        PropertiesUtil.CLASS_IBASE_SERVICE = properties.getProperty("class.ibaseService");
+        PropertiesUtil.CLASS_BASE_SERVICE_IMPL = properties.getProperty("class.baseServiceImpl");
+        PropertiesUtil.SERVICE_IMPL_MAPPER_METHOD = properties.getProperty("baseServiceImpl.mapper.method");
     }
 
 }

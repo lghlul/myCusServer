@@ -19,11 +19,14 @@ public class PomXmlHandler {
 
     private String projectName;
 
+    private String basePackage;
+
     private String rootTag = "project";
 
-    public PomXmlHandler(String path, String projectName) {
+    public PomXmlHandler(String path, String projectName,String basePackage) {
         this.path = path;
         this.projectName = projectName;
+        this.basePackage = basePackage;
     }
 
     /*
@@ -57,8 +60,8 @@ public class PomXmlHandler {
     private Project getProject() {
         Project project = new Project();
         project.setModelVersion("4.0.0");
-        project.setGroupId("com.lu");
-        project.setArtifactId("codeCreate");
+        project.setGroupId(basePackage);
+        project.setArtifactId(projectName);
         project.setVersion("1.0-SNAPSHOT");
         project.setPackaging("war");
         Properties properties = new Properties("UTF-8", "1.8", "1.8", "4.3.13.RELEASE");

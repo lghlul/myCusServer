@@ -20,8 +20,6 @@ import java.util.List;
  **/
 public class MapperHandler {
 
-    private String baseMapperName = "BaseMapper";
-
 
     private PathConfig pathConfig;
 
@@ -58,7 +56,7 @@ public class MapperHandler {
      */
     public void writeBaseJavaMapper() {
         String baseJavaMapperCode = getBaseJavaMapperCode();
-        String path = javaMapperPath + "/" + baseMapperName + ".java";
+        String path = javaMapperPath + "/" + PropertiesUtil.CLASS_BASE_MAPPER + ".java";
         FileUtil.writeFileByStr(baseJavaMapperCode, path);
     }
 
@@ -80,7 +78,7 @@ public class MapperHandler {
             baseMapperCode.append("import " + mapperImport + ";");
         }
         baseMapperCode.append(CodeUtil.getChangeLine(2));
-        baseMapperCode.append("public interface BaseMapper<T> {");
+        baseMapperCode.append("public interface " + PropertiesUtil.CLASS_BASE_MAPPER + "<T> {");
         baseMapperCode.append(CodeUtil.getChangeLine(1));
         //方法
         String[] baseMapperMethods = PropertiesUtil.BASEMAPPER_METHOD.split(";");
@@ -125,7 +123,7 @@ public class MapperHandler {
         javaMapperCode.append(CodeUtil.getChangeLine(2));
         javaMapperCode.append("import " + basePackage + "." + PropertiesUtil.PACKAGE_DOMAIN + "." + domainName + ";");
         javaMapperCode.append(CodeUtil.getChangeLine(2));
-        javaMapperCode.append("public interface " + className + " extends " + baseMapperName + "<" + domainName + ">{");
+        javaMapperCode.append("public interface " + className + " extends " + PropertiesUtil.CLASS_BASE_MAPPER + "<" + domainName + ">{");
         javaMapperCode.append(CodeUtil.getChangeLine(2));
         javaMapperCode.append("}");
         return javaMapperCode.toString();

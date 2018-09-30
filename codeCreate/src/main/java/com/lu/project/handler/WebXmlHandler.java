@@ -50,8 +50,8 @@ public class WebXmlHandler {
      */
     private Servlet getServlet(){
         Servlet servlet = new Servlet();
-        servlet.setServletName("dispatcherServlet");
-        servlet.setServletClass("org.springframework.web.servlet.DispatcherServlet");
+        servlet.setServlet4name("dispatcherServlet");
+        servlet.setServlet4class("org.springframework.web.servlet.DispatcherServlet");
         servlet.setLoad4on4startup("1");
 
         InitParam initParam = new InitParam();

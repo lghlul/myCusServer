@@ -2,7 +2,9 @@ package com.lu.utils;
 
 import com.lu.code.domain.Columns;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @CLassName CodeUtil
@@ -11,6 +13,11 @@ import java.util.List;
  * @Date 2018/9/26 11:03
  **/
 public class CodeUtil {
+
+
+
+    public static Map<String , String> methodMap = new HashMap<>();
+
 
     /*
      * @author ll
@@ -97,10 +104,10 @@ public class CodeUtil {
      * @author ll
      * @Description 首字母转换
      * @date 2018/9/25 18:41
-     * @param [s]
+     * @param [s] type = 1 首字母大写 type = 2 首字母小写
      * @return java.lang.String
      */
-    private static String toCaseFirstOne(String s , int type){
+    public static String toCaseFirstOne(String s , int type){
         if(s.length()  < 1){
             return s;
         }
@@ -114,7 +121,7 @@ public class CodeUtil {
             if(Character.isLowerCase(s.charAt(0))){
                 return s;
             }else{
-                return (new StringBuilder()).append(Character.isLowerCase(s.charAt(0))).append(s.substring(1)).toString();
+                return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
             }
         }
 

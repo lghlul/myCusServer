@@ -73,7 +73,7 @@ public class ProjectCreate {
 
 
         //pom.xml文件
-        PomXmlHandler pomXmlHandler = new PomXmlHandler(pathConfig.getPomFilePath() , pathConfig.getProjectName());
+        PomXmlHandler pomXmlHandler = new PomXmlHandler(pathConfig.getPomFilePath() , pathConfig.getProjectName() , pathConfig.getBasePackage());
         pomXmlHandler.writePomXml();
 
 

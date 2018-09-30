@@ -78,7 +78,7 @@ public class SpringMvcXmlHandler {
         suffixProperty.setAttrList(suffixAttrList);
         properties.add(suffixProperty);
 
-        ((ViewBean) bean).setPropertyList(properties);
+        ((ViewBean) bean).setProperty(properties);
         List<XmlAttr> beanAttrList = new ArrayList<>();
         beanAttrList.add(new XmlAttr("id", "viewResolver"));
         beanAttrList.add(new XmlAttr("class", "org.springframework.web.servlet.view.InternalResourceViewResolver"));

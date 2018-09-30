@@ -86,19 +86,23 @@ public class SpringDaoXmlHandler {
         List<NonValueProperty> propertyList = new ArrayList<>();
 
         List<XmlAttr> attrList1 = new ArrayList<>();
-        attrList1.add(new XmlAttr("url", "${jdbc.url}"));
+        attrList1.add(new XmlAttr("name", "url"));
+        attrList1.add(new XmlAttr("value", "${jdbc.url}"));
         propertyList.add(new NonValueProperty(attrList1));
 
         List<XmlAttr> attrList2 = new ArrayList<>();
-        attrList2.add(new XmlAttr("username", "${jdbc.username}"));
+        attrList2.add(new XmlAttr("name", "username"));
+        attrList2.add(new XmlAttr("value", "${jdbc.username}"));
         propertyList.add(new NonValueProperty(attrList2));
 
         List<XmlAttr> attrList3 = new ArrayList<>();
-        attrList3.add(new XmlAttr("password", "${jdbc.password}"));
+        attrList3.add(new XmlAttr("name", "password"));
+        attrList3.add(new XmlAttr("value", "${jdbc.password}"));
         propertyList.add(new NonValueProperty(attrList3));
 
         List<XmlAttr> attrList4 = new ArrayList<>();
-        attrList4.add(new XmlAttr("driverClassName", "${jdbc.driverClassName}"));
+        attrList4.add(new XmlAttr("name", "driverClassName"));
+        attrList4.add(new XmlAttr("value", "${jdbc.driverClassName}"));
         propertyList.add(new NonValueProperty(attrList4));
 
         dataSourceBean.setProperty(propertyList);

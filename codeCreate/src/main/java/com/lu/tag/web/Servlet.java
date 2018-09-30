@@ -8,30 +8,15 @@ package com.lu.tag.web;
  **/
 public class Servlet {
 
-    private String servletName;
+    private String servlet4name;
 
-    private String servletClass;
-
-    private String load4on4startup;
+    private String servlet4class;
 
     private InitParam init4param;
 
+    private String load4on4startup;
 
-    public String getServletName() {
-        return servletName;
-    }
 
-    public void setServletName(String servletName) {
-        this.servletName = servletName;
-    }
-
-    public String getServletClass() {
-        return servletClass;
-    }
-
-    public void setServletClass(String servletClass) {
-        this.servletClass = servletClass;
-    }
 
     public String getLoad4on4startup() {
         return load4on4startup;
@@ -47,5 +32,21 @@ public class Servlet {
 
     public void setInit4param(InitParam init4param) {
         this.init4param = init4param;
+    }
+
+    public String getServlet4name() {
+        return servlet4name;
+    }
+
+    public void setServlet4name(String servlet4name) {
+        this.servlet4name = servlet4name;
+    }
+
+    public String getServlet4class() {
+        return servlet4class;
+    }
+
+    public void setServlet4class(String servlet4class) {
+        this.servlet4class = servlet4class;
     }
 }

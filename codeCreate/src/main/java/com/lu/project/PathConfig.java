@@ -272,7 +272,7 @@ public class PathConfig {
         controllerPath = basePackagePath + "/" + PropertiesUtil.PACKAGE_CONTROLLER;
         domainPah = basePackagePath + "/" + PropertiesUtil.PACKAGE_DOMAIN;
         servicePath = basePackagePath + "/" + PropertiesUtil.PACKAGE_SERVICE;
-        serviceImplPath = servicePath + "/" + PropertiesUtil.PACKAGE_SERVICE + "/" + PropertiesUtil.PACKAGE_SERVICE_IMPL;
+        serviceImplPath = servicePath + "/" + PropertiesUtil.PACKAGE_SERVICE_IMPL;
         javaMapperPath = basePackagePath + "/" + PropertiesUtil.PACKAGE_MAPPER;
     }
 

@@ -13,15 +13,14 @@ import java.util.List;
  **/
 public class ViewBean extends Bean  {
 
-    private List<NonValueProperty> propertyList;
+    private List<NonValueProperty> property;
 
 
-    public List<NonValueProperty> getPropertyList() {
-        return propertyList;
+    public List<NonValueProperty> getProperty() {
+        return property;
     }
 
-    public void setPropertyList(List<NonValueProperty> propertyList) {
-        this.propertyList = propertyList;
+    public void setProperty(List<NonValueProperty> property) {
+        this.property = property;
     }
-
 }

@@ -3,6 +3,7 @@ package com.lu.code;
 import com.lu.code.domain.Columns;
 import com.lu.code.handler.DomainHandler;
 import com.lu.code.handler.MapperHandler;
+import com.lu.code.handler.ServiceHandler;
 import com.lu.code.mapper.TableMapper;
 import com.lu.code.mybatis.DynamicDataSource;
 import com.lu.project.PathConfig;
@@ -30,13 +31,18 @@ public class CodeCreate {
         ProjectCreate projectHandler = new ProjectCreate();
         projectHandler.init("testOne4", "com.lu.code");
         projectHandler.create();
-        String basePackage = projectHandler.getPathConfig().getBasePackage();
         tableList = tableList.subList(0 , 2);
         //BaseMapper.java
         MapperHandler mapperHandler = new MapperHandler(projectHandler.getPathConfig());
         mapperHandler.writeBaseJavaMapper( );
-        DomainHandler domainHandler = new DomainHandler(basePackage  , projectHandler.getPathConfig().getDomainPah());
+        //BaseDomain.java
+        DomainHandler domainHandler = new DomainHandler(projectHandler.getPathConfig());
         domainHandler.writeBaseDoamin();
+
+        //BaseService
+        ServiceHandler serviceHandler = new ServiceHandler(projectHandler.getPathConfig());
+        serviceHandler.writeBaseService();
+
         for(String tableName : tableList){
             String domainName = CodeUtil.delSpecialMark(tableName , 1);
             List<Columns> columnsList = tableMapper.getFieldList(tableName , databaseName);
@@ -46,6 +52,8 @@ public class CodeCreate {
             domainHandler.writeDoamin(domainName , columnsList);
             //写入mapper
             mapperHandler.writeMapper(columnsList, domainName , tableName);
+            //写入service
+            serviceHandler.writeService(domainName);
         }
 
     }

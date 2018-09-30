@@ -1,6 +1,7 @@
 package com.lu.code.handler;
 
 import com.lu.code.domain.Columns;
+import com.lu.project.PathConfig;
 import com.lu.utils.CodeUtil;
 import com.lu.utils.FileUtil;
 import com.lu.utils.PropertiesUtil;
@@ -15,19 +16,19 @@ import java.util.List;
 public class DomainHandler {
 
 
-    private String baseDomainName = "BaseDomain";
-
-
     private String pageNoName = "pageNo";
 
     private String pageSizeName = "pageSize";
 
+    private PathConfig pathConfig;
+
     private String basePackage;
     private String domainPath;
 
-    public DomainHandler(String basePackage , String domainPath){
-        this.basePackage = basePackage;
-        this.domainPath = domainPath;
+    public DomainHandler(PathConfig pathConfig){
+        this.pathConfig = pathConfig;
+        this.basePackage = pathConfig.getBasePackage();
+        this.domainPath = pathConfig.getDomainPah();
     }
 
     /*
@@ -54,7 +55,7 @@ public class DomainHandler {
         StringBuffer domainCode = new StringBuffer();
         domainCode.append("package " + basePackage + "." + PropertiesUtil.PACKAGE_DOMAIN + ";");
         domainCode.append(CodeUtil.getChangeLine(2));
-        domainCode.append("public class " + domainName + " extends " + baseDomainName + "{");
+        domainCode.append("public class " + domainName + " extends " + PropertiesUtil.CLASS_BASE_DOMAIN + "{");
         domainCode.append(CodeUtil.getChangeLine(2));
         //声明变量
         for(Columns columns : columnList){
@@ -101,7 +102,7 @@ public class DomainHandler {
         StringBuffer baseDomainCode = new StringBuffer();
         baseDomainCode.append("package " + basePackage + "." + PropertiesUtil.PACKAGE_DOMAIN + ";");
         baseDomainCode.append(CodeUtil.getChangeLine(2));
-        baseDomainCode.append("public class  " + baseDomainName + "{");
+        baseDomainCode.append("public class  " + PropertiesUtil.CLASS_BASE_DOMAIN + "{");
         baseDomainCode.append(CodeUtil.getChangeLine(2));
         baseDomainCode.append(CodeUtil.getIndent(1) + "private Integer pageNo;");
         baseDomainCode.append(CodeUtil.getChangeLine(2));
@@ -119,7 +120,7 @@ public class DomainHandler {
 
         baseDomainCode.append(CodeUtil.getChangeLine(2));
         baseDomainCode.append("}");
-        String path = domainPath + "/" + baseDomainName + ".java";
+        String path = domainPath + "/" + PropertiesUtil.CLASS_BASE_DOMAIN + ".java";
         FileUtil.writeFileByStr(baseDomainCode.toString() , path);
     }
 
