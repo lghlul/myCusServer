@@ -14,13 +14,11 @@ import com.lu.utils.PropertiesUtil;
 public class ServiceHandler {
 
 
-    private PathConfig pathConfig;
     private String basePackage;
     private String serviceImplPath;
     private String servicePath;
 
     public ServiceHandler(PathConfig pathConfig) {
-        this.pathConfig = pathConfig;
         this.basePackage = pathConfig.getBasePackage();
         this.serviceImplPath = pathConfig.getServiceImplPath();
         this.servicePath = pathConfig.getServicePath();
@@ -34,9 +32,9 @@ public class ServiceHandler {
      * @return void
      */
     public void writeBaseService(){
-        String ibaserServiceCode = getIBaseServiceCode();
+        String ibaseServiceCode = getIBaseServiceCode();
         String path = servicePath + "/" + PropertiesUtil.CLASS_IBASE_SERVICE + ".java";
-        FileUtil.writeFileByStr(ibaserServiceCode, path);
+        FileUtil.writeFileByStr(ibaseServiceCode, path);
 
         String baseServiceImplCode = getBaseServiceImplCode();
         path = serviceImplPath + "/" + PropertiesUtil.CLASS_BASE_SERVICE_IMPL + ".java";
@@ -73,8 +71,8 @@ public class ServiceHandler {
         ibaserServiceCode.append("package " + basePackage + "." + PropertiesUtil.PACKAGE_SERVICE + ";");
         ibaserServiceCode.append(CodeUtil.getChangeLine(1));
         // import
-        String[] ibaserServiceImports = PropertiesUtil.BASESERVICE_IMPORT.split(";");
-        for (String serviceImport : ibaserServiceImports) {
+        String[] ibaseServiceImports = PropertiesUtil.BASESERVICE_IMPORT.split(";");
+        for (String serviceImport : ibaseServiceImports) {
             ibaserServiceCode.append(CodeUtil.getChangeLine(1));
             ibaserServiceCode.append("import " + serviceImport + ";");
         }
@@ -142,7 +140,7 @@ public class ServiceHandler {
         baserServiceImplCode.append(CodeUtil.getIndent(1) + autoWrite[1]);
         baserServiceImplCode.append(CodeUtil.getChangeLine(1));
         String baseMapper = CodeUtil.toCaseFirstOne(PropertiesUtil.CLASS_BASE_MAPPER ,2);
-        baserServiceImplCode.append(CodeUtil.getIndent(1) + "private " + PropertiesUtil.CLASS_BASE_MAPPER + " " + baseMapper + ";");
+        baserServiceImplCode.append(CodeUtil.getIndent(1) + "private " + PropertiesUtil.CLASS_BASE_MAPPER + "<T> " + baseMapper + ";");
         baserServiceImplCode.append(CodeUtil.getChangeLine(1));
         //方法
         String[] ibaseServiceMethods = PropertiesUtil.BASESERVICE_METHOD.split(";");

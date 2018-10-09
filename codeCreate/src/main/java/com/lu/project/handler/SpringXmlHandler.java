@@ -44,10 +44,10 @@ public class SpringXmlHandler {
         importMvc.setAttrList(attrList);
         importList.add(importMvc);
 
-        attrList.clear();
-        attrList.add(new XmlAttr("resource" , "spring-dao.xml"));
+        List<XmlAttr> attrList2 = new ArrayList<>();
+        attrList2.add(new XmlAttr("resource" , "spring-dao.xml"));
         Import importDao = new Import();
-        importDao.setAttrList(attrList);
+        importDao.setAttrList(attrList2);
         importList.add(importDao);
         return importList;
     }

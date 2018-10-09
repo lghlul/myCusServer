@@ -21,14 +21,12 @@ import java.util.List;
 public class MapperHandler {
 
 
-    private PathConfig pathConfig;
 
     private String basePackage;
     private String javaMapperPath;
     private String xmlMapperPath;
 
     public MapperHandler(PathConfig pathConfig) {
-        this.pathConfig = pathConfig;
         this.basePackage = pathConfig.getBasePackage();
         this.javaMapperPath = pathConfig.getJavaMapperPath();
         this.xmlMapperPath = pathConfig.getXmlMapperPath();

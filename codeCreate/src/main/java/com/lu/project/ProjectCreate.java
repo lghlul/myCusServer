@@ -1,6 +1,7 @@
 package com.lu.project;
 
 import com.lu.project.handler.*;
+import com.lu.utils.FileUtil;
 import com.lu.utils.PropertiesUtil;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,16 @@ public class ProjectCreate {
 
 
     private PathConfig pathConfig;
+
+    private ProjectConfig projectConfig;
+
+    public ProjectConfig getProjectConfig() {
+        return projectConfig;
+    }
+
+    public void setProjectConfig(ProjectConfig projectConfig) {
+        this.projectConfig = projectConfig;
+    }
 
     public PathConfig getPathConfig() {
         return pathConfig;
@@ -44,9 +55,10 @@ public class ProjectCreate {
      * @param [projectName, basePackage]
      * @return void
      */
-    public void init(String projectName , String basePackage){
+    public void init(ProjectConfig projectConfig){
+        this.projectConfig = projectConfig;
         pathConfig = new PathConfig();
-        pathConfig.initPathConfig(projectName, basePackage);
+        pathConfig.initPathConfig(projectConfig.getProjectName(), projectConfig.getBasePackage());
     }
 
     /*
@@ -65,11 +77,16 @@ public class ProjectCreate {
         folderCreate(pathConfig.getLibPath());
         //创建META-INF目录
         folderCreate(pathConfig.getManifestPath());
+
+        //静态文件目录
+        folderCreate(pathConfig.getWebResource());
         //复制MANIFEST.MF模板
         this.fileCopy(PropertiesUtil.MANIFESTPATH , pathConfig.getManifestFilePath());
         //web.xml
         WebXmlHandler webXmlHandler = new WebXmlHandler(pathConfig.getWebFilePath() ,pathConfig.getProjectName());
         webXmlHandler.writeWebXml();
+        //index.jsp
+        FileUtil.writeFileByStr("TEST PAGE" , pathConfig.getWebappPath() + "/WEB-INF/index.jsp");
 
 
         //pom.xml文件
@@ -86,12 +103,20 @@ public class ProjectCreate {
         springMvcXmlHandler.writeSpringMvcXml();
         SpringDaoXmlHandler springDaoXmlHandler = new SpringDaoXmlHandler(pathConfig.getSpringDaoFilePath() , pathConfig.getBasePackage());
         springDaoXmlHandler.writeSpringDaoXml();
+        //mybatis配置文件目录
+        folderCreate(pathConfig.getMybatisPath());
+        //mybatis配置文件
+        MybatisXmlHandler mybatisXmlHandler = new MybatisXmlHandler(pathConfig.getMybatisXmlPath());
+        mybatisXmlHandler.writeMybatisXml();
+
 
         //mapper.xml目录
         folderCreate(pathConfig.getXmlMapperPath() );
         //配置文件目录
         folderCreate(pathConfig.getConfigPath());
-        this.fileCopy(PropertiesUtil.JDBCPATH , pathConfig.getJdbcFilePath());
+        PropertiesHandler propertiesHandler = new PropertiesHandler();
+        propertiesHandler.writeJdbc(projectConfig , pathConfig.getJdbcPropertiesPath());
+        propertiesHandler.writeConfig(pathConfig.getConfigPropertiesPath());
     }
 
     /*
@@ -149,7 +174,10 @@ public class ProjectCreate {
     public static void main(String[] args) {
         PropertiesUtil.initProperties();
         ProjectCreate projectHandler = new ProjectCreate();
-        projectHandler.init("testOne4", "com.lu.code");
+        ProjectConfig projectConfig = new ProjectConfig();
+        projectConfig.setBasePackage("com.lu.code");
+        projectConfig.setProjectName("testOne4");
+        projectHandler.init(projectConfig);
         projectHandler.create();
     }
 }

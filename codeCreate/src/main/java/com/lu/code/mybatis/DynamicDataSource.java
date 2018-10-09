@@ -1,6 +1,7 @@
 package com.lu.code.mybatis;
 
 import com.lu.code.mapper.TableMapper;
+import com.lu.project.ProjectConfig;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
@@ -27,11 +28,11 @@ public class DynamicDataSource {
 
     private String password;
 
-    public DynamicDataSource(String driver , String url , String username , String password){
-        this.driver = driver;
-        this.url = url;
-        this.username = username;
-        this.password = password;
+    public DynamicDataSource(ProjectConfig projectConfig){
+        this.driver = projectConfig.getDrivenClass();
+        this.url = projectConfig.getUrl();
+        this.username = projectConfig.getUsername();
+        this.password = projectConfig.getPassword();
     }
 
     private SqlSessionFactory sqlSessionFactory;

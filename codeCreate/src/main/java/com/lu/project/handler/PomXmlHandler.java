@@ -64,7 +64,7 @@ public class PomXmlHandler {
         project.setArtifactId(projectName);
         project.setVersion("1.0-SNAPSHOT");
         project.setPackaging("war");
-        Properties properties = new Properties("UTF-8", "1.8", "1.8", "4.3.13.RELEASE");
+        Properties properties = new Properties("UTF-8", "1.8", "1.8", "4.3.13.RELEASE","2.8.5");
         project.setProperties(properties);
         Dependencys dependecys = getDependecys();
         project.setDependencies(dependecys);

@@ -64,7 +64,7 @@ public class SpringDaoXmlHandler {
         property.setAttrList(propertyAttrList);
 
         List<Value> valueList = new ArrayList<>();
-        valueList.add(new Value("classpath*:datasource/jdbc.properties"));
+        valueList.add(new Value("classpath*:config/*.properties"));
         property.setList(valueList);
         propertyBean.setProperty(property);
 
@@ -135,7 +135,7 @@ public class SpringDaoXmlHandler {
 
         List<XmlAttr> attrList2 = new ArrayList<>();
         attrList2.add(new XmlAttr("name", "configLocation"));
-        attrList2.add(new XmlAttr("value", "classpath:datasource/sqlMapConfig.xml"));
+        attrList2.add(new XmlAttr("value", "classpath:mybatis/mybatis.xml"));
         propertyList.add(new NonValueProperty(attrList2));
 
 
@@ -146,7 +146,7 @@ public class SpringDaoXmlHandler {
 
         List<XmlAttr> attrList4 = new ArrayList<>();
         attrList4.add(new XmlAttr("name", "mapperLocations"));
-        attrList4.add(new XmlAttr("value", "classpath:datasource/sql/*.xml"));
+        attrList4.add(new XmlAttr("value", "classpath:mapper/*.xml"));
         propertyList.add(new NonValueProperty(attrList4));
 
         factoryBean.setProperty(propertyList);

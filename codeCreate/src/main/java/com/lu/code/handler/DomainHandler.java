@@ -55,7 +55,8 @@ public class DomainHandler {
         StringBuffer domainCode = new StringBuffer();
         domainCode.append("package " + basePackage + "." + PropertiesUtil.PACKAGE_DOMAIN + ";");
         domainCode.append(CodeUtil.getChangeLine(2));
-        domainCode.append("public class " + domainName + " extends " + PropertiesUtil.CLASS_BASE_DOMAIN + "{");
+        //domainCode.append("public class " + domainName + " extends " + PropertiesUtil.CLASS_BASE_DOMAIN + "{");
+        domainCode.append("public class " + domainName + "{");
         domainCode.append(CodeUtil.getChangeLine(2));
         //声明变量
         for(Columns columns : columnList){

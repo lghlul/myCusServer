@@ -11,19 +11,30 @@ public class Properties {
     private String maven1compiler1source;
     private String maven1compiler1target;
     private String spring1version;
+    private String jackson1version;
+
+
 
 
     public Properties(){
 
     }
 
-    public Properties(String project1build1sourceEncoding , String maven1compiler1source , String maven1compiler1target , String spring1version){
+    public Properties(String project1build1sourceEncoding , String maven1compiler1source , String maven1compiler1target , String spring1version , String jackson1version){
         this.project1build1sourceEncoding = project1build1sourceEncoding;
         this.maven1compiler1source = maven1compiler1source;
         this.maven1compiler1target = maven1compiler1target;
         this.spring1version = spring1version;
+        this.jackson1version = jackson1version;
     }
 
+    public String getJackson1version() {
+        return jackson1version;
+    }
+
+    public void setJackson1version(String jackson1version) {
+        this.jackson1version = jackson1version;
+    }
 
     public String getProject1build1sourceEncoding() {
         return project1build1sourceEncoding;

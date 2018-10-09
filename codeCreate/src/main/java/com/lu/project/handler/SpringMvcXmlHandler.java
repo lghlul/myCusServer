@@ -66,7 +66,7 @@ public class SpringMvcXmlHandler {
 
         List<XmlAttr> prefixAttrList = new ArrayList<>();
         prefixAttrList.add(new XmlAttr("name", "prefix"));
-        prefixAttrList.add(new XmlAttr("value", "/WEB-INF/pages/"));
+        prefixAttrList.add(new XmlAttr("value", "/WEB-INF/"));
         NonValueProperty prefixProperty = new NonValueProperty();
         prefixProperty.setAttrList(prefixAttrList);
         properties.add(prefixProperty);

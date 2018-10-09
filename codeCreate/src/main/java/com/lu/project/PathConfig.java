@@ -63,7 +63,48 @@ public class PathConfig {
 
     private String springDaoFilePath;
 
-    private String jdbcFilePath;
+
+    private String webResource;
+
+    private String mybatisPath;
+
+    private String mybatisXmlPath;
+
+    private String configPropertiesPath;
+
+    private String jdbcPropertiesPath;
+
+    public String getConfigPropertiesPath() {
+        return configPropertiesPath;
+    }
+
+    public void setConfigPropertiesPath(String configPropertiesPath) {
+        this.configPropertiesPath = configPropertiesPath;
+    }
+
+    public String getJdbcPropertiesPath() {
+        return jdbcPropertiesPath;
+    }
+
+    public void setJdbcPropertiesPath(String jdbcPropertiesPath) {
+        this.jdbcPropertiesPath = jdbcPropertiesPath;
+    }
+
+    public String getMybatisPath() {
+        return mybatisPath;
+    }
+
+    public void setMybatisPath(String mybatisPath) {
+        this.mybatisPath = mybatisPath;
+    }
+
+    public String getMybatisXmlPath() {
+        return mybatisXmlPath;
+    }
+
+    public void setMybatisXmlPath(String mybatisXmlPath) {
+        this.mybatisXmlPath = mybatisXmlPath;
+    }
 
     public String getProjectName() {
         return projectName;
@@ -242,6 +283,14 @@ public class PathConfig {
         this.servicePath = servicePath;
     }
 
+    public String getWebResource() {
+        return webResource;
+    }
+
+    public void setWebResource(String webResource) {
+        this.webResource = webResource;
+    }
+
     public void initPath(String basePath , String projectName) {
         this.projectName = projectName;
         projectPath = basePath + projectName;
@@ -262,7 +311,11 @@ public class PathConfig {
         springFilePath = springPath + "/spring.xml";
         springDaoFilePath = springPath  + "/spring-dao.xml";
         springMvcFilePath = springPath  + "/spring-mvc.xml";
-        jdbcFilePath = configPath + "/jdbc.properties";
+        webResource = webappPath + "/resource";
+        mybatisPath = resourcesPath + "/mybatis";
+        mybatisXmlPath = mybatisPath + "/mybatis.xml";
+        configPropertiesPath = configPath + "/config.properties";
+        jdbcPropertiesPath = configPath + "/jdbc.properties";
     }
 
     public void initPackagePath(String basePackage){
@@ -300,13 +353,6 @@ public class PathConfig {
         this.springDaoFilePath = springDaoFilePath;
     }
 
-    public String getJdbcFilePath() {
-        return jdbcFilePath;
-    }
-
-    public void setJdbcFilePath(String jdbcFilePath) {
-        this.jdbcFilePath = jdbcFilePath;
-    }
 
     public String getBasePackage() {
         return basePackage;

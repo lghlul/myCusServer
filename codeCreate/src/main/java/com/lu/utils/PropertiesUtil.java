@@ -1,6 +1,8 @@
 package com.lu.utils;
 
 
+import com.lu.tag.pom.Project;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -128,6 +130,19 @@ public class PropertiesUtil {
      */
     public static String SPRING_CONTROLLER;
 
+    /**
+     * @ModelAttribute
+     */
+    public static String SPRING_MODELATTRIBUTE;
+    /**
+     * @RequestMapping
+     */
+    public static String SPRING_REQUESTMAPPING;
+
+    /**
+     * @ResponseBody
+     */
+    public static String SPRING_RESPONSEBODY;
 
 
 
@@ -139,6 +154,8 @@ public class PropertiesUtil {
     public static String CLASS_IBASE_SERVICE;
 
     public static String CLASS_BASE_SERVICE_IMPL;
+
+    public static String CLASS_CONTROLLER;
 
     public static String SERVICE_IMPL_MAPPER_METHOD;
 
@@ -160,37 +177,44 @@ public class PropertiesUtil {
             e.printStackTrace();
         }
         //获取key对应的value值
-        PropertiesUtil.BASEPATH = properties.getProperty("base.path");
-        PropertiesUtil.WEBPATH = properties.getProperty("path.web");
-        PropertiesUtil.SPRINGPATH = properties.getProperty("path.spring");
-        PropertiesUtil.SPRINGDAOPATH = properties.getProperty("path.spring-dao");
-        PropertiesUtil.SPRINGMVCPATH = properties.getProperty("path.spring-mvc");
-        PropertiesUtil.LOG4JPATH = properties.getProperty("path.log4j");
-        PropertiesUtil.MANIFESTPATH = properties.getProperty("path.MANIFEST");
-        PropertiesUtil.MYBATISPATH = properties.getProperty("path.mybatis");
-        PropertiesUtil.JDBCPATH = properties.getProperty("path.jdbc");
-        PropertiesUtil.GROUPIDS = properties.getProperty("dependency.groupId");
-        PropertiesUtil.ARTIFACTIDS = properties.getProperty("dependency.artifactId");
-        PropertiesUtil.VERSIONS = properties.getProperty("dependency.version");
-        PropertiesUtil.NAMESPACEURL = properties.getProperty("namespace.url");
-        PropertiesUtil.BASEMAPPER_METHOD = properties.getProperty("baseMapper.method");
-        PropertiesUtil.BASEMAPPER_IMPORT = properties.getProperty("baseMapper.import");
-        PropertiesUtil.BASESERVICE_METHOD = properties.getProperty("baseService.method");
-        PropertiesUtil.BASESERVICE_IMPORT = properties.getProperty("baseService.import");
-        PropertiesUtil.PACKAGE_DOMAIN = properties.getProperty("package.domain");
-        PropertiesUtil.PACKAGE_MAPPER = properties.getProperty("package.mapper");
-        PropertiesUtil.PACKAGE_CONTROLLER = properties.getProperty("package.controller");
-        PropertiesUtil.PACKAGE_SERVICE = properties.getProperty("package.service");
-        PropertiesUtil.PACKAGE_SERVICE_IMPL = properties.getProperty("package.service.impl");
-        PropertiesUtil.BASE_RESULTMAP = properties.getProperty("mapper.baseResultName");
-        PropertiesUtil.SPRING_SERVICE = properties.getProperty("annotation.service");
-        PropertiesUtil.SPRING_AUTOWIRED = properties.getProperty("annotation.autowired");
-        PropertiesUtil.SPRING_CONTROLLER = properties.getProperty("annotation.controller");
-        PropertiesUtil.CLASS_BASE_DOMAIN = properties.getProperty("class.baseDomain");
-        PropertiesUtil.CLASS_BASE_MAPPER = properties.getProperty("class.baseMapper");
-        PropertiesUtil.CLASS_IBASE_SERVICE = properties.getProperty("class.ibaseService");
-        PropertiesUtil.CLASS_BASE_SERVICE_IMPL = properties.getProperty("class.baseServiceImpl");
-        PropertiesUtil.SERVICE_IMPL_MAPPER_METHOD = properties.getProperty("baseServiceImpl.mapper.method");
+        BASEPATH = properties.getProperty("base.path");
+        WEBPATH = properties.getProperty("path.web");
+        SPRINGPATH = properties.getProperty("path.spring");
+        SPRINGDAOPATH = properties.getProperty("path.spring-dao");
+        SPRINGMVCPATH = properties.getProperty("path.spring-mvc");
+        LOG4JPATH = properties.getProperty("path.log4j");
+        MANIFESTPATH = properties.getProperty("path.MANIFEST");
+        MYBATISPATH = properties.getProperty("path.mybatis");
+        JDBCPATH = properties.getProperty("path.jdbc");
+        GROUPIDS = properties.getProperty("dependency.groupId");
+        ARTIFACTIDS = properties.getProperty("dependency.artifactId");
+        VERSIONS = properties.getProperty("dependency.version");
+        NAMESPACEURL = properties.getProperty("namespace.url");
+        BASEMAPPER_METHOD = properties.getProperty("baseMapper.method");
+        BASEMAPPER_IMPORT = properties.getProperty("baseMapper.import");
+        BASESERVICE_METHOD = properties.getProperty("baseService.method");
+        BASESERVICE_IMPORT = properties.getProperty("baseService.import");
+        PACKAGE_DOMAIN = properties.getProperty("package.domain");
+        PACKAGE_MAPPER = properties.getProperty("package.mapper");
+        PACKAGE_CONTROLLER = properties.getProperty("package.controller");
+        PACKAGE_SERVICE = properties.getProperty("package.service");
+        PACKAGE_SERVICE_IMPL = properties.getProperty("package.service.impl");
+        BASE_RESULTMAP = properties.getProperty("mapper.baseResultName");
+
+        SPRING_SERVICE = properties.getProperty("annotation.service");
+        SPRING_AUTOWIRED = properties.getProperty("annotation.autowired");
+        SPRING_CONTROLLER = properties.getProperty("annotation.controller");
+        SPRING_MODELATTRIBUTE = properties.getProperty("annotation.modelAttribute");
+        SPRING_REQUESTMAPPING = properties.getProperty("annotation.requestMapping");
+        SPRING_RESPONSEBODY = properties.getProperty("annotation.responseBody");
+
+        CLASS_BASE_DOMAIN = properties.getProperty("class.baseDomain");
+        CLASS_BASE_MAPPER = properties.getProperty("class.baseMapper");
+        CLASS_IBASE_SERVICE = properties.getProperty("class.ibaseService");
+        CLASS_BASE_SERVICE_IMPL = properties.getProperty("class.baseServiceImpl");
+        CLASS_CONTROLLER = properties.getProperty("class.baseController");
+
+        SERVICE_IMPL_MAPPER_METHOD = properties.getProperty("baseServiceImpl.mapper.method");
     }
 
 }
