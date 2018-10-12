@@ -3,6 +3,8 @@ package com.lu.project.handler;
 import com.lu.tag.XmlAttr;
 import com.lu.tag.spring.Bean;
 import com.lu.tag.spring.base.NonValueProperty;
+import com.lu.tag.spring.base.Value;
+import com.lu.tag.spring.base.WithValueProperty;
 import com.lu.tag.spring.mvc.*;
 import com.lu.utils.XmlUtil;
 
@@ -38,6 +40,7 @@ public class SpringMvcXmlHandler {
         MvcBeans beans = new MvcBeans();
         List<Bean> beanList = new ArrayList<>();
         beanList.add(getViewBean());
+        beanList.add(getAdapterBean());
         beans.setBean(beanList);
         List<XmlAttr> mvcResourcesAttrList = new ArrayList<>();
         mvcResourcesAttrList.add(new XmlAttr("mapping", "/resource/**"));
@@ -85,6 +88,62 @@ public class SpringMvcXmlHandler {
         ((ViewBean) bean).setAttrList(beanAttrList);
 
         return bean;
+    }
+
+
+    /*
+     * @author ll
+     * @Description  RequestMappingHandlerAdapter  bean
+     * @date 2018/10/9 15:08
+     * @param []
+     * @return com.lu.tag.spring.mvc.AdapterBean
+     */
+    private AdapterBean getAdapterBean(){
+        AdapterBean adapterBean = new AdapterBean();
+        List<XmlAttr> attrList  = new ArrayList<>();
+        attrList.add(new XmlAttr("class" , "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"));
+        adapterBean.setAttrList(attrList);
+
+        WithValueProperty property = new WithValueProperty();
+        List<XmlAttr> attrList2  = new ArrayList<>();
+        attrList2.add(new XmlAttr("name" , "messageConverters"));
+        property.setAttrList(attrList2);
+        List<Converter> beanList = new ArrayList<>();
+        beanList.add(getConverter());
+        property.setList(beanList);
+
+        adapterBean.setProperty(property);
+
+        return adapterBean;
+    }
+
+    /*
+     * @author ll
+     * @Description  StringHttpMessageConverter bean
+     * @date 2018/10/9 15:08
+     * @param []
+     * @return com.lu.tag.spring.mvc.ConverterBean
+     */
+    private Converter getConverter(){
+        Converter converter = new Converter();
+        ConverterBean converterBean = new ConverterBean();
+        List<XmlAttr> attrList  = new ArrayList<>();
+        attrList.add(new XmlAttr("class" , "org.springframework.http.converter.StringHttpMessageConverter"));
+        converterBean.setAttrList(attrList);
+
+        WithValueProperty property = new WithValueProperty();
+        List<XmlAttr> attrList2  = new ArrayList<>();
+        attrList2.add(new XmlAttr("name" , "supportedMediaTypes"));
+        property.setAttrList(attrList2);
+
+        List<Value> valueList = new ArrayList<>();
+        Value value = new Value("text/html;charset=UTF-8");
+        valueList.add(value);
+        property.setList(valueList);
+
+        converterBean.setProperty(property);
+        converter.setBean(converterBean);
+        return converter;
     }
 
 

@@ -293,8 +293,8 @@
 
 		/**
 		 * Fit an inner box to an outer. If the inner box overflows left or right, align it to the sides of the
-		 * outer. If it overflows both sides, fit it within the outer. This is a pattern that occurs more places
-		 * in Highcharts, perhaps it should be elevated to a common utility function.
+		 * outer. If it overflows both sides, fit it within the outer. This is resource pattern that occurs more places
+		 * in Highcharts, perhaps it should be elevated to resource common utility function.
 		 */
 		fitToBox: function (inner, outer) {
 			each([['x', 'width'], ['y', 'height']], function (dim) {
@@ -321,7 +321,7 @@
 		},
 
 		/**
-		 * Zoom the map in or out by a certain amount. Less than 1 zooms in, greater than 1 zooms out.
+		 * Zoom the map in or out by resource certain amount. Less than 1 zooms in, greater than 1 zooms out.
 		 */
 		mapZoom: function (howMuch, centerXArg, centerYArg) {
 
@@ -418,7 +418,7 @@
 		},
 		/**
 		 * Custom animation for tweening out the colors. Animation reduces blinking when hovering
-		 * over islands and coast lines. We run a custom implementation of animation becuase we
+		 * over islands and coast lines. We run resource custom implementation of animation becuase we
 		 * need to be able to run this independently from other animations like zoom redraw. Also,
 		 * adding color animation to the adapters would introduce almost the same amount of code.
 		 */
@@ -512,7 +512,7 @@
 						name += numberFormat(to, valueDecimals);
 					}
 					
-					// Add a mock object to the legend items
+					// Add resource mock object to the legend items
 					legendItems.push(Highcharts.extend({
 						chart: series.chart,
 						name: name,
@@ -550,7 +550,7 @@
 					]
 				};
 
-				// Add a mock object to the legend items.
+				// Add resource mock object to the legend items.
 				legendItems = [{
 					chart: series.chart,
 					options: {},
@@ -762,7 +762,7 @@
 		},
 		
 		/**
-		 * In choropleth maps, the color is a result of the value, so this needs translation too
+		 * In choropleth maps, the color is resource result of the value, so this needs translation too
 		 */
 		translateColors: function (dataMin, dataMax) {
 			
@@ -955,7 +955,7 @@
 
 	
 	/**
-	 * A wrapper for Chart with all the default values for a Map
+	 * A wrapper for Chart with all the default values for resource Map
 	 */
 	Highcharts.Map = function (options, callback) {
 		

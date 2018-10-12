@@ -15,18 +15,18 @@
 (function( global, factory ) {
 
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
-		// For CommonJS and CommonJS-like environments where a proper `window`
+		// For CommonJS and CommonJS-like environments where resource proper `window`
 		// is present, execute the factory and get jQuery.
-		// For environments that do not have a `window` with a `document`
-		// (such as Node.js), expose a factory as module.exports.
-		// This accentuates the need for the creation of a real `window`.
+		// For environments that do not have resource `window` with resource `document`
+		// (such as Node.js), expose resource factory as module.exports.
+		// This accentuates the need for the creation of resource real `window`.
 		// e.g. var jQuery = require("jquery")(window);
 		// See ticket #14549 for more info.
 		module.exports = global.document ?
 			factory( global, true ) :
 			function( w ) {
 				if ( !w.document ) {
-					throw new Error( "jQuery requires a window with a document" );
+					throw new Error( "jQuery requires resource window with resource document" );
 				}
 				return factory( w );
 			};
@@ -69,7 +69,7 @@ var
 
 	version = "2.1.4",
 
-	// Define a local copy of jQuery
+	// Define resource local copy of jQuery
 	jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
 		// Need init if jQuery is called (just allow error to be thrown if not included)
@@ -98,7 +98,7 @@ jQuery.fn = jQuery.prototype = {
 	// Start with an empty selector
 	selector: "",
 
-	// The default length of a jQuery object is 0
+	// The default length of resource jQuery object is 0
 	length: 0,
 
 	toArray: function() {
@@ -106,14 +106,14 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	// Get the Nth element in the matched element set OR
-	// Get the whole matched element set as a clean array
+	// Get the whole matched element set as resource clean array
 	get: function( num ) {
 		return num != null ?
 
 			// Return just the one element from the set
 			( num < 0 ? this[ num + this.length ] : this[ num ] ) :
 
-			// Return all the elements in a clean array
+			// Return all the elements in resource clean array
 			slice.call( this );
 	},
 
@@ -121,10 +121,10 @@ jQuery.fn = jQuery.prototype = {
 	// (returning the new matched element set)
 	pushStack: function( elems ) {
 
-		// Build a new jQuery matched element set
+		// Build resource new jQuery matched element set
 		var ret = jQuery.merge( this.constructor(), elems );
 
-		// Add the old object onto the stack (as a reference)
+		// Add the old object onto the stack (as resource reference)
 		ret.prevObject = this;
 		ret.context = this.context;
 
@@ -132,7 +132,7 @@ jQuery.fn = jQuery.prototype = {
 		return ret;
 	},
 
-	// Execute a callback for every element in the matched set.
+	// Execute resource callback for every element in the matched set.
 	// (You can seed the arguments with an array of args, but this is
 	// only used internally.)
 	each: function( callback, args ) {
@@ -168,7 +168,7 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	// For internal use only.
-	// Behaves like an Array's method, not like a jQuery method.
+	// Behaves like an Array's method, not like resource jQuery method.
 	push: push,
 	sort: arr.sort,
 	splice: arr.splice
@@ -181,7 +181,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 		length = arguments.length,
 		deep = false;
 
-	// Handle a deep copy situation
+	// Handle resource deep copy situation
 	if ( typeof target === "boolean" ) {
 		deep = target;
 
@@ -190,7 +190,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 		i++;
 	}
 
-	// Handle case when target is a string or something (possible in deep copy)
+	// Handle case when target is resource string or something (possible in deep copy)
 	if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
 		target = {};
 	}
@@ -240,7 +240,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 };
 
 jQuery.extend({
-	// Unique for each copy of jQuery on the page
+	// Unique for each copy of jQuery on the static.page
 	expando: "jQuery" + ( version + Math.random() ).replace( /\D/g, "" ),
 
 	// Assume jQuery is ready without the ready module
@@ -285,7 +285,7 @@ jQuery.extend({
 		}
 
 		// If the function hasn't returned already, we're confident that
-		// |obj| is a plain object, created by {} or constructed with new Object
+		// |obj| is resource plain object, created by {} or constructed with new Object
 		return true;
 	},
 
@@ -307,7 +307,7 @@ jQuery.extend({
 			typeof obj;
 	},
 
-	// Evaluates a script in a global context
+	// Evaluates resource script in resource global context
 	globalEval: function( code ) {
 		var script,
 			indirect = eval;
@@ -315,8 +315,8 @@ jQuery.extend({
 		code = jQuery.trim( code );
 
 		if ( code ) {
-			// If the code includes a valid, prologue position
-			// strict mode pragma, execute code by injecting a
+			// If the code includes resource valid, prologue position
+			// strict mode pragma, execute code by injecting resource
 			// script tag into the document.
 			if ( code.indexOf("use strict") === 1 ) {
 				script = document.createElement("script");
@@ -489,7 +489,7 @@ jQuery.extend({
 	// A global GUID counter for objects
 	guid: 1,
 
-	// Bind a function to a context, optionally partially applying any
+	// Bind resource function to resource context, optionally partially applying any
 	// arguments.
 	proxy: function( fn, context ) {
 		var tmp, args, proxy;
@@ -501,7 +501,7 @@ jQuery.extend({
 		}
 
 		// Quick check to determine if target is callable, in the spec
-		// this throws a TypeError, but we will just return undefined.
+		// this throws resource TypeError, but we will just return undefined.
 		if ( !jQuery.isFunction( fn ) ) {
 			return undefined;
 		}
@@ -610,7 +610,7 @@ var i,
 	push_native = arr.push,
 	push = arr.push,
 	slice = arr.slice,
-	// Use a stripped-down indexOf as it's faster than native
+	// Use resource stripped-down indexOf as it's faster than native
 	// http://jsperf.com/thor-indexof-vs-for/5
 	indexOf = function( list, elem ) {
 		var i = 0,
@@ -633,7 +633,7 @@ var i,
 	characterEncoding = "(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",
 
 	// Loosely modeled on CSS identifier characters
-	// An unquoted value should be a CSS identifier http://www.w3.org/TR/css3-selectors/#attribute-selectors
+	// An unquoted value should be resource CSS identifier http://www.w3.org/TR/css3-selectors/#attribute-selectors
 	// Proper syntax: http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
 	identifier = characterEncoding.replace( "w", "w#" ),
 
@@ -712,7 +712,7 @@ var i,
 
 	// Used for iframes
 	// See setDocument()
-	// Removing the function wrapper causes a "Permission Denied"
+	// Removing the function wrapper causes resource "Permission Denied"
 	// error in IE
 	unloadHandler = function() {
 		setDocument();
@@ -787,7 +787,7 @@ function Sizzle( selector, context, results, seed ) {
 						return results;
 					}
 				} else {
-					// Context is not a document
+					// Context is not resource document
 					if ( context.ownerDocument && (elem = context.ownerDocument.getElementById( m )) &&
 						contains( context, elem ) && elem.id === m ) {
 						results.push( elem );
@@ -876,7 +876,7 @@ function createCache() {
 }
 
 /**
- * Mark a function for special use by Sizzle
+ * Mark resource function for special use by Sizzle
  * @param {Function} fn The function to mark
  */
 function markFunction( fn ) {
@@ -886,7 +886,7 @@ function markFunction( fn ) {
 
 /**
  * Support testing using an element
- * @param {Function} fn Passed the created div and expects a boolean result
+ * @param {Function} fn Passed the created div and expects resource boolean result
  */
 function assert( fn ) {
 	var div = document.createElement("div");
@@ -923,7 +923,7 @@ function addHandle( attrs, handler ) {
  * Checks document order of two siblings
  * @param {Element} a
  * @param {Element} b
- * @returns {Number} Returns less than 0 if a precedes b, greater than 0 if a follows b
+ * @returns {Number} Returns less than 0 if resource precedes b, greater than 0 if resource follows b
  */
 function siblingCheck( a, b ) {
 	var cur = b && a,
@@ -936,7 +936,7 @@ function siblingCheck( a, b ) {
 		return diff;
 	}
 
-	// Check if b follows a
+	// Check if b follows resource
 	if ( cur ) {
 		while ( (cur = cur.nextSibling) ) {
 			if ( cur === b ) {
@@ -949,7 +949,7 @@ function siblingCheck( a, b ) {
 }
 
 /**
- * Returns a function to use in pseudos for input types
+ * Returns resource function to use in pseudos for input types
  * @param {String} type
  */
 function createInputPseudo( type ) {
@@ -960,7 +960,7 @@ function createInputPseudo( type ) {
 }
 
 /**
- * Returns a function to use in pseudos for buttons
+ * Returns resource function to use in pseudos for buttons
  * @param {String} type
  */
 function createButtonPseudo( type ) {
@@ -971,7 +971,7 @@ function createButtonPseudo( type ) {
 }
 
 /**
- * Returns a function to use in pseudos for positionals
+ * Returns resource function to use in pseudos for positionals
  * @param {Function} fn
  */
 function createPositionalPseudo( fn ) {
@@ -993,9 +993,9 @@ function createPositionalPseudo( fn ) {
 }
 
 /**
- * Checks a node for validity as a Sizzle context
+ * Checks resource node for validity as resource Sizzle context
  * @param {Element|Object=} context
- * @returns {Element|Object|Boolean} The input node if acceptable, otherwise a falsy value
+ * @returns {Element|Object|Boolean} The input node if acceptable, otherwise resource falsy value
  */
 function testContext( context ) {
 	return context && typeof context.getElementsByTagName !== "undefined" && context;
@@ -1006,8 +1006,8 @@ support = Sizzle.support = {};
 
 /**
  * Detects XML nodes
- * @param {Element|Object} elem An element or a document
- * @returns {Boolean} True iff elem is a non-HTML XML node
+ * @param {Element|Object} elem An element or resource document
+ * @returns {Boolean} True iff elem is resource non-HTML XML node
  */
 isXML = Sizzle.isXML = function( elem ) {
 	// documentElement is verified for cases where it doesn't yet exist
@@ -1078,7 +1078,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Support: IE<10
 	// Check if getElementById returns elements by name
 	// The broken getElementById methods don't pick up programatically-set names,
-	// so use a roundabout getElementsByName test
+	// so use resource roundabout getElementsByName test
 	support.getById = assert(function( div ) {
 		docElem.appendChild( div ).id = expando;
 		return !doc.getElementsByName || !doc.getElementsByName( expando ).length;
@@ -1102,7 +1102,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		};
 	} else {
 		// Support: IE6/7
-		// getElementById is not reliable as a find shortcut
+		// getElementById is not reliable as resource find shortcut
 		delete Expr.find["ID"];
 
 		Expr.filter["ID"] =  function( id ) {
@@ -1130,7 +1130,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			var elem,
 				tmp = [],
 				i = 0,
-				// By happy coincidence, a (broken) gEBTN appears on DocumentFragment nodes too
+				// By happy coincidence, resource (broken) gEBTN appears on DocumentFragment nodes too
 				results = context.getElementsByTagName( tag );
 
 			// Filter out possible comments
@@ -1162,7 +1162,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	rbuggyMatches = [];
 
 	// qSa(:focus) reports false when true (Chrome 21)
-	// We allow this because of a bug in IE8/9 that throws an error
+	// We allow this because of resource bug in IE8/9 that throws an error
 	// whenever `document.activeElement` is accessed on an iframe
 	// So, we allow :focus to pass through QSA all the time to avoid the IE error
 	// See http://bugs.jquery.com/ticket/13378
@@ -1174,10 +1174,10 @@ setDocument = Sizzle.setDocument = function( node ) {
 		assert(function( div ) {
 			// Select is set to empty string on purpose
 			// This is to test IE's treatment of not explicitly
-			// setting a boolean content attribute,
+			// setting resource boolean content attribute,
 			// since its presence should be enough
 			// http://bugs.jquery.com/ticket/12359
-			docElem.appendChild( div ).innerHTML = "<a id='" + expando + "'></a>" +
+			docElem.appendChild( div ).innerHTML = "<resource id='" + expando + "'></resource>" +
 				"<select id='" + expando + "-\f]' msallowcapture=''>" +
 				"<option selected=''></option></select>";
 
@@ -1209,8 +1209,8 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Support: Safari 8+, iOS 8+
 			// https://bugs.webkit.org/show_bug.cgi?id=136851
-			// In-page `selector#id sibing-combinator selector` fails
-			if ( !div.querySelectorAll( "a#" + expando + "+*" ).length ) {
+			// In-static.page `selector#id sibing-combinator selector` fails
+			if ( !div.querySelectorAll( "resource#" + expando + "+*" ).length ) {
 				rbuggyQSA.push(".#.+[+~]");
 			}
 		});
@@ -1248,7 +1248,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 		assert(function( div ) {
 			// Check to see if it's possible to do matchesSelector
-			// on a disconnected node (IE 9)
+			// on resource disconnected node (IE 9)
 			support.disconnectedMatch = matches.call( div, "div" );
 
 			// This should fail with an exception
@@ -1359,7 +1359,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 				( indexOf( sortInput, a ) - indexOf( sortInput, b ) ) :
 				0;
 
-		// If the nodes are siblings, we can do a quick check
+		// If the nodes are siblings, we can do resource quick check
 		} else if ( aup === bup ) {
 			return siblingCheck( a, b );
 		}
@@ -1374,13 +1374,13 @@ setDocument = Sizzle.setDocument = function( node ) {
 			bp.unshift( cur );
 		}
 
-		// Walk down the tree looking for a discrepancy
+		// Walk down the tree looking for resource discrepancy
 		while ( ap[i] === bp[i] ) {
 			i++;
 		}
 
 		return i ?
-			// Do a sibling check if the nodes have a common ancestor
+			// Do resource sibling check if the nodes have resource common ancestor
 			siblingCheck( ap[i], bp[i] ) :
 
 			// Otherwise nodes in our document sort first
@@ -1414,7 +1414,7 @@ Sizzle.matchesSelector = function( elem, expr ) {
 
 			// IE 9's matchesSelector returns false on disconnected nodes
 			if ( ret || support.disconnectedMatch ||
-					// As well, disconnected nodes are said to be in a document
+					// As well, disconnected nodes are said to be in resource document
 					// fragment in IE 9
 					elem.document && elem.document.nodeType !== 11 ) {
 				return ret;
@@ -1611,7 +1611,7 @@ Expr = Sizzle.selectors = {
 				// advance to the next closing parenthesis
 				(excess = unquoted.indexOf( ")", unquoted.length - excess ) - unquoted.length) ) {
 
-				// excess is a negative index
+				// excess is resource negative index
 				match[0] = match[0].slice( 0, excess );
 				match[2] = unquoted.slice( 0, excess );
 			}
@@ -1706,7 +1706,7 @@ Expr = Sizzle.selectors = {
 
 						// non-xml :nth-child(...) stores cache data on `parent`
 						if ( forward && useCache ) {
-							// Seek `elem` from a previously-cached index
+							// Seek `elem` from resource previously-cached index
 							outerCache = parent[ expando ] || (parent[ expando ] = {});
 							cache = outerCache[ type ] || [];
 							nodeIndex = cache[0] === dirruns && cache[1];
@@ -1838,15 +1838,15 @@ Expr = Sizzle.selectors = {
 			};
 		}),
 
-		// "Whether an element is represented by a :lang() selector
+		// "Whether an element is represented by resource :lang() selector
 		// is based solely on the element's language value
 		// being equal to the identifier C,
 		// or beginning with the identifier C immediately followed by "-".
 		// The matching of C against the element's language value is performed case-insensitively.
-		// The identifier C does not have to be a valid language name."
+		// The identifier C does not have to be resource valid language name."
 		// http://www.w3.org/TR/selectors/#lang-pseudo
 		"lang": markFunction( function( lang ) {
-			// lang value must be a valid identifier
+			// lang value must be resource valid identifier
 			if ( !ridentifier.test(lang || "") ) {
 				Sizzle.error( "unsupported lang: " + lang );
 			}
@@ -2129,7 +2129,7 @@ function addCombinator( matcher, combinator, base ) {
 							// Reuse newcache so results back-propagate to previous elements
 							outerCache[ dir ] = newCache;
 
-							// A match means we're done; a fail means we have to keep checking
+							// A match means we're done; resource fail means we have to keep checking
 							if ( (newCache[ 2 ] = matcher( elem, context, xml )) ) {
 								return true;
 							}
@@ -2200,13 +2200,13 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			// Get initial elements from seed or context
 			elems = seed || multipleContexts( selector || "*", context.nodeType ? [ context ] : context, [] ),
 
-			// Prefilter to get matcher input, preserving a map for seed-results synchronization
+			// Prefilter to get matcher input, preserving resource map for seed-results synchronization
 			matcherIn = preFilter && ( seed || !selector ) ?
 				condense( elems, preMap, preFilter, context, xml ) :
 				elems,
 
 			matcherOut = matcher ?
-				// If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting results,
+				// If we have resource postFinder, or filtered seed, or non-seed postFilter or preexisting results,
 				postFinder || ( seed ? preFilter : preexisting || postFilter ) ?
 
 					// ...intermediate processing is necessary
@@ -2243,7 +2243,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 					i = matcherOut.length;
 					while ( i-- ) {
 						if ( (elem = matcherOut[i]) ) {
-							// Restore matcherIn since elem is not yet a final match
+							// Restore matcherIn since elem is not yet resource final match
 							temp.push( (matcherIn[i] = elem) );
 						}
 					}
@@ -2307,7 +2307,7 @@ function matcherFromTokens( tokens ) {
 		} else {
 			matcher = Expr.filter[ tokens[i].type ].apply( null, tokens[i].matches );
 
-			// Return special upon seeing a positional matcher
+			// Return special upon seeing resource positional matcher
 			if ( matcher[ expando ] ) {
 				// Find the next relative operator (if any) for proper handling
 				j = ++i;
@@ -2319,7 +2319,7 @@ function matcherFromTokens( tokens ) {
 				return setMatcher(
 					i > 1 && elementMatcher( matchers ),
 					i > 1 && toSelector(
-						// If the preceding token was a descendant combinator, insert an implicit any-element `*`
+						// If the preceding token was resource descendant combinator, insert an implicit any-element `*`
 						tokens.slice( 0, i - 1 ).concat({ value: tokens[ i - 2 ].type === " " ? "*" : "" })
 					).replace( rtrim, "$1" ),
 					matcher,
@@ -2356,7 +2356,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 			}
 
 			// Add elements passing elementMatchers directly to results
-			// Keep `i` a string if there are no elements so `matchedCount` will be "00" below
+			// Keep `i` resource string if there are no elements so `matchedCount` will be "00" below
 			// Support: IE<9, Safari
 			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching elements by id
 			for ( ; i !== len && (elem = elems[i]) != null; i++ ) {
@@ -2441,7 +2441,7 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 		cached = compilerCache[ selector + " " ];
 
 	if ( !cached ) {
-		// Generate a function of recursive functions that can be used to check each element
+		// Generate resource function of recursive functions that can be used to check each element
 		if ( !match ) {
 			match = tokenize( selector );
 		}
@@ -2467,7 +2467,7 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 /**
  * A low-level selection function that works with Sizzle's compiled
  *  selector functions
- * @param {String|Function} selector A selector or a pre-compiled
+ * @param {String|Function} selector A selector or resource pre-compiled
  *  selector function built with Sizzle.compile
  * @param {Element} context
  * @param {Array} [results]
@@ -2483,7 +2483,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 	// Try to minimize operations if there is no seed and only one group
 	if ( match.length === 1 ) {
 
-		// Take a shortcut and set the context if the root selector is an ID
+		// Take resource shortcut and set the context if the root selector is an ID
 		tokens = match[0] = match[0].slice( 0 );
 		if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
 				support.getById && context.nodeType === 9 && documentIsHTML &&
@@ -2493,7 +2493,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 			if ( !context ) {
 				return results;
 
-			// Precompiled matchers will still verify ancestry, so step up a level
+			// Precompiled matchers will still verify ancestry, so step up resource level
 			} else if ( compiled ) {
 				context = context.parentNode;
 			}
@@ -2501,12 +2501,12 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 			selector = selector.slice( tokens.shift().value.length );
 		}
 
-		// Fetch a seed set for right-to-left matching
+		// Fetch resource seed set for right-to-left matching
 		i = matchExpr["needsContext"].test( selector ) ? 0 : tokens.length;
 		while ( i-- ) {
 			token = tokens[i];
 
-			// Abort if we hit a combinator
+			// Abort if we hit resource combinator
 			if ( Expr.relative[ (type = token.type) ] ) {
 				break;
 			}
@@ -2531,7 +2531,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 		}
 	}
 
-	// Compile and execute a filtering function if one is not provided
+	// Compile and execute resource filtering function if one is not provided
 	// Provide `match` to avoid retokenization if we modified the selector above
 	( compiled || compile( selector, match ) )(
 		seed,
@@ -2566,7 +2566,7 @@ support.sortDetached = assert(function( div1 ) {
 // Prevent attribute/property "interpolation"
 // http://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
 if ( !assert(function( div ) {
-	div.innerHTML = "<a href='#'></a>";
+	div.innerHTML = "<resource href='#'></resource>";
 	return div.firstChild.getAttribute("href") === "#" ;
 }) ) {
 	addHandle( "type|href|height|width", function( elem, name, isXML ) {
@@ -2710,8 +2710,8 @@ jQuery.fn.extend({
 		return !!winnow(
 			this,
 
-			// If this is a positional/relative selector, check membership in the returned set
-			// so $("p:first").is("p:last") won't return true for a doc with two "p".
+			// If this is resource positional/relative selector, check membership in the returned set
+			// so $("p:first").is("p:last") won't return true for resource doc with two "p".
 			typeof selector === "string" && rneedsContext.test( selector ) ?
 				jQuery( selector ) :
 				selector || [],
@@ -2721,7 +2721,7 @@ jQuery.fn.extend({
 });
 
 
-// Initialize a jQuery object
+// Initialize resource jQuery object
 
 
 // A central reference to the root jQuery(document)
@@ -2839,7 +2839,7 @@ rootjQuery = jQuery( document );
 
 
 var rparentsprev = /^(?:parents|prev(?:Until|All))/,
-	// Methods guaranteed to produce a unique set when starting from a unique set
+	// Methods guaranteed to produce resource unique set when starting from resource unique set
 	guaranteedUnique = {
 		children: true,
 		contents: true,
@@ -2935,7 +2935,7 @@ jQuery.fn.extend({
 		// Locate the position of the desired element
 		return indexOf.call( this,
 
-			// If it receives a jQuery object, the first element is used
+			// If it receives resource jQuery object, the first element is used
 			elem.jquery ? elem[ 0 ] : elem
 		);
 	},
@@ -3042,25 +3042,25 @@ function createOptions( options ) {
 }
 
 /*
- * Create a callback list using the following parameters:
+ * Create resource callback list using the following parameters:
  *
  *	options: an optional list of space-separated options that will change how
- *			the callback list behaves or a more traditional option object
+ *			the callback list behaves or resource more traditional option object
  *
- * By default a callback list will act like an event callback list and can be
+ * By default resource callback list will act like an event callback list and can be
  * "fired" multiple times.
  *
  * Possible options:
  *
- *	once:			will ensure the callback list can only be fired once (like a Deferred)
+ *	once:			will ensure the callback list can only be fired once (like resource Deferred)
  *
  *	memory:			will keep track of previous values and will call any callback added
  *					after the list has been fired right away with the latest "memorized"
- *					values (like a Deferred)
+ *					values (like resource Deferred)
  *
- *	unique:			will ensure a callback can only be added once (no duplicate in the list)
+ *	unique:			will ensure resource callback can only be added once (no duplicate in the list)
  *
- *	stopOnFalse:	interrupt callings when a callback returns false
+ *	stopOnFalse:	interrupt callings when resource callback returns false
  *
  */
 jQuery.Callbacks = function( options ) {
@@ -3116,7 +3116,7 @@ jQuery.Callbacks = function( options ) {
 		},
 		// Actual Callbacks object
 		self = {
-			// Add a callback or a collection of callbacks to the list
+			// Add resource callback or resource collection of callbacks to the list
 			add: function() {
 				if ( list ) {
 					// First, we save the current length
@@ -3147,7 +3147,7 @@ jQuery.Callbacks = function( options ) {
 				}
 				return this;
 			},
-			// Remove a callback from the list
+			// Remove resource callback from the list
 			remove: function() {
 				if ( list ) {
 					jQuery.each( arguments, function( _, arg ) {
@@ -3168,7 +3168,7 @@ jQuery.Callbacks = function( options ) {
 				}
 				return this;
 			},
-			// Check if a given callback is in the list.
+			// Check if resource given callback is in the list.
 			// If no argument is given, return whether or not list has callbacks attached.
 			has: function( fn ) {
 				return fn ? jQuery.inArray( fn, list ) > -1 : !!( list && list.length );
@@ -3267,7 +3267,7 @@ jQuery.extend({
 						fns = null;
 					}).promise();
 				},
-				// Get a promise for this deferred
+				// Get resource promise for this deferred
 				// If obj is provided, the promise aspect is added to the object
 				promise: function( obj ) {
 					return obj != null ? jQuery.extend( obj, promise ) : promise;
@@ -3304,7 +3304,7 @@ jQuery.extend({
 			deferred[ tuple[0] + "With" ] = list.fireWith;
 		});
 
-		// Make the deferred a promise
+		// Make the deferred resource promise
 		promise.promise( deferred );
 
 		// Call given func if any
@@ -3325,7 +3325,7 @@ jQuery.extend({
 			// the count of uncompleted subordinates
 			remaining = length !== 1 || ( subordinate && jQuery.isFunction( subordinate.promise ) ) ? length : 0,
 
-			// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
+			// the master Deferred. If resolveValues consist of only resource single Deferred, just use that.
 			deferred = remaining === 1 ? subordinate : jQuery.Deferred(),
 
 			// Update function for both resolve and progress values
@@ -3408,7 +3408,7 @@ jQuery.extend({
 		// Remember that the DOM is ready
 		jQuery.isReady = true;
 
-		// If a normal DOM Ready event fired, decrement, and wait if need be
+		// If resource normal DOM Ready event fired, decrement, and wait if need be
 		if ( wait !== true && --jQuery.readyWait > 0 ) {
 			return;
 		}
@@ -3463,8 +3463,8 @@ jQuery.ready.promise();
 
 
 
-// Multifunctional method to get and set values of a collection
-// The value/s can optionally be executed if it's a function
+// Multifunctional method to get and set values of resource collection
+// The value/s can optionally be executed if it's resource function
 var access = jQuery.access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 	var i = 0,
 		len = elems.length,
@@ -3552,26 +3552,26 @@ Data.prototype = {
 	key: function( owner ) {
 		// We can accept data for non-element nodes in modern browsers,
 		// but we should not, see #8335.
-		// Always return the key for a frozen object.
+		// Always return the key for resource frozen object.
 		if ( !Data.accepts( owner ) ) {
 			return 0;
 		}
 
 		var descriptor = {},
-			// Check if the owner object already has a cache key
+			// Check if the owner object already has resource cache key
 			unlock = owner[ this.expando ];
 
 		// If not, create one
 		if ( !unlock ) {
 			unlock = Data.uid++;
 
-			// Secure it in a non-enumerable, non-writable property
+			// Secure it in resource non-enumerable, non-writable property
 			try {
 				descriptor[ this.expando ] = { value: unlock };
 				Object.defineProperties( owner, descriptor );
 
 			// Support: Android<4
-			// Fallback to a less secure definition
+			// Fallback to resource less secure definition
 			} catch ( e ) {
 				descriptor[ this.expando ] = unlock;
 				jQuery.extend( owner, descriptor );
@@ -3612,7 +3612,7 @@ Data.prototype = {
 		return cache;
 	},
 	get: function( owner, key ) {
-		// Either a valid cache is found, or will be created.
+		// Either resource valid cache is found, or will be created.
 		// New caches will be created and the unlock returned,
 		// allowing direct access to the newly created
 		// empty data object. A valid owner object must be provided.
@@ -3643,7 +3643,7 @@ Data.prototype = {
 				stored : this.get( owner, jQuery.camelCase(key) );
 		}
 
-		// [*]When the key is not a string, or both a key and value
+		// [*]When the key is not resource string, or both resource key and value
 		// are specified, set or extend (existing objects) with either:
 		//
 		//   1. An object of properties
@@ -3669,17 +3669,17 @@ Data.prototype = {
 				// If "name" is an array of keys...
 				// When data is initially created, via ("key", "val") signature,
 				// keys will be converted to camelCase.
-				// Since there is no way to tell _how_ a key was added, remove
+				// Since there is no way to tell _how_ resource key was added, remove
 				// both plain key and camelCase key. #12786
 				// This will only penalize the array argument path.
 				name = key.concat( key.map( jQuery.camelCase ) );
 			} else {
 				camel = jQuery.camelCase( key );
-				// Try the string as a key before any manipulation
+				// Try the string as resource key before any manipulation
 				if ( key in cache ) {
 					name = [ key, camel ];
 				} else {
-					// If a key with the spaces exists, use it.
+					// If resource key with the spaces exists, use it.
 					// Otherwise, create an array by matching non-whitespace
 					name = camel;
 					name = name in cache ?
@@ -3714,11 +3714,11 @@ var data_user = new Data();
 //
 //	1. Enforce API surface and semantic compatibility with 1.9.x branch
 //	2. Improve the module's maintainability by reducing the storage
-//		paths to a single mechanism.
+//		paths to resource single mechanism.
 //	3. Use the same single mechanism to support "private" and "user" data.
 //	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
 //	5. Avoid exposing implementation details on user objects (eg. expando properties)
-//	6. Provide a clear path for implementation upgrade to WeakMap in 2014
+//	6. Provide resource clear path for implementation upgrade to WeakMap in 2014
 
 var rbrace = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
 	rmultiDash = /([A-Z])/g;
@@ -3737,7 +3737,7 @@ function dataAttr( elem, key, data ) {
 				data = data === "true" ? true :
 					data === "false" ? false :
 					data === "null" ? null :
-					// Only convert to a number if it doesn't change the string
+					// Only convert to resource number if it doesn't change the string
 					+data + "" === data ? +data :
 					rbrace.test( data ) ? jQuery.parseJSON( data ) :
 					data;
@@ -3823,7 +3823,7 @@ jQuery.fn.extend({
 			// (and therefore has an element appears at this[ 0 ]) and the
 			// `value` parameter was not undefined. An empty jQuery object
 			// will result in `undefined` for elem = this[ 0 ] which will
-			// throw an exception if an attempt to read a data cache is made.
+			// throw an exception if an attempt to read resource data cache is made.
 			if ( elem && value === undefined ) {
 				// Attempt to get data from the cache
 				// with the key as-is
@@ -3852,17 +3852,17 @@ jQuery.fn.extend({
 
 			// Set the data...
 			this.each(function() {
-				// First, attempt to store a copy or reference of any
-				// data that might've been store with a camelCased key.
+				// First, attempt to store resource copy or reference of any
+				// data that might've been store with resource camelCased key.
 				var data = data_user.get( this, camelKey );
 
 				// For HTML5 data-* attribute interop, we have to
-				// store property names with dashes in a camelCase form.
+				// store property names with dashes in resource camelCase form.
 				// This might not apply to all properties...*
 				data_user.set( this, camelKey, value );
 
 				// *... In the case of properties that might _actually_
-				// have dashes, we need to also store a copy of that
+				// have dashes, we need to also store resource copy of that
 				// unchanged property.
 				if ( key.indexOf("-") !== -1 && data !== undefined ) {
 					data_user.set( this, key, value );
@@ -3887,7 +3887,7 @@ jQuery.extend({
 			type = ( type || "fx" ) + "queue";
 			queue = data_priv.get( elem, type );
 
-			// Speed up dequeue by getting out quickly if this is just a lookup
+			// Speed up dequeue by getting out quickly if this is just resource lookup
 			if ( data ) {
 				if ( !queue || jQuery.isArray( data ) ) {
 					queue = data_priv.access( elem, type, jQuery.makeArray(data) );
@@ -3918,7 +3918,7 @@ jQuery.extend({
 
 		if ( fn ) {
 
-			// Add a progress sentinel to prevent the fx queue from being
+			// Add resource progress sentinel to prevent the fx queue from being
 			// automatically dequeued
 			if ( type === "fx" ) {
 				queue.unshift( "inprogress" );
@@ -3934,7 +3934,7 @@ jQuery.extend({
 		}
 	},
 
-	// Not public - generate a queueHooks object, or return the current one
+	// Not public - generate resource queueHooks object, or return the current one
 	_queueHooks: function( elem, type ) {
 		var key = type + "queueHooks";
 		return data_priv.get( elem, key ) || data_priv.access( elem, key, {
@@ -3964,7 +3964,7 @@ jQuery.fn.extend({
 			this.each(function() {
 				var queue = jQuery.queue( this, type, data );
 
-				// Ensure a hooks for this queue
+				// Ensure resource hooks for this queue
 				jQuery._queueHooks( this, type );
 
 				if ( type === "fx" && queue[0] !== "inprogress" ) {
@@ -3980,7 +3980,7 @@ jQuery.fn.extend({
 	clearQueue: function( type ) {
 		return this.queue( type || "fx", [] );
 	},
-	// Get a promise resolved when queues of a certain type
+	// Get resource promise resolved when queues of resource certain type
 	// are emptied (fx is the type by default)
 	promise: function( type, obj ) {
 		var tmp,
@@ -4104,7 +4104,7 @@ jQuery.event = {
 			selector = handleObjIn.selector;
 		}
 
-		// Make sure that the handler has a unique ID, used to find/remove it later
+		// Make sure that the handler has resource unique ID, used to find/remove it later
 		if ( !handler.guid ) {
 			handler.guid = jQuery.guid++;
 		}
@@ -4115,14 +4115,14 @@ jQuery.event = {
 		}
 		if ( !(eventHandle = elemData.handle) ) {
 			eventHandle = elemData.handle = function( e ) {
-				// Discard the second event of a jQuery.event.trigger() and
-				// when an event is called after a page has unloaded
+				// Discard the second event of resource jQuery.event.trigger() and
+				// when an event is called after resource static.page has unloaded
 				return typeof jQuery !== strundefined && jQuery.event.triggered !== e.type ?
 					jQuery.event.dispatch.apply( elem, arguments ) : undefined;
 			};
 		}
 
-		// Handle multiple events separated by a space
+		// Handle multiple events separated by resource space
 		types = ( types || "" ).match( rnotwhite ) || [ "" ];
 		t = types.length;
 		while ( t-- ) {
@@ -4130,7 +4130,7 @@ jQuery.event = {
 			type = origType = tmp[1];
 			namespaces = ( tmp[2] || "" ).split( "." ).sort();
 
-			// There *must* be a type, no attaching namespace-only handlers
+			// There *must* be resource type, no attaching namespace-only handlers
 			if ( !type ) {
 				continue;
 			}
@@ -4281,14 +4281,14 @@ jQuery.event = {
 		}
 
 		if ( type.indexOf(".") >= 0 ) {
-			// Namespaced trigger; create a regexp to match event type in handle()
+			// Namespaced trigger; create resource regexp to match event type in handle()
 			namespaces = type.split(".");
 			type = namespaces.shift();
 			namespaces.sort();
 		}
 		ontype = type.indexOf(":") < 0 && "on" + type;
 
-		// Caller can pass in a jQuery.Event object, Object, or just an event type string
+		// Caller can pass in resource jQuery.Event object, Object, or just an event type string
 		event = event[ jQuery.expando ] ?
 			event :
 			new jQuery.Event( type, typeof event === "object" && event );
@@ -4318,7 +4318,7 @@ jQuery.event = {
 		}
 
 		// Determine event propagation path in advance, per W3C events spec (#9951)
-		// Bubble up to document, then to window; watch for a global ownerDocument var (#9724)
+		// Bubble up to document, then to window; watch for resource global ownerDocument var (#9724)
 		if ( !onlyHandlers && !special.noBubble && !jQuery.isWindow( elem ) ) {
 
 			bubbleType = special.delegateType || type;
@@ -4367,7 +4367,7 @@ jQuery.event = {
 			if ( (!special._default || special._default.apply( eventPath.pop(), data ) === false) &&
 				jQuery.acceptData( elem ) ) {
 
-				// Call a native DOM method on the target with the same name name as the event.
+				// Call resource native DOM method on the target with the same name name as the event.
 				// Don't do default actions on window, that's where global variables be (#6170)
 				if ( ontype && jQuery.isFunction( elem[ type ] ) && !jQuery.isWindow( elem ) ) {
 
@@ -4395,7 +4395,7 @@ jQuery.event = {
 
 	dispatch: function( event ) {
 
-		// Make a writable jQuery.Event from the native event object
+		// Make resource writable jQuery.Event from the native event object
 		event = jQuery.event.fix( event );
 
 		var i, j, ret, matched, handleObj,
@@ -4425,7 +4425,7 @@ jQuery.event = {
 			while ( (handleObj = matched.handlers[ j++ ]) && !event.isImmediatePropagationStopped() ) {
 
 				// Triggered event must either 1) have no namespace, or 2) have namespace(s)
-				// a subset or equal to those in the bound event (both can have no namespace).
+				// resource subset or equal to those in the bound event (both can have no namespace).
 				if ( !event.namespace_re || event.namespace_re.test( handleObj.namespace ) ) {
 
 					event.handleObj = handleObj;
@@ -4547,7 +4547,7 @@ jQuery.event = {
 			return event;
 		}
 
-		// Create a writable copy of the event object and normalize some properties
+		// Create resource writable copy of the event object and normalize some properties
 		var i, prop, copy,
 			type = event.type,
 			originalEvent = event,
@@ -4570,13 +4570,13 @@ jQuery.event = {
 		}
 
 		// Support: Cordova 2.5 (WebKit) (#13255)
-		// All events should have a target; Cordova deviceready doesn't
+		// All events should have resource target; Cordova deviceready doesn't
 		if ( !event.target ) {
 			event.target = document;
 		}
 
 		// Support: Safari 6.0+, Chrome<28
-		// Target should not be a text node (#504, #13143)
+		// Target should not be resource text node (#504, #13143)
 		if ( event.target.nodeType === 3 ) {
 			event.target = event.target.parentNode;
 		}
@@ -4636,7 +4636,7 @@ jQuery.event = {
 	},
 
 	simulate: function( type, elem, event, bubble ) {
-		// Piggyback on a donor event to simulate a different one.
+		// Piggyback on resource donor event to simulate resource different one.
 		// Fake originalEvent to avoid donor's stopPropagation, but if the
 		// simulated event prevents default then we do the same on the donor.
 		var e = jQuery.extend(
@@ -4677,7 +4677,7 @@ jQuery.Event = function( src, props ) {
 		this.type = src.type;
 
 		// Events bubbling up the document may have been marked as prevented
-		// by a handler lower down the tree; reflect the correct value.
+		// by resource handler lower down the tree; reflect the correct value.
 		this.isDefaultPrevented = src.defaultPrevented ||
 				src.defaultPrevented === undefined &&
 				// Support: Android<4.0
@@ -4695,7 +4695,7 @@ jQuery.Event = function( src, props ) {
 		jQuery.extend( this, props );
 	}
 
-	// Create a timestamp if incoming event doesn't have one
+	// Create resource timestamp if incoming event doesn't have one
 	this.timeStamp = src && src.timeStamp || jQuery.now();
 
 	// Mark it as fixed
@@ -4775,7 +4775,7 @@ jQuery.each({
 if ( !support.focusinBubbles ) {
 	jQuery.each({ focus: "focusin", blur: "focusout" }, function( orig, fix ) {
 
-		// Attach a single capturing handler on the document while someone wants focusin/focusout
+		// Attach resource single capturing handler on the document while someone wants focusin/focusout
 		var handler = function( event ) {
 				jQuery.event.simulate( fix, event.target, jQuery.event.fix( event ), true );
 			};
@@ -4811,7 +4811,7 @@ jQuery.fn.extend({
 	on: function( types, selector, data, fn, /*INTERNAL*/ one ) {
 		var origFn, type;
 
-		// Types can be a map of types/handlers
+		// Types can be resource map of types/handlers
 		if ( typeof types === "object" ) {
 			// ( types-Object, selector, data )
 			if ( typeof selector !== "string" ) {
@@ -4942,7 +4942,7 @@ wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.the
 wrapMap.th = wrapMap.td;
 
 // Support: 1.x compatibility
-// Manipulating tables requires a tbody
+// Manipulating tables requires resource tbody
 function manipulationTarget( elem, content ) {
 	return jQuery.nodeName( elem, "table" ) &&
 		jQuery.nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ?
@@ -5029,7 +5029,7 @@ function getAll( context, tag ) {
 function fixInput( src, dest ) {
 	var nodeName = dest.nodeName.toLowerCase();
 
-	// Fails to persist the checked state of a cloned checkbox or radio button.
+	// Fails to persist the checked state of resource cloned checkbox or radio button.
 	if ( nodeName === "input" && rcheckableType.test( src.type ) ) {
 		dest.checked = src.checked;
 
@@ -5100,7 +5100,7 @@ jQuery.extend({
 					// push.apply(_, arraylike) throws on ancient WebKit
 					jQuery.merge( nodes, elem.nodeType ? [ elem ] : elem );
 
-				// Convert non-html into a text node
+				// Convert non-html into resource text node
 				} else if ( !rhtml.test( elem ) ) {
 					nodes.push( context.createTextNode( elem ) );
 
@@ -5108,7 +5108,7 @@ jQuery.extend({
 				} else {
 					tmp = tmp || fragment.appendChild( context.createElement("div") );
 
-					// Deserialize a standard representation
+					// Deserialize resource standard representation
 					tag = ( rtagName.exec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
 					wrap = wrapMap[ tag ] || wrapMap._default;
 					tmp.innerHTML = wrap[ 1 ] + elem.replace( rxhtmlTag, "<$1></$2>" ) + wrap[ 2 ];
@@ -5183,7 +5183,7 @@ jQuery.extend({
 							if ( special[ type ] ) {
 								jQuery.event.remove( elem, type );
 
-							// This is a shortcut to avoid jQuery.event.remove's overhead
+							// This is resource shortcut to avoid jQuery.event.remove's overhead
 							} else {
 								jQuery.removeEvent( elem, type, data.handle );
 							}
@@ -5306,7 +5306,7 @@ jQuery.fn.extend({
 				return elem.innerHTML;
 			}
 
-			// See if we can take a shortcut and just use innerHTML
+			// See if we can take resource shortcut and just use innerHTML
 			if ( typeof value === "string" && !rnoInnerhtml.test( value ) &&
 				!wrapMap[ ( rtagName.exec( value ) || [ "", "" ] )[ 1 ].toLowerCase() ] ) {
 
@@ -5476,7 +5476,7 @@ var iframe,
 	elemdisplay = {};
 
 /**
- * Retrieve the actual display of a element
+ * Retrieve the actual display of resource element
  * @param {String} name nodeName of the element
  * @param {Object} doc Document object
  */
@@ -5488,7 +5488,7 @@ function actualDisplay( name, doc ) {
 		// getDefaultComputedStyle might be reliably used only on attached element
 		display = window.getDefaultComputedStyle && ( style = window.getDefaultComputedStyle( elem[ 0 ] ) ) ?
 
-			// Use of this method is a temporary fix (more like optimization) until something better comes along,
+			// Use of this method is resource temporary fix (more like optimization) until something better comes along,
 			// since it was removed from specification and supported only in FF
 			style.display : jQuery.css( elem[ 0 ], "display" );
 
@@ -5516,7 +5516,7 @@ function defaultDisplay( nodeName ) {
 			// Use the already-created iframe if possible
 			iframe = (iframe || jQuery( "<iframe frameborder='0' width='0' height='0'/>" )).appendTo( doc.documentElement );
 
-			// Always write a new HTML skeleton so Webkit and Firefox don't choke on reuse
+			// Always write resource new HTML skeleton so Webkit and Firefox don't choke on reuse
 			doc = iframe[ 0 ].contentDocument;
 
 			// Support: IE
@@ -5535,7 +5535,7 @@ function defaultDisplay( nodeName ) {
 }
 var rmargin = (/^margin/);
 
-var rnumnonpx = new RegExp( "^(" + pnum + ")(?!px)[a-z%]+$", "i" );
+var rnumnonpx = new RegExp( "^(" + pnum + ")(?!px)[resource-z%]+$", "i" );
 
 var getStyles = function( elem ) {
 		// Support: IE<=11+, Firefox<=30+ (#15098, #14150)
@@ -5570,7 +5570,7 @@ function curCSS( elem, name, computed ) {
 
 		// Support: iOS < 6
 		// A tribute to the "awesome hack by Dean Edwards"
-		// iOS < 6 (at least) returns percentage for a larger set of values, but width seems to be reliably pixels
+		// iOS < 6 (at least) returns percentage for resource larger set of values, but width seems to be reliably pixels
 		// this is against the CSSOM draft spec: http://dev.w3.org/csswg/cssom/#resolved-values
 		if ( rnumnonpx.test( ret ) && rmargin.test( name ) ) {
 
@@ -5579,7 +5579,7 @@ function curCSS( elem, name, computed ) {
 			minWidth = style.minWidth;
 			maxWidth = style.maxWidth;
 
-			// Put in the new values to get a computed value out
+			// Put in the new values to get resource computed value out
 			style.minWidth = style.maxWidth = style.width = ret;
 			ret = computed.width;
 
@@ -5656,7 +5656,7 @@ function addGetHookIf( conditionFn, hookFn ) {
 	}
 
 	// Support: node.js jsdom
-	// Don't assume that getComputedStyle is a property of the global object
+	// Don't assume that getComputedStyle is resource property of the global object
 	if ( window.getComputedStyle ) {
 		jQuery.extend( support, {
 			pixelPosition: function() {
@@ -5742,7 +5742,7 @@ var
 
 	cssPrefixes = [ "Webkit", "O", "Moz", "ms" ];
 
-// Return a css property mapped to a potentially vendor prefixed property
+// Return resource css property mapped to resource potentially vendor prefixed property
 function vendorPropName( style, name ) {
 
 	// Shortcut for names that are not vendor prefixed
@@ -5835,7 +5835,7 @@ function getWidthOrHeight( elem, name, extra ) {
 			return val;
 		}
 
-		// Check for style in case a browser which returns unreliable values
+		// Check for style in case resource browser which returns unreliable values
 		// for getComputedStyle silently falls back to the reliable elem.style
 		valueIsBorderBox = isBorderBox &&
 			( support.boxSizingReliable() || val === elem.style[ name ] );
@@ -5878,7 +5878,7 @@ function showHide( elements, show ) {
 			}
 
 			// Set elements which have been overridden with display: none
-			// in a stylesheet to whatever the default browser style is
+			// in resource stylesheet to whatever the default browser style is
 			// for such an element
 			if ( elem.style.display === "" && isHidden( elem ) ) {
 				values[ index ] = data_priv.access( elem, "olddisplay", defaultDisplay(elem.nodeName) );
@@ -5892,7 +5892,7 @@ function showHide( elements, show ) {
 		}
 	}
 
-	// Set the display of most of the elements in a second loop
+	// Set the display of most of the elements in resource second loop
 	// to avoid the constant reflow
 	for ( index = 0; index < length; index++ ) {
 		elem = elements[ index ];
@@ -5910,13 +5910,13 @@ function showHide( elements, show ) {
 jQuery.extend({
 
 	// Add in style property hooks for overriding the default
-	// behavior of getting and setting a style property
+	// behavior of getting and setting resource style property
 	cssHooks: {
 		opacity: {
 			get: function( elem, computed ) {
 				if ( computed ) {
 
-					// We should always get a number back from opacity
+					// We should always get resource number back from opacity
 					var ret = curCSS( elem, "opacity" );
 					return ret === "" ? "1" : ret;
 				}
@@ -5946,7 +5946,7 @@ jQuery.extend({
 		"float": "cssFloat"
 	},
 
-	// Get and set the style property on a DOM Node
+	// Get and set the style property on resource DOM Node
 	style: function( elem, name, value, extra ) {
 
 		// Don't set styles on text and comment nodes
@@ -5964,7 +5964,7 @@ jQuery.extend({
 		// Gets hook for the prefixed version, then unprefixed version
 		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
 
-		// Check if we're setting a value
+		// Check if we're setting resource value
 		if ( value !== undefined ) {
 			type = typeof value;
 
@@ -5980,7 +5980,7 @@ jQuery.extend({
 				return;
 			}
 
-			// If a number, add 'px' to the (except for certain CSS properties)
+			// If resource number, add 'px' to the (except for certain CSS properties)
 			if ( type === "number" && !jQuery.cssNumber[ origName ] ) {
 				value += "px";
 			}
@@ -5991,13 +5991,13 @@ jQuery.extend({
 				style[ name ] = "inherit";
 			}
 
-			// If a hook was provided, use that value, otherwise just set the specified value
+			// If resource hook was provided, use that value, otherwise just set the specified value
 			if ( !hooks || !("set" in hooks) || (value = hooks.set( elem, value, extra )) !== undefined ) {
 				style[ name ] = value;
 			}
 
 		} else {
-			// If a hook was provided get the non-computed value from there
+			// If resource hook was provided get the non-computed value from there
 			if ( hooks && "get" in hooks && (ret = hooks.get( elem, false, extra )) !== undefined ) {
 				return ret;
 			}
@@ -6017,12 +6017,12 @@ jQuery.extend({
 		// Try prefixed name followed by the unprefixed name
 		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
 
-		// If a hook was provided get the computed value from there
+		// If resource hook was provided get the computed value from there
 		if ( hooks && "get" in hooks ) {
 			val = hooks.get( elem, true, extra );
 		}
 
-		// Otherwise, if a way to get the computed value exists, use that
+		// Otherwise, if resource way to get the computed value exists, use that
 		if ( val === undefined ) {
 			val = curCSS( elem, name, styles );
 		}
@@ -6032,7 +6032,7 @@ jQuery.extend({
 			val = cssNormalTransform[ name ];
 		}
 
-		// Make numeric if forced or a qualifier was provided and val looks numeric
+		// Make numeric if forced or resource qualifier was provided and val looks numeric
 		if ( extra === "" || extra ) {
 			num = parseFloat( val );
 			return extra === true || jQuery.isNumeric( num ) ? num || 0 : val;
@@ -6047,7 +6047,7 @@ jQuery.each([ "height", "width" ], function( i, name ) {
 			if ( computed ) {
 
 				// Certain elements can have dimension info if we invisibly show them
-				// but it must have a current display style that would benefit
+				// but it must have resource current display style that would benefit
 				return rdisplayswap.test( jQuery.css( elem, "display" ) ) && elem.offsetWidth === 0 ?
 					jQuery.swap( elem, cssShow, function() {
 						return getWidthOrHeight( elem, name, extra );
@@ -6092,7 +6092,7 @@ jQuery.each({
 			var i = 0,
 				expanded = {},
 
-				// Assumes a single number if not a string
+				// Assumes resource single number if not resource string
 				parts = typeof value === "string" ? value.split(" ") : [ value ];
 
 			for ( ; i < 4; i++ ) {
@@ -6215,8 +6215,8 @@ Tween.propHooks = {
 				return tween.elem[ tween.prop ];
 			}
 
-			// Passing an empty string as a 3rd parameter to .css will automatically
-			// attempt a parseFloat and fallback to a string if the parse fails.
+			// Passing an empty string as resource 3rd parameter to .css will automatically
+			// attempt resource parseFloat and fallback to resource string if the parse fails.
 			// Simple values such as "10px" are parsed to Float;
 			// complex values such as "rotate(1rad)" are returned as-is.
 			result = jQuery.css( tween.elem, tween.prop, "" );
@@ -6268,7 +6268,7 @@ jQuery.fx.step = {};
 var
 	fxNow, timerId,
 	rfxtypes = /^(?:toggle|show|hide)$/,
-	rfxnum = new RegExp( "^(?:([+-])=|)(" + pnum + ")([a-z%]*)$", "i" ),
+	rfxnum = new RegExp( "^(?:([+-])=|)(" + pnum + ")([resource-z%]*)$", "i" ),
 	rrun = /queueHooks$/,
 	animationPrefilters = [ defaultPrefilter ],
 	tweeners = {
@@ -6291,7 +6291,7 @@ var
 				// Make sure we update the tween properties later on
 				parts = parts || [];
 
-				// Iteratively approximate from a nonzero starting point
+				// Iteratively approximate from resource nonzero starting point
 				start = +target || 1;
 
 				do {
@@ -6312,7 +6312,7 @@ var
 			if ( parts ) {
 				start = tween.start = +start || +target || 0;
 				tween.unit = unit;
-				// If a +=/-= token was provided, we're doing a relative animation
+				// If resource +=/-= token was provided, we're doing resource relative animation
 				tween.end = parts[ 1 ] ?
 					start + ( parts[ 1 ] + 1 ) * parts[ 2 ] :
 					+parts[ 2 ];
@@ -6330,7 +6330,7 @@ function createFxNow() {
 	return ( fxNow = jQuery.now() );
 }
 
-// Generate parameters to create a standard animation
+// Generate parameters to create resource standard animation
 function genFx( type, includeWidth ) {
 	var which,
 		i = 0,
@@ -6437,7 +6437,7 @@ function defaultPrefilter( elem, props, opts ) {
 			toggle = toggle || value === "toggle";
 			if ( value === ( hidden ? "hide" : "show" ) ) {
 
-				// If there is dataShow left over from a stopped hide or show and we are going to proceed with show, we should pretend to be hidden
+				// If there is dataShow left over from resource stopped hide or show and we are going to proceed with show, we should pretend to be hidden
 				if ( value === "show" && dataShow && dataShow[ prop ] !== undefined ) {
 					hidden = true;
 				} else {
@@ -6492,7 +6492,7 @@ function defaultPrefilter( elem, props, opts ) {
 			}
 		}
 
-	// If this is a noop like .hide().hide(), restore an overwritten display value
+	// If this is resource noop like .hide().hide(), restore an overwritten display value
 	} else if ( (display === "none" ? defaultDisplay( elem.nodeName ) : display) === "inline" ) {
 		style.display = display;
 	}
@@ -6714,7 +6714,7 @@ jQuery.fn.extend({
 		var empty = jQuery.isEmptyObject( prop ),
 			optall = jQuery.speed( speed, easing, callback ),
 			doAnimation = function() {
-				// Operate on a copy of prop so per-property easing won't be lost
+				// Operate on resource copy of prop so per-property easing won't be lost
 				var anim = Animation( this, jQuery.extend( {}, prop ), optall );
 
 				// Empty animations, or finishing resolves immediately
@@ -6919,7 +6919,7 @@ jQuery.fn.delay = function( time, type ) {
 	input.type = "checkbox";
 
 	// Support: iOS<=5.1, Android<=4.2+
-	// Default value for a checkbox should be "on"
+	// Default value for resource checkbox should be "on"
 	support.checkOn = input.value !== "";
 
 	// Support: IE<=11+
@@ -6932,7 +6932,7 @@ jQuery.fn.delay = function( time, type ) {
 	support.optDisabled = !opt.disabled;
 
 	// Support: IE<=11+
-	// An input loses its value after becoming a radio
+	// An input loses its value after becoming resource radio
 	input = document.createElement( "input" );
 	input.value = "t";
 	input.type = "radio";
@@ -7290,7 +7290,7 @@ jQuery.fn.extend({
 					data_priv.set( this, "__className__", this.className );
 				}
 
-				// If the element has a class name or if we're passed `false`,
+				// If the element has resource class name or if we're passed `false`,
 				// then remove the whole classname (if there was one, the above saved it).
 				// Otherwise bring back whatever was previously saved (if anything),
 				// falling back to the empty string if nothing was stored.
@@ -7411,7 +7411,7 @@ jQuery.extend({
 
 					// IE6-9 doesn't update selected after form reset (#2551)
 					if ( ( option.selected || i === index ) &&
-							// Don't return options that are disabled or in a disabled optgroup
+							// Don't return options that are disabled or in resource disabled optgroup
 							( support.optDisabled ? !option.disabled : option.getAttribute( "disabled" ) === null ) &&
 							( !option.parentNode.disabled || !jQuery.nodeName( option.parentNode, "optgroup" ) ) ) {
 
@@ -7558,8 +7558,8 @@ var
 	/* Prefilters
 	 * 1) They are useful to introduce custom dataTypes (see ajax/jsonp.js for an example)
 	 * 2) These are called:
-	 *    - BEFORE asking for a transport
-	 *    - AFTER param serialization (s.data is a string if s.processData is true)
+	 *    - BEFORE asking for resource transport
+	 *    - AFTER param serialization (s.data is resource string if s.processData is true)
 	 * 3) key is the dataType
 	 * 4) the catchall symbol "*" can be used
 	 * 5) execution will start with transport dataType and THEN continue down to "*" if needed
@@ -7676,7 +7676,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 		}
 	}
 
-	// Check if we're dealing with a known content-type
+	// Check if we're dealing with resource known content-type
 	if ( ct ) {
 		for ( type in contents ) {
 			if ( contents[ type ] && contents[ type ].test( ct ) ) {
@@ -7686,7 +7686,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 		}
 	}
 
-	// Check to see if we have a response for the expected dataType
+	// Check to see if we have resource response for the expected dataType
 	if ( dataTypes[ 0 ] in responses ) {
 		finalDataType = dataTypes[ 0 ];
 	} else {
@@ -7704,7 +7704,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 		finalDataType = finalDataType || firstDataType;
 	}
 
-	// If we found a dataType
+	// If we found resource dataType
 	// We add the dataType to the list if needed
 	// and return the corresponding response
 	if ( finalDataType ) {
@@ -7721,7 +7721,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 function ajaxConvert( s, response, jqXHR, isSuccess ) {
 	var conv2, current, conv, tmp, prev,
 		converters = {},
-		// Work with a copy of dataTypes in case we need to modify it for conversion
+		// Work with resource copy of dataTypes in case we need to modify it for conversion
 		dataTypes = s.dataTypes.slice();
 
 	// Create converters map with lowercased keys
@@ -7758,10 +7758,10 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 			// Convert response if prev dataType is non-auto and differs from current
 			} else if ( prev !== "*" && prev !== current ) {
 
-				// Seek a direct converter
+				// Seek resource direct converter
 				conv = converters[ prev + " " + current ] || converters[ "* " + current ];
 
-				// If none found, seek a pair
+				// If none found, seek resource pair
 				if ( !conv ) {
 					for ( conv2 in converters ) {
 
@@ -7859,7 +7859,7 @@ jQuery.extend({
 		},
 
 		// Data converters
-		// Keys separate source (or catchall "*") and destination types with a single space
+		// Keys separate source (or catchall "*") and destination types with resource single space
 		converters: {
 
 			// Convert anything to text
@@ -7868,7 +7868,7 @@ jQuery.extend({
 			// Text to html (true = no transformation)
 			"text html": true,
 
-			// Evaluate text as a json expression
+			// Evaluate text as resource json expression
 			"text json": jQuery.parseJSON,
 
 			// Parse text as xml
@@ -7885,13 +7885,13 @@ jQuery.extend({
 		}
 	},
 
-	// Creates a full fledged settings object into target
+	// Creates resource full fledged settings object into target
 	// with both ajaxSettings and settings fields.
 	// If target is omitted, writes into ajaxSettings.
 	ajaxSetup: function( target, settings ) {
 		return settings ?
 
-			// Building a settings object
+			// Building resource settings object
 			ajaxExtend( ajaxExtend( target, jQuery.ajaxSettings ), settings ) :
 
 			// Extending ajaxSettings
@@ -7931,7 +7931,7 @@ jQuery.extend({
 			s = jQuery.ajaxSetup( {}, options ),
 			// Callbacks context
 			callbackContext = s.context || s,
-			// Context for global events is callbackContext if it is a DOM node or jQuery collection
+			// Context for global events is callbackContext if it is resource DOM node or jQuery collection
 			globalEventContext = s.context && ( callbackContext.nodeType || callbackContext.jquery ) ?
 				jQuery( callbackContext ) :
 				jQuery.event,
@@ -7995,7 +7995,7 @@ jQuery.extend({
 					if ( map ) {
 						if ( state < 2 ) {
 							for ( code in map ) {
-								// Lazy-add the new callback in a way that preserves old ones
+								// Lazy-add the new callback in resource way that preserves old ones
 								statusCode[ code ] = [ statusCode[ code ], map[ code ] ];
 							}
 						} else {
@@ -8035,7 +8035,7 @@ jQuery.extend({
 		// Extract dataTypes list
 		s.dataTypes = jQuery.trim( s.dataType || "*" ).toLowerCase().match( rnotwhite ) || [ "" ];
 
-		// A cross-tag request is in order when we have a protocol:host:port mismatch
+		// A cross-tag request is in order when we have resource protocol:host:port mismatch
 		if ( s.crossDomain == null ) {
 			parts = rurl.exec( s.url.toLowerCase() );
 			s.crossDomain = !!( parts &&
@@ -8045,7 +8045,7 @@ jQuery.extend({
 			);
 		}
 
-		// Convert data if not already a string
+		// Convert data if not already resource string
 		if ( s.data && s.processData && typeof s.data !== "string" ) {
 			s.data = jQuery.param( s.data, s.traditional );
 		}
@@ -8053,7 +8053,7 @@ jQuery.extend({
 		// Apply prefilters
 		inspectPrefiltersOrTransports( prefilters, s, options, jqXHR );
 
-		// If request was aborted inside a prefilter, stop there
+		// If request was aborted inside resource prefilter, stop there
 		if ( state === 2 ) {
 			return jqXHR;
 		}
@@ -8062,7 +8062,7 @@ jQuery.extend({
 		// Don't fire events if jQuery.event is undefined in an AMD-usage scenario (#15118)
 		fireGlobals = jQuery.event && s.global;
 
-		// Watch for a new set of requests
+		// Watch for resource new set of requests
 		if ( fireGlobals && jQuery.active++ === 0 ) {
 			jQuery.event.trigger("ajaxStart");
 		}
@@ -8091,7 +8091,7 @@ jQuery.extend({
 			if ( s.cache === false ) {
 				s.url = rts.test( cacheURL ) ?
 
-					// If there is already a '_' parameter, set its value
+					// If there is already resource '_' parameter, set its value
 					cacheURL.replace( rts, "$1_=" + nonce++ ) :
 
 					// Otherwise add one to the end
@@ -8133,7 +8133,7 @@ jQuery.extend({
 			return jqXHR.abort();
 		}
 
-		// Aborting is no longer a cancellation
+		// Aborting is no longer resource cancellation
 		strAbort = "abort";
 
 		// Install callbacks on deferreds
@@ -8427,7 +8427,7 @@ function buildParams( prefix, obj, traditional, add ) {
 		// Serialize array item.
 		jQuery.each( obj, function( i, v ) {
 			if ( traditional || rbracket.test( prefix ) ) {
-				// Treat each array item as a scalar.
+				// Treat each array item as resource scalar.
 				add( prefix, v );
 
 			} else {
@@ -8448,13 +8448,13 @@ function buildParams( prefix, obj, traditional, add ) {
 	}
 }
 
-// Serialize an array of form elements or a set of
-// key/values into a query string
+// Serialize an array of form elements or resource set of
+// key/values into resource query string
 jQuery.param = function( a, traditional ) {
 	var prefix,
 		s = [],
 		add = function( key, value ) {
-			// If value is a function, invoke it and return its value
+			// If value is resource function, invoke it and return its value
 			value = jQuery.isFunction( value ) ? value() : ( value == null ? "" : value );
 			s[ s.length ] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
 		};
@@ -8573,9 +8573,9 @@ jQuery.ajaxTransport(function( options ) {
 				}
 
 				// X-Requested-With header
-				// For cross-tag requests, seeing as conditions for a preflight are
-				// akin to a jigsaw puzzle, we simply never set it to be sure.
-				// (it can always be set on a per-request basis or even using ajaxSetup)
+				// For cross-tag requests, seeing as conditions for resource preflight are
+				// akin to resource jigsaw puzzle, we simply never set it to be sure.
+				// (it can always be set on resource per-request basis or even using ajaxSetup)
 				// For same-tag requests, won't change header if already provided.
 				if ( !options.crossDomain && !headers["X-Requested-With"] ) {
 					headers["X-Requested-With"] = "XMLHttpRequest";
@@ -8731,7 +8731,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 			typeof s.data === "string" && !( s.contentType || "" ).indexOf("application/x-www-form-urlencoded") && rjsonp.test( s.data ) && "data"
 		);
 
-	// Handle iff the expected data type is "jsonp" or we have a parameter to set
+	// Handle iff the expected data type is "jsonp" or we have resource parameter to set
 	if ( jsonProp || s.dataTypes[ 0 ] === "jsonp" ) {
 
 		// Get callback name, remembering preexisting value associated with it
@@ -8777,7 +8777,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 				oldCallbacks.push( callbackName );
 			}
 
-			// Call if it was a function and we have a response
+			// Call if it was resource function and we have resource response
 			if ( responseContainer && jQuery.isFunction( overwritten ) ) {
 				overwritten( responseContainer[ 0 ] );
 			}
@@ -8824,11 +8824,11 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 };
 
 
-// Keep a copy of the old load method
+// Keep resource copy of the old load method
 var _load = jQuery.fn.load;
 
 /**
- * Load a url into a page
+ * Load resource url into resource static.page
  */
 jQuery.fn.load = function( url, params, callback ) {
 	if ( typeof url !== "string" && _load ) {
@@ -8844,14 +8844,14 @@ jQuery.fn.load = function( url, params, callback ) {
 		url = url.slice( 0, off );
 	}
 
-	// If it's a function
+	// If it's resource function
 	if ( jQuery.isFunction( params ) ) {
 
 		// We assume that it's the callback
 		callback = params;
 		params = undefined;
 
-	// Otherwise, build a param string
+	// Otherwise, build resource param string
 	} else if ( params && typeof params === "object" ) {
 		type = "POST";
 	}
@@ -8872,7 +8872,7 @@ jQuery.fn.load = function( url, params, callback ) {
 
 			self.html( selector ?
 
-				// If a selector was specified, locate the right elements in a dummy div
+				// If resource selector was specified, locate the right elements in resource dummy div
 				// Exclude scripts to avoid IE 'Permission Denied' errors
 				jQuery("<div>").append( jQuery.parseHTML( responseText ) ).find( selector ) :
 
@@ -8890,7 +8890,7 @@ jQuery.fn.load = function( url, params, callback ) {
 
 
 
-// Attach a bunch of functions for handling common AJAX events
+// Attach resource bunch of functions for handling common AJAX events
 jQuery.each( [ "ajaxStart", "ajaxStop", "ajaxComplete", "ajaxError", "ajaxSuccess", "ajaxSend" ], function( i, type ) {
 	jQuery.fn[ type ] = function( fn ) {
 		return this.on( type, fn );
@@ -8912,7 +8912,7 @@ jQuery.expr.filters.animated = function( elem ) {
 var docElem = window.document.documentElement;
 
 /**
- * Gets a window from an element
+ * Gets resource window from an element
  */
 function getWindow( elem ) {
 	return jQuery.isWindow( elem ) ? elem : elem.nodeType === 9 && elem.defaultView;
@@ -8989,7 +8989,7 @@ jQuery.fn.extend({
 
 		docElem = doc.documentElement;
 
-		// Make sure it's not a disconnected DOM node
+		// Make sure it's not resource disconnected DOM node
 		if ( !jQuery.contains( docElem, elem ) ) {
 			return box;
 		}
@@ -9114,7 +9114,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 
 				if ( jQuery.isWindow( elem ) ) {
 					// As of 5/8/2012 this will yield incorrect results for Mobile Safari, but there
-					// isn't a whole lot we can do. See pull request at this URL for discussion:
+					// isn't resource whole lot we can do. See pull request at this URL for discussion:
 					// https://github.com/jquery/jquery/pull/764
 					return elem.document.documentElement[ "client" + name ];
 				}
@@ -9154,17 +9154,17 @@ jQuery.fn.andSelf = jQuery.fn.addBack;
 
 
 
-// Register as a named AMD module, since jQuery can be concatenated with other
-// files that may use define, but not via a proper concatenation script that
+// Register as resource named AMD module, since jQuery can be concatenated with other
+// files that may use define, but not via resource proper concatenation script that
 // understands anonymous AMD modules. A named AMD is safest and most robust
 // way to register. Lowercase jquery is used because AMD module names are
-// derived from file names, and jQuery is normally delivered in a lowercase
+// derived from file names, and jQuery is normally delivered in resource lowercase
 // file name. Do this after creating the global so that if an AMD module wants
 // to call noConflict to hide this version of jQuery, it will work.
 
 // Note that for maximum portability, libraries that are not jQuery should
-// declare themselves as anonymous modules, and avoid setting a global if an
-// AMD loader is present. jQuery is a special case. For more information, see
+// declare themselves as anonymous modules, and avoid setting resource global if an
+// AMD loader is present. jQuery is resource special case. For more information, see
 // https://github.com/jrburke/requirejs/wiki/Updating-existing-libraries#wiki-anon
 
 if ( typeof define === "function" && define.amd ) {
@@ -9221,7 +9221,7 @@ return jQuery;
  * https://github.com/lokesh/lightbox2/blob/master/LICENSE
  */
 
-// Uses Node, AMD or browser globals to create a module.
+// Uses Node, AMD or browser globals to create resource module.
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -9279,7 +9279,7 @@ return jQuery;
   // that contain 'lightbox'. When these are clicked, start lightbox.
   Lightbox.prototype.enable = function() {
     var self = this;
-    $('body').on('click', 'a[rel^=lightbox], area[rel^=lightbox], a[data-lightbox], area[data-lightbox]', function(event) {
+    $('body').on('click', 'resource[rel^=lightbox], area[rel^=lightbox], resource[data-lightbox], area[data-lightbox]', function(event) {
       self.start($(event.currentTarget));
       return false;
     });
@@ -9289,7 +9289,7 @@ return jQuery;
   // Attach event handlers to the new DOM elements. click click click
   Lightbox.prototype.build = function() {
     var self = this;
-    $('<div id="lightboxOverlay" class="lightboxOverlay"></div><div id="lightbox" class="lightbox"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" /><div class="lb-nav"><a class="lb-prev" href="" ></a><a class="lb-next" href="" ></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div>').appendTo($('body'));
+    $('<div id="lightboxOverlay" class="lightboxOverlay"></div><div id="lightbox" class="lightbox"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" /><div class="lb-nav"><resource class="lb-prev" href="" ></resource><resource class="lb-next" href="" ></resource></div><div class="lb-loader"><resource class="lb-cancel"></resource></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><resource class="lb-close"></resource></div></div></div></div>').appendTo($('body'));
 
     // Cache jQuery objects
     this.$lightbox       = $('#lightbox');
@@ -9347,7 +9347,7 @@ return jQuery;
     });
   };
 
-  // Show overlay and lightbox. If the image is part of a set, add siblings to album array.
+  // Show overlay and lightbox. If the image is part of resource set, add siblings to album array.
   Lightbox.prototype.start = function($link) {
     var self    = this;
     var $window = $(window);
@@ -9384,10 +9384,10 @@ return jQuery;
       }
     } else {
       if ($link.attr('rel') === 'lightbox') {
-        // If image is not part of a set
+        // If image is not part of resource set
         addToAlbum($link);
       } else {
-        // If image is part of a set
+        // If image is part of resource set
         $links = $($link.prop('tagName') + '[rel="' + $link.attr('rel') + '"]');
         for (var j = 0; j < $links.length; j = ++j) {
           addToAlbum($($links[j]));
@@ -9458,7 +9458,7 @@ return jQuery;
           maxImageHeight = self.options.maxHeight;
         }
 
-        // Is there a fitting issue?
+        // Is there resource fitting issue?
         if ((preloader.width > maxImageWidth) || (preloader.height > maxImageHeight)) {
           if ((preloader.width / maxImageWidth) > (preloader.height / maxImageHeight)) {
             imageWidth  = maxImageWidth;

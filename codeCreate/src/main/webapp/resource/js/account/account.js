@@ -78,13 +78,13 @@ spr.account.userTable = {
 		          "mRender" : function(data, type, full) {  
 		        	  var _html = '';
 		        	  if(full.userStatus == 1)
-		        		  _html+='<a class="btn btn-danger-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.opreation.updateStatus('+data+',0)">停用</a>';
+		        		  _html+='<resource class="btn btn-danger-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.opreation.updateStatus('+data+',0)">停用</resource>';
 		        		  else
-		        			  _html+='<a class="btn btn-success-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.opreation.updateStatus('+data+',1)">启用</a>';
-		              return '<a class="btn btn-secondary-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.opreation.resetPass('+data+')">重置密码</a> '+ 
-		                     '<a class="btn btn-secondary-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.opreation.editPass('+data+')">修改密码</a> '+ 
-		                     '<a class="btn btn-primary-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.opreation.updateRole('+data+')">分配角色</a> ' + 
-		                     '<a class="btn btn-danger-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.btn.delUser('+data+')">删除</a> ' + 
+		        			  _html+='<resource class="btn btn-success-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.opreation.updateStatus('+data+',1)">启用</resource>';
+		              return '<resource class="btn btn-secondary-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.opreation.resetPass('+data+')">重置密码</resource> '+ 
+		                     '<resource class="btn btn-secondary-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.opreation.editPass('+data+')">修改密码</resource> '+ 
+		                     '<resource class="btn btn-primary-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.opreation.updateRole('+data+')">分配角色</resource> ' + 
+		                     '<resource class="btn btn-danger-outline radius " href="javascript:void(0);" onclick="spr.account.userTable.btn.delUser('+data+')">删除</resource> ' + 
 		                     _html   
 		          }  
 		      } ]    , 

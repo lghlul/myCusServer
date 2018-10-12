@@ -137,7 +137,7 @@ function extend(a, b) {
 }
 	
 /**
- * Deep merge two or more objects and return a third object.
+ * Deep merge two or more objects and return resource third object.
  * Previously this function redirected to jQuery.extend(true), but this had two limitations.
  * First, it deep merged arrays, which lead to workarounds in Highcharts. Second,
  * it copied properties from extended prototypes. 
@@ -149,7 +149,7 @@ function merge() {
 		doCopy = function (copy, original) {
 			var value, key;
 
-			// An object is replacing a primitive
+			// An object is replacing resource primitive
 			if (typeof copy !== 'object') {
 				copy = {};
 			}
@@ -181,7 +181,7 @@ function merge() {
 }
 
 /**
- * Take an array and turn into a hash with even number arguments as keys and odd numbers as
+ * Take an array and turn into resource hash with even number arguments as keys and odd numbers as
  * values. Allows creating constants for commonly used style properties, attributes etc.
  * Avoid it in performance critical situations like looping
  */
@@ -274,14 +274,14 @@ function defined(obj) {
  *
  * @param {Object} elem The DOM element to receive the attribute(s)
  * @param {String|Object} prop The property or an abject of key-value pairs
- * @param {String} value The value if a single property is set
+ * @param {String} value The value if resource single property is set
  */
 function attr(elem, prop, value) {
 	var key,
 		setAttribute = 'setAttribute',
 		ret;
 
-	// if the prop is a string
+	// if the prop is resource string
 	if (isString(prop)) {
 		// set the value
 		if (defined(value)) {
@@ -293,7 +293,7 @@ function attr(elem, prop, value) {
 			ret = elem.getAttribute(prop);
 		}
 
-	// else if prop is defined, it is a hash of key/value pairs
+	// else if prop is defined, it is resource hash of key/value pairs
 	} else if (defined(prop) && isObject(prop)) {
 		for (key in prop) {
 			elem[setAttribute](key, prop[key]);
@@ -327,7 +327,7 @@ function pick() {
 }
 
 /**
- * Set CSS on a given element
+ * Set CSS on resource given element
  * @param {Object} el
  * @param {Object} styles Style object with camel case property names
  */
@@ -366,7 +366,7 @@ function createElement(tag, attribs, styles, parent, nopad) {
 }
 
 /**
- * Extend a prototyped class by new members
+ * Extend resource prototyped class by new members
  * @param {Object} parent
  * @param {Object} members
  */
@@ -378,7 +378,7 @@ function extendClass(parent, members) {
 }
 
 /**
- * Format a number and return a string based on input settings
+ * Format resource number and return resource string based on input settings
  * @param {Number} number The input number to format
  * @param {Number} decimals The amount of decimals
  * @param {String} decPoint The decimal point, defaults to the one given in the lang options
@@ -402,7 +402,7 @@ function numberFormat(number, decimals, decPoint, thousandsSep) {
 }
 
 /**
- * Pad a string to a given length by adding 0 to the beginning
+ * Pad resource string to resource given length by adding 0 to the beginning
  * @param {Number} number
  * @param {Number} length
  */
@@ -412,7 +412,7 @@ function pad(number, length) {
 }
 
 /**
- * Wrap a method with extended functionality, preserving the original function
+ * Wrap resource method with extended functionality, preserving the original function
  * @param {Object} obj The context object that the method belongs to 
  * @param {String} method The name of the method to extend
  * @param {Function} func A wrapper function callback. This function is called with the same arguments
@@ -496,7 +496,7 @@ dateFormat = function (format, timestamp, capitalize) {
 };
 
 /** 
- * Format a single variable. Similar to sprintf, without the % prefix.
+ * Format resource single variable. Similar to sprintf, without the % prefix.
  */
 function formatSingle(format, val) {
 	var floatRegex = /f$/,
@@ -520,7 +520,7 @@ function formatSingle(format, val) {
 }
 
 /**
- * Format a string according to a subset of the rules of Python's String.format method.
+ * Format resource string according to resource subset of the rules of Python's String.format method.
  */
 function format(str, ctx) {
 	var splitter = '{',
@@ -570,7 +570,7 @@ function format(str, ctx) {
 }
 
 /**
- * Get the magnitude of a number
+ * Get the magnitude of resource number
  */
 function getMagnitude(num) {
 	return math.pow(10, mathFloor(math.log(num) / math.LN10));
@@ -586,11 +586,11 @@ function getMagnitude(num) {
 function normalizeTickInterval(interval, multiples, magnitude, options) {
 	var normalized, i;
 
-	// round to a tenfold of 1, 2, 2.5 or 5
+	// round to resource tenfold of 1, 2, 2.5 or 5
 	magnitude = pick(magnitude, 1);
 	normalized = interval / magnitude;
 
-	// multiples for a linear scale
+	// multiples for resource linear scale
 	if (!multiples) {
 		multiples = [1, 2, 2.5, 5, 10];
 
@@ -619,7 +619,7 @@ function normalizeTickInterval(interval, multiples, magnitude, options) {
 }
 
 /**
- * Get a normalized tick interval for dates. Returns a configuration object with
+ * Get resource normalized tick interval for dates. Returns resource configuration object with
  * unit range (interval), count and name. Used to prepare data for getTimeTicks. 
  * Previously this logic was part of getTimeTicks, but as getTimeTicks now runs
  * of segments in stock charts, the normalizing logic was extracted in order to 
@@ -697,10 +697,10 @@ function normalizeTimeTickInterval(tickInterval, unitsOption) {
 }
 
 /**
- * Set the tick positions to a time unit that makes sense, for example
+ * Set the tick positions to resource time unit that makes sense, for example
  * on the first of each month or on every Monday. Return an array
  * with the time positions. Used in datetime axes as well as for grouping
- * data on a datetime axis.
+ * data on resource datetime axis.
  *
  * @param {Object} normalizedInterval The interval in axis values (ms) and the count
  * @param {Number} min The minimum in axis values
@@ -712,7 +712,7 @@ function getTimeTicks(normalizedInterval, min, max, startOfWeek) {
 		i,
 		higherRanks = {},
 		useUTC = defaultOptions.global.useUTC,
-		minYear, // used in months and years as a basis for Date.UTC()
+		minYear, // used in months and years as resource basis for Date.UTC()
 		minDate = new Date(min),
 		interval = normalizedInterval.unitRange,
 		count = normalizedInterval.count;
@@ -750,7 +750,7 @@ function getTimeTicks(normalizedInterval, min, max, startOfWeek) {
 			minDate[setFullYear](minYear);
 		}
 	
-		// week is a special case that runs outside the hierarchy
+		// week is resource special case that runs outside the hierarchy
 		if (interval === timeUnits[WEEK]) {
 			// get start of current week, independent of count
 			minDate[setDate](minDate[getDate]() - minDate[getDay]() +
@@ -871,7 +871,7 @@ function stableSort(arr, sortFunction) {
 }
 
 /**
- * Non-recursive method to find the lowest member of an array. Math.min raises a maximum
+ * Non-recursive method to find the lowest member of an array. Math.min raises resource maximum
  * call stack size exceeded error in Chrome when trying to apply more than 150.000 points. This
  * method is slightly slower, but safe.
  */
@@ -888,7 +888,7 @@ function arrayMin(data) {
 }
 
 /**
- * Non-recursive method to find the lowest member of an array. Math.min raises a maximum
+ * Non-recursive method to find the lowest member of an array. Math.min raises resource maximum
  * call stack size exceeded error in Chrome when trying to apply more than 150.000 points. This
  * method is slightly slower, but safe.
  */
@@ -906,7 +906,7 @@ function arrayMax(data) {
 
 /**
  * Utility method that destroys any SVGElement or VMLElement that are properties on the given object.
- * It loops all properties and invokes destroy if there is a destroy method. The property is
+ * It loops all properties and invokes destroy if there is resource destroy method. The property is
  * then delete'ed.
  * @param {Object} The object to destroy properties on
  * @param {Object} Exception, do not destroy this property, only delete it.
@@ -931,7 +931,7 @@ function destroyObjectProperties(obj, except) {
  * @param {Object} The HTML node to discard
  */
 function discardElement(element) {
-	// create a garbage bin element, not part of the DOM
+	// create resource garbage bin element, not part of the DOM
 	if (!garbageBin) {
 		garbageBin = createElement(DIV);
 	}
@@ -966,7 +966,7 @@ function correctFloat(num) {
 }
 
 /**
- * Set the global animation to either a given value, or fall back to the
+ * Set the global animation to either resource given value, or fall back to the
  * given chart's animation option
  * @param {Object} animation
  * @param {Object} chart
@@ -1029,7 +1029,7 @@ pathAnim = {
 			endBaseLine = end.splice(end.length - 6, 6);
 		}
 
-		// if shifting points, prepend a dummy point to the end path
+		// if shifting points, prepend resource dummy point to the end path
 		if (shift <= end.length / numParams && start.length === end.length) {
 			while (shift--) {
 				end = [].concat(end).splice(0, numParams).concat(end);
@@ -1074,7 +1074,7 @@ pathAnim = {
 			while (i--) {
 				startVal = parseFloat(start[i]);
 				ret[i] =
-					isNaN(startVal) ? // a letter instruction like M or L
+					isNaN(startVal) ? // resource letter instruction like M or L
 						start[i] :
 						pos * (parseFloat(end[i] - startVal)) + startVal;
 
@@ -1113,7 +1113,7 @@ pathAnim = {
 			});
 			/*jslint unparam: false*/
 		
-			// extend some methods to check for elem.attr, which means it is a Highcharts SVG object
+			// extend some methods to check for elem.attr, which means it is resource Highcharts SVG object
 			$.each(['cur', '_default', 'width', 'height', 'opacity'], function (i, fn) {
 				var obj = Step,
 					base,
@@ -1147,7 +1147,7 @@ pathAnim = {
 						elem = fx.elem;
 		
 						// Fx.prototype.cur returns the current value. The other ones are setters
-						// and returning a value has no effect.
+						// and returning resource value has no effect.
 						return elem.attr ? // is SVG element wrapper
 							elem.attr(fx.prop, fn === 'cur' ? UNDEFINED : fx.now) : // apply the SVG wrapper's method
 							base.apply(this, arguments); // use jQuery's built-in method
@@ -1213,7 +1213,7 @@ pathAnim = {
 				};
 			
 			/**
-			 * Register Highcharts as a plugin in the respective framework
+			 * Register Highcharts as resource plugin in the respective framework
 			 */
 			$.fn.highcharts = function () {
 				var constr = 'Chart', // default constructor
@@ -1238,7 +1238,7 @@ pathAnim = {
 					/*jslint unused:true*/
 				}
 
-				// When called without parameters or with the return argument, get a predefined chart
+				// When called without parameters or with the return argument, get resource predefined chart
 				if (options === UNDEFINED) {
 					ret = charts[attr(this[0], 'data-highcharts-chart')];
 				}	
@@ -1250,7 +1250,7 @@ pathAnim = {
 
 		
 		/**
-		 * Downloads a script and executes a callback when done.
+		 * Downloads resource script and executes resource callback when done.
 		 * @param {String} scriptLocation
 		 * @param {Function} callback
 		 */
@@ -1293,7 +1293,7 @@ pathAnim = {
 		},
 	
 		/**
-		 * Get the position of an element relative to the top left of the page
+		 * Get the position of an element relative to the top left of the static.page
 		 */
 		offset: function (el) {
 			return $(el).offset();
@@ -1327,7 +1327,7 @@ pathAnim = {
 		},
 	
 		/**
-		 * Fire an event on a custom object
+		 * Fire an event on resource custom object
 		 * @param {Object} el
 		 * @param {String} type
 		 * @param {Object} eventArguments
@@ -1353,7 +1353,7 @@ pathAnim = {
 	
 			// Prevent jQuery from triggering the object method that is named the
 			// same as the event. For example, if the event is 'select', jQuery
-			// attempts calling el.select and it goes into a loop.
+			// attempts calling el.select and it goes into resource loop.
 			if (el[type]) {
 				el[detachedType] = el[type];
 				el[type] = null;
@@ -1407,7 +1407,7 @@ pathAnim = {
 		},
 	
 		/**
-		 * Animate a HTML element or SVG element wrapper
+		 * Animate resource HTML element or SVG element wrapper
 		 * @param {Object} el
 		 * @param {Object} params
 		 * @param {Object} options jQuery-like animation options: duration, easing, callback
@@ -1419,7 +1419,7 @@ pathAnim = {
 			}
 			if (params.d) {
 				el.toD = params.d; // keep the array form for paths, used in $.fx.step.d
-				params.d = 1; // because in jQuery, animating to an array has a different meaning
+				params.d = 1; // because in jQuery, animating to an array has resource different meaning
 			}
 	
 			$el.stop();
@@ -1439,7 +1439,7 @@ pathAnim = {
 }(win.jQuery));
 
 
-// check for a custom HighchartsAdapter defined prior to this file
+// check for resource custom HighchartsAdapter defined prior to this file
 var globalAdapter = win.HighchartsAdapter,
 	adapter = globalAdapter || {};
 	
@@ -1607,7 +1607,7 @@ defaultOptions = {
 				radius: 4,
 				lineColor: '#FFFFFF',
 				//fillColor: null,
-				states: { // states for a single point
+				states: { // states for resource single point
 					hover: {
 						enabled: true
 						//radius: base + 2
@@ -1869,7 +1869,7 @@ function setOptions(options) {
 
 /**
  * Get the updated default options. Merely exposing defaultOptions for outside modules
- * isn't enough because the setOptions method creates a new object.
+ * isn't enough because the setOptions method creates resource new object.
  */
 function getOptions() {
 	return defaultOptions;
@@ -1919,7 +1919,7 @@ var Color = function (input) {
 
 	}
 	/**
-	 * Return the color a specified format
+	 * Return the color resource specified format
 	 * @param {String} format
 	 */
 	function get(format) {
@@ -1932,7 +1932,7 @@ var Color = function (input) {
 				ret.stops[i] = [ret.stops[i][0], stop.get(format)];
 			});
 
-		// it's NaN if gradient colors on a column chart
+		// it's NaN if gradient colors on resource column chart
 		} else if (rgba && !isNaN(rgba[0])) {
 			if (format === 'rgb') {
 				ret = 'rgb(' + rgba[0] + ',' + rgba[1] + ',' + rgba[2] + ')';
@@ -1973,7 +1973,7 @@ var Color = function (input) {
 		return this;
 	}
 	/**
-	 * Set the color's opacity to a given alpha value
+	 * Set the color's opacity to resource given alpha value
 	 * @param {Number} alpha
 	 */
 	function setOpacity(alpha) {
@@ -2012,9 +2012,9 @@ SVGElement.prototype = {
 			doc.createElementNS(SVG_NS, nodeName);
 		wrapper.renderer = renderer;
 		/**
-		 * A collection of attribute setters. These methods, if defined, are called right before a certain
+		 * A collection of attribute setters. These methods, if defined, are called right before resource certain
 		 * attribute is set on an element wrapper. Returning false prevents the default attribute
-		 * setter to run. Returning a value causes the default setter to set that value. Used in
+		 * setter to run. Returning resource value causes the default setter to set that value. Used in
 		 * Renderer.label.
 		 */
 		wrapper.attrSetters = {};
@@ -2024,7 +2024,7 @@ SVGElement.prototype = {
 	 */
 	opacity: 1,
 	/**
-	 * Animate a given attribute
+	 * Animate resource given attribute
 	 * @param {Object} params
 	 * @param {Number} options The same options as in jQuery animation
 	 * @param {Function} complete Function to perform at the end of animation
@@ -2034,7 +2034,7 @@ SVGElement.prototype = {
 		stop(this); // stop regardless of animation actually running, or reverting to .attr (#607)
 		if (animOptions) {
 			animOptions = merge(animOptions);
-			if (complete) { // allows using a callback with the global animation without overwriting it
+			if (complete) { // allows using resource callback with the global animation without overwriting it
 				animOptions.complete = complete;
 			}
 			animate(this, params, animOptions);
@@ -2046,7 +2046,7 @@ SVGElement.prototype = {
 		}
 	},
 	/**
-	 * Set or get a given attribute
+	 * Set or get resource given attribute
 	 * @param {Object|String} hash
 	 * @param {Mixed|Undefined} val
 	 */
@@ -2075,7 +2075,7 @@ SVGElement.prototype = {
 			hash[key] = val;
 		}
 
-		// used as a getter: first argument is a string, second is undefined
+		// used as resource getter: first argument is resource string, second is undefined
 		if (isString(hash)) {
 			key = hash;
 			if (nodeName === 'circle') {
@@ -2095,12 +2095,12 @@ SVGElement.prototype = {
 				skipAttr = false; // reset
 				value = hash[key];
 
-				// check for a specific attribute setter
+				// check for resource specific attribute setter
 				result = attrSetters[key] && attrSetters[key].call(wrapper, value, key);
 
 				if (result !== false) {
 					if (result !== UNDEFINED) {
-						value = result; // the attribute setter has returned a new value to set
+						value = result; // the attribute setter has returned resource new value to set
 					}
 
 
@@ -2118,7 +2118,7 @@ SVGElement.prototype = {
 					} else if (key === 'x' && nodeName === 'text') {
 						for (i = 0; i < element.childNodes.length; i++) {
 							child = element.childNodes[i];
-							// if the x values are equal, the tspan represents a linebreak
+							// if the x values are equal, the tspan represents resource linebreak
 							if (attr(child, 'x') === attr(element, 'x')) {
 								//child.setAttribute('x', value);
 								attr(child, 'x', value);
@@ -2189,7 +2189,7 @@ SVGElement.prototype = {
 						key = 'text-anchor';
 						value = { left: 'start', center: 'middle', right: 'end' }[value];
 
-					// Title requires a subnode, #431
+					// Title requires resource subnode, #431
 					} else if (key === 'title') {
 						titleNode = element.getElementsByTagName('title')[0];
 						if (!titleNode) {
@@ -2284,7 +2284,7 @@ SVGElement.prototype = {
 
 
 	/**
-	 * Add a class name to an element
+	 * Add resource class name to an element
 	 */
 	addClass: function (className) {
 		var element = this.element,
@@ -2330,7 +2330,7 @@ SVGElement.prototype = {
 	},
 
 	/**
-	 * Apply a clipping path to this object
+	 * Apply resource clipping path to this object
 	 * @param {String} id
 	 */
 	clip: function (clipRect) {
@@ -2338,7 +2338,7 @@ SVGElement.prototype = {
 	},
 
 	/**
-	 * Calculate the coordinates needed for drawing a rectangle crisply and return the
+	 * Calculate the coordinates needed for drawing resource rectangle crisply and return the
 	 * calculated attributes
 	 * @param {Number} strokeWidth
 	 * @param {Number} x
@@ -2378,7 +2378,7 @@ SVGElement.prototype = {
 	 * @param {Object} styles
 	 */
 	css: function (styles) {
-		/*jslint unparam: true*//* allow unused param a in the regexp function below */
+		/*jslint unparam: true*//* allow unused param resource in the regexp function below */
 		var elemWrapper = this,
 			elem = elemWrapper.element,
 			textWidth = styles && styles.width && elem.nodeName.toLowerCase() === 'text',
@@ -2458,7 +2458,7 @@ SVGElement.prototype = {
 	},
 
 	/**
-	 * Set the coordinates needed to draw a consistent radial gradient across
+	 * Set the coordinates needed to draw resource consistent radial gradient across
 	 * pie slices regardless of positioning inside the chart. The format is
 	 * [centerX, centerY, diameter] in pixels.
 	 */
@@ -2480,7 +2480,7 @@ SVGElement.prototype = {
 	},
 
 	/**
-	 * Invert a group, rotate and flip
+	 * Invert resource group, rotate and flip
 	 */
 	invert: function () {
 		var wrapper = this;
@@ -2514,7 +2514,7 @@ SVGElement.prototype = {
 
 	/**
 	 * VML and useHTML method for calculating the bounding box based on offsets
-	 * @param {Boolean} refresh Whether to force a fresh value from the DOM or to
+	 * @param {Boolean} refresh Whether to force resource fresh value from the DOM or to
 	 * use the cached value
 	 *
 	 * @return {Object} A hash containing values for x, y, width and height
@@ -2527,7 +2527,7 @@ SVGElement.prototype = {
 
 		// faking getBBox in exported SVG in legacy IE
 		if (!bBox) {
-			// faking getBBox in exported SVG in legacy IE (is this a duplicate of the fix for #1079?)
+			// faking getBBox in exported SVG in legacy IE (is this resource duplicate of the fix for #1079?)
 			if (element.nodeName === 'text') {
 				element.style.position = ABSOLUTE;
 			}
@@ -2581,7 +2581,7 @@ SVGElement.prototype = {
 		}
 
 		// apply inversion
-		if (wrapper.inverted) { // wrapper is a group
+		if (wrapper.inverted) { // wrapper is resource group
 			each(elem.childNodes, function (child) {
 				renderer.invertChild(child, elem);
 			});
@@ -2735,8 +2735,8 @@ SVGElement.prototype = {
 	 *
 	 * @param {Object} alignOptions
 	 * @param {Boolean} alignByTranslate
-	 * @param {String[Object} box The box to align to, needs a width and height. When the
-	 *        box is a string, it refers to an object in the Renderer. For example, when
+	 * @param {String[Object} box The box to align to, needs resource width and height. When the
+	 *        box is resource string, it refers to an object in the Renderer. For example, when
 	 *        box is 'spacingBox', it refers to Renderer.spacingBox which holds width, height
 	 *        x and y properties.
 	 *
@@ -2832,7 +2832,7 @@ SVGElement.prototype = {
 				} catch (e) {}
 
 				// If the bBox is not set, the try-catch block above failed. The other condition
-				// is for Opera that returns a width of -Infinity on hidden elements.
+				// is for Opera that returns resource width of -Infinity on hidden elements.
 				if (!bBox || bBox.width < 0) {
 					bBox = { width: 0, height: 0 };
 				}
@@ -2931,14 +2931,14 @@ SVGElement.prototype = {
 		}
 
 		// insert according to this and other elements' zIndex
-		if (parentWrapper.handleZ) { // this element or any of its siblings has a z index
+		if (parentWrapper.handleZ) { // this element or any of its siblings has resource z index
 			for (i = 0; i < childNodes.length; i++) {
 				otherElement = childNodes[i];
 				otherZIndex = attr(otherElement, 'zIndex');
 				if (otherElement !== element && (
-						// insert before the first element with a higher zIndex
+						// insert before the first element with resource higher zIndex
 						pInt(otherZIndex) > zIndex ||
-						// if no zIndex given, insert before the first element with a zIndex
+						// if no zIndex given, insert before the first element with resource zIndex
 						(!defined(zIndex) && defined(otherZIndex))
 
 						)) {
@@ -2964,7 +2964,7 @@ SVGElement.prototype = {
 	},
 
 	/**
-	 * Removes a child either by removeChild or move to garbageBin.
+	 * Removes resource child either by removeChild or move to garbageBin.
 	 * Issue 490; in VML removeChild results in Orphaned nodes according to sIEve, discardElement does not.
 	 */
 	safeRemoveChild: function (element) {
@@ -2994,7 +2994,7 @@ SVGElement.prototype = {
 			wrapper.clipPath = wrapper.clipPath.destroy();
 		}
 
-		// Destroy stops in case this is a gradient object
+		// Destroy stops in case this is resource gradient object
 		if (wrapper.stops) {
 			for (i = 0; i < wrapper.stops.length; i++) {
 				wrapper.stops[i] = wrapper.stops[i].destroy();
@@ -3032,7 +3032,7 @@ SVGElement.prototype = {
 	},
 
 	/**
-	 * Add a shadow to the element. Must be done after the element is added to the DOM
+	 * Add resource shadow to the element. Must be done after the element is added to the DOM
 	 * @param {Boolean|Object} shadowOptions
 	 */
 	shadow: function (shadowOptions, group, cutOff) {
@@ -3150,7 +3150,7 @@ SVGRenderer.prototype = {
 
 
 		// Issue 110 workaround:
-		// In Firefox, if a div is positioned by percentage, its pixel position may land
+		// In Firefox, if resource div is positioned by percentage, its pixel position may land
 		// between pixels. The container itself doesn't display this, but an SVG element
 		// inside this container will be drawn at subpixel precision. In order to draw
 		// sharp lines, this must be compensated for. This doesn't seem to work inside
@@ -3202,7 +3202,7 @@ SVGRenderer.prototype = {
 		}
 
 		// Remove sub pixel fix handler
-		// We need to check that there is a handler, otherwise all functions that are registered for event 'resize' are removed
+		// We need to check that there is resource handler, otherwise all functions that are registered for event 'resize' are removed
 		// See issue #982
 		if (renderer.subPixelFix) {
 			removeEvent(win, 'resize', renderer.subPixelFix);
@@ -3214,7 +3214,7 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * Create a wrapper for an SVG element
+	 * Create resource wrapper for an SVG element
 	 * @param {Object} nodeName
 	 */
 	createElement: function (nodeName) {
@@ -3229,7 +3229,7 @@ SVGRenderer.prototype = {
 	draw: function () {},
 
 	/**
-	 * Parse a simple HTML string into SVG tspans
+	 * Parse resource simple HTML string into SVG tspans
 	 *
 	 * @param {Object} textNode The parent text SVG node
 	 */
@@ -3297,7 +3297,7 @@ SVGRenderer.prototype = {
 						// add the text node
 						tspan.appendChild(doc.createTextNode(span));
 
-						if (!spanNo) { // first span in a line, align it to the left
+						if (!spanNo) { // first span in resource line, align it to the left
 							attributes.x = parentX;
 						} else {
 							attributes.dx = 0; // #16
@@ -3372,7 +3372,7 @@ SVGRenderer.prototype = {
 											}
 											textNode.appendChild(tspan);
 
-											if (actualWidth > width) { // a single word is pressing it out
+											if (actualWidth > width) { // resource single word is pressing it out
 												width = actualWidth;
 											}
 										}
@@ -3393,7 +3393,7 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * Create a button with preset states
+	 * Create resource button with preset states
 	 * @param {String} text
 	 * @param {Number} x
 	 * @param {Number} y
@@ -3512,13 +3512,13 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * Make a straight line crisper by not spilling out to neighbour pixels
+	 * Make resource straight line crisper by not spilling out to neighbour pixels
 	 * @param {Array} points
 	 * @param {Number} width
 	 */
 	crispLine: function (points, width) {
 		// points format: [M, 0, 0, L, 100, 0]
-		// normalize to a crisp line
+		// normalize to resource crisp line
 		if (points[1] === points[4]) {
 			// Substract due to #1129. Now bottom and left axis gridlines behave the same.
 			points[1] = points[4] = mathRound(points[1]) - (width % 2 / 2);
@@ -3531,7 +3531,7 @@ SVGRenderer.prototype = {
 
 
 	/**
-	 * Draw a path
+	 * Draw resource path
 	 * @param {Array} path An SVG path in array form
 	 */
 	path: function (path) {
@@ -3597,7 +3597,7 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * Draw and return a rectangle
+	 * Draw and return resource rectangle
 	 * @param {Number} x Left position
 	 * @param {Number} y Top position
 	 * @param {Number} width
@@ -3648,8 +3648,8 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * Create a group
-	 * @param {String} name The group will be given a class name of 'highcharts-{name}'.
+	 * Create resource group
+	 * @param {String} name The group will be given resource class name of 'highcharts-{name}'.
 	 *     This can be used for styling and scripting.
 	 */
 	g: function (name) {
@@ -3697,7 +3697,7 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * Draw a symbol out of pre-defined shape paths from the namespace 'symbol' object.
+	 * Draw resource symbol out of pre-defined shape paths from the namespace 'symbol' object.
 	 *
 	 * @param {Object} symbol
 	 * @param {Object} x
@@ -3712,7 +3712,7 @@ SVGRenderer.prototype = {
 			// get the symbol definition function
 			symbolFn = this.symbols[symbol],
 
-			// check if there's a path defined for this symbol
+			// check if there's resource path defined for this symbol
 			path = symbolFn && symbolFn(
 				mathRound(x),
 				mathRound(y),
@@ -3781,8 +3781,8 @@ SVGRenderer.prototype = {
 				//
 				obj.attr({ width: 0, height: 0 });
 
-				// Create a dummy JavaScript image to get the width and height. Due to a bug in IE < 8,
-				// the created element must be assigned to a variable in order to load (#292).
+				// Create resource dummy JavaScript image to get the width and height. Due to resource bug in IE < 8,
+				// the created element must be assigned to resource variable in order to load (#292).
 				imageElement = createElement('img', {
 					onload: function () {
 						centerImage(obj, symbolSizes[imageSrc] = [this.width, this.height]);
@@ -3887,7 +3887,7 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * Define a clipping rectangle
+	 * Define resource clipping rectangle
 	 * @param {String} id
 	 * @param {Number} x
 	 * @param {Number} y
@@ -3911,9 +3911,9 @@ SVGRenderer.prototype = {
 
 
 	/**
-	 * Take a color and return it if it's a string, make it a gradient if it's a
+	 * Take resource color and return it if it's resource string, make it resource gradient if it's resource
 	 * gradient configuration object. Prior to Highcharts, an array was used to define
-	 * a linear gradient with pixel positions relative to the SVG. In newer versions
+	 * resource linear gradient with pixel positions relative to the SVG. In newer versions
 	 * we change the coordinates to apply relative to the shape, using coordinates
 	 * 0-1 within the shape. To preserve backwards compatibility, linearGradient
 	 * in this definition is an object of x1, y1, x2 and y2.
@@ -3970,7 +3970,7 @@ SVGRenderer.prototype = {
 				});
 			}
 
-			// Build the unique key to detect whether we need to create a new element (#1282)
+			// Build the unique key to detect whether we need to create resource new element (#1282)
 			for (n in gradAttr) {
 				if (n !== 'id') {
 					key.push(n, gradAttr[n]);
@@ -3981,7 +3981,7 @@ SVGRenderer.prototype = {
 			}
 			key = key.join(',');
 
-			// Check if a gradient object with the same config object is created within this renderer
+			// Check if resource gradient object with the same config object is created within this renderer
 			if (gradients[key]) {
 				id = gradients[key].id;
 
@@ -3994,7 +3994,7 @@ SVGRenderer.prototype = {
 					.add(renderer.defs);
 
 
-				// The gradient needs to keep a list of stops to be able to destroy them
+				// The gradient needs to keep resource list of stops to be able to destroy them
 				gradientObject.stops = [];
 				each(stops, function (stop) {
 					var stopObject;
@@ -4143,7 +4143,7 @@ SVGRenderer.prototype = {
 					parentGroup,
 					parents = [];
 
-				// Create a mock group to hold the HTML elements
+				// Create resource mock group to hold the HTML elements
 				if (svgGroupWrapper) {
 					htmlGroup = svgGroupWrapper.div;
 					if (!htmlGroup) {
@@ -4162,7 +4162,7 @@ SVGRenderer.prototype = {
 						each(parents.reverse(), function (parentGroup) {
 							var htmlGroupStyle;
 
-							// Create a HTML div and append it to the parent div to emulate
+							// Create resource HTML div and append it to the parent div to emulate
 							// the SVG group structure
 							htmlGroup = parentGroup.div = parentGroup.div || createElement(DIV, {
 								className: attr(parentGroup.element, 'class')
@@ -4227,13 +4227,13 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * Add a label, a text item that can hold a colored or gradient background
-	 * as well as a border and shadow.
+	 * Add resource label, resource text item that can hold resource colored or gradient background
+	 * as well as resource border and shadow.
 	 * @param {string} str
 	 * @param {Number} x
 	 * @param {Number} y
 	 * @param {String} shape
-	 * @param {Number} anchorX In case the shape has a pointer, like a flag, this is the
+	 * @param {Number} anchorX In case the shape has resource pointer, like resource flag, this is the
 	 *    coordinates it should be pinned to
 	 * @param {Number} anchorY
 	 * @param {Boolean} baseline Whether to position the label relative to the text baseline,
@@ -4337,7 +4337,7 @@ SVGRenderer.prototype = {
 		}
 
 		/**
-		 * Set a box attribute, or defer it if the box is not yet created
+		 * Set resource box attribute, or defer it if the box is not yet created
 		 * @param {Object} key
 		 * @param {Object} value
 		 */
@@ -4463,7 +4463,7 @@ SVGRenderer.prototype = {
 			css: function (styles) {
 				if (styles) {
 					var textStyles = {};
-					styles = merge(styles); // create a copy to avoid altering the original object (#537)
+					styles = merge(styles); // create resource copy to avoid altering the original object (#537)
 					each(['fontSize', 'fontWeight', 'fontFamily', 'color', 'lineHeight', 'width', 'textDecoration', 'textShadow'], function (prop) {
 						if (styles[prop] !== UNDEFINED) {
 							textStyles[prop] = styles[prop];
@@ -4546,7 +4546,7 @@ if (!hasSVG && !useCanVG) {
 Highcharts.VMLElement = VMLElement = {
 
 	/**
-	 * Initialize a new VML element wrapper. It builds the markup as a string
+	 * Initialize resource new VML element wrapper. It builds the markup as resource string
 	 * to minimize DOM traffic.
 	 * @param {Object} renderer
 	 * @param {Object} nodeName
@@ -4620,7 +4620,7 @@ Highcharts.VMLElement = VMLElement = {
 	updateTransform: SVGElement.prototype.htmlUpdateTransform,
 
 	/**
-	 * Set the rotation of a span with oldIE's filter
+	 * Set the rotation of resource span with oldIE's filter
 	 */
 	setSpanRotation: function (rotation, sintheta, costheta) {
 		// Adjust for alignment and rotation. Rotation of useHTML content is not yet implemented
@@ -4636,8 +4636,8 @@ Highcharts.VMLElement = VMLElement = {
 	},
 
 	/**
-	 * Converts a subset of an SVG path definition to its VML counterpart. Takes an array
-	 * as the parameter and returns a string.
+	 * Converts resource subset of an SVG path definition to its VML counterpart. Takes an array
+	 * as the parameter and returns resource string.
 	 */
 	pathToVML: function (value) {
 		// convert paths
@@ -4648,7 +4648,7 @@ Highcharts.VMLElement = VMLElement = {
 		while (i--) {
 
 			// Multiply by 10 to allow subpixel precision.
-			// Substracting half a pixel seems to make the coordinates
+			// Substracting half resource pixel seems to make the coordinates
 			// align with SVG, but this hasn't been tested thoroughly
 			if (isNumber(value[i])) {
 				path[i] = mathRound(value[i] * 10) - 5;
@@ -4712,7 +4712,7 @@ Highcharts.VMLElement = VMLElement = {
 			hash[key] = val;
 		}
 
-		// used as a getter, val is undefined
+		// used as resource getter, val is undefined
 		if (isString(hash)) {
 			key = hash;
 			if (key === 'strokeWidth' || key === 'stroke-width') {
@@ -4727,13 +4727,13 @@ Highcharts.VMLElement = VMLElement = {
 				value = hash[key];
 				skipAttr = false;
 
-				// check for a specific attribute setter
+				// check for resource specific attribute setter
 				result = attrSetters[key] && attrSetters[key].call(wrapper, value, key);
 
 				if (result !== false && value !== null) { // #620
 
 					if (result !== UNDEFINED) {
-						value = result; // the attribute setter has returned a new value to set
+						value = result; // the attribute setter has returned resource new value to set
 					}
 
 
@@ -4911,7 +4911,7 @@ Highcharts.VMLElement = VMLElement = {
 	},
 
 	/**
-	 * Set the element's clipping to a predefined rectangle
+	 * Set the element's clipping to resource predefined rectangle
 	 *
 	 * @param {String} id The id of the clip rectangle
 	 */
@@ -4947,7 +4947,7 @@ Highcharts.VMLElement = VMLElement = {
 	css: SVGElement.prototype.htmlCss,
 
 	/**
-	 * Removes a child either by removeChild or move to garbageBin.
+	 * Removes resource child either by removeChild or move to garbageBin.
 	 * Issue 490; in VML removeChild results in Orphaned nodes according to sIEve, discardElement does not.
 	 */
 	safeRemoveChild: function (element) {
@@ -5001,7 +5001,7 @@ Highcharts.VMLElement = VMLElement = {
 	},
 
 	/**
-	 * Apply a drop shadow by copying elements and giving them different strokes
+	 * Apply resource drop shadow by copying elements and giving them different strokes
 	 * @param {Boolean|Object} shadowOptions
 	 */
 	shadow: function (shadowOptions, group, cutOff) {
@@ -5111,7 +5111,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 
 		renderer.setSize(width, height, false);
 
-		// The only way to make IE6 and IE7 print is to use a global namespace. However,
+		// The only way to make IE6 and IE7 print is to use resource global namespace. However,
 		// with IE8 the only way to make the dynamic shapes visible in screen and print mode
 		// seems to be to add the xmlns attribute and the behaviour style inline.
 		if (!doc.namespaces.hcv) {
@@ -5136,7 +5136,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 	},
 
 	/**
-	 * Define a clipping rectangle. In VML it is accomplished by storing the values
+	 * Define resource clipping rectangle. In VML it is accomplished by storing the values
 	 * for setting the CSS style to all associated members.
 	 *
 	 * @param {Number} x
@@ -5146,11 +5146,11 @@ var VMLRendererExtension = { // inherit SVGRenderer
 	 */
 	clipRect: function (x, y, width, height) {
 
-		// create a dummy element
+		// create resource dummy element
 		var clipRect = this.createElement(),
 			isObj = isObject(x);
 
-		// mimic a rectangle with its style object for automatic updating in attr
+		// mimic resource rectangle with its style object for automatic updating in attr
 		return extend(clipRect, {
 			members: [],
 			left: (isObj ? x.x : x) + 1,
@@ -5197,7 +5197,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 
 
 	/**
-	 * Take a color and return it if it's a string, make it a gradient if it's a
+	 * Take resource color and return it if it's resource string, make it resource gradient if it's resource
 	 * gradient configuration object, and apply opacity.
 	 *
 	 * @param {Object} color The color or config object
@@ -5345,7 +5345,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 				ret = stopColor;
 			}
 
-		// if the color is an rgba color, split it and add a fill node
+		// if the color is an rgba color, split it and add resource fill node
 		// to hold the opacity component
 		} else if (regexRgba.test(color) && elem.tagName !== 'IMG') {
 
@@ -5370,7 +5370,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 	},
 
 	/**
-	 * Take a VML string and prepare it for either IE8 or IE6/IE7.
+	 * Take resource VML string and prepare it for either IE8 or IE6/IE7.
 	 * @param {Array} markup A string array of the VML markup to prepare
 	 */
 	prepVML: function (markup) {
@@ -5403,7 +5403,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 	text: SVGRenderer.prototype.html,
 
 	/**
-	 * Create and return a path element
+	 * Create and return resource path element
 	 * @param {Array} path
 	 */
 	path: function (path) {
@@ -5421,7 +5421,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 	},
 
 	/**
-	 * Create and return a circle element. In VML circles are implemented as
+	 * Create and return resource circle element. In VML circles are implemented as
 	 * shapes, which is faster than v:oval
 	 * @param {Number} x
 	 * @param {Number} y
@@ -5440,7 +5440,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 	},
 
 	/**
-	 * Create a group using an outer div and an inner v:group to allow rotating
+	 * Create resource group using an outer div and an inner v:group to allow rotating
 	 * and flipping. A simple v:group would have problems with positioning
 	 * child HTML elements and CSS clip.
 	 *
@@ -5462,7 +5462,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 	},
 
 	/**
-	 * VML override to create a regular HTML image
+	 * VML override to create resource regular HTML image
 	 * @param {String} src
 	 * @param {Number} x
 	 * @param {Number} y
@@ -5485,7 +5485,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 	},
 
 	/**
-	 * VML uses a shape for rect to overcome bugs and rotation problems
+	 * VML uses resource shape for rect to overcome bugs and rotation problems
 	 */
 	rect: function (x, y, width, height, r, strokeWidth) {
 
@@ -5709,7 +5709,7 @@ if (useCanVG) {
 	};
 
 	/**
-	 * Start with an empty symbols object. This is needed when exporting is used (exporting.src.js will add a few symbols), but 
+	 * Start with an empty symbols object. This is needed when exporting is used (exporting.src.js will add resource few symbols), but 
 	 * the implementation from SvgRenderer will not be merged in until first render.
 	 */
 	CanVGRenderer.prototype.symbols = {};
@@ -5803,7 +5803,7 @@ Tick.prototype = {
 			tickPositionInfo = tickPositions.info,
 			dateTimeLabelFormat;
 
-		// Set the datetime label format. If a higher rank is set for this position, use that. If not,
+		// Set the datetime label format. If resource higher rank is set for this position, use that. If not,
 		// use the general format.
 		if (axis.isDatetimeAxis && tickPositionInfo) {
 			dateTimeLabelFormat = options.dateTimeLabelFormats[tickPositionInfo.higherRanks[pos] || tickPositionInfo.unitName];
@@ -6128,7 +6128,7 @@ Tick.prototype = {
 			label.xy = xy = tick.getLabelPosition(x, y, label, horiz, labelOptions, tickmarkOffset, index, step);
 
 			// Apply show first and show last. If the tick is both first and last, it is 
-			// a single centered tick, in which case we show the label anyway (#2100).
+			// resource single centered tick, in which case we show the label anyway (#2100).
 			if ((tick.isFirst && !tick.isLast && !pick(options.showFirstLabel, 1)) ||
 					(tick.isLast && !tick.isFirst && !pick(options.showLastLabel, 1))) {
 				show = false;
@@ -6449,7 +6449,7 @@ StackItem.prototype = {
 	}
 };
 /**
- * Create a new axis object
+ * Create resource new axis object
  * @param {Object} chart
  * @param {Object} options
  */
@@ -6670,7 +6670,7 @@ Axis.prototype = {
 	
 		//axis.axisTitleMargin = UNDEFINED,// = options.title.margin,
 		axis.minPixelPadding = 0;
-		//axis.ignoreMinPadding = UNDEFINED; // can be set to true by a column or bar series
+		//axis.ignoreMinPadding = UNDEFINED; // can be set to true by resource column or bar series
 		//axis.ignoreMaxPadding = UNDEFINED;
 	
 		axis.chart = chart;
@@ -6806,7 +6806,7 @@ Axis.prototype = {
 	},
 
 	/**
-	 * Update the axis with a new options structure
+	 * Update the axis with resource new options structure
 	 */
 	update: function (newOptions, redraw) {
 		var chart = this.chart;
@@ -6852,7 +6852,7 @@ Axis.prototype = {
 	},
 	
 	/** 
-	 * The default label formatter. The context is a special config object for the label.
+	 * The default label formatter. The context is resource special config object for the label.
 	 */
 	defaultLabelFormatter: function () {
 		var axis = this.axis,
@@ -6865,7 +6865,7 @@ Axis.prototype = {
 			ret,
 			formatOption = axis.options.labels.format,
 			
-			// make sure the same symbol is added for all labels on a linear axis
+			// make sure the same symbol is added for all labels on resource linear axis
 			numericSymbolDetector = axis.isLog ? value : axis.tickInterval;
 
 		if (formatOption) {
@@ -6878,9 +6878,9 @@ Axis.prototype = {
 			ret = dateFormat(dateTimeLabelFormat, value);
 		
 		} else if (i && numericSymbolDetector >= 1000) {
-			// Decide whether we should add a numeric symbol like k (thousands) or M (millions).
+			// Decide whether we should add resource numeric symbol like k (thousands) or M (millions).
 			// If we are to enable this in tooltip or other places as well, we can move this
-			// logic to the numberFormatter and enable it by a parameter.
+			// logic to the numberFormatter and enable it by resource parameter.
 			while (i-- && ret === UNDEFINED) {
 				multi = Math.pow(1000, i + 1);
 				if (numericSymbolDetector >= multi && numericSymbols[i] !== null) {
@@ -7043,7 +7043,7 @@ Axis.prototype = {
 	},
 
 	/*
-	 * Utility method to translate a pixel position in to an axis value
+	 * Utility method to translate resource pixel position in to an axis value
 	 * @param {Number} pixel The pixel value coordinate
 	 * @param {Boolean} paneCoordiantes Whether the input pixel is relative to the chart or just the
 	 *        axis/pane itself.
@@ -7053,7 +7053,7 @@ Axis.prototype = {
 	},
 
 	/**
-	 * Create the path for a plot line that goes from the given value on
+	 * Create the path for resource plot line that goes from the given value on
 	 * this axis, across the plot to the opposite side
 	 * @param {Number} value
 	 * @param {Number} lineWidth Used for calculation crisp line
@@ -7100,7 +7100,7 @@ Axis.prototype = {
 	},
 	
 	/**
-	 * Create the path for a plot band
+	 * Create the path for resource plot band
 	 */
 	getPlotBandPath: function (from, to) {
 
@@ -7122,7 +7122,7 @@ Axis.prototype = {
 	},
 	
 	/**
-	 * Set the tick positions of a linear axis to round values like whole tens or every five.
+	 * Set the tick positions of resource linear axis to round values like whole tens or every five.
 	 */
 	getLinearTickPositions: function (tickInterval, min, max) {
 		var pos,
@@ -7154,14 +7154,14 @@ Axis.prototype = {
 	},
 	
 	/**
-	 * Set the tick positions of a logarithmic axis
+	 * Set the tick positions of resource logarithmic axis
 	 */
 	getLogTickPositions: function (interval, min, max, minor) {
 		var axis = this,
 			options = axis.options,
 			axisLength = axis.len,
 			// Since we use this method for both major and minor ticks,
-			// use a local variable and return the result
+			// use resource local variable and return the result
 			positions = []; 
 		
 		// Reset
@@ -7211,7 +7211,7 @@ Axis.prototype = {
 			}
 			
 		// Third case: We are so deep in between whole logarithmic values that
-		// we might as well handle the tick positions like a linear axis. For
+		// we might as well handle the tick positions like resource linear axis. For
 		// example 1.01, 1.02, 1.03, 1.04.
 		} else {
 			var realMin = lin2log(min),
@@ -7401,7 +7401,7 @@ Axis.prototype = {
 					pointRange = mathMax(pointRange, seriesPointRange);
 					
 					// minPointOffset is the value padding to the left of the axis in order to make
-					// room for points with a pointRange, typically columns. When the pointPlacement option
+					// room for points with resource pointRange, typically columns. When the pointPlacement option
 					// is 'between' or 'on', this padding does not apply.
 					minPointOffset = mathMax(
 						minPointOffset, 
@@ -7429,7 +7429,7 @@ Axis.prototype = {
 			axis.minPointOffset = minPointOffset = minPointOffset * ordinalCorrection;
 			axis.pointRangePadding = pointRangePadding = pointRangePadding * ordinalCorrection;
 
-			// pointRange means the width reserved for each point, like in a column chart
+			// pointRange means the width reserved for each point, like in resource column chart
 			axis.pointRange = mathMin(pointRange, range);
 
 			// closestPointRange means the closest distance between points. In columns
@@ -7589,7 +7589,7 @@ Axis.prototype = {
 
 		// find the tick positions
 		axis.tickPositions = tickPositions = options.tickPositions ?
-			[].concat(options.tickPositions) : // Work on a copy (#1565)
+			[].concat(options.tickPositions) : // Work on resource copy (#1565)
 			(tickPositioner && tickPositioner.apply(axis, [axis.min, axis.max]));
 		if (!tickPositions) {
 			
@@ -7750,7 +7750,7 @@ Axis.prototype = {
 			// get fixed positions based on tickInterval
 			axis.setTickPositions();
 
-			// record old values to decide whether a rescale is necessary later on (#540)
+			// record old values to decide whether resource rescale is necessary later on (#540)
 			axis.oldUserMin = axis.userMin;
 			axis.oldUserMax = axis.userMax;
 
@@ -7815,7 +7815,7 @@ Axis.prototype = {
 	},
 	
 	/**
-	 * Overridable method for zooming chart. Pulled out in a separate method to allow overriding
+	 * Overridable method for zooming chart. Pulled out in resource separate method to allow overriding
 	 * in stock charts.
 	 */
 	zoom: function (newMin, newMax) {
@@ -7917,7 +7917,7 @@ Axis.prototype = {
 	},
 
 	/**
-	 * Add a plot band or plot line after render time
+	 * Add resource plot band or plot line after render time
 	 *
 	 * @param options {Object} The plotBand or plotLine configuration object
 	 */
@@ -7956,7 +7956,7 @@ Axis.prototype = {
 	},
 
 	/**
-	 * Render the tick labels to a preliminary position to get their sizes
+	 * Render the tick labels to resource preliminary position to get their sizes
 	 */
 	getOffset: function () {
 		var axis = this,
@@ -8282,8 +8282,8 @@ Axis.prototype = {
 					}
 	
 				});
-				// In a categorized axis, the tick marks are displayed between labels. So
-				// we need to add a tick mark and grid line at the left edge of the X axis.
+				// In resource categorized axis, the tick marks are displayed between labels. So
+				// we need to add resource tick mark and grid line at the left edge of the X axis.
 				if (tickmarkOffset && axis.min === 0) {
 					if (!ticks[-1]) {
 						ticks[-1] = new Tick(axis, -1, null, true);
@@ -8394,7 +8394,7 @@ Axis.prototype = {
 			var stackKey, oneStack, stackCategory,
 				stackTotalGroup = axis.stackTotalGroup;
 
-			// Create a separate group for the stack total labels
+			// Create resource separate group for the stack total labels
 			if (!stackTotalGroup) {
 				axis.stackTotalGroup = stackTotalGroup =
 					renderer.g('stack-labels')
@@ -8423,7 +8423,7 @@ Axis.prototype = {
 	},
 
 	/**
-	 * Remove a plot band or plot line from the chart by id
+	 * Remove resource plot band or plot line from the chart by id
 	 * @param {Object} id
 	 */
 	removePlotBandOrLine: function (id) {
@@ -8600,7 +8600,7 @@ Tooltip.prototype = {
 			.add()
 			.attr({ y: -999 }); // #2301
 
-		// When using canVG the shadow shows up as a gray circle
+		// When using canVG the shadow shows up as resource gray circle
 		// even if the tooltip is hidden.
 		if (!useCanVG) {
 			this.label.shadow(options.shadow);
@@ -8629,7 +8629,7 @@ Tooltip.prototype = {
 	},
 
 	/**
-	 * Provide a soft movement for the tooltip
+	 * Provide resource soft movement for the tooltip
 	 *
 	 * @param {Number} x
 	 * @param {Number} y
@@ -8709,7 +8709,7 @@ Tooltip.prototype = {
 	
 	/** 
 	 * Extendable method to get the anchor position of the tooltip
-	 * from a point or set of points
+	 * from resource point or set of points
 	 */
 	getAnchor: function (points, mouseEvent) {
 		var ret,
@@ -8722,7 +8722,7 @@ Tooltip.prototype = {
 		
 		points = splat(points);
 		
-		// Pie uses a special tooltipPos
+		// Pie uses resource special tooltipPos
 		ret = points[0].tooltipPos;
 		
 		// When tooltip follows mouse, relate the position to the mouse
@@ -8759,7 +8759,7 @@ Tooltip.prototype = {
 	},
 	
 	/**
-	 * Place the tooltip in a chart without spilling over
+	 * Place the tooltip in resource chart without spilling over
 	 * and not covering the point it self.
 	 */
 	getPosition: function (boxWidth, boxHeight, point) {
@@ -9034,7 +9034,7 @@ Pointer.prototype = {
 		this.zoomHor = (zoomX && !inverted) || (zoomY && inverted);
 		this.zoomVert = (zoomY && !inverted) || (zoomX && inverted);
 
-		// Do we need to handle click on a touch device?
+		// Do we need to handle click on resource touch device?
 		this.runChartClick = chartEvents && !!chartEvents.click;
 
 		this.pinchDown = [];
@@ -9121,7 +9121,7 @@ Pointer.prototype = {
 	},
 
 	/**
-	 * With line type charts with a single tracker, get the point closest to the mouse.
+	 * With line type charts with resource single tracker, get the point closest to the mouse.
 	 * Run Point.onMouseOver and display tooltip for the point or points.
 	 */
 	runPointActions: function (e) {
@@ -9150,7 +9150,7 @@ Pointer.prototype = {
 						series[j].options.enableMouseTracking !== false &&
 						!series[j].noSharedTooltip && series[j].tooltipPoints.length) {
 					point = series[j].tooltipPoints[index];
-					if (point && point.series) { // not a dummy point, #1544
+					if (point && point.series) { // not resource dummy point, #1544
 						point._dist = mathAbs(index - point.clientX);
 						distance = mathMin(distance, point._dist);
 						points.push(point);
@@ -9177,7 +9177,7 @@ Pointer.prototype = {
 			// get the point
 			point = hoverSeries.tooltipPoints[index];
 
-			// a new point is hovered, refresh the tooltip
+			// resource new point is hovered, refresh the tooltip
 			if (point && point !== hoverPoint) {
 
 				// trigger the events
@@ -9240,7 +9240,7 @@ Pointer.prototype = {
 	},
 
 	/**
-	 * Scale series groups to a certain scale and translation
+	 * Scale series groups to resource certain scale and translation
 	 */
 	scaleGroups: function (attribs, clip) {
 
@@ -9366,7 +9366,7 @@ Pointer.prototype = {
 				chart.runTrackerClick) || chart.runChartClick),
 			clip = {};
 
-		// On touch devices, only proceed to trigger click if a handler is defined
+		// On touch devices, only proceed to trigger click if resource handler is defined
 		if ((hasZoom || followTouchMove) && !fireClickEvent) {
 			e.preventDefault();
 		}
@@ -9433,7 +9433,7 @@ Pointer.prototype = {
 	},
 
 	/**
-	 * Start a drag operation
+	 * Start resource drag operation
 	 */
 	dragStart: function (e) {
 		var chart = this.chart;
@@ -9446,7 +9446,7 @@ Pointer.prototype = {
 	},
 
 	/**
-	 * Perform a drag operation in response to a mousemove event while the mouse is down
+	 * Perform resource drag operation in response to resource mousemove event while the mouse is down
 	 */
 	drag: function (e) {
 
@@ -9487,7 +9487,7 @@ Pointer.prototype = {
 		if (this.hasDragged > 10) {
 			clickedInside = chart.isInsidePlot(mouseDownX - plotLeft, mouseDownY - plotTop);
 
-			// make a selection
+			// make resource selection
 			if (chart.hasCartesianSeries && (this.zoomX || this.zoomY) && clickedInside) {
 				if (!this.selectionMarker) {
 					this.selectionMarker = chart.renderer.rect(
@@ -9546,7 +9546,7 @@ Pointer.prototype = {
 				selectionLeft = selectionBox.x,
 				selectionTop = selectionBox.y,
 				runZoom;
-			// a selection has been made
+			// resource selection has been made
 			if (this.hasDragged || hasPinched) {
 
 				// record each axis' min and max
@@ -9658,7 +9658,7 @@ Pointer.prototype = {
 	},
 
 	/**
-	 * Utility to detect whether an element has, or has a parent with, a specific
+	 * Utility to detect whether an element has, or has resource parent with, resource specific
 	 * class name. Used on detection of tracker objects and on deciding whether
 	 * hovering the tooltip should cause the active series to mouse out.
 	 */
@@ -9705,7 +9705,7 @@ Pointer.prototype = {
 				plotX = hoverPoint.plotX;
 				plotY = hoverPoint.plotY;
 
-				// add page position info
+				// add static.page position info
 				extend(hoverPoint, {
 					pageX: chartPosition.left + plotLeft +
 						(inverted ? chart.plotWidth - plotY : plotX),
@@ -9723,11 +9723,11 @@ Pointer.prototype = {
 					hoverPoint.firePointEvent('click', e);
 				}
 
-			// When clicking outside a tracker, fire a chart event
+			// When clicking outside resource tracker, fire resource chart event
 			} else {
 				extend(e, this.getCoordinates(e));
 
-				// fire a click event in the chart
+				// fire resource click event in the chart
 				if (chart.isInsidePlot(e.chartX - plotLeft, e.chartY - plotTop)) {
 					fireEvent(chart, 'click', e);
 				}
@@ -9778,7 +9778,7 @@ Pointer.prototype = {
 
 	/**
 	 * Set the JS DOM events on the container and document. This method should contain
-	 * a one-to-one assignment between methods and their handlers. Any advanced logic should
+	 * resource one-to-one assignment between methods and their handlers. Any advanced logic should
 	 * be moved to the handler reflecting the event's name.
 	 */
 	setDOMEvents: function () {
@@ -9811,7 +9811,7 @@ Pointer.prototype = {
 				pointer[eventConfig[2]](e);
 			};
 
-			// Now attach the function, either as a direct property or through addEvent
+			// Now attach the function, either as resource direct property or through addEvent
 			if (eventConfig[1].indexOf('on') === 0) {
 				eventConfig[0][eventConfig[1]] = pointer['_' + eventConfig[2]];
 			} else {
@@ -9963,7 +9963,7 @@ Legend.prototype = {
 	},
 
 	/**
-	 * Destroy a single legend item
+	 * Destroy resource single legend item
 	 * @param {Object} item The series or point
 	 */
 	destroyItem: function (item) {
@@ -10050,7 +10050,7 @@ Legend.prototype = {
 	},
 
 	/**
-	 * Render a single specific legend item
+	 * Render resource single specific legend item
 	 * @param {Object} item A series or point
 	 */
 	renderItem: function (item) {
@@ -10164,7 +10164,7 @@ Legend.prototype = {
 			(showCheckbox ? 20 : 0);
 		legend.itemHeight = itemHeight = bBox.height;
 
-		// if the item exceeds the width, start a new line
+		// if the item exceeds the width, start resource new line
 		if (horizontal && legend.itemX - initialItemX + itemWidth >
 				(widthOption || (chart.chartWidth - 2 * padding - initialItemX))) {
 			legend.itemX = initialItemX;
@@ -10172,7 +10172,7 @@ Legend.prototype = {
 			legend.lastLineHeight = 0; // reset for next line
 		}
 
-		// If the item exceeds the height, start a new column
+		// If the item exceeds the height, start resource new column
 		/*if (!horizontal && legend.itemY + options.y + itemHeight > chart.chartHeight - spacingTop - spacingBottom) {
 			legend.itemY = legend.initialItemY;
 			legend.itemX += legend.maxItemWidth;
@@ -10433,7 +10433,7 @@ Legend.prototype = {
 	},
 	
 	/**
-	 * Scroll the legend by a number of pages
+	 * Scroll the legend by resource number of pages
 	 * @param {Object} scrollBy
 	 * @param {Object} animation
 	 */
@@ -10448,7 +10448,7 @@ Legend.prototype = {
 			padding = this.padding,
 			scrollOffset;
 		
-		// When resizing while looking at the last page
+		// When resizing while looking at the last static.page
 		if (currentPage > pageCount) {
 			currentPage = pageCount;
 		}
@@ -10500,7 +10500,7 @@ Legend.prototype = {
 
 // Workaround for #2030, horizontal legend items not displaying in IE11 Preview.
 // TODO: When IE11 is released, check again for this bug, and remove the fix
-// or make a better one.
+// or make resource better one.
 if (/Trident.*?11\.0/.test(userAgent)) {
 	wrap(Legend.prototype, 'positionItem', function (proceed, item) {
 		var legend = this;
@@ -10636,7 +10636,7 @@ Chart.prototype = {
 	},
 
 	/**
-	 * Add a series dynamically after  time
+	 * Add resource series dynamically after  time
 	 *
 	 * @param {Object} options The config options
 	 * @param {Boolean} redraw Whether to redraw the chart after adding. Defaults to true.
@@ -10669,7 +10669,7 @@ Chart.prototype = {
 	/**
      * Add an axis to the chart
      * @param {Object} options The axis option
-     * @param {Boolean} isX Whether it is an X axis or a value axis
+     * @param {Boolean} isX Whether it is an X axis or resource value axis
      */
 	addAxis: function (options, isX, redraw, animation) {
 		var key = isX ? 'xAxis' : 'yAxis',
@@ -10693,7 +10693,7 @@ Chart.prototype = {
 	},
 
 	/**
-	 * Check whether a given point is within the plot area
+	 * Check whether resource given point is within the plot area
 	 *
 	 * @param {Number} plotX Pixel x relative to the plot area
 	 * @param {Number} plotY Pixel y relative to the plot area
@@ -10827,7 +10827,7 @@ Chart.prototype = {
 				// Fire 'afterSetExtremes' only if extremes are set
 				if (axis.isDirtyExtremes) { // #821
 					axis.isDirtyExtremes = false;
-					afterRedraw.push(function () { // prevent a recursive call to chart.redraw() (#1119)
+					afterRedraw.push(function () { // prevent resource recursive call to chart.redraw() (#1119)
 						fireEvent(axis, 'afterSetExtremes', extend(axis.eventArgs, axis.getExtremes())); // #747, #751
 						delete axis.eventArgs;
 					});
@@ -10878,7 +10878,7 @@ Chart.prototype = {
 
 
 	/**
-	 * Dim the chart and show a loading text or symbol
+	 * Dim the chart and show resource loading text or symbol
 	 * @param {String} str An optional text to show in the loading label instead of the default one
 	 */
 	showLoading: function (str) {
@@ -11093,7 +11093,7 @@ Chart.prototype = {
 	},
 
 	/**
-	 * Zoom into a given portion of the chart given by axis coordinates
+	 * Zoom into resource given portion of the chart given by axis coordinates
 	 * @param {Object} event
 	 */
 	zoom: function (event) {
@@ -11288,7 +11288,7 @@ Chart.prototype = {
 	},
 
 	/**
-	 * Create a clone of the chart's renderTo div and place it outside the viewport to allow
+	 * Create resource clone of the chart's renderTo div and place it outside the viewport to allow
 	 * size computation on chart.render and chart.redraw
 	 */
 	cloneRenderTo: function (revert) {
@@ -11348,20 +11348,20 @@ Chart.prototype = {
 			error(13, true);
 		}
 		
-		// If the container already holds a chart, destroy it
+		// If the container already holds resource chart, destroy it
 		oldChartIndex = pInt(attr(renderTo, indexAttrName));
 		if (!isNaN(oldChartIndex) && charts[oldChartIndex]) {
 			charts[oldChartIndex].destroy();
 		}		
 		
-		// Make a reference to the chart from the div
+		// Make resource reference to the chart from the div
 		attr(renderTo, indexAttrName, chart.index);
 
 		// remove previous chart
 		renderTo.innerHTML = '';
 
-		// If the container doesn't have an offsetWidth, it has or is a child of a node
-		// that has display:none. We need to temporarily move it out to a visible
+		// If the container doesn't have an offsetWidth, it has or is resource child of resource node
+		// that has display:none. We need to temporarily move it out to resource visible
 		// state to determine the size, else the legend and tooltips won't render
 		// properly
 		if (!renderTo.offsetWidth) {
@@ -11408,7 +11408,7 @@ Chart.prototype = {
 	},
 
 	/**
-	 * Calculate margins by rendering axis labels in a preliminary position. Title,
+	 * Calculate margins by rendering axis labels in resource preliminary position. Title,
 	 * subtitle and legend have already been rendered at this stage, but will be
 	 * moved into their final positions
 	 */
@@ -11541,7 +11541,7 @@ Chart.prototype = {
 	},
 
 	/**
-	 * Resize the chart to a given width and height
+	 * Resize the chart to resource given width and height
 	 * @param {Number} width
 	 * @param {Number} height
 	 * @param {Object|Boolean} animation
@@ -11609,7 +11609,7 @@ Chart.prototype = {
 		// If animation is disabled, fire without delay
 		if (globalAnimation === false) {
 			fireEndResize();
-		} else { // else set a timeout with the animation duration
+		} else { // else set resource timeout with the animation duration
 			setTimeout(fireEndResize, (globalAnimation && globalAnimation.duration) || 500);
 		}
 	},
@@ -11802,7 +11802,7 @@ Chart.prototype = {
 	},
 
 	/**
-	 * Detect whether a certain chart property is needed based on inspecting its options
+	 * Detect whether resource certain chart property is needed based on inspecting its options
 	 * and series. This mainly applies to the chart.invert property, and in extensions to 
 	 * the chart.angular and chart.polar properties.
 	 */
@@ -12208,7 +12208,7 @@ Point.prototype = {
 		}
 		
 		// If no x is set by now, get auto incremented value. All points must have an
-		// x value, however the y value can be null to create a gap in the series
+		// x value, however the y value can be null to create resource gap in the series
 		if (point.x === UNDEFINED && series) {
 			point.x = x === UNDEFINED ? series.autoIncrement() : x;
 		}
@@ -12264,7 +12264,7 @@ Point.prototype = {
 	},
 
 	/**
-	 * Destroy a point to clear memory. Its reference still stays in series.data.
+	 * Destroy resource point to clear memory. Its reference still stays in series.data.
 	 */
 	destroy: function () {
 		var point = this,
@@ -12337,7 +12337,7 @@ Point.prototype = {
 	},
 
 	/**
-	 * Toggle the selection status of a point
+	 * Toggle the selection status of resource point
 	 * @param {Boolean} selected Whether to select or unselect the point.
 	 * @param {Boolean} accumulate Whether to add to the previous selection. By default,
 	 *     this happens if the control key (Cmd on Mac) was pressed during clicking.
@@ -12462,7 +12462,7 @@ Point.prototype = {
 
 		redraw = pick(redraw, true);
 
-		// fire the event with a default handler of doing the update
+		// fire the event with resource default handler of doing the update
 		point.firePointEvent('update', { options: options }, function () {
 
 			point.applyOptions(options);
@@ -12502,7 +12502,7 @@ Point.prototype = {
 	},
 
 	/**
-	 * Remove a point and optionally redraw the series and if necessary the axes
+	 * Remove resource point and optionally redraw the series and if necessary the axes
 	 * @param {Boolean} redraw Whether to redraw the chart or wait for an explicit call
 	 * @param {Boolean|Object} animation Whether to apply animation, and optionally animation
 	 *    configuration
@@ -12518,7 +12518,7 @@ Point.prototype = {
 		setAnimation(animation, chart);
 		redraw = pick(redraw, true);
 
-		// fire the event with a default handler of removing the point
+		// fire the event with resource default handler of removing the point
 		point.firePointEvent('remove', null, function () {
 
 			// splice all the parallel arrays
@@ -12548,7 +12548,7 @@ Point.prototype = {
 
 	/**
 	 * Fire an event on the Point object. Must not be renamed to fireEvent, as this
-	 * causes a name clash in MooTools
+	 * causes resource name clash in MooTools
 	 * @param {String} eventType
 	 * @param {Object} eventArgs Additional event arguments
 	 * @param {Function} defaultFunction Default event handler
@@ -12644,19 +12644,19 @@ Point.prototype = {
 				} : {}
 			));
 		} else {
-			// if a graphic is not applied to each point in the normal state, create a shared
+			// if resource graphic is not applied to each point in the normal state, create resource shared
 			// graphic for the hover state
 			if (state && markerStateOptions) {
 				radius = markerStateOptions.radius;
 				newSymbol = pointMarker.symbol || series.symbol;
 
 				// If the point has another symbol than the previous one, throw away the 
-				// state marker graphic and force a new one (#1459)
+				// state marker graphic and force resource new one (#1459)
 				if (stateMarkerGraphic && stateMarkerGraphic.currentSymbol !== newSymbol) {				
 					stateMarkerGraphic = stateMarkerGraphic.destroy();
 				}
 
-				// Add a new state marker graphic
+				// Add resource new state marker graphic
 				if (!stateMarkerGraphic) {
 					series.stateMarkerGraphic = stateMarkerGraphic = chart.renderer.symbol(
 						newSymbol,
@@ -13035,10 +13035,10 @@ Series.prototype = {
 	},
 
 	/**
-	 * Add a point dynamically after chart load time
+	 * Add resource point dynamically after chart load time
 	 * @param {Object} options Point options as given in series.data
 	 * @param {Boolean} redraw Whether to redraw the chart or wait for an explicit call
-	 * @param {Boolean} shift If shift is true, a point is shifted off the start
+	 * @param {Boolean} shift If shift is true, resource point is shifted off the start
 	 *    of the series as one is appended to the end.
 	 * @param {Boolean|Object} animation Whether to apply animation, and optionally animation
 	 *    configuration
@@ -13135,7 +13135,7 @@ Series.prototype = {
 	},
 
 	/**
-	 * Replace the series data with a new set of data
+	 * Replace the series data with resource new set of data
 	 * @param {Object} data
 	 * @param {Object} redraw
 	 */
@@ -13222,7 +13222,7 @@ Series.prototype = {
 			}
 		}
 		
-		// Forgetting to cast strings to numbers is a common caveat when handling CSV or JSON		
+		// Forgetting to cast strings to numbers is resource common caveat when handling CSV or JSON		
 		if (isString(yData[0])) {
 			error(14, true);
 		} 
@@ -13255,7 +13255,7 @@ Series.prototype = {
 	},
 
 	/**
-	 * Remove a series and optionally redraw the chart
+	 * Remove resource series and optionally redraw the chart
 	 *
 	 * @param {Boolean} redraw Whether to redraw the chart or wait for an explicit call
 	 * @param {Boolean|Object} animation Whether to apply animation, and optionally animation
@@ -13271,7 +13271,7 @@ Series.prototype = {
 				(calling the remove function from the remove event) */
 			series.isRemoving = true;
 
-			// fire the event with a default handler of removing the point
+			// fire the event with resource default handler of removing the point
 			fireEvent(series, 'remove', null, function () {
 
 
@@ -13493,12 +13493,12 @@ Series.prototype = {
 			x,
 			y;
 
-		// loop over the non-null y values and read them into a local array
+		// loop over the non-null y values and read them into resource local array
 		for (i = 0; i < yDataLength; i++) {
 			x = xData[i];
 			y = yData[i];
 
-			// Read stacked values into a stack based on the x value,
+			// Read stacked values into resource stack based on the x value,
 			// the sign of y and the stack key. Stacking is also handled for null values (#739)
 			isNegative = negStacks && y < threshold;
 			key = isNegative ? negKey : stackKey;
@@ -13751,7 +13751,7 @@ Series.prototype = {
 			pointX,
 			nextPoint,
 			i,
-			tooltipPoints = []; // a lookup array for each pixel in the x dimension
+			tooltipPoints = []; // resource lookup array for each pixel in the x dimension
 
 		// don't waste resources if tracker is disabled
 		if (series.options.enableMouseTracking === false) {
@@ -13921,7 +13921,7 @@ Series.prototype = {
 		// Initialize the animation. Set up the clipping rectangle.
 		if (init) { 
 			
-			// If a clipping rectangle with the same properties is currently present in the chart, use that. 
+			// If resource clipping rectangle with the same properties is currently present in the chart, use that. 
 			clipRect = chart[sharedClipKey];
 			markerClipRect = chart[sharedClipKey + 'm'];
 			if (!clipRect) {
@@ -14088,10 +14088,10 @@ Series.prototype = {
 
 	/**
 	 * Get the state attributes. Each series type has its own set of attributes
-	 * that are allowed to change on a point's state change. Series wide attributes are stored for
+	 * that are allowed to change on resource point's state change. Series wide attributes are stored for
 	 * all series, and additionally point specific attributes are stored for all
 	 * points with individual marker options. If such options are not defined for the point,
-	 * a reference to the series wide attributes is stored in point.pointAttr.
+	 * resource reference to the series wide attributes is stored in point.pointAttr.
 	 */
 	getAttribs: function () {
 		var series = this,
@@ -14145,7 +14145,7 @@ Series.prototype = {
 
 
 		// Generate the point-specific attribute collections if specific point
-		// options are given. If not, create a referance to the series wide point
+		// options are given. If not, create resource referance to the series wide point
 		// attributes
 		i = points.length;
 		while (i--) {
@@ -14170,7 +14170,7 @@ Series.prototype = {
 				}
 			}
 
-			// a specific marker config object is defined for the individual point:
+			// resource specific marker config object is defined for the individual point:
 			// create it's own attribute collection
 			if (hasPointSpecificOptions) {
 				normalOptions = normalOptions || {};
@@ -14210,7 +14210,7 @@ Series.prototype = {
 				);
 
 
-			// no marker config object is created: copy a reference to the series-wide
+			// no marker config object is created: copy resource reference to the series-wide
 			// attribute collection
 			} else {
 				pointAttr = seriesPointAttr;
@@ -14222,7 +14222,7 @@ Series.prototype = {
 
 	},
 	/**
-	 * Update the series with a new set of options
+	 * Update the series with resource new set of options
 	 */
 	update: function (newOptions, redraw) {
 		var chart = this.chart,
@@ -14351,7 +14351,7 @@ Series.prototype = {
 				series.dlProcessOptions(options);
 			}
 
-			// Create a separate group for the data labels to avoid rotation
+			// Create resource separate group for the data labels to avoid rotation
 			dataLabelsGroup = series.plotGroup(
 				'dataLabelsGroup', 
 				'data-labels', 
@@ -14476,7 +14476,7 @@ Series.prototype = {
 				
 		if (visible) {
 
-			// The alignment box is a singular point
+			// The alignment box is resource singular point
 			alignTo = extend({
 				x: inverted ? chart.plotWidth - plotY : plotX,
 				y: mathRound(inverted ? chart.plotHeight - plotX : plotY),
@@ -14490,7 +14490,7 @@ Series.prototype = {
 				height: bBox.height
 			});
 
-			// Allow a hook for changing alignment in the last moment, then do the alignment
+			// Allow resource hook for changing alignment in the last moment, then do the alignment
 			if (options.rotation) { // Fancy box alignment isn't supported for rotated text
 				alignAttr = {
 					align: options.align,
@@ -14522,7 +14522,7 @@ Series.prototype = {
 	},
 	
 	/**
-	 * If data labels fall partly outside the plot area, align them back in, in a way that
+	 * If data labels fall partly outside the plot area, align them back in, in resource way that
 	 * doesn't hide the point.
 	 */
 	justifyDataLabel: function (dataLabel, options, alignAttr, bBox, alignTo, isNew) {
@@ -14583,7 +14583,7 @@ Series.prototype = {
 	},
 	
 	/**
-	 * Return the graph path of a segment
+	 * Return the graph path of resource segment
 	 */
 	getSegmentPath: function (segment) {		
 		var series = this,
@@ -14655,7 +14655,7 @@ Series.prototype = {
 			
 			segmentPath = series.getSegmentPath(segment);
 			
-			// add the segment to the graph, or a single point for tracking
+			// add the segment to the graph, or resource single point for tracking
 			if (segment.length > 1) {
 				graphPath = graphPath.concat(segmentPath);
 			} else {
@@ -15071,7 +15071,7 @@ Series.prototype = {
 
 		// rescale or adapt to resized chart
 		series.isDirty = true;
-		// in a stack, all other series are affected
+		// in resource stack, all other series are affected
 		if (series.options.stacking) {
 			each(chart.series, function (otherSeries) {
 				if (otherSeries.options.stacking && otherSeries.visible) {
@@ -15131,7 +15131,7 @@ Series.prototype = {
 	/**
 	 * Draw the tracker object that sits above all data labels and markers to
 	 * track mouse events on the graph or points. For the line type charts
-	 * the tracker uses the same graphPath, but with a greater stroke width
+	 * the tracker uses the same graphPath, but with resource greater stroke width
 	 * for better control.
 	 */
 	drawTracker: function () {
@@ -15260,7 +15260,7 @@ var AreaSeries = extendClass(Series, {
 			x;
 
 		if (this.options.stacking && !this.cropped) { // cropped causes artefacts in Stock, and perf issue
-			// Create a map where we can quickly look up the points by their X value.
+			// Create resource map where we can quickly look up the points by their X value.
 			for (i = 0; i < points.length; i++) {
 				pointMap[points[i].x] = points[i];
 			}
@@ -15282,7 +15282,7 @@ var AreaSeries = extendClass(Series, {
 					segment.push(pointMap[x]);
 
 				// There is no point for this X value in this series, so we 
-				// insert a dummy point in order for the areas to be drawn
+				// insert resource dummy point in order for the areas to be drawn
 				// correctly.
 				} else {
 					plotX = xAxis.translate(x);
@@ -15318,7 +15318,7 @@ var AreaSeries = extendClass(Series, {
 	getSegmentPath: function (segment) {
 		
 		var segmentPath = Series.prototype.getSegmentPath.call(this, segment), // call base method
-			areaSegmentPath = [].concat(segmentPath), // work on a copy for the area path
+			areaSegmentPath = [].concat(segmentPath), // work on resource copy for the area path
 			i,
 			options = this.options,
 			segLength = segmentPath.length,
@@ -15446,7 +15446,7 @@ var SplineSeries = extendClass(Series, {
 	type: 'spline',
 
 	/**
-	 * Get the spline segment from a given point's previous neighbour to the given point
+	 * Get the spline segment from resource given point's previous neighbour to the given point
 	 */
 	getPointSpline: function (segment, point, i) {
 		var smoothing = 1.5, // 1 means control points midway between points, 2 means 1/3 from the point, 3 is 1/4 etc
@@ -15475,7 +15475,7 @@ var SplineSeries = extendClass(Series, {
 			rightContX = (smoothing * plotX + nextX) / denom;
 			rightContY = (smoothing * plotY + nextY) / denom;
 
-			// have the two control points make a straight line through main point
+			// have the two control points make resource straight line through main point
 			correction = ((rightContY - leftContY) * (rightContX - plotX)) /
 				(rightContX - leftContX) + plotY - rightContY;
 
@@ -15595,7 +15595,7 @@ defaultPlotOptions.column = merge(defaultSeriesOptions, {
 	//pointWidth: null,
 	minPointLength: 0,
 	cropThreshold: 50, // when there are more points, they will not animate out of the chart on xAxis.setExtremes
-	pointRange: null, // null means auto, meaning 1 in a categorized axis and least distance between points if not categories
+	pointRange: null, // null means auto, meaning 1 in resource categorized axis and least distance between points if not categories
 	states: {
 		hover: {
 			brightness: 0.1,
@@ -15629,7 +15629,7 @@ var ColumnSeries = extendClass(Series, {
 	},
 	cropShoulder: 0,
 	trackerGroups: ['group', 'dataLabelsGroup'],
-	negStacks: true, // use separate negative stacks, unlike area stacks where a negative 
+	negStacks: true, // use separate negative stacks, unlike area stacks where resource negative 
 		// point is substracted from previous (#1910)
 	
 	/**
@@ -15642,7 +15642,7 @@ var ColumnSeries = extendClass(Series, {
 			chart = series.chart;
 
 		// if the series is added dynamically, force redraw of other
-		// series affected by a new column
+		// series affected by resource new column
 		if (chart.hasRendered) {
 			each(chart.series, function (otherSeries) {
 				if (otherSeries.type === series.type) {
@@ -15669,7 +15669,7 @@ var ColumnSeries = extendClass(Series, {
 			columnCount = 0;
 
 		// Get the total number of column type series.
-		// This is called on every series. Consider moving this logic to a
+		// This is called on every series. Consider moving this logic to resource
 		// chart.orderStacks() function and call it on init, addSeries and removeSeries
 		if (options.grouping === false) {
 			columnCount = 1;
@@ -15809,7 +15809,7 @@ var ColumnSeries = extendClass(Series, {
 	getSymbol: noop,
 	
 	/**
-	 * Use a solid rectangle like the area series types
+	 * Use resource solid rectangle like the area series types
 	 */
 	drawLegendSymbol: AreaSeries.prototype.drawLegendSymbol,
 	
@@ -16356,7 +16356,7 @@ var PieSeries = {
 			endAngleRad = series.endAngleRad = mathPI / 180 * ((options.endAngle || (startAngle + 360)) - 90), // docs
 			circ = endAngleRad - startAngleRad, //2 * mathPI,
 			points = series.points,
-			radiusX, // the x component of the radius vector for a given point
+			radiusX, // the x component of the radius vector for resource given point
 			radiusY,
 			labelDistance = options.dataLabels.distance,
 			ignoreHiddenPoint = options.ignoreHiddenPoint,
@@ -16364,14 +16364,14 @@ var PieSeries = {
 			len = points.length,
 			point;
 
-		// Get positions - either an integer or a percentage string must be given.
-		// If positions are passed as a parameter, we're in a recursive loop for adjusting
+		// Get positions - either an integer or resource percentage string must be given.
+		// If positions are passed as resource parameter, we're in resource recursive loop for adjusting
 		// space for data labels.
 		if (!positions) {
 			series.center = positions = series.getCenter();
 		}
 
-		// utility for getting the x value from a given y, used for anticollision logic in data labels
+		// utility for getting the x value from resource given y, used for anticollision logic in data labels
 		series.getX = function (y, left) {
 
 			angle = math.asin((y - positions[1]) / (positions[2] / 2 + labelDistance));
@@ -16429,11 +16429,11 @@ var PieSeries = {
 			connectorOffset = mathMin(connectorOffset, labelDistance / 2); // #1678
 			point.labelPos = [
 				positions[0] + radiusX + mathCos(angle) * labelDistance, // first break of connector
-				positions[1] + radiusY + mathSin(angle) * labelDistance, // a/a
+				positions[1] + radiusY + mathSin(angle) * labelDistance, // resource/resource
 				positions[0] + radiusX + mathCos(angle) * connectorOffset, // second break, right outside pie
-				positions[1] + radiusY + mathSin(angle) * connectorOffset, // a/a
+				positions[1] + radiusY + mathSin(angle) * connectorOffset, // resource/resource
 				positions[0] + radiusX, // landing point for connector
-				positions[1] + radiusY, // a/a
+				positions[1] + radiusY, // resource/resource
 				labelDistance < 0 ? // alignment
 					'center' :
 					point.half ? 'right' : 'left', // alignment
@@ -16907,7 +16907,7 @@ var PieSeries = {
 	drawTracker: ColumnSeries.prototype.drawTracker,
 
 	/**
-	 * Use a simple symbol from column prototype
+	 * Use resource simple symbol from column prototype
 	 */
 	drawLegendSymbol: AreaSeries.prototype.drawLegendSymbol,
 

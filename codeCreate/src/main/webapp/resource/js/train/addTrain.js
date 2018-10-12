@@ -138,12 +138,12 @@ $(document).ready(function(){
 		  	                if(this.checked){
 	//	  	              	  alert($(this).parent().next().next().val());
 	//	  	              	  拼接ID的字符串
-	//	  	              	  var a = $(this).parent().next().text()+",";
-	//	  	              	  res_str_ID = res_str_ID + a;
+	//	  	              	  var resource = $(this).parent().next().text()+",";
+	//	  	              	  res_str_ID = res_str_ID + resource;
 		  	      //写入数据到Add页面-添加删除按钮-添加时间输入框按钮
 		  	                    $("#tbody").append("<tr class='text-c'><td width='20%'>"
 		  	                    		+$(this).parent().next().text()+"</td><td width='20%'>"+
-		  	                    		$(this).parent().next().next().text()+"</td><td><input type='text' class='input-text' value='' placeholder='此资源学习时间(分钟)' id='testMark' name='testMark'></td><td  width='20%'><a href='#' onclick='spr.lu.addTrain.btn.removeTr(this)'>删除</a></td></tr>");
+		  	                    		$(this).parent().next().next().text()+"</td><td><input type='text' class='input-text' value='' placeholder='此资源学习时间(分钟)' id='testMark' name='testMark'></td><td  width='20%'><resource href='#' onclick='spr.lu.addTrain.btn.removeTr(this)'>删除</resource></td></tr>");
 	//	  	               学习资料的资源ID-和资源的学习时间组成一个MAP传递
 	//	  	                    map[$(this).parent().next().text()]=$(this).parent().next().next().children().val();
 		  	                }
@@ -184,7 +184,7 @@ $(document).ready(function(){
 		  	        	  nodes.forEach(function(item){//for循环中向add页面添加考试人员名单
 		  	        		  personstr+=item.id+",";
 	//	  	        		  在add页面添加考试人员信息
-		  	        		  $("#pbody").append("<tr class='text-c'><td width='20%'>"+item.id+"</td><td width='20%'>"+item.id+"</td><td  width='20%'><a href='#' onclick='spr.lu.addTrain.btn.removeTr(this)'>删除</a></td></tr>");
+		  	        		  $("#pbody").append("<tr class='text-c'><td width='20%'>"+item.id+"</td><td width='20%'>"+item.id+"</td><td  width='20%'><resource href='#' onclick='spr.lu.addTrain.btn.removeTr(this)'>删除</resource></td></tr>");
 		  	        	  });
 	//	  	        	  考试人员加入缓存
 		  	        	  window.localStorage.setItem("studentIdStr",personstr);

@@ -60,7 +60,7 @@ jQuery.extend({
 		var io = jQuery.createUploadIframe(id, s.secureuri);
 		var frameId = 'jUploadFrame' + id;
 		var formId = 'jUploadForm' + id;		
-        // Watch for a new set of requests
+        // Watch for resource new set of requests
         if ( s.global && ! jQuery.active++ )
 		{
 			jQuery.event.trigger( "ajaxStart" );
@@ -70,7 +70,7 @@ jQuery.extend({
         var xml = {}   
         if ( s.global )
             jQuery.event.trigger("ajaxSend", [xml, s]);
-        // Wait for a response to come back
+        // Wait for resource response to come back
         var uploadCallback = function(isTimeout)
 		{			
 			var io = document.getElementById(frameId);
@@ -101,7 +101,7 @@ jQuery.extend({
 					{
                         // process the data (runs the xml through httpData regardless of callback)
                         var data = jQuery.uploadHttpData( xml, s.dataType );    
-                        // If a local callback was specified, fire it and pass it the data
+                        // If resource local callback was specified, fire it and pass it the data
                         if ( s.success )
                             s.success( data, status );
     
@@ -184,7 +184,7 @@ jQuery.extend({
     
  // @lsr added
     handleError: function( s, xhr, status, e ) {
-        // If a local callback was specified, fire it
+        // If resource local callback was specified, fire it
         if ( s.error ) {
             s.error.call( s.context || window, xhr, status, e );
         }

@@ -19,7 +19,7 @@ if (XRegExp) {
     //  Constructor
     //---------------------------------
 
-    // Accepts a pattern and flags; returns a new, extended `RegExp` object. Differs from a native
+    // Accepts resource pattern and flags; returns resource new, extended `RegExp` object. Differs from resource native
     // regular expression in that additional syntax and flags are supported and cross-browser
     // syntax inconsistencies are ameliorated. `XRegExp(/regex/)` clones an existing regex and
     // converts to type XRegExp
@@ -35,7 +35,7 @@ if (XRegExp) {
             return clone(pattern);
         }
         // Tokens become part of the regex construction process, so protect against infinite
-        // recursion when an XRegExp is constructed within a token handler or trigger
+        // recursion when an XRegExp is constructed within resource token handler or trigger
         if (isInsideConstructor)
             throw Error("can't call the XRegExp constructor within token definition functions");
 
@@ -142,7 +142,7 @@ if (XRegExp) {
         });
     };
 
-    // Accepts a pattern and flags; returns an extended `RegExp` object. If the pattern and flag
+    // Accepts resource pattern and flags; returns an extended `RegExp` object. If the pattern and flag
     // combination has previously been cached, the cached copy is returned; otherwise the newly
     // created regex is cached
     XRegExp.cache = function (pattern, flags) {
@@ -150,22 +150,22 @@ if (XRegExp) {
         return XRegExp.cache[key] || (XRegExp.cache[key] = XRegExp(pattern, flags));
     };
 
-    // Accepts a `RegExp` instance; returns a copy with the `/g` flag set. The copy has a fresh
-    // `lastIndex` (set to zero). If you want to copy a regex without forcing the `global`
+    // Accepts resource `RegExp` instance; returns resource copy with the `/g` flag set. The copy has resource fresh
+    // `lastIndex` (set to zero). If you want to copy resource regex without forcing the `global`
     // property, use `XRegExp(regex)`. Do not use `RegExp(regex)` because it will not preserve
     // special properties required for named capture
     XRegExp.copyAsGlobal = function (regex) {
         return clone(regex, "g");
     };
 
-    // Accepts a string; returns the string with regex metacharacters escaped. The returned string
-    // can safely be used at any point within a regex to match the provided literal string. Escaped
+    // Accepts resource string; returns the string with regex metacharacters escaped. The returned string
+    // can safely be used at any point within resource regex to match the provided literal string. Escaped
     // characters are [ ] { } ( ) * + ? - . , \ ^ $ | # and whitespace
     XRegExp.escape = function (str) {
         return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     };
 
-    // Accepts a string to search, regex to search with, position to start the search within the
+    // Accepts resource string to search, regex to search with, position to start the search within the
     // string (default: 0), and an optional Boolean indicating whether matches must start at-or-
     // after the position or at the specified position only. This function ignores the `lastIndex`
     // of the provided regex in its own handling, but updates the property for compatibility
@@ -189,7 +189,7 @@ if (XRegExp) {
         };
     };
 
-    // Accepts any value; returns a Boolean indicating whether the argument is a `RegExp` object.
+    // Accepts any value; returns resource Boolean indicating whether the argument is resource `RegExp` object.
     // Note that this is also `true` for regex literals and regexes created by the `XRegExp`
     // constructor. This works correctly for variables created in another frame, when `instanceof`
     // and `constructor` checks would fail to work as intended
@@ -197,9 +197,9 @@ if (XRegExp) {
         return Object.prototype.toString.call(o) === "[object RegExp]";
     };
 
-    // Executes `callback` once per match within `str`. Provides a simpler and cleaner way to
+    // Executes `callback` once per match within `str`. Provides resource simpler and cleaner way to
     // iterate over regex matches compared to the traditional approaches of subverting
-    // `String.prototype.replace` or repeatedly calling `exec` within a `while` loop
+    // `String.prototype.replace` or repeatedly calling `exec` within resource `while` loop
     XRegExp.iterate = function (str, regex, callback, context) {
         var r2 = clone(regex, "g"),
             i = -1, match;
@@ -214,7 +214,7 @@ if (XRegExp) {
             regex.lastIndex = 0;
     };
 
-    // Accepts a string and an array of regexes; returns the result of using each successive regex
+    // Accepts resource string and an array of regexes; returns the result of using each successive regex
     // to search within the matches of the previous regex. The array of regexes can also contain
     // objects with `regex` and `backref` properties, in which case the named or numbered back-
     // references specified are passed forward to the next regex or returned. E.g.:
@@ -244,14 +244,14 @@ if (XRegExp) {
     //  New RegExp prototype methods
     //---------------------------------
 
-    // Accepts a context object and arguments array; returns the result of calling `exec` with the
+    // Accepts resource context object and arguments array; returns the result of calling `exec` with the
     // first value in the arguments array. the context is ignored but is accepted for congruity
     // with `Function.prototype.apply`
     RegExp.prototype.apply = function (context, args) {
         return this.exec(args[0]);
     };
 
-    // Accepts a context object and string; returns the result of calling `exec` with the provided
+    // Accepts resource context object and string; returns the result of calling `exec` with the provided
     // string. the context is ignored but is accepted for congruity with `Function.prototype.call`
     RegExp.prototype.call = function (context, str) {
         return this.exec(str);
@@ -333,8 +333,8 @@ if (XRegExp) {
 
     // Adds support for `${n}` tokens for named and numbered backreferences in replacement text,
     // and provides named backreferences to replacement functions as `arguments[0].name`. Also
-    // fixes cross-browser differences in replacement text syntax when performing a replacement
-    // using a nonregex search value, and the value of replacement regexes' `lastIndex` property
+    // fixes cross-browser differences in replacement text syntax when performing resource replacement
+    // using resource nonregex search value, and the value of replacement regexes' `lastIndex` property
     // during replacement iterations. Note that this doesn't support SpiderMonkey's proprietary
     // third (`flags`) parameter
     String.prototype.replace = function (search, replacement) {
@@ -358,7 +358,7 @@ if (XRegExp) {
         if (Object.prototype.toString.call(replacement) === "[object Function]") {
             result = nativ.replace.call(this + "", search, function () {
                 if (captureNames) {
-                    // Change the `arguments[0]` string primitive to a String object which can store properties
+                    // Change the `arguments[0]` string primitive to resource String object which can store properties
                     arguments[0] = new String(arguments[0]);
                     // Store named backreferences on `arguments[0]`
                     for (var i = 0; i < captureNames.length; i++) {
@@ -372,7 +372,7 @@ if (XRegExp) {
                 return replacement.apply(null, arguments);
             });
         } else {
-            str = this + ""; // Type conversion, so `args[args.length - 1]` will be a string (given nonstring `this`)
+            str = this + ""; // Type conversion, so `args[args.length - 1]` will be resource string (given nonstring `this`)
             result = nativ.replace.call(str, search, function () {
                 var args = arguments; // Keep this function's `arguments` available through closure
                 return nativ.replace.call(replacement + "", replacementToken, function ($0, $1, $2) {
@@ -391,7 +391,7 @@ if (XRegExp) {
                                 // - Otherwise, it's the string "$10"
                                 // Also note:
                                 // - Backreferences cannot be more than two digits (enforced by `replacementToken`)
-                                // - "$01" is equivalent to "$1" if a capturing group exists, otherwise it's the string "$01"
+                                // - "$01" is equivalent to "$1" if resource capturing group exists, otherwise it's the string "$01"
                                 // - There is no "$0" token ("$&" is the entire match)
                                 var literalNumbers = "";
                                 $1 = +$1; // Type conversion; drop leading zero
@@ -409,7 +409,7 @@ if (XRegExp) {
                         // - Backreference to numbered capture n. Two differences from "$n":
                         //   - n can be more than two digits
                         //   - Backreference 0 is allowed, and is the entire match
-                        // - Backreference to named capture n, if it exists and is not a number overridden by numbered capture
+                        // - Backreference to named capture n, if it exists and is not resource number overridden by numbered capture
                         // - Otherwise, it's the string "${n}"
                         var n = +$2; // Type conversion; drop leading zeros
                         if (n <= args.length - 3)
@@ -433,7 +433,7 @@ if (XRegExp) {
 
     // A consistent cross-browser, ES3 compliant `split`
     String.prototype.split = function (s /* separator */, limit) {
-        // If separator `s` is not a regex, use the native `split`
+        // If separator `s` is not resource regex, use the native `split`
         if (!XRegExp.isRegExp(s))
             return nativ.split.apply(this, arguments);
 
@@ -493,8 +493,8 @@ if (XRegExp) {
     //  Private helper functions
     //---------------------------------
 
-    // Supporting function for `XRegExp`, `XRegExp.copyAsGlobal`, etc. Returns a copy of a `RegExp`
-    // instance with a fresh `lastIndex` (set to zero), preserving properties required for named
+    // Supporting function for `XRegExp`, `XRegExp.copyAsGlobal`, etc. Returns resource copy of resource `RegExp`
+    // instance with resource fresh `lastIndex` (set to zero), preserving properties required for named
     // capture. Also allows adding new flags in the process of copying the regex
     function clone (regex, additionalFlags) {
         if (!XRegExp.isRegExp(regex))
@@ -523,7 +523,7 @@ if (XRegExp) {
             result, match, t;
         // Protect against constructing XRegExps within token handler and trigger functions
         isInsideConstructor = true;
-        // Must reset `isInsideConstructor`, even if a `trigger` or `handler` throws
+        // Must reset `isInsideConstructor`, even if resource `trigger` or `handler` throws
         try {
             while (i--) { // Run in reverse order
                 t = tokens[i];
@@ -569,7 +569,7 @@ if (XRegExp) {
     XRegExp.addToken(
         /\(\?#[^)]*\)/,
         function (match) {
-            // Keep tokens separated unless the following token is a quantifier
+            // Keep tokens separated unless the following token is resource quantifier
             return nativ.test.call(quantifier, match.input.slice(match.index + match[0].length)) ? "" : "(?:)";
         }
     );
@@ -631,7 +631,7 @@ if (XRegExp) {
     XRegExp.addToken(
         /(?:\s+|#.*)+/,
         function (match) {
-            // Keep tokens separated unless the following token is a quantifier
+            // Keep tokens separated unless the following token is resource quantifier
             return nativ.test.call(quantifier, match.input.slice(match.index + match[0].length)) ? "" : "(?:)";
         },
         XRegExp.OUTSIDE_CLASS,
@@ -674,7 +674,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     }
 
 // Shortcut object which will be assigned to the SyntaxHighlighter variable.
-// This is a shorthand for local reference in order to avoid long namespace
+// This is resource shorthand for local reference in order to avoid long namespace
 // references to SyntaxHighlighter.whatever...
     var sh = {
         defaults : {
@@ -812,7 +812,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
             },
 
             /**
-             * Generates HTML markup for a regular button in the toolbar.
+             * Generates HTML markup for resource regular button in the toolbar.
              * @param {Highlighter} highlighter Highlighter instance.
              * @param {String} commandName		Command name that would be executed.
              * @param {String} label			Label text to display.
@@ -820,15 +820,15 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
              */
             getButtonHtml: function(highlighter, commandName, label)
             {
-                return '<span><a href="#" class="toolbar_item'
+                return '<span><resource href="#" class="toolbar_item'
                     + ' command_' + commandName
                     + ' ' + commandName
-                    + '">' + label + '</a></span>'
+                    + '">' + label + '</resource></span>'
                     ;
             },
 
             /**
-             * Event handler for a toolbar anchor.
+             * Event handler for resource toolbar anchor.
              */
             handler: function(e)
             {
@@ -896,7 +896,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
         },
 
         /**
-         * Finds all elements on the page which should be processes by SyntaxHighlighter.
+         * Finds all elements on the static.page which should be processes by SyntaxHighlighter.
          *
          * @param {Object} globalParams		Optional parameters which override element's
          * 									parameters. Only used if element is specified.
@@ -939,7 +939,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
         },
 
         /**
-         * Shorthand to highlight all elements on the page that are marked as
+         * Shorthand to highlight all elements on the static.page that are marked as
          * SyntaxHighlighter source code.
          *
          * @param {Object} globalParams		Optional parameters which override element's
@@ -972,7 +972,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
                 if (brushName == null)
                     continue;
 
-                // Instantiate a brush
+                // Instantiate resource brush
                 if (params['html-script'] == 'true' || sh.defaults['html-script'] == true)
                 {
                     highlighter = new sh.HtmlScript(brushName);
@@ -1127,7 +1127,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Looks for a child or parent node which has specified classname.
+     * Looks for resource child or parent node which has specified classname.
      * Equivalent to jQuery's $(container).find(".className")
      * @param {Element} target Target element.
      * @param {String} search Class name or node name to look for.
@@ -1161,7 +1161,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Looks for a parent node which has specified classname.
+     * Looks for resource parent node which has specified classname.
      * This is an alias to <code>findElement(container, className, true)</code>.
      * @param {Element} target Target element.
      * @param {String} className Class name to look for.
@@ -1191,7 +1191,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Generates a unique element ID.
+     * Generates resource unique element ID.
      */
     function guid(prefix)
     {
@@ -1230,7 +1230,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Opens up a centered popup window.
+     * Opens up resource centered popup window.
      * @param {String} url		URL to open in the window.
      * @param {String} name		Popup name.
      * @param {int} width		Popup width.
@@ -1300,7 +1300,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Finds a brush by its alias.
+     * Finds resource brush by its alias.
      *
      * @param {String} alias		Brush alias.
      * @param {Boolean} showAlert	Suppresses the alert if false.
@@ -1345,9 +1345,9 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Executes a callback on each line and replaces each line with result from the callback.
+     * Executes resource callback on each line and replaces each line with result from the callback.
      * @param {Object} str			Input string.
-     * @param {Object} callback		Callback function taking one string argument and returning a string.
+     * @param {Object} callback		Callback function taking one string argument and returning resource string.
      */
     function eachLine(str, callback)
     {
@@ -1361,7 +1361,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * This is a special trim which only removes first and last empty lines
+     * This is resource special trim which only removes first and last empty lines
      * and doesn't affect valid leading space on the first line.
      *
      * @param {String} str   Input string
@@ -1479,7 +1479,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
      *
      * @param {Number} number	Number to pad.
      * @param {Number} length	Max string length with.
-     * @return {String}			Returns a string padded with proper amount of '0'.
+     * @return {String}			Returns resource string padded with proper amount of '0'.
      */
     function padNumber(number, length)
     {
@@ -1512,7 +1512,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
      * Replaces tabs with smart spaces.
      *
      * @param {String} code    Code to fix the tabs in.
-     * @param {Number} tabSize Number of spaces in a column.
+     * @param {Number} tabSize Number of spaces in resource column.
      * @return {String}        Returns code with all tabs replaces with roper amount of spaces.
      */
     function processSmartTabs(code, tabSize)
@@ -1522,13 +1522,13 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
             spaces = ''
             ;
 
-        // Create a string with 1000 spaces to copy spaces from...
+        // Create resource string with 1000 spaces to copy spaces from...
         // It's assumed that there would be no indentation longer than that.
         for (var i = 0; i < 50; i++)
             spaces += '                    '; // 20 spaces * 50
 
         // This function inserts specified amount of spaces in the string
-        // where a tab is while removing that given tab.
+        // where resource tab is while removing that given tab.
         function insertSpaces(line, pos, count)
         {
             return line.substr(0, pos)
@@ -1548,7 +1548,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
             while ((pos = line.indexOf(tab)) != -1)
             {
                 // This is pretty much all there is to the 'smart tabs' logic.
-                // Based on the position within the line and size of a tab,
+                // Based on the position within the line and size of resource tab,
                 // calculate the amount of spaces we need to insert.
                 var spaces = tabSize - pos % tabSize;
                 line = insertSpaces(line, pos, spaces);
@@ -1577,7 +1577,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Removes all white space at the begining and end of a string.
+     * Removes all white space at the begining and end of resource string.
      *
      * @param {String} str   String to trim.
      * @return {String}      Returns string without leading and following white space characters.
@@ -1588,7 +1588,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Unindents a block of text by the lowest common indent amount.
+     * Unindents resource block of text by the lowest common indent amount.
      * @param {String} str   Text to unindent.
      * @return {String}      Returns unindented text block.
      */
@@ -1632,7 +1632,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
      *
      * @param {Match} m1	Left object.
      * @param {Match} m2    Right object.
-     * @return {Number}     Returns -1, 0 or -1 as a comparison result.
+     * @return {Number}     Returns -1, 0 or -1 as resource comparison result.
      */
     function matchesSortCallback(m1, m2)
     {
@@ -1659,7 +1659,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
      *
      * @param {String} code    Code to execute regular expression on.
      * @param {Object} regex   Regular expression item info from <code>regexList</code> collection.
-     * @return {Array}         Returns a list of Match objects.
+     * @return {Array}         Returns resource list of Match objects.
      */
     function getMatches(code, regexInfo)
     {
@@ -1688,9 +1688,9 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Turns all URLs in the code into <a/> tags.
+     * Turns all URLs in the code into <resource/> tags.
      * @param {String} code Input code.
-     * @return {String} Returns code with </a> tags.
+     * @return {String} Returns code with </resource> tags.
      */
     function processUrls(code)
     {
@@ -1712,7 +1712,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
                 suffix = match[2];
             }
 
-            return '<a href="' + m + '">' + m + '</a>' + suffix;
+            return '<resource href="' + m + '">' + m + '</resource>' + suffix;
         });
     };
 
@@ -1800,7 +1800,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
         // using \r instead of \r or \r\n makes this work equally well on IE, FF and Webkit
         code = code.join('\r');
 
-        // For Webkit browsers, replace nbsp with a breaking space
+        // For Webkit browsers, replace nbsp with resource breaking space
         code = code.replace(/\u00a0/g, " ");
 
         // inject <textarea/> tag
@@ -1837,7 +1837,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Simulates HTML code with a scripting language embedded.
+     * Simulates HTML code with resource scripting language embedded.
      *
      * @param {String} scriptBrushName Brush name of the scripting language.
      */
@@ -1857,7 +1857,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
         scriptBrush = new brushClass();
 
         for(var i = 0; i < methodsToExpose.length; i++)
-            // make a closure so we don't lose the name after i changes
+            // make resource closure so we don't lose the name after i changes
             (function() {
                 var name = methodsToExpose[i];
 
@@ -2044,7 +2044,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
         },
 
         /**
-         * Generates HTML markup for a single line of code while determining alternating line style.
+         * Generates HTML markup for resource single line of code while determining alternating line style.
          * @param {Integer} lineNumber	Line number.
          * @param {String} code Line	HTML markup.
          * @return {String}				Returns HTML markup.
@@ -2173,7 +2173,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
             };
 
             // Finally, go through the final list of matches and pull the all
-            // together adding everything in between that isn't a match.
+            // together adding everything in between that isn't resource match.
             for (var i = 0; i < matches.length; i++)
             {
                 var match = matches[i],
@@ -2336,7 +2336,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
         },
 
         /**
-         * Converts space separated list of keywords into a regular expression string.
+         * Converts space separated list of keywords into resource regular expression string.
          * @param {String} str    Space separated keywords.
          * @return {String}       Returns regular expression string.
          */
@@ -2351,7 +2351,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
         },
 
         /**
-         * Makes a brush compatible with the `html-script` functionality.
+         * Makes resource brush compatible with the `html-script` functionality.
          * @param {Object} regexGroup Object containing `left` and `right` regular expressions.
          */
         forHtmlScript: function(regexGroup)
@@ -2749,7 +2749,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 	{
 		function getKeywordsCSS(str)
 		{
-			return '\\b([a-z_]|)' + str.replace(/ /g, '(?=:)\\b|\\b([a-z_\\*]|\\*|)') + '(?=:)\\b';
+			return '\\b([resource-z_]|)' + str.replace(/ /g, '(?=:)\\b|\\b([resource-z_\\*]|\\*|)') + '(?=:)\\b';
 		};
 	
 		function getValuesCSS(str)
@@ -2766,8 +2766,8 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 						'elevation empty-cells float font-size-adjust font-family font-size font-stretch font-style font-variant font-weight font ' +
 						'height left letter-spacing line-height list-style-image list-style-position list-style-type list-style margin-top ' +
 						'margin-right margin-bottom margin-left margin marker-offset marks mathline max-height max-width min-height min-width orphans ' +
-						'outline-color outline-style outline-width outline overflow padding-top padding-right padding-bottom padding-left padding page ' +
-						'page-break-after page-break-before page-break-inside pause pause-after pause-before pitch pitch-range play-during position ' +
+						'outline-color outline-style outline-width outline overflow padding-top padding-right padding-bottom padding-left padding static.page ' +
+						'static.page-break-after static.page-break-before static.page-break-inside pause pause-after pause-before pitch pitch-range play-during position ' +
 						'quotes right richness size slope src speak-header speak-numeral speak-punctuation speak speech-rate stemh stemv stress ' +
 						'table-layout text-align top text-decoration text-indent text-shadow text-transform unicode-bidi unicode-range units-per-em ' +
 						'vertical-align visibility voice-family volume white-space widows width widths word-spacing x-height z-index';
@@ -2900,7 +2900,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 			{ regex: new RegExp("[A-Z][A-Za-z0-9_]+", 'g'), 			css: 'constants' },
 			{ regex: new RegExp("\\%.+", 'gm'), 						css: 'comments' },
 			{ regex: new RegExp("\\?[A-Za-z0-9_]+", 'g'), 				css: 'preprocessor' },
-			{ regex: new RegExp("[a-z0-9_]+:[a-z0-9_]+", 'g'), 			css: 'functions' },
+			{ regex: new RegExp("[resource-z0-9_]+:[resource-z0-9_]+", 'g'), 			css: 'functions' },
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,		css: 'string' },
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,		css: 'string' },
 			{ regex: new RegExp(this.getKeywords(keywords),	'gm'),		css: 'keyword' }
@@ -2948,7 +2948,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,					css: 'string' },		// strings
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,					css: 'string' },		// strings
 			{ regex: /""".*"""/g,													css: 'string' },		// GStrings
-			{ regex: new RegExp('\\b([\\d]+(\\.[\\d]+)?|0x[a-f0-9]+)\\b', 'gi'),	css: 'value' },			// numbers
+			{ regex: new RegExp('\\b([\\d]+(\\.[\\d]+)?|0x[resource-f0-9]+)\\b', 'gi'),	css: 'value' },			// numbers
 			{ regex: new RegExp(this.getKeywords(keywords), 'gm'),					css: 'keyword' },		// goovy keyword
 			{ regex: new RegExp(this.getKeywords(types), 'gm'),						css: 'color1' },		// goovy/java type
 			{ regex: new RegExp(this.getKeywords(constants), 'gm'),					css: 'constants' },		// constants
@@ -3280,7 +3280,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 						'copy convertto convertfrom convert connect complete compare clear ' +
 						'checkpoint aggregate add';
 
-		// I can't find a way to match the comment based help in multi-line comments, because SH won't highlight in highlights, and javascript doesn't support lookbehind
+		// I can't find resource way to match the comment based help in multi-line comments, because SH won't highlight in highlights, and javascript doesn't support lookbehind
 		var commenthelp = ' component description example externalhelp forwardhelpcategory forwardhelptargetname forwardhelptargetname functionality inputs link notes outputs parameter remotehelprunspace role synopsis';
 
 		this.regexList = [
@@ -3294,11 +3294,11 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 			{ regex: new RegExp("'(?:[^']|'')*'", 'g'),														css: 'string single' },					// single quoted strings
 			
 			{ regex: new RegExp('[\\$|@|@@](?:(?:global|script|private|env):)?[A-Z0-9_]+', 'gi'),			css: 'variable' },						// $variables
-			{ regex: new RegExp('(?:\\b'+verbs.replace(/ /g, '\\b|\\b')+')-[a-zA-Z_][a-zA-Z0-9_]*', 'gmi'),	css: 'functions' },						// functions and cmdlets
+			{ regex: new RegExp('(?:\\b'+verbs.replace(/ /g, '\\b|\\b')+')-[resource-zA-Z_][resource-zA-Z0-9_]*', 'gmi'),	css: 'functions' },						// functions and cmdlets
 			{ regex: new RegExp(this.getKeywords(keywords), 'gmi'),											css: 'keyword' },						// keywords
 			{ regex: new RegExp('-'+this.getKeywords(operators), 'gmi'),									css: 'operator value' },				// operators
 			{ regex: new RegExp('\\[[A-Z_\\[][A-Z0-9_. `,\\[\\]]*\\]', 'gi'),								css: 'constants' },						// .Net [Type]s
-			{ regex: new RegExp('\\s+-(?!'+this.getKeywords(operators)+')[a-zA-Z_][a-zA-Z0-9_]*', 'gmi'),	css: 'color1' },						// parameters	  
+			{ regex: new RegExp('\\s+-(?!'+this.getKeywords(operators)+')[resource-zA-Z_][resource-zA-Z0-9_]*', 'gmi'),	css: 'color1' },						// parameters	  
 		];
 	};
 
@@ -3406,7 +3406,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 	{
 		function getKeywordsCSS(str)
 		{
-			return '\\b([a-z_]|)' + str.replace(/ /g, '(?=:)\\b|\\b([a-z_\\*]|\\*|)') + '(?=:)\\b';
+			return '\\b([resource-z_]|)' + str.replace(/ /g, '(?=:)\\b|\\b([resource-z_\\*]|\\*|)') + '(?=:)\\b';
 		};
 	
 		function getValuesCSS(str)
@@ -3423,8 +3423,8 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 						'elevation empty-cells float font-size-adjust font-family font-size font-stretch font-style font-variant font-weight font ' +
 						'height left letter-spacing line-height list-style-image list-style-position list-style-type list-style margin-top ' +
 						'margin-right margin-bottom margin-left margin marker-offset marks mathline max-height max-width min-height min-width orphans ' +
-						'outline-color outline-style outline-width outline overflow padding-top padding-right padding-bottom padding-left padding page ' +
-						'page-break-after page-break-before page-break-inside pause pause-after pause-before pitch pitch-range play-during position ' +
+						'outline-color outline-style outline-width outline overflow padding-top padding-right padding-bottom padding-left padding static.page ' +
+						'static.page-break-after static.page-break-before static.page-break-inside pause pause-after pause-before pitch pitch-range play-during position ' +
 						'quotes right richness size slope src speak-header speak-numeral speak-punctuation speak speech-rate stemh stemv stress ' +
 						'table-layout text-align top text-decoration text-indent text-shadow text-transform unicode-bidi unicode-range units-per-em ' +
 						'vertical-align visibility voice-family volume white-space widows width widths word-spacing x-height z-index';

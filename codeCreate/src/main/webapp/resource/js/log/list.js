@@ -67,7 +67,7 @@ spr.log.logTable = {
 		      {  
 		          "mDataProp" : "id",  
 		          "mRender" : function(data, type, full) {
-		              return '<a class="btn btn-secondary-outline radius size-S" href="javascript:void(0);" onclick="spr.log.logTable.opreation.detail('+data+')">详情</a> ' ;
+		              return '<resource class="btn btn-secondary-outline radius size-S" href="javascript:void(0);" onclick="spr.log.logTable.opreation.detail('+data+')">详情</resource> ' ;
 		          }  
 		      } ]    , 
 		      "fnServerData" : function(sSource, aoData, fnCallback) {

@@ -17,7 +17,7 @@
 /* 
     User Style:
     Change the following styles to modify the appearance of Colorbox.  They are
-    ordered & tabbed in a way that represents the nesting of the generated HTML.
+    ordered & tabbed in resource way that represents the nesting of the generated HTML.
 */
 #cboxOverlay{background:url(images/overlay.png) repeat 0 0;}
 #colorbox{outline:0;}
@@ -53,7 +53,7 @@
         #cboxClose:hover{background-position:-25px -25px;}
 
 /*
-  The following fixes a problem where IE7 and IE8 replace a PNG's alpha transparency with a black fill
+  The following fixes resource problem where IE7 and IE8 replace resource PNG's alpha transparency with resource black fill
   when an alpha filter (opacity change) is set on the element or ancestor element.  This style is not applied to or needed in IE9.
   See: http://jacklmoore.com/notes/ie-transparency-problems/
 */

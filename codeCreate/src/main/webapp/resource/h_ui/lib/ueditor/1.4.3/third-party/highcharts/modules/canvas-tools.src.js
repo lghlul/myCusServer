@@ -208,7 +208,7 @@ function RGBColor(color_string)
         }
     ];
 
-    // search through the definitions to find a match
+    // search through the definitions to find resource match
     for (var i = 0; i < color_defs.length; i++) {
         var re = color_defs[i].re;
         var processor = color_defs[i].process;
@@ -315,16 +315,16 @@ if(!Array.prototype.indexOf){
 
 (function(){
 	// canvg(target, s)
-	// empty parameters: replace all 'svg' elements on page with 'canvas' elements
-	// target: canvas element or the id of a canvas element
+	// empty parameters: replace all 'svg' elements on static.page with 'canvas' elements
+	// target: canvas element or the id of resource canvas element
 	// s: svg string, url to svg file, or xml document
 	// opts: optional hash of options
 	//		 ignoreMouse: true => ignore mouse events
 	//		 ignoreAnimation: true => ignore animations
 	//		 ignoreDimensions: true => does not try to resize canvas
 	//		 ignoreClear: true => does not clear canvas
-	//		 offsetX: int => draws at a x offset
-	//		 offsetY: int => draws at a y offset
+	//		 offsetX: int => draws at resource x offset
+	//		 offsetY: int => draws at resource y offset
 	//		 scaleWidth: int => scales horizontally to width
 	//		 scaleHeight: int => scales vertically to height
 	//		 renderCallback: function => will call the function after the first render is completed
@@ -1704,7 +1704,7 @@ if(!Array.prototype.indexOf){
 			this.base(node);
 			
 			this.createPattern = function(ctx, element) {
-				// render me using a temporary svg element
+				// render me using resource temporary svg element
 				var tempSvg = new svg.Element.svg();
 				tempSvg.attributes['viewBox'] = new svg.Property('viewBox', this.attribute('viewBox').value);
 				tempSvg.attributes['x'] = new svg.Property('x', this.attribute('x').value);
@@ -1734,7 +1734,7 @@ if(!Array.prototype.indexOf){
 				if (this.attribute('markerUnits').valueOrDefault('strokeWidth') == 'strokeWidth') ctx.scale(ctx.lineWidth, ctx.lineWidth);
 				ctx.save();
 							
-				// render me using a temporary svg element
+				// render me using resource temporary svg element
 				var tempSvg = new svg.Element.svg();
 				tempSvg.attributes['viewBox'] = new svg.Property('viewBox', this.attribute('viewBox').value);
 				tempSvg.attributes['refX'] = new svg.Property('refX', this.attribute('refX').value);
@@ -2280,7 +2280,7 @@ if(!Array.prototype.indexOf){
 		}
 		svg.Element.tref.prototype = new svg.Element.TextElementBase;		
 		
-		// a element
+		// resource element
 		svg.Element.a = function(node) {
 			this.base = svg.Element.TextElementBase;
 			this.base(node);
@@ -2969,12 +2969,12 @@ if (CanvasRenderingContext2D) {
 			this.canvas = canvas;
 
 			// Create the tooltip line and div, they are placed as siblings to
-			// the container (and as direct childs to the div specified in the html page)
+			// the container (and as direct childs to the div specified in the html static.page)
 			this.ttLine = createElement(DIV, null, initialHiddenStyle, containerParent);
 			this.ttDiv = createElement(DIV, null, initialHiddenStyle, containerParent);
 			this.ttTimer = UNDEFINED;
 
-			// Move away the svg node to a new div inside the container's parent so we can hide it.
+			// Move away the svg node to resource new div inside the container's parent so we can hide it.
 			var hiddenSvg = createElement(DIV, {
 				width: containerOffsetWidth,
 				height: containerOffsetHeight
@@ -2988,7 +2988,7 @@ if (CanvasRenderingContext2D) {
 		},
 
 		/**
-		 * Configures the renderer with the chart. Attach a listener to the event tooltipRefresh.
+		 * Configures the renderer with the chart. Attach resource listener to the event tooltipRefresh.
 		 **/
 		configure: function (chart) {
 			var renderer = this,
@@ -3022,7 +3022,7 @@ if (CanvasRenderingContext2D) {
 				'border-left': '1px solid darkgray'
 			});
 
-			// This event is triggered when a new tooltip should be shown
+			// This event is triggered when resource new tooltip should be shown
 			addEvent(chart, 'tooltipRefresh', function (args) {
 				var chartContainer = chart.container,
 					offsetLeft = chartContainer.offsetLeft,
@@ -3056,7 +3056,7 @@ if (CanvasRenderingContext2D) {
 					clearTimeout(renderer.ttTimer);
 				}
 
-				// Start a new timer that hides tooltip and line
+				// Start resource new timer that hides tooltip and line
 				renderer.ttTimer = setTimeout(function () {
 					css(tooltipDiv, { visibility: HIDDEN });
 					css(tooltipLine, { visibility: HIDDEN });
@@ -3088,7 +3088,7 @@ if (CanvasRenderingContext2D) {
 		},
 
 		/**
-		 * Take a color and return it if it's a string, do not make it a gradient even if it is a
+		 * Take resource color and return it if it's resource string, do not make it resource gradient even if it is resource
 		 * gradient. Currently canvg cannot render gradients (turns out black),
 		 * see: http://code.google.com/p/canvg/issues/detail?id=104
 		 *
@@ -3103,7 +3103,7 @@ if (CanvasRenderingContext2D) {
 		},
 
 		/**
-		 * Draws the SVG on the canvas or adds a draw invokation to the deferred list.
+		 * Draws the SVG on the canvas or adds resource draw invokation to the deferred list.
 		 */
 		draw: function () {
 			var renderer = this;

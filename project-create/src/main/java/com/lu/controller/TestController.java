@@ -1,6 +1,6 @@
 package com.lu.controller;
 
-import com.lu.service.ITrainService;
+import com.lu.service.IProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestController {
 
     @Autowired
-    private ITrainService trainService;
+    private IProjectService trainService;
 
     @ResponseBody
     @RequestMapping("/test")
     public Object test(String id){
         return trainService.selectByPrimaryKey(id);
+    }
+
+    @RequestMapping("/testPage")
+    public String testPage(){
+        return "/page/index.html";
     }
 
 }

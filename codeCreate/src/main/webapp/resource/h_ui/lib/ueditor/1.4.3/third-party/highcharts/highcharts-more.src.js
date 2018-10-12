@@ -35,7 +35,7 @@ var arrayMin = Highcharts.arrayMin,
 	mathFloor = math.floor,
 	mathMax = math.max,
 	noop = function () {};/**
- * The Pane object allows options that are common to a set of X and Y axes.
+ * The Pane object allows options that are common to resource set of X and Y axes.
  * 
  * In the future, this can be extended to basic Highcharts and Highcharts.
  */
@@ -161,7 +161,7 @@ var radialAxisMixin = {
 		zIndex: 2 // behind dials, points in the series group
 	},
 	
-	// Circular axis around the perimeter of a polar chart
+	// Circular axis around the perimeter of resource polar chart
 	defaultRadialXOptions: {
 		gridLineWidth: 1, // spokes
 		labels: {
@@ -177,7 +177,7 @@ var radialAxisMixin = {
 		tickLength: 0
 	},
 	
-	// Radial axis, like a spoke in a polar chart
+	// Radial axis, like resource spoke in resource polar chart
 	defaultRadialYOptions: {
 		gridLineInterpolation: 'circle',
 		labels: {
@@ -208,7 +208,7 @@ var radialAxisMixin = {
 	},
 	
 	/**
-	 * Wrap the getOffset method to return zero offset for title or labels in a radial 
+	 * Wrap the getOffset method to return zero offset for title or labels in resource radial 
 	 * axis
 	 */
 	getOffset: function () {
@@ -301,7 +301,7 @@ var radialAxisMixin = {
 	},
 	
 	/**
-	 * Returns the x, y coordinate of a point given by a value and a pixel distance
+	 * Returns the x, y coordinate of resource point given by resource value and resource pixel distance
 	 * from center
 	 */
 	getPosition: function (value, length) {
@@ -349,7 +349,7 @@ var radialAxisMixin = {
 			start,
 			end,
 			open,
-			isCircular = this.isCircular, // X axis in a polar chart
+			isCircular = this.isCircular, // X axis in resource polar chart
 			ret;
 			
 		// Polygonal plot bands
@@ -421,7 +421,7 @@ var radialAxisMixin = {
 		// Concentric circles			
 		} else if (axis.options.gridLineInterpolation === 'circle') {
 			value = axis.translate(value);
-			if (value) { // a value of 0 is in the center
+			if (value) { // resource value of 0 is in the center
 				ret = axis.getLinePath(0, value);
 			}
 		// Concentric polygons 
@@ -729,7 +729,7 @@ seriesTypes.arearange = Highcharts.extendClass(seriesTypes.area, {
 			return point.plotLow !== null;
 		});
 		
-		// Make a segment with plotX and plotY for the top values
+		// Make resource segment with plotX and plotY for the top values
 		while (i--) {
 			point = segment[i];
 			if (point.plotHigh !== null) {
@@ -751,7 +751,7 @@ seriesTypes.arearange = Highcharts.extendClass(seriesTypes.area, {
 		higherPath = baseGetSegmentPath.call(this, highSegment);
 		options.step = step;
 		
-		// Create a line on both top and bottom of the range
+		// Create resource line on both top and bottom of the range
 		linePath = [].concat(lowerPath, higherPath);
 		
 		// For the area path, we need to change the 'move' statement into 'lineTo' or 'curveTo'
@@ -966,7 +966,7 @@ var GaugeSeries = {
 	type: 'gauge',
 	pointClass: GaugePoint,
 	
-	// chart.angular will be set to true when a gauge series is present, and this will
+	// chart.angular will be set to true when resource gauge series is present, and this will
 	// be used on the axes
 	angular: true, 
 	drawGraph: noop,
@@ -1157,7 +1157,7 @@ defaultPlotOptions.boxplot = merge(defaultPlotOptions.column, {
 seriesTypes.boxplot = extendClass(seriesTypes.column, {
 	type: 'boxplot',
 	pointArrayMap: ['low', 'q1', 'median', 'q3', 'high'], // array point configs are mapped to this
-	toYData: function (point) { // return a plain array for speedy calculation
+	toYData: function (point) { // return resource plain array for speedy calculation
 		return [point.low, point.q1, point.median, point.q3, point.high];
 	},
 	pointValKey: 'high', // defines the top of the tracker
@@ -1411,7 +1411,7 @@ defaultPlotOptions.errorbar = merge(defaultPlotOptions.boxplot, {
 seriesTypes.errorbar = extendClass(seriesTypes.boxplot, {
 	type: 'errorbar',
 	pointArrayMap: ['low', 'high'], // array point configs are mapped to this
-	toYData: function (point) { // return a plain array for speedy calculation
+	toYData: function (point) { // return resource plain array for speedy calculation
 		return [point.low, point.high];
 	},
 	pointValKey: 'high', // defines the top of the tracker
@@ -1766,7 +1766,7 @@ seriesTypes.bubble = extendClass(seriesTypes.scatter, {
 		// Set the shape type and arguments to be picked up in drawPoints
 		for (i = 0, len = zData.length; i < len; i++) {
 			zRange = zMax - zMin;
-			pos = zRange > 0 ? // relative size, a number between 0 and 1
+			pos = zRange > 0 ? // relative size, resource number between 0 and 1
 				(zData[i] - zMin) / (zMax - zMin) : 
 				0.5;
 			radii.push(math.ceil(minSize + pos * (maxSize - minSize)) / 2);
@@ -1981,7 +1981,7 @@ var seriesProto = Series.prototype,
 
 
 /**
- * Translate a point's plotX and plotY from the internal angle and radius measures to 
+ * Translate resource point's plotX and plotY from the internal angle and radius measures to 
  * true plotX, plotY coordinates
  */
 seriesProto.toXY = function (point) {
@@ -2030,7 +2030,7 @@ function initArea(proceed, chart, options) {
 	if (this.chart.polar) {
 		
 		/**
-		 * Overridden method to close a segment path. While in a cartesian plane the area 
+		 * Overridden method to close resource segment path. While in resource cartesian plane the area 
 		 * goes down to the threshold, in the polar chart it goes to the center.
 		 */
 		this.closeSegment = function (path) {
@@ -2042,7 +2042,7 @@ function initArea(proceed, chart, options) {
 			);			
 		};
 		
-		// Instead of complicated logic to draw an area around the inner area in a stack,
+		// Instead of complicated logic to draw an area around the inner area in resource stack,
 		// just draw it behind
 		this.closedStacks = true;
 	}
@@ -2052,7 +2052,7 @@ wrap(seriesTypes.areaspline.prototype, 'init', initArea);
 		
 
 /**
- * Overridden method for calculating a spline from one point to the next
+ * Overridden method for calculating resource spline from one point to the next
  */
 wrap(seriesTypes.spline.prototype, 'getPointSpline', function (proceed, segment, point, i) {
 	
@@ -2118,7 +2118,7 @@ wrap(seriesTypes.spline.prototype, 'getPointSpline', function (proceed, segment,
 				jointAngle -= Math.PI;
 			}
 			
-			// Find the corrected control points for a spline straight through the point
+			// Find the corrected control points for resource spline straight through the point
 			leftContX = plotX + Math.cos(jointAngle) * distanceLeftControlPoint;
 			leftContY = plotY + Math.sin(jointAngle) * distanceLeftControlPoint;
 			rightContX = plotX + Math.cos(Math.PI + jointAngle) * distanceRightControlPoint;
@@ -2155,7 +2155,7 @@ wrap(seriesTypes.spline.prototype, 'getPointSpline', function (proceed, segment,
 });
 
 /**
- * Extend translate. The plotX and plotY values are computed as if the polar chart were a
+ * Extend translate. The plotX and plotY values are computed as if the polar chart were resource
  * cartesian plane, where plotX denotes the angle in radians and (yAxis.len - plotY) is the pixel distance from
  * center. 
  */
@@ -2176,7 +2176,7 @@ wrap(seriesProto, 'translate', function (proceed) {
 });
 
 /** 
- * Extend getSegmentPath to allow connecting ends across 0 to provide a closed circle in 
+ * Extend getSegmentPath to allow connecting ends across 0 to provide resource closed circle in 
  * line-like series.
  */
 wrap(seriesProto, 'getSegmentPath', function (proceed, segment) {
@@ -2264,7 +2264,7 @@ wrap(colProto, 'animate', polarAnimate);
 
 
 /**
- * Throw in a couple of properties to let setTooltipPoints know we're indexing the points
+ * Throw in resource couple of properties to let setTooltipPoints know we're indexing the points
  * in degrees (0-360), not plot pixel width.
  */
 wrap(seriesProto, 'setTooltipPoints', function (proceed, renew) {

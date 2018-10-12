@@ -118,21 +118,21 @@ spr.train.trainTable = {
 		        	 if(full.trainEndtime>=timestamp){//在结束时间之前，可以上架下架
 		        		 //可以上架下架
 		        	  if(data == 2)
-		        		  _html+='<a class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick='+full.trainId+'"spr.lu.trainTable.opreation.updateStatus(,1)">上架</a>';
+		        		  _html+='<resource class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick='+full.trainId+'"spr.lu.trainTable.opreation.updateStatus(,1)">上架</resource>';
 		        	  else if(data == 1){
-		        		  _html+='<a class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick='+full.trainId+'"spr.lu.trainTable.opreation.updateStatus(,2)">下架</a>';
+		        		  _html+='<resource class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick='+full.trainId+'"spr.lu.trainTable.opreation.updateStatus(,2)">下架</resource>';
 		        	  }else{
 		        	  }
 		        	 }
 //		        	 修改
 		        	 if(full.trainEndtime>=timestamp){
-		        	  	  _html+='<a class="btn btn-secondary-outline radius size-S" href="javascript:void(0);" onclick='+full.trainId+'"spr.lu.trainTable.opreation.editTrain()">修改</a>';
+		        	  	  _html+='<resource class="btn btn-secondary-outline radius size-S" href="javascript:void(0);" onclick='+full.trainId+'"spr.lu.trainTable.opreation.editTrain()">修改</resource>';
 		        	 }
                       if(full.trainIstest == 1){
-                         _html+='<a class="btn btn-secondary-outline radius size-S" href="javascript:void(0);" onclick='+full.trainId+'"spr.lu.trainTable.opreation.export()">导出</a>';
+                         _html+='<resource class="btn btn-secondary-outline radius size-S" href="javascript:void(0);" onclick='+full.trainId+'"spr.lu.trainTable.opreation.export()">导出</resource>';
                       }
                       //		        	 删除
-		              return '<a class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick='+full.trainId+'"spr.lu.trainTable.opreation.deleteTrain()">删除</a> '+
+		              return '<resource class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick='+full.trainId+'"spr.lu.trainTable.opreation.deleteTrain()">删除</resource> '+
 		                     _html   
 		          }  
 		          

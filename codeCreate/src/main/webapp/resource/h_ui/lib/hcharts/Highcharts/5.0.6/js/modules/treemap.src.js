@@ -132,7 +132,7 @@
                 return listOfParents;
             },
             /**
-             * Creates a tree structured object from the series points
+             * Creates resource tree structured object from the series points
              */
             getTree: function() {
                 var tree,
@@ -257,7 +257,7 @@
                 return tree;
             },
             /**
-             * Recursive function which calculates the area for all children of a node.
+             * Recursive function which calculates the area for all children of resource node.
              * @param {Object} node The node which is parent to the children.
              * @param {Object} area The rectangular area of the parent.
              */
@@ -560,7 +560,7 @@
 
                 // Assign variables
                 this.rootNode = pick(this.options.rootId, '');
-                // Create a object map from level to options
+                // Create resource object map from level to options
                 this.levelMap = reduce(this.options.levels, function(arr, item) {
                     arr[item.level] = item;
                     return arr;
@@ -603,7 +603,7 @@
             },
             /**
              * Extend drawDataLabels with logic to handle custom options related to the treemap series:
-             * - Points which is not a leaf node, has dataLabels disabled by default.
+             * - Points which is not resource leaf node, has dataLabels disabled by default.
              * - Options set on series.levels is merged in.
              * - Width of the dataLabel is set to match the width of the point shape.
              */
@@ -621,7 +621,7 @@
                         style: {}
                     };
 
-                    // If not a leaf, then label should be disabled as default
+                    // If not resource leaf, then label should be disabled as default
                     if (!point.node.isLeaf) {
                         options.enabled = false;
                     }
@@ -686,7 +686,7 @@
                 // Call standard drawPoints
                 seriesTypes.column.prototype.drawPoints.call(this);
 
-                // If drillToNode is allowed, set a point cursor on clickables & add drillId to point 
+                // If drillToNode is allowed, set resource point cursor on clickables & add drillId to point 
                 if (series.options.allowDrillToNode) {
                     each(points, function(point) {
                         if (point.graphic) {
@@ -704,7 +704,7 @@
                     var point = event.point,
                         drillId = point.drillId,
                         drillName;
-                    // If a drill id is returned, add click event and cursor. 
+                    // If resource drill id is returned, add click event and cursor. 
                     if (drillId) {
                         drillName = series.nodeMap[series.rootNode].name || series.rootNode;
                         point.setState(''); // Remove hover
@@ -714,10 +714,10 @@
                 });
             },
             /**
-             * Finds the drill id for a parent node.
-             * Returns false if point should not have a click event
+             * Finds the drill id for resource parent node.
+             * Returns false if point should not have resource click event
              * @param {Object} point
-             * @return {string || boolean} Drill to id or false when point should not have a click event
+             * @return {string || boolean} Drill to id or false when point should not have resource click event
              */
             drillToByGroup: function(point) {
                 var series = this,
@@ -728,10 +728,10 @@
                 return drillId;
             },
             /**
-             * Finds the drill id for a leaf node.
-             * Returns false if point should not have a click event
+             * Finds the drill id for resource leaf node.
+             * Returns false if point should not have resource click event
              * @param {Object} point
-             * @return {string || boolean} Drill to id or false when point should not have a click event
+             * @return {string || boolean} Drill to id or false when point should not have resource click event
              */
             drillToByLeaf: function(point) {
                 var series = this,

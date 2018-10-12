@@ -28,7 +28,7 @@ public class DynamicDataSource {
 
     private String password;
 
-    public DynamicDataSource(ProjectConfig projectConfig){
+    public DynamicDataSource(ProjectConfig projectConfig) {
         this.driver = projectConfig.getDrivenClass();
         this.url = projectConfig.getUrl();
         this.username = projectConfig.getUsername();
@@ -44,18 +44,18 @@ public class DynamicDataSource {
      * @param []
      * @return org.apache.ibatis.session.SqlSessionFactory
      */
-    public  SqlSessionFactory getSqlSessionFactory(){
+    public SqlSessionFactory getSqlSessionFactory() throws Exception{
         PooledDataSource dataSource = new PooledDataSource();
         dataSource.setDriver(driver);
         dataSource.setUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
-        Environment environment = new Environment("development" , transactionFactory,dataSource) ;
+        Environment environment = new Environment("development", transactionFactory, dataSource);
         Configuration configuration = new Configuration(environment);
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.addMapper(TableMapper.class);
-        sqlSessionFactory =new SqlSessionFactoryBuilder().build(configuration);
+        sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         return sqlSessionFactory;
     }
 
@@ -66,9 +66,10 @@ public class DynamicDataSource {
      * @param []
      * @return org.apache.ibatis.session.SqlSession
      */
-    public SqlSession openSession(){
+    public SqlSession openSession() throws Exception{
         return getSqlSessionFactory().openSession();
     }
+
     /*
      * @author ll
      * @Description 关闭SqlSession
@@ -76,8 +77,8 @@ public class DynamicDataSource {
      * @param [sqlSession]
      * @return void
      */
-    public void closeSession(SqlSession sqlSession){
-        if(sqlSession != null){
+    public void closeSession(SqlSession sqlSession) {
+        if (sqlSession != null) {
             sqlSession.close();
         }
     }

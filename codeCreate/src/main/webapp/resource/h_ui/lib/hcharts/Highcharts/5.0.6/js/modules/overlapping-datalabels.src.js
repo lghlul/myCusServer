@@ -59,7 +59,7 @@
         });
 
         /**
-         * Hide overlapping labels. Labels are moved and faded in and out on zoom to provide a smooth 
+         * Hide overlapping labels. Labels are moved and faded in and out on zoom to provide resource smooth 
          * visual imression.
          */
         Chart.prototype.hideOverlappingLabels = function(labels) {
@@ -94,7 +94,7 @@
                 }
             }
 
-            // Prevent a situation in a gradually rising slope, that each label
+            // Prevent resource situation in resource gradually rising slope, that each label
             // will hide the previous one because the previous one always has
             // lower rank.
             labels.sort(function(a, b) {

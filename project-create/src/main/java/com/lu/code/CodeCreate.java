@@ -7,10 +7,9 @@ import com.lu.code.handler.MapperHandler;
 import com.lu.code.handler.ServiceHandler;
 import com.lu.code.mapper.TableMapper;
 import com.lu.code.mybatis.DynamicDataSource;
+import com.lu.project.PathConfig;
 import com.lu.project.ProjectConfig;
-import com.lu.project.ProjectCreate;
 import com.lu.utils.CodeUtil;
-import com.lu.utils.PropertiesUtil;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -22,8 +21,51 @@ import java.util.List;
  * @Date 2018/9/25 18:00
  **/
 public class CodeCreate {
-    public static void main(String[] args) {
-        String databaseName = "lghll";
+
+
+    public void create(ProjectConfig projectConfig ,PathConfig pathConfig ) throws Exception{
+        DynamicDataSource dynamicDataSource = new DynamicDataSource(projectConfig);
+        SqlSession sqlSession = dynamicDataSource.openSession();
+        TableMapper tableMapper = sqlSession.getMapper(TableMapper.class);
+        List<String> tableList = tableMapper.getTableList(projectConfig.getDatabase());
+        //BaseMapper.java
+        MapperHandler mapperHandler = new MapperHandler(pathConfig);
+        mapperHandler.writeBaseJavaMapper( );
+        //BaseDomain.java
+        DomainHandler domainHandler = new DomainHandler(pathConfig);
+        //domainHandler.writeBaseDoamin();
+
+        //BaseService
+        ServiceHandler serviceHandler = new ServiceHandler(pathConfig);
+        serviceHandler.writeBaseService();
+
+        //BaseController
+        ControllerHandler controllerHandler = new ControllerHandler(pathConfig);
+        controllerHandler.writeBaseController();
+
+        for(int i = 0 ; i < tableList.size()  ; i++){
+            String tableName = tableList.get(i);
+            String domainName = CodeUtil.delSpecialMark(tableName , 1);
+            if(i == 0){
+                //TestController
+                controllerHandler.writeTestController(domainName);
+            }
+            List<Columns> columnsList = tableMapper.getFieldList(tableName , projectConfig.getDatabase());
+            //处理列名称
+            CodeUtil.colimnConver(columnsList);
+            //写入domain
+            domainHandler.writeDoamin(domainName , columnsList);
+            //写入mapper
+            mapperHandler.writeMapper(columnsList, domainName , tableName);
+            //写入service
+            serviceHandler.writeService(domainName);
+        }
+        dynamicDataSource.closeSession(sqlSession);
+
+    }
+
+    /*public static void main(String[] args) throws Exception{
+        String databaseName = "project";
 
         ProjectConfig projectConfig = new ProjectConfig();
         projectConfig.setBasePackage("com.lu.code");
@@ -42,7 +84,7 @@ public class CodeCreate {
         projectHandler.init(projectConfig);
 
         projectHandler.create();
-        tableList = tableList.subList(0 , 2);
+        //tableList = tableList.subList(0 , 2);
         //BaseMapper.java
         MapperHandler mapperHandler = new MapperHandler(projectHandler.getPathConfig());
         mapperHandler.writeBaseJavaMapper( );
@@ -75,6 +117,5 @@ public class CodeCreate {
             //写入service
             serviceHandler.writeService(domainName);
         }
-
-    }
+    }*/
 }

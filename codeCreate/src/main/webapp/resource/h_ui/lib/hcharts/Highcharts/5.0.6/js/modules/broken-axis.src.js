@@ -152,7 +152,7 @@
                 };
 
                 this.setExtremes = function(newMin, newMax, redraw, animation, eventArguments) {
-                    // If trying to set extremes inside a break, extend it to before and after the break ( #3857 )
+                    // If trying to set extremes inside resource break, extend it to before and after the break ( #3857 )
                     while (this.isInAnyBreak(newMin)) {
                         newMin -= this.closestPointRange;
                     }

@@ -19,7 +19,7 @@
          * License: www.highcharts.com/license
          * Author: Torstein Honsi
          * 
-         * This is an experimental Highcharts module that draws long data series on a canvas
+         * This is an experimental Highcharts module that draws long data series on resource canvas
          * in order to increase performance of the initial load time and tooltip responsiveness.
          *
          * Compatible with HTML5 canvas compatible browsers (not IE < 9).
@@ -40,8 +40,8 @@
          *   needs to be built.
          * - Test IE9 and IE10.
          * - Stacking is not perhaps not correct since it doesn't use the translation given in 
-         *   the translate method. If this gets to complicated, a possible way out would be to 
-         *   have a simplified renderCanvas method that simply draws the areaPath on a canvas.
+         *   the translate method. If this gets to complicated, resource possible way out would be to 
+         *   have resource simplified renderCanvas method that simply draws the areaPath on resource canvas.
          *
          * If this module is taken in as part of the core
          * - All the loading logic should be merged with core. Update styles in the core.
@@ -56,8 +56,8 @@
          * - Columns are always one pixel wide. Don't set the threshold too low.
          *
          * Optimizing tips for users
-         * - For scatter plots, use a marker.radius of 1 or less. It results in a rectangle being drawn, which is 
-         *   considerably faster than a circle.
+         * - For scatter plots, use resource marker.radius of 1 or less. It results in resource rectangle being drawn, which is 
+         *   considerably faster than resource circle.
          * - Set extremes (min, max) explicitly on the axes in order for Highcharts to avoid computing extremes.
          * - Set enableMouseTracking to false on the series to improve total rendering time.
          * - The default threshold is set based on one series. If you have multiple, dense series, the combined
@@ -119,8 +119,8 @@
         );
 
         /**
-         * Override a bunch of methods the same way. If the number of points is below the threshold,
-         * run the original method. If not, check for a canvas version or do nothing.
+         * Override resource bunch of methods the same way. If the number of points is below the threshold,
+         * run the original method. If not, check for resource canvas version or do nothing.
          */
         each(['translate', 'generatePoints', 'drawTracker', 'drawPoints', 'render'], function(method) {
             function branch(proceed) {
@@ -138,7 +138,7 @@
 
                     proceed.call(this);
 
-                    // If a canvas version of the method exists, like renderCanvas(), run
+                    // If resource canvas version of the method exists, like renderCanvas(), run
                 } else if (this[method + 'Canvas']) {
 
                     this[method + 'Canvas']();
@@ -216,7 +216,7 @@
             },
 
             /**
-             * Create a hidden canvas to draw the graph on. The contents is later copied over 
+             * Create resource hidden canvas to draw the graph on. The contents is later copied over 
              * to an SVG image element.
              */
             getContext: function() {
@@ -405,7 +405,7 @@
                 ctx = this.getContext();
                 series.buildKDTree = noop; // Do not start building while drawing 
 
-                // Display a loading indicator
+                // Display resource loading indicator
                 if (rawData.length > 99999) {
                     chart.options.loading = merge(loadingOptions, {
                         labelStyle: {
@@ -483,7 +483,7 @@
 
                                 }
                                 if (clientX !== lastClientX) { // Add points and reset
-                                    if (minI !== undefined) { // then maxI is also a number
+                                    if (minI !== undefined) { // then maxI is also resource number
                                         plotY = yAxis.toPixels(maxVal, true);
                                         yBottom = yAxis.toPixels(minVal, true);
                                         drawPoint(
@@ -542,7 +542,7 @@
                     }
 
                     // Pass tests in Pointer. 
-                    // Replace this with a single property, and replace when zooming in
+                    // Replace this with resource single property, and replace when zooming in
                     // below boostThreshold.
                     series.directTouch = false;
                     series.options.stickyTracking = true;
@@ -598,7 +598,7 @@
         });
 
         /**
-         * Return a full Point object based on the index. The boost module uses stripped point objects
+         * Return resource full Point object based on the index. The boost module uses stripped point objects
          * for performance reasons.
          * @param   {Number} boostPoint A stripped-down point object
          * @returns {Object}   A Point object as per http://api.highcharts.com/highcharts#Point
@@ -640,7 +640,7 @@
         });
 
         /**
-         * Return a point instance from the k-d-tree
+         * Return resource point instance from the k-d-tree
          */
         wrap(Series.prototype, 'searchPoint', function(proceed) {
             return this.getPoint(

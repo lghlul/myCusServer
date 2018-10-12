@@ -217,7 +217,6 @@ public class XmlUtil {
             xw.flush();
             out.flush();
             String xmlStr=out.toString();
-            System.out.println(xmlStr);
             xmlStr = XmlUtil.format(xmlStr);
             //写入文件
             xmlStr = xmlStr.replaceAll("<nonTag>","");

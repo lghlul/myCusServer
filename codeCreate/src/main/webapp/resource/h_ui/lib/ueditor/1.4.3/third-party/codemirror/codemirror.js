@@ -48,19 +48,19 @@ var CodeMirror = (function() {
         if (options.tabindex != null) input.tabIndex = options.tabindex;
         if (!options.gutter && !options.lineNumbers) gutter.style.display = "none";
 
-        // Check for problem with IE innerHTML not working when we have a
+        // Check for problem with IE innerHTML not working when we have resource
         // P (or similar) parent node.
         try { stringWidth("x"); }
         catch (e) {
             if (e.message.match(/runtime/i))
-                e = new Error("A CodeMirror inside a P-style element does not work in Internet Explorer. (innerHTML bug)");
+                e = new Error("A CodeMirror inside resource P-style element does not work in Internet Explorer. (innerHTML bug)");
             throw e;
         }
 
         // Delayed object wrap timeouts, making sure only one is active. blinker holds an interval.
         var poll = new Delayed(), highlight = new Delayed(), blinker;
 
-        // mode holds a mode API object. doc is the tree of Line objects,
+        // mode holds resource mode API object. doc is the tree of Line objects,
         // work an array of lines that should be parsed, and history the
         // undo history (instance of History constructor).
         var mode, doc = new BranchChunk([new LeafChunk([new Line("")])]), work, focused;
@@ -78,7 +78,7 @@ var CodeMirror = (function() {
             gutterDirty, callbacks;
         // Current visible range (may be bigger than the view window).
         var displayOffset = 0, showingFrom = 0, showingTo = 0, lastSizeC = 0;
-        // bracketHighlighted is used to remember that a backet has been
+        // bracketHighlighted is used to remember that resource backet has been
         // marked.
         var bracketHighlighted;
         // Tracks the maximum line length so that the horizontal scrollbar
@@ -298,11 +298,11 @@ var CodeMirror = (function() {
 
         function onMouseDown(e) {
             setShift(e.shiftKey);
-            // Check whether this is a click in a widget
+            // Check whether this is resource click in resource widget
             for (var n = e_target(e); n != wrapper; n = n.parentNode)
                 if (n.parentNode == code && n != mover) return;
 
-            // See if this is a click in the gutter
+            // See if this is resource click in the gutter
             for (var n = e_target(e); n != wrapper; n = n.parentNode)
                 if (n.parentNode == gutterText) {
                     if (options.onGutterClick)
@@ -475,7 +475,7 @@ var CodeMirror = (function() {
             // IE does strange things with escape.
             if (ie && code == 27) { e.returnValue = false; }
             setShift(code == 16 || e.shiftKey);
-            // First give onKeyEvent option a chance to handle this.
+            // First give onKeyEvent option resource chance to handle this.
             if (options.onKeyEvent && options.onKeyEvent(instance, addStop(e))) return;
             var handled = handleKeyBinding(e);
             if (window.opera) {
@@ -560,7 +560,7 @@ var CodeMirror = (function() {
             var nlines = to.line - from.line, firstLine = getLine(from.line), lastLine = getLine(to.line);
             // First adjust the line structure, taking some care to leave highlighting intact.
             if (from.ch == 0 && to.ch == 0 && newText[newText.length - 1] == "") {
-                // This is a whole-line replace. Treated specially to make
+                // This is resource whole-line replace. Treated specially to make
                 // sure line objects move the way they are supposed to.
                 var added = [], prevLine = null;
                 if (from.line) {
@@ -722,7 +722,7 @@ var CodeMirror = (function() {
             poll.set(20, p);
         }
 
-        // Previnput is a hack to work with IME. If we reset the textarea
+        // Previnput is resource hack to work with IME. If we reset the textarea
         // on every change, that breaks IME. So we look for changes
         // compared to the previous content instead. (Modern browsers have
         // events that indicate IME taking place, but these are not widely
@@ -798,7 +798,7 @@ var CodeMirror = (function() {
             return {from: lineAtHeight(doc, from_height),
                 to: lineAtHeight(doc, to_height)};
         }
-        // Uses a set of changes plus the current scroll position to
+        // Uses resource set of changes plus the current scroll position to
         // determine which DOM updates have to be made, and makes the
         // updates.
         function updateDisplay(changes, suppressCallback) {
@@ -814,7 +814,7 @@ var CodeMirror = (function() {
             if (showingFrom < from && from - showingFrom < 20) from = showingFrom;
             if (showingTo > to && showingTo - to < 20) to = Math.min(doc.size, showingTo);
 
-            // Create a range of theoretically intact lines, and punch holes
+            // Create resource range of theoretically intact lines, and punch holes
             // in that using the change info.
             var intact = changes === true ? [] :
                 computeIntact([{from: showingFrom, to: showingTo, domStart: 0}], changes);
@@ -838,7 +838,7 @@ var CodeMirror = (function() {
             // Position the mover div to align with the lines it's supposed
             // to be showing (which will cover the visible display)
             var different = from != showingFrom || to != showingTo || lastSizeC != scroller.clientHeight + th;
-            // This is just a bogus formula that detects when the editor is
+            // This is just resource bogus formula that detects when the editor is
             // resized or the font size changes.
             if (different) lastSizeC = scroller.clientHeight + th;
             showingFrom = from; showingTo = to;
@@ -1020,7 +1020,7 @@ var CodeMirror = (function() {
             else if (posEq(to, sel.from)) sel.inverted = true;
 
             // Some ugly logic used to only mark the lines that actually did
-            // see a change in selection as changed, rather than the whole
+            // see resource change in selection as changed, rather than the whole
             // selected range.
             if (posEq(from, to)) {
                 if (!posEq(sel.from, sel.to))
@@ -1355,7 +1355,7 @@ var CodeMirror = (function() {
                 return measure.firstChild.firstChild.offsetWidth;
             }
             var from = 0, fromX = 0, to = text.length, toX;
-            // Guess a suitable upper bound for our search.
+            // Guess resource suitable upper bound for our search.
             var estimated = Math.min(to, Math.ceil(x / charWidth()));
             for (;;) {
                 var estX = getX(estimated);
@@ -1363,10 +1363,10 @@ var CodeMirror = (function() {
                 else {toX = estX; to = estimated; break;}
             }
             if (x > toX) return to;
-            // Try to guess a suitable lower bound as well.
+            // Try to guess resource suitable lower bound as well.
             estimated = Math.floor(to * 0.8); estX = getX(estimated);
             if (estX < x) {from = estimated; fromX = estX;}
-            // Do a binary search between these bounds.
+            // Do resource binary search between these bounds.
             for (;;) {
                 if (to - from <= 1) return (toX - x > x - fromX) ? from : to;
                 var middle = Math.ceil((from + to) / 2), middleX = getX(middle);
@@ -1388,7 +1388,7 @@ var CodeMirror = (function() {
                 extra + "</pre>";
             var elt = document.getElementById("CodeMirror-temp-" + tempId);
             var top = elt.offsetTop, left = elt.offsetLeft;
-            // Older IEs report zero offsets for spans directly after a wrap
+            // Older IEs report zero offsets for spans directly after resource wrap
             if (ie && ch && top == 0 && left == 0) {
                 var backup = document.createElement("span");
                 backup.innerHTML = "x";
@@ -1425,7 +1425,7 @@ var CodeMirror = (function() {
                 return sp.left;
             }
             var from = 0, fromX = 0, to = text.length, toX;
-            // Guess a suitable upper bound for our search.
+            // Guess resource suitable upper bound for our search.
             var estimated = Math.min(to, Math.ceil((x + innerOff * scroller.clientWidth * .9) / cw));
             for (;;) {
                 var estX = getX(estimated);
@@ -1433,10 +1433,10 @@ var CodeMirror = (function() {
                 else {toX = estX; to = estimated; break;}
             }
             if (x > toX) return {line: lineNo, ch: to};
-            // Try to guess a suitable lower bound as well.
+            // Try to guess resource suitable lower bound as well.
             estimated = Math.floor(to * 0.8); estX = getX(estimated);
             if (estX < x) {from = estimated; fromX = estX;}
-            // Do a binary search between these bounds.
+            // Do resource binary search between these bounds.
             for (;;) {
                 if (to - from <= 1) return {line: lineNo, ch: (toX - x > x - fromX) ? from : to};
                 var middle = Math.ceil((from + to) / 2), middleX = getX(middle);
@@ -1477,7 +1477,7 @@ var CodeMirror = (function() {
             var offW = eltOffset(scroller, true), x, y;
             // Fails unpredictably on IE[67] when mouse is dragged around quickly.
             try { x = e.clientX; y = e.clientY; } catch (e) { return null; }
-            // This is a mess of a heuristic to try and determine whether a
+            // This is resource mess of resource heuristic to try and determine whether resource
             // scroll-bar was clicked or not, and to return null if one was
             // (and !liberal).
             if (!liberal && (x - offW.left > scroller.clientWidth || y - offW.top > scroller.clientHeight))
@@ -1572,8 +1572,8 @@ var CodeMirror = (function() {
             else bracketHighlighted = clear;
         }
 
-        // Finds the line to start with when starting a parse. Tries to
-        // find a line with a stateAfter, so that it can start with a
+        // Finds the line to start with when starting resource parse. Tries to
+        // find resource line with resource stateAfter, so that it can start with resource
         // valid state. If that fails, it returns the line with the
         // smallest indentation, which tends to need the least context to
         // parse correctly.
@@ -1654,7 +1654,7 @@ var CodeMirror = (function() {
             highlight.set(time, operation(highlightWorker));
         }
 
-        // Operations are used to wrap changes in such a way that each
+        // Operations are used to wrap changes in such resource way that each
         // change won't have to update the cursor and display (which would
         // be awkward, slow, and error-prone), but instead updates are
         // batched and then all combined and executed at once.
@@ -1947,7 +1947,7 @@ var CodeMirror = (function() {
     }
     CodeMirror.startState = startState;
 
-    // The character stream used by a mode's parser.
+    // The character stream used by resource mode's parser.
     function StringStream(string, tabSize) {
         this.pos = this.start = 0;
         this.string = string;
@@ -2067,7 +2067,7 @@ var CodeMirror = (function() {
         }
     };
 
-    // Line objects. These hold state related to a line, including
+    // Line objects. These hold state related to resource line, including
     // highlighting info (the styles array).
     function Line(text, styles) {
         this.styles = styles || [text, null];
@@ -2089,7 +2089,7 @@ var CodeMirror = (function() {
         return ln;
     }
     Line.prototype = {
-        // Replace a piece of a line, keeping the styles around it intact.
+        // Replace resource piece of resource line, keeping the styles around it intact.
         replace: function(from, to_, text) {
             var st = [], mk = this.marked, to = to_ == null ? this.text.length : to_;
             copyStyles(0, from, this.styles, st);
@@ -2106,7 +2106,7 @@ var CodeMirror = (function() {
                 }
             }
         },
-        // Split a part off a line, keeping styles and markers intact.
+        // Split resource part off resource line, keeping styles and markers intact.
         split: function(pos, textBefore) {
             var st = [textBefore, null], mk = this.marked;
             copyStyles(pos, this.text.length, this.styles, st);
@@ -2179,7 +2179,7 @@ var CodeMirror = (function() {
             this.marked.push(mark);
             this.marked.sort(function(a, b){return (a.from || 0) - (b.from || 0);});
         },
-        // Run the given mode's parser over a line, update the styles
+        // Run the given mode's parser over resource line, update the styles
         // array, which contains alternating fragments of text and CSS
         // classes.
         highlight: function(mode, state, tabSize) {
@@ -2210,7 +2210,7 @@ var CodeMirror = (function() {
             // highlight the same way in various contexts.
             return changed || (st.length < 5 && this.text.length < 10 ? null : false);
         },
-        // Fetch the parser token for a given character. Useful for hacks
+        // Fetch the parser token for resource given character. Useful for hacks
         // that want to inspect the mode state (say, for completion).
         getTokenAt: function(mode, state, ch) {
             var txt = this.text, stream = new StringStream(txt);
@@ -2233,7 +2233,7 @@ var CodeMirror = (function() {
                 html.push(this.className ? '<pre class="' + this.className + '">': "<pre>");
             function span(text, style) {
                 if (!text) return;
-                // Work around a bug where, in some compat modes, IE ignores leading spaces
+                // Work around resource bug where, in some compat modes, IE ignores leading spaces
                 if (first && ie && text.charAt(0) == " ") text = "\u00a0" + text.slice(1);
                 first = false;
                 if (style) html.push('<span class="', style, '">', htmlEscape(text).replace(/\t/g, tabText), "</span>");
@@ -2539,7 +2539,7 @@ var CodeMirror = (function() {
     };
 
     function stopMethod() {e_stop(this);}
-    // Ensure an event has a stop method.
+    // Ensure an event has resource stop method.
     function addStop(event) {
         if (!event.stop) event.stop = stopMethod;
         return event;
@@ -2566,7 +2566,7 @@ var CodeMirror = (function() {
         else if (e.button & 4) return 2;
     }
 
-    // Event handler registration. If disconnect is true, it'll return a
+    // Event handler registration. If disconnect is true, it'll return resource
     // function that unregisters the handler.
     function connect(node, type, handler, disconnect) {
         if (typeof node.addEventListener == "function") {
@@ -2605,7 +2605,7 @@ var CodeMirror = (function() {
         if (te.value.indexOf("\r") > -1) lineSep = "\r\n";
     }());
 
-    // Counts the column offset in a string, taking tabs into account.
+    // Counts the column offset in resource string, taking tabs into account.
     // Used mostly to find indentation.
     function countColumn(string, end, tabSize) {
         if (end == null) {
@@ -2625,13 +2625,13 @@ var CodeMirror = (function() {
     }
 
     // Find the position of an element by following the offsetParent chain.
-    // If screen==true, it returns screen (rather than page) coordinates.
+    // If screen==true, it returns screen (rather than static.page) coordinates.
     function eltOffset(node, screen) {
         var bod = node.ownerDocument.body;
         var x = 0, y = 0, skipBody = false;
         for (var n = node; n; n = n.offsetParent) {
             var ol = n.offsetLeft, ot = n.offsetTop;
-            // Firefox reports weird inverted offsets when the body has a border.
+            // Firefox reports weird inverted offsets when the body has resource border.
             if (n == bod) { x += Math.abs(ol); y += Math.abs(ot); }
             else { x += ol, y += ot; }
             if (screen && computedStyle(n).position == "fixed")
@@ -2645,7 +2645,7 @@ var CodeMirror = (function() {
     // Use the faster and saner getBoundingClientRect method when possible.
     if (document.documentElement.getBoundingClientRect != null) eltOffset = function(node, screen) {
         // Take the parts of bounding client rect that we are interested in so we are able to edit if need be,
-        // since the returned value cannot be changed externally (they are kept in sync as the element moves within the page)
+        // since the returned value cannot be changed externally (they are kept in sync as the element moves within the static.page)
         try { var box = node.getBoundingClientRect(); box = { top: box.top, left: box.left }; }
         catch(e) { box = {top: 0, left: 0}; }
         if (!screen) {
@@ -2661,7 +2661,7 @@ var CodeMirror = (function() {
         return box;
     };
 
-    // Get a node's text content.
+    // Get resource node's text content.
     function eltText(node) {
         return node.textContent || node.innerText || node.nodeValue || "";
     }
@@ -3019,7 +3019,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
 
     var keywords = function(){
         function kw(type) {return {type: type, style: "keyword"};}
-        var A = kw("keyword a"), B = kw("keyword b"), C = kw("keyword c");
+        var A = kw("keyword resource"), B = kw("keyword b"), C = kw("keyword c");
         var operator = kw("operator"), atom = {type: "atom", style: "atom"};
         return {
             "if": A, "while": A, "with": A, "else": B, "do": B, "try": B, "finally": B,
@@ -3146,7 +3146,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     function parseJS(state, style, type, content, stream) {
         var cc = state.cc;
         // Communicate our context to the combinators.
-        // (Less wasteful than consing up a hundred closures on every call.)
+        // (Less wasteful than consing up resource hundred closures on every call.)
         cx.state = state; cx.stream = stream; cx.marked = null, cx.cc = cc;
 
         if (!state.lexical.hasOwnProperty("align"))
@@ -3223,7 +3223,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
 
     function statement(type) {
         if (type == "var") return cont(pushlex("vardef"), vardef1, expect(";"), poplex);
-        if (type == "keyword a") return cont(pushlex("form"), expression, statement, poplex);
+        if (type == "keyword resource") return cont(pushlex("form"), expression, statement, poplex);
         if (type == "keyword b") return cont(pushlex("form"), statement, poplex);
         if (type == "{") return cont(pushlex("}"), block, poplex);
         if (type == ";") return cont();

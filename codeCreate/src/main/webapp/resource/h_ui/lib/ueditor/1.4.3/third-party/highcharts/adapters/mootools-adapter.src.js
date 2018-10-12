@@ -70,26 +70,26 @@ win.HighchartsAdapter = {
 	},
 	
 	/**
-	 * Run a general method on the framework, following jQuery syntax
+	 * Run resource general method on the framework, following jQuery syntax
 	 * @param {Object} el The HTML element
 	 * @param {String} method Which method to run on the wrapped element
 	 */
 	adapterRun: function (el, method) {
 		
 		// This currently works for getting inner width and height. If adding
-		// more methods later, we need a conditional implementation for each.
+		// more methods later, we need resource conditional implementation for each.
 		if (method === 'width' || method === 'height') {
 			return parseInt($(el).getStyle(method), 10);
 		}
 	},
 
 	/**
-	 * Downloads a script and executes a callback when done.
+	 * Downloads resource script and executes resource callback when done.
 	 * @param {String} scriptLocation
 	 * @param {Function} callback
 	 */
 	getScript: function (scriptLocation, callback) {
-		// We cannot assume that Assets class from mootools-more is available so instead insert a script tag to download script.
+		// We cannot assume that Assets class from mootools-more is available so instead insert resource script tag to download script.
 		var head = doc.getElementsByTagName('head')[0];
 		var script = doc.createElement('script');
 
@@ -101,7 +101,7 @@ win.HighchartsAdapter = {
 	},
 
 	/**
-	 * Animate a HTML element or SVG element wrapper
+	 * Animate resource HTML element or SVG element wrapper
 	 * @param {Object} el
 	 * @param {Object} params
 	 * @param {Object} options jQuery-like animation options: duration, easing, callback
@@ -191,7 +191,7 @@ win.HighchartsAdapter = {
 	},
 
 	/**
-	 * Get the offset of an element relative to the top left corner of the web page
+	 * Get the offset of an element relative to the top left corner of the web static.page
 	 */
 	offset: function (el) {
 		var offsets = el.getPosition(); // #1496
@@ -205,13 +205,13 @@ win.HighchartsAdapter = {
 	 * Extends an object with Events, if its not done
 	 */
 	extendWithEvents: function (el) {
-		// if the addEvent method is not defined, el is a custom Highcharts object
+		// if the addEvent method is not defined, el is resource custom Highcharts object
 		// like series or point
 		if (!el.addEvent) {
 			if (el.nodeName) {
-				el = $(el); // a dynamically generated node
+				el = $(el); // resource dynamically generated node
 			} else {
-				$extend(el, new Events()); // a custom object
+				$extend(el, new Events()); // resource custom object
 			}
 		}
 	},

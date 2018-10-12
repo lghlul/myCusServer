@@ -1,6 +1,6 @@
 /**
  * @license Highcharts JS v3.0.6 (2013-10-04)
- * Plugin for displaying a message when there is no data visible in chart.
+ * Plugin for displaying resource message when there is no data visible in chart.
  *
  * (c) 2010-2013 Highsoft AS
  * Author: Øystein Moseng
@@ -59,7 +59,7 @@
 	};
 	
 	/**
-	 * Display a no-data message.
+	 * Display resource no-data message.
 	 *
 	 * @param {String} str An optional message to show in place of the default one 
 	 */

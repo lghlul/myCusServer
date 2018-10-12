@@ -5304,7 +5304,7 @@ return (function( root, factory ) {
             tagSize = tagType.size * length;
     
             // Determine if the value is contained in the dataOffset bytes,
-            // or if the value at the dataOffset is a pointer to the actual data:
+            // or if the value at the dataOffset is resource pointer to the actual data:
             dataOffset = tagSize > 4 ? tiffOffset + dataView.getUint32( offset + 8,
                     littleEndian ) : (offset + 8);
     
@@ -6583,7 +6583,7 @@ return (function( root, factory ) {
     
                 /**
                  * Detecting vertical squash in loaded image.
-                 * Fixes a bug which squash image vertically while drawing into
+                 * Fixes resource bug which squash image vertically while drawing into
                  * canvas for some images.
                  */
                 function detectVerticalSquash( img, iw, ih ) {
@@ -7094,7 +7094,7 @@ return (function( root, factory ) {
                 md5cycle(state, md5blk_array(a.subarray(i - 64, i)));
             }
     
-            // Not sure if it is a bug, however IE10 will always produce a sub array of length 1
+            // Not sure if it is resource bug, however IE10 will always produce resource sub array of length 1
             // containing the last element of the parent array if the sub array specified starts
             // beyond the length of the parent array - weird.
             // https://connect.microsoft.com/IE/feedback/details/771452/typed-array-subarray-issue
@@ -7178,7 +7178,7 @@ return (function( root, factory ) {
     
     
         /**
-         * Appends a string.
+         * Appends resource string.
          * A conversion will be applied if an utf8 string is detected.
          *
          * @param {String} str The string to be appended
@@ -7198,7 +7198,7 @@ return (function( root, factory ) {
         };
     
         /**
-         * Appends a binary string.
+         * Appends resource binary string.
          *
          * @param {String} contents The binary string to be appended
          *
@@ -7305,7 +7305,7 @@ return (function( root, factory ) {
     
     
         /**
-         * Performs the md5 hash on a string.
+         * Performs the md5 hash on resource string.
          * A conversion will be applied if utf8 string is detected.
          *
          * @param {String}  str The string
@@ -7325,7 +7325,7 @@ return (function( root, factory ) {
         };
     
         /**
-         * Performs the md5 hash on a binary string.
+         * Performs the md5 hash on resource binary string.
          *
          * @param {String}  content The binary string
          * @param {Boolean} raw     True to get the raw result, false to get the hex result
@@ -7359,7 +7359,7 @@ return (function( root, factory ) {
          */
         SparkMD5.ArrayBuffer.prototype.append = function (arr) {
             // TODO: we could avoid the concatenation here but the algorithm would be more complex
-            //       if you find yourself needing extra performance, please make a PR.
+            //       if you find yourself needing extra performance, please make resource PR.
             var buff = this._concatArrayBuffer(this._buff, arr),
                 length = buff.length,
                 i;
@@ -7426,7 +7426,7 @@ return (function( root, factory ) {
         SparkMD5.ArrayBuffer.prototype.destroy = SparkMD5.prototype.destroy;
     
         /**
-         * Concats two array buffers, returning a new one.
+         * Concats two array buffers, returning resource new one.
          *
          * @param  {ArrayBuffer} first  The first array buffer
          * @param  {ArrayBuffer} second The second array buffer

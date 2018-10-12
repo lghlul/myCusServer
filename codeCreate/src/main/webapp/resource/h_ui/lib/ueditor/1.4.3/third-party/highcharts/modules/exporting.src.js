@@ -50,7 +50,7 @@ var Chart = Highcharts.Chart,
 		contextButtonTitle: 'Chart context menu'
 	});
 
-// Buttons and menus are collected in a separate config option set called 'navigation'.
+// Buttons and menus are collected in resource separate config option set called 'navigation'.
 // This can be extended later to add control buttons like zoom and pan right click menus.
 defaultOptions.navigation = {
 	menuStyle: {
@@ -215,7 +215,7 @@ extend(Chart.prototype, {
 			/*jslint unparam: false*/
 		}
 
-		// create a sandbox where a new chart will be generated
+		// create resource sandbox where resource new chart will be generated
 		sandbox = createElement(DIV, null, {
 			position: ABSOLUTE,
 			top: '-9999em',
@@ -413,7 +413,7 @@ extend(Chart.prototype, {
 	},
 
 	/**
-	 * Display a popup menu for choosing the export type
+	 * Display resource popup menu for choosing the export type
 	 *
 	 * @param {String} className An identifier for the menu
 	 * @param {Array} items A collection with text and onclicks for the items
@@ -440,7 +440,7 @@ extend(Chart.prototype, {
 		// create the menu only the first time
 		if (!menu) {
 
-			// create a HTML element above the SVG
+			// create resource HTML element above the SVG
 			chart[cacheName] = menu = createElement(DIV, {
 				className: className
 			}, {

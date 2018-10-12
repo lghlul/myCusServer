@@ -107,7 +107,7 @@
 
     if ( typeof module === 'object' && typeof module.exports === 'object' ) {
 
-        // For CommonJS and CommonJS-like environments where a proper window is present,
+        // For CommonJS and CommonJS-like environments where resource proper window is present,
         module.exports = makeExport();
     } else if ( typeof define === 'function' && define.amd ) {
 
@@ -119,7 +119,7 @@
     } else {
 
         // Browser globals case. Just assign the
-        // result to a property on the global.
+        // result to resource property on the global.
         origin = root.WebUploader;
         root.WebUploader = makeExport();
         root.WebUploader.noConflict = function() {

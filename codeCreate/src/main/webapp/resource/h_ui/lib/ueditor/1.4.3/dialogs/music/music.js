@@ -141,18 +141,18 @@ function Music() {
             data = me._rebuildData(data);
             var s = [], p = [], t = [];
             s.push('<div id="J_listPanel" class="listPanel">');
-            p.push('<div class="page">');
+            p.push('<div class="static.page">');
             for (var i = 0, tmpList; tmpList = data[i++];) {
                 panels.push('panel' + i);
                 pages.push('page' + i);
                 if (i == 1) {
                     s.push('<div id="panel' + i + '" class="panelon">');
                     if (data.length != 1) {
-                        t.push('<div id="page' + i + '" onclick="music.onpageclick(' + i + ')" class="pageon">' + (i ) + '</div>');
+                        t.push('<div id="static.page' + i + '" onclick="music.onpageclick(' + i + ')" class="pageon">' + (i ) + '</div>');
                     }
                 } else {
                     s.push('<div id="panel' + i + '" class="paneloff">');
-                    t.push('<div id="page' + i + '" onclick="music.onpageclick(' + i + ')" class="pageoff">' + (i ) + '</div>');
+                    t.push('<div id="static.page' + i + '" onclick="music.onpageclick(' + i + ')" class="pageoff">' + (i ) + '</div>');
                 }
                 s.push('<div class="m-box">');
                 s.push('<div class="m-h"><span class="m-t">' + lang.chapter + '</span><span class="m-s">' + lang.singer

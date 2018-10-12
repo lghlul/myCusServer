@@ -49,8 +49,8 @@ spr.testpaper.testpaperTable = {
 			          "mDataProp" : "acId",  
 			          "mRender" : function(data) {  
 			        	  var _html = '';
-			              return '<a class="btn btn-secondary-outline radius size-S" href="javascript:void(0);" onclick="spr.activity.activityTable.opreation.editActivity('+data+')">编辑</a> '+
-			                     '<a class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick="spr.activity.activityTable.opreation.deleteActivity('+data+')">删除</a> '+
+			              return '<resource class="btn btn-secondary-outline radius size-S" href="javascript:void(0);" onclick="spr.activity.activityTable.opreation.editActivity('+data+')">编辑</resource> '+
+			                     '<resource class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick="spr.activity.activityTable.opreation.deleteActivity('+data+')">删除</resource> '+
 			                     _html 
 			          }  
 			      }

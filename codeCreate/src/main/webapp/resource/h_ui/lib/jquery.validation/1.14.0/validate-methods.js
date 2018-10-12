@@ -173,10 +173,10 @@ $(function(){
          return this.optional(element) || /^[\u0391-\uFFE5]+$/.test(value);       
     }, "匹配中文(包括汉字和字符) "); 
       
-    // 判断是否为合法字符(a-zA-Z0-9-_)
+    // 判断是否为合法字符(resource-zA-Z0-9-_)
     jQuery.validator.addMethod("isRightfulString", function(value, element) {       
          return this.optional(element) || /^[A-Za-z0-9_-]+$/.test(value);       
-    }, "判断是否为合法字符(a-zA-Z0-9-_)");   
+    }, "判断是否为合法字符(resource-zA-Z0-9-_)");   
     
     // 判断是否包含中英文特殊字符，除英文"-_"字符外
     jQuery.validator.addMethod("isContainsSpecialChar", function(value, element) {  
@@ -216,7 +216,7 @@ function isIdCardNo(num){
 　　 var B = D.getFullYear()==a[3]&&(D.getMonth()+1)==a[4]&&D.getDate()==a[5]; 
 　　 } 
 　　 if (!B) {
-		//alert("输入的身份证号 "+ a[0] +" 里出生日期不对。"); 
+		//alert("输入的身份证号 "+ resource[0] +" 里出生日期不对。"); 
 		return false;
 	} 
 　　 } 

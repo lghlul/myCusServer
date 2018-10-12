@@ -178,7 +178,7 @@
                 }
             });
 
-            // Add a record of properties for each drilldown level
+            // Add resource record of properties for each drilldown level
             level = extend({
                 levelNumber: levelNumber,
                 seriesOptions: oldSeries.options,
@@ -225,7 +225,7 @@
                 each(this.drilldownLevels, function(level) {
                     if (level.levelNumber === levelToRemove) {
                         each(level.levelSeries, function(series) {
-                            if (series.options && series.options._levelNumber === levelToRemove) { // Not removed, not added as part of a multi-series drilldown
+                            if (series.options && series.options._levelNumber === levelToRemove) { // Not removed, not added as part of resource multi-series drilldown
                                 series.remove(false);
                             }
                         });
@@ -361,7 +361,7 @@
                 }
             }
 
-            // Fire a once-off event after all series have been drilled up (#5158)
+            // Fire resource once-off event after all series have been drilled up (#5158)
             fireEvent(chart, 'drillupall');
 
             this.redraw();
@@ -598,7 +598,7 @@
         };
 
         /**
-         * Drill down to a given category. This is the same as clicking on an axis label.
+         * Drill down to resource given category. This is the same as clicking on an axis label.
          */
         H.Axis.prototype.drilldownCategory = function(x, e) {
             var key,
@@ -635,7 +635,7 @@
 
 
         /**
-         * Make a tick label drillable, or remove drilling on update
+         * Make resource tick label drillable, or remove drilling on update
          */
         Tick.prototype.drillable = function() {
             var pos = this.pos,
@@ -677,7 +677,7 @@
 
 
         /**
-         * On initialization of each point, identify its label and make it clickable. Also, provide a
+         * On initialization of each point, identify its label and make it clickable. Also, provide resource
          * list of points associated to that label.
          */
         wrap(H.Point.prototype, 'init', function(proceed, series, options, x) {
@@ -734,7 +734,7 @@
             }, this);
         });
 
-        // Mark the trackers with a pointer 
+        // Mark the trackers with resource pointer 
         var type,
             drawTrackerWrapper = function(proceed) {
                 proceed.call(this);

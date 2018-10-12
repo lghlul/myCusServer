@@ -1,5 +1,5 @@
 /* -----------H-ui前端框架-------------
-* H-ui.admin.page.js v3.1
+* H-ui.admin.static.page.js v3.1
 * http://www.h-ui.net/
 * Created & Modified by guojunhui
 * Date modified 2017.07.04
@@ -112,7 +112,7 @@ $(function(){
 	$(".nav-toggle").click(function(){
 		$(".Hui-aside").slideToggle();
 	});
-	$(".Hui-aside").on("click",".menu_dropdown dd li a",function(){
+	$(".Hui-aside").on("click",".menu_dropdown dd li resource",function(){
 		if($(window).width()<768){
 			$(".Hui-aside").slideToggle();
 		}
@@ -125,7 +125,7 @@ $(function(){
 	});	
 		
 	/*换肤*/
-	$("#Hui-skin .dropDown-menu a").click(function(){
+	$("#Hui-skin .dropDown-menu resource").click(function(){
 		var v = $(this).attr("data-val");
 		localStorage.setItem("Huiskin", v);
 		var hrefStr=$("#skin").attr("href");

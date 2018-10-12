@@ -116,7 +116,7 @@ public class ActionEnter {
 	 */
 	public boolean validCallbackName ( String name ) {
 		
-		if ( name.matches( "^[a-zA-Z_]+[\\w0-9_]*$" ) ) {
+		if ( name.matches( "^[resource-zA-Z_]+[\\w0-9_]*$" ) ) {
 			return true;
 		}
 		

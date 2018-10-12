@@ -1731,7 +1731,7 @@ var dtd = dom.dtd = (function() {
         //不能认为是空的元素
         $isNotEmpty : _({table:1,ul:1,ol:1,dl:1,iframe:1,area:1,base:1,col:1,hr:1,img:1,embed:1,input:1,link:1,meta:1,param:1,h1:1,h2:1,h3:1,h4:1,h5:1,h6:1}),
 
-        //如果没有子节点就可以删除的元素列表，像span,a
+        //如果没有子节点就可以删除的元素列表，像span,resource
         $removeEmpty : _({a:1,abbr:1,acronym:1,address:1,b:1,bdo:1,big:1,cite:1,code:1,del:1,dfn:1,em:1,font:1,i:1,ins:1,label:1,kbd:1,q:1,s:1,samp:1,small:1,span:1,strike:1,strong:1,sub:1,sup:1,tt:1,u:1,'var':1}),
 
         $removeEmptyBlock : _({'p':1,'div':1}),
@@ -2315,7 +2315,7 @@ var domUtils = dom.domUtils = {
     /**
      * 取得node节点的下一个兄弟节点， 如果startFromChild的值为ture，则先获取其子节点，
      * 如果有子节点则直接返回第一个子节点；如果没有子节点或者startFromChild的值为false，
-     * 则执行<a href="#UE.dom.domUtils.getNextDomNode(Node)">getNextDomNode(Node node)</a>的查找过程。
+     * 则执行<resource href="#UE.dom.domUtils.getNextDomNode(Node)">getNextDomNode(Node node)</resource>的查找过程。
      * @method getNextDomNode
      * @param { Node } node 需要获取其后的兄弟节点的节点对象
      * @param { Boolean } startFromChild 查找过程是否从其子节点开始
@@ -4162,7 +4162,7 @@ var domUtils = dom.domUtils = {
      * divNodes = [].slice.call( divNodes, 0 );
      *
      * //output: null
-     * console.log( UE.dom.domUtils.filterNodeList( divNodes, 'a span' ) );
+     * console.log( UE.dom.domUtils.filterNodeList( divNodes, 'resource span' ) );
      * ```
      */
 
@@ -6014,13 +6014,13 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          *
          *     <!-- 选区开始 -->
          *     <span></span>
-         *     <a></a>
+         *     <resource></resource>
          *     <!-- 选区结束 -->
          * </body>
          *
          * <script>
          *
-         *     //output: <span></span><a></a>
+         *     //output: <span></span><resource></resource>
          *     console.log( range.cloneContents() );
          *
          *     range.traversal( function ( node ) {
@@ -6031,7 +6031,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          *
          *     } );
          *
-         *     //output: <span class="test"></span><a class="test"></a>
+         *     //output: <span class="test"></span><resource class="test"></resource>
          *     console.log( range.cloneContents() );
          *
          * </script>
@@ -6058,13 +6058,13 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          *
          *     <!-- 选区开始 -->
          *     <span></span>
-         *     <a></a>
+         *     <resource></resource>
          *     <!-- 选区结束 -->
          * </body>
          *
          * <script>
          *
-         *     //output: <span></span><a></a>
+         *     //output: <span></span><resource></resource>
          *     console.log( range.cloneContents() );
          *
          *     range.traversal( function ( node ) {
@@ -6075,7 +6075,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          *          return node.nodeType === 1;
          *     } );
          *
-         *     //output: <span class="test"></span><a class="test"></a>
+         *     //output: <span class="test"></span><resource class="test"></resource>
          *     console.log( range.cloneContents() );
          *
          * </script>
@@ -7573,7 +7573,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * 执行编辑命令cmdName，完成富文本编辑效果
          * @method execCommand
          * @param { String } cmdName 需要执行的命令
-         * @remind 具体命令的使用请参考<a href="#COMMAND.LIST">命令列表</a>
+         * @remind 具体命令的使用请参考<resource href="#COMMAND.LIST">命令列表</resource>
          * @return { * } 返回命令函数运行的返回值
          * @example
          * ```javascript
@@ -7612,7 +7612,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * 根据传入的command命令，查选编辑器当前的选区，返回命令的状态
          * @method  queryCommandState
          * @param { String } cmdName 需要查询的命令名称
-         * @remind 具体命令的使用请参考<a href="#COMMAND.LIST">命令列表</a>
+         * @remind 具体命令的使用请参考<resource href="#COMMAND.LIST">命令列表</resource>
          * @return { Number } number 返回放前命令的状态，返回值三种情况：(-1|0|1)
          * @example
          * ```javascript
@@ -7628,7 +7628,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * 根据传入的command命令，查选编辑器当前的选区，根据命令返回相关的值
          * @method queryCommandValue
          * @param { String } cmdName 需要查询的命令名称
-         * @remind 具体命令的使用请参考<a href="#COMMAND.LIST">命令列表</a>
+         * @remind 具体命令的使用请参考<resource href="#COMMAND.LIST">命令列表</resource>
          * @remind 只有部分插件有此方法
          * @return { * } 返回每个命令特定的当前状态值
          * @grammar editor.queryCommandValue(cmdName)  =>  {*}
@@ -11069,7 +11069,7 @@ UE.commands['imagefloat'] = {
  * @example
  * ```javascript
  * editor.execCommand( 'insertimage', {
- *     src:'a/b/c.jpg',
+ *     src:'resource/b/c.jpg',
  *     width:'100',
  *     height:'100'
  * } );
@@ -11077,11 +11077,11 @@ UE.commands['imagefloat'] = {
  * @example
  * ```javascript
  * editor.execCommand( 'insertimage', [{
- *     src:'a/b/c.jpg',
+ *     src:'resource/b/c.jpg',
  *     width:'100',
  *     height:'100'
  * },{
- *     src:'a/b/d.jpg',
+ *     src:'resource/b/d.jpg',
  *     width:'100',
  *     height:'100'
  * }] );
@@ -11642,7 +11642,7 @@ UE.plugins['font'] = function () {
                             range.insertNode(text).select();
 
                         }
-                        me.execCommand('removeFormat', 'span,a', style);
+                        me.execCommand('removeFormat', 'span,resource', style);
                         if (text) {
                             range.setStartBefore(text).collapse(true);
                             domUtils.remove(text);
@@ -11652,7 +11652,7 @@ UE.plugins['font'] = function () {
                     } else {
                         if (!range.collapsed) {
                             if (needCmd[cmd] && me.queryCommandValue(cmd)) {
-                                me.execCommand('removeFormat', 'span,a', style);
+                                me.execCommand('removeFormat', 'span,resource', style);
                             }
                             range = me.selection.getRange();
 
@@ -11668,7 +11668,7 @@ UE.plugins['font'] = function () {
                                 range.insertNode(text);
                                 if (needCmd[cmd]) {
                                     range.selectNode(text).select();
-                                    me.execCommand('removeFormat', 'span,a', style, null);
+                                    me.execCommand('removeFormat', 'span,resource', style, null);
 
                                     span = domUtils.findParentByTagName(text, 'span', true);
                                     range.setStartBefore(text);
@@ -11690,7 +11690,7 @@ UE.plugins['font'] = function () {
                                         domUtils.remove(text);
                                         return;
                                     }
-                                    me.execCommand('removeFormat', 'span,a', style);
+                                    me.execCommand('removeFormat', 'span,resource', style);
                                 }
 
                                 span.style.cssText = style + ':' + value;
@@ -11937,7 +11937,7 @@ UE.plugins['link'] = function(){
                     return node;
                 }
             } else {
-                //trace:1111  如果是<p><a>xx</a></p> startContainer是p就会找不到a
+                //trace:1111  如果是<p><resource>xx</resource></p> startContainer是p就会找不到a
                 range.shrinkBoundary();
                 var start = range.startContainer.nodeType  == 3 || !range.startContainer.childNodes[range.startOffset] ? range.startContainer : range.startContainer.childNodes[range.startOffset],
                     end =  range.endContainer.nodeType == 3 || range.endOffset == 0 ? range.endContainer : range.endContainer.childNodes[range.endOffset-1],
@@ -23391,7 +23391,7 @@ UE.commands['insertparagraph'] = {
  * @command webapp
  * @method execCommand
  * @remind 需要百度APPKey
- * @remind 百度应用主页： <a href="http://app.baidu.com/" target="_blank">http://app.baidu.com/</a>
+ * @remind 百度应用主页： <resource href="http://app.baidu.com/" target="_blank">http://app.baidu.com/</resource>
  * @param { Object } appOptions 应用所需的参数项， 支持的key有： title=>应用标题， width=>应用容器宽度，
  * height=>应用容器高度，logo=>应用logo，url=>应用地址
  * @example
@@ -23511,7 +23511,7 @@ UE.plugin.register('webapp', function (){
              * @command webapp
              * @method execCommand
              * @remind 需要百度APPKey
-             * @remind 百度应用主页： <a href="http://app.baidu.com/" target="_blank">http://app.baidu.com/</a>
+             * @remind 百度应用主页： <resource href="http://app.baidu.com/" target="_blank">http://app.baidu.com/</resource>
              * @param { Object } appOptions 应用所需的参数项， 支持的key有： title=>应用标题， width=>应用容器宽度，
              * height=>应用容器高度，logo=>应用logo，url=>应用地址
              * @example
@@ -24740,7 +24740,7 @@ UE.plugin.register('insertfile', function (){
                         title = item.title || item.url.substr(item.url.lastIndexOf('/') + 1);
                         html += '<p style="line-height: 16px;">' +
                             '<img style="vertical-align: middle; margin-right: 2px;" src="'+ icon + '" _src="' + icon + '" />' +
-                            '<a style="font-size:12px; color:#0066cc;" href="' + item.url +'" title="' + title + '">' + title + '</a>' +
+                            '<resource style="font-size:12px; color:#0066cc;" href="' + item.url +'" title="' + title + '">' + title + '</resource>' +
                             '</p>';
                     }
                     me.execCommand('insertHtml', html);
@@ -25503,7 +25503,7 @@ UE.ui = baidu.editor.ui = {};
             if (i && i%10 === 0) {
                 html += '</tr>'+(i==60?'<tr style="border-bottom: 1px solid #ddd;font-size: 13px;line-height: 25px;color:#39C;"><td colspan="10">'+editor.getLang("standardColor")+'</td></tr>':'')+'<tr'+(i==60?' class="edui-colorpicker-tablefirstrow"':'')+'>';
             }
-            html += i<70 ? '<td style="padding: 0 2px;"><a hidefocus title="'+COLORS[i]+'" onclick="return false;" href="javascript:" unselectable="on" class="edui-box edui-colorpicker-colorcell"' +
+            html += i<70 ? '<td style="padding: 0 2px;"><resource hidefocus title="'+COLORS[i]+'" onclick="return false;" href="javascript:" unselectable="on" class="edui-box edui-colorpicker-colorcell"' +
                 ' data-color="#'+ COLORS[i] +'"'+
                 ' style="background-color:#'+ COLORS[i] +';border:solid #ccc;'+
                 (i<10 || i>=60?'border-width:1px;':
@@ -25511,7 +25511,7 @@ UE.ui = baidu.editor.ui = {};
 
                         'border-width:0 1px 0 1px;')+
                 '"' +
-                '></a></td>':'';
+                '></resource></td>':'';
         }
         html += '</tr></table></div>';
         return html;
@@ -28794,7 +28794,7 @@ UE.ui = baidu.editor.ui = {};
                                 html += '<div style="height:5px;"></div>'
                             }
                             html += popup.formatHtml(
-                                '<nobr>' + editor.getLang("anthorMsg") + ': <a target="_blank" href="' + url + '" title="' + url + '" >' + txt + '</a>' +
+                                '<nobr>' + editor.getLang("anthorMsg") + ': <resource target="_blank" href="' + url + '" title="' + url + '" >' + txt + '</resource>' +
                                     ' <span class="edui-clickable" onclick="$$._onEditButtonClick();">' + editor.getLang("modify") + '</span>' +
                                     ' <span class="edui-clickable" onclick="$$._onRemoveButtonClick(\'unlink\');"> ' + editor.getLang("clear") + '</span></nobr>');
                             popup.showAnchor(link);

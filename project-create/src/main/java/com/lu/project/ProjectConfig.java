@@ -10,14 +10,25 @@ public class ProjectConfig {
 
     private String drivenClass;
 
-    private String url;
+    private String database;
 
     private String username;
 
     private String password;
 
     private String projectName ;
+
     private String basePackage;
+
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getDrivenClass() {
         return drivenClass;
@@ -27,12 +38,12 @@ public class ProjectConfig {
         this.drivenClass = drivenClass;
     }
 
-    public String getUrl() {
-        return url;
+    public String getDatabase() {
+        return database;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDatabase(String database) {
+        this.database = database;
     }
 
     public String getUsername() {

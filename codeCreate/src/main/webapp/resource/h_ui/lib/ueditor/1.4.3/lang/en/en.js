@@ -35,7 +35,7 @@ UE.I18N['en'] = {
         'cn1':'一),二),三)....',
         'cn2':'(一),(二),(三)....',
         'decimal':'1,2,3...',
-        'lower-alpha':'a,b,c...',
+        'lower-alpha':'resource,b,c...',
         'lower-roman':'i,ii,iii...',
         'upper-alpha':'A,B,C...',
         'upper-roman':'I,II,III...'
@@ -315,7 +315,7 @@ UE.I18N['en'] = {
             'lang_tab_upload': 'Upload',
             'lang_tab_online': 'Online',
             'lang_start_upload':"Start upload",
-            'lang_drop_remind':"You can drop files here, a single maximum of 300 files"
+            'lang_drop_remind':"You can drop files here, resource single maximum of 300 files"
         },
         'uploadSelectFile':'Select File',
         'uploadAddFile':'Add File',
@@ -454,7 +454,7 @@ UE.I18N['en'] = {
             'lang_input_removePic':'RemoveImage',
             'J_imgTxt':{title:'Add background image'}
         },
-        'noScarwl':"No paint, a white paper...",
+        'noScarwl':"No paint, resource white paper...",
         'scrawlUpLoading':"Image is uploading, please wait...",
         'continueBtn':"Try again",
         'imageError':"Image failed to load!",
@@ -465,7 +465,7 @@ UE.I18N['en'] = {
             'lang_input_tips':"Input singer/song/album, search you interested in music!",
             'J_searchBtn':{value:'Search songs'}
         },
-        'emptyTxt':'Not search to the relevant music results, please change a keyword try.',
+        'emptyTxt':'Not search to the relevant music results, please change resource keyword try.',
         'chapter':'Songs',
         'singer':'Singer',
         'special':'Album',
@@ -557,7 +557,7 @@ UE.I18N['en'] = {
             'lang_input_title':'Title：',
             'lang_input_target':'open in new window：'
         },
-        'validLink':'Supports only effective when a link is selected',
+        'validLink':'Supports only effective when resource link is selected',
         'httpPrompt':'The hyperlink you enter should start with "http|https|ftp://"!'
     },
     map:{
@@ -578,8 +578,8 @@ UE.I18N['en'] = {
             lang_search1:"Search",
             lang_search2:"Search",
             lang_replace:"Replace",
-            lang_searchReg:'Support regular expression ,which starts and ends with a slash ,for example "/expression/"',
-            lang_searchReg1:'Support regular expression ,which starts and ends with a slash ,for example "/expression/"',
+            lang_searchReg:'Support regular expression ,which starts and ends with resource slash ,for example "/expression/"',
+            lang_searchReg1:'Support regular expression ,which starts and ends with resource slash ,for example "/expression/"',
             lang_case_sensitive1:"Case sense",
             lang_case_sensitive2:"Case sense",
             nextFindBtn:{value:"Next"},
@@ -660,7 +660,7 @@ UE.I18N['en'] = {
         copySuccess:"URL has been copied!",
 
         'flashI18n':{
-            lang:encodeURI( '{"UploadingState":"totalNum: ${a},uploadComplete: ${b}", "BeforeUpload":"waitingNum: ${a}", "ExceedSize":"Size exceed${a}", "ErrorInPreview":"Preview failed", "DefaultDescription":"Description", "LoadingImage":"Loading..."}' ),
+            lang:encodeURI( '{"UploadingState":"totalNum: ${resource},uploadComplete: ${b}", "BeforeUpload":"waitingNum: ${resource}", "ExceedSize":"Size exceed${resource}", "ErrorInPreview":"Preview failed", "DefaultDescription":"Description", "LoadingImage":"Loading..."}' ),
             uploadingTF:encodeURI( '{"font":"Arial", "size":12, "color":"0x000", "bold":"true", "italic":"false", "underline":"false"}' ),
             imageTF:encodeURI( '{"font":"Arial", "size":11, "color":"red", "bold":"false", "italic":"false", "underline":"false"}' ),
             textEncoding:"utf-8",

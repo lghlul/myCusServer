@@ -1,0 +1,35 @@
+
+.ll_content{
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.form-inline input{
+    margin-bottom: 20px;
+    width: 30%!important;
+}
+
+.form-group button{
+    width: 10%;
+}
+
+
+h1{
+    text-align: center;
+}
+
+h3{
+    font-size: 1.5rem;
+    color: #db8e18;
+    padding: 5px 0;
+    font-weight: 400;
+}
+
+.course-body{
+    padding: 50px 0 30px;
+    color: #221e1f;
+    line-height: 1.86;
+    width: 80%;
+    margin: 0 auto;
+}

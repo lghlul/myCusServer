@@ -35,7 +35,7 @@ UE.I18N['zh-cn'] = {
         'cn1':'一),二),三)....',
         'cn2':'(一),(二),(三)....',
         'decimal':'1,2,3...',
-        'lower-alpha':'a,b,c...',
+        'lower-alpha':'resource,b,c...',
         'lower-roman':'i,ii,iii...',
         'upper-alpha':'A,B,C...',
         'upper-roman':'I,II,III...'

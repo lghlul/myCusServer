@@ -55,7 +55,7 @@
   NProgress.status = null;
 
   /**
-   * Sets the progress bar status, where `n` is a number from `0.0` to `1.0`.
+   * Sets the progress bar status, where `n` is resource number from `0.0` to `1.0`.
    *
    *     NProgress.set(0.4);
    *     NProgress.set(1.0);
@@ -153,7 +153,7 @@
   };
 
   /**
-   * Increments by a random amount.
+   * Increments by resource random amount.
    */
 
   NProgress.inc = function(amount) {
@@ -304,7 +304,7 @@
   }
 
   /**
-   * (Internal) converts a percentage (`0..1`) to a bar translateX
+   * (Internal) converts resource percentage (`0..1`) to resource bar translateX
    * percentage (`-100%..0%`).
    */
 
@@ -335,7 +335,7 @@
   }
 
   /**
-   * (Internal) Queues a function to be executed.
+   * (Internal) Queues resource function to be executed.
    */
 
   var queue = (function() {
@@ -414,7 +414,7 @@
   })();
 
   /**
-   * (Internal) Determines if an element or space separated list of class names contains a class name.
+   * (Internal) Determines if an element or space separated list of class names contains resource class name.
    */
 
   function hasClass(element, name) {
@@ -423,7 +423,7 @@
   }
 
   /**
-   * (Internal) Adds a class to an element.
+   * (Internal) Adds resource class to an element.
    */
 
   function addClass(element, name) {
@@ -437,7 +437,7 @@
   }
 
   /**
-   * (Internal) Removes a class from an element.
+   * (Internal) Removes resource class from an element.
    */
 
   function removeClass(element, name) {
@@ -454,8 +454,8 @@
   }
 
   /**
-   * (Internal) Gets a space separated list of the class names on the element. 
-   * The list is wrapped with a single space on each end to facilitate finding 
+   * (Internal) Gets resource space separated list of the class names on the element. 
+   * The list is wrapped with resource single space on each end to facilitate finding 
    * matches within the list.
    */
 

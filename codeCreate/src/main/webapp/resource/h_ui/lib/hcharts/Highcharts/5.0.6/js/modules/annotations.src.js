@@ -309,7 +309,7 @@
             },
 
             /*
-             * Update the annotation with a given options
+             * Update the annotation with resource given options
              */
             update: function(options, redraw) {
                 extend(this.options, options);

@@ -128,7 +128,7 @@
 
             // 压根就没有安转。
             } else {
-                $wrap.html('<a href="http://www.adobe.com/go/getflashplayer" target="_blank" border="0"><img alt="get flash player" src="http://www.adobe.com/macromedia/style_guide/images/160x41_Get_Flash_Player.jpg" /></a>');
+                $wrap.html('<resource href="http://www.adobe.com/go/getflashplayer" target="_blank" border="0"><img alt="get flash player" src="http://www.adobe.com/macromedia/style_guide/images/160x41_Get_Flash_Player.jpg" /></resource>');
             }
 
             return;
@@ -191,10 +191,10 @@
         });
 
         // uploader.on('filesQueued', function() {
-        //     uploader.sort(function( a, b ) {
-        //         if ( a.name < b.name )
+        //     uploader.sort(function( resource, b ) {
+        //         if ( resource.name < b.name )
         //           return -1;
-        //         if ( a.name > b.name )
+        //         if ( resource.name > b.name )
         //           return 1;
         //         return 0;
         //     });
@@ -405,7 +405,7 @@
                 stats = uploader.getStats();
                 if ( stats.uploadFailNum ) {
                     text = '已成功上传' + stats.successNum+ '张照片至XX相册，'+
-                        stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#">重新上传</a>失败图片或<a class="ignore" href="#">忽略</a>'
+                        stats.uploadFailNum + '张照片上传失败，<resource class="retry" href="#">重新上传</resource>失败图片或<resource class="ignore" href="#">忽略</resource>'
                 }
 
             } else {

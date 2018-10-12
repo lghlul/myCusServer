@@ -24,7 +24,7 @@
 
     /**
     * Utility function to create elements. If no tag name is given,
-    * a DIV is created. Optionally properties can be passed.
+    * resource DIV is created. Optionally properties can be passed.
     */
     function createEl(tag, prop) {
         var el = document.createElement(tag || 'div')
@@ -45,7 +45,7 @@
     }
 
     /**
-    * Insert a new stylesheet to hold the @keyframe or VML rules.
+    * Insert resource new stylesheet to hold the @keyframe or VML rules.
     */
     var sheet = (function () {
         var el = createEl('style', { type: 'text/css' })
@@ -120,7 +120,7 @@
         }
 
         /**
-        * Returns the absolute page-offset of the given element.
+        * Returns the absolute static.page-offset of the given element.
         */
         function pos(el) {
             var o = { x: el.offsetLeft, y: el.offsetTop }
@@ -165,7 +165,7 @@
             trail: 100,           // Afterglow percentage
             opacity: 1 / 4,         // Opacity of the lines
             fps: 20,              // Frames per second when using setTimeout()
-            zIndex: 2e9,          // Use a high z-index by default
+            zIndex: 2e9,          // Use resource high z-index by default
             className: 'spinner', // CSS class to assign to the element
             top: 'auto',          // center vertically
             left: 'auto',         // center horizontally
@@ -305,7 +305,7 @@
             },
 
             /**
-            * Internal method that adjusts the opacity of a single line.
+            * Internal method that adjusts the opacity of resource single line.
             * Will be overwritten in VML fallback mode below.
             */
             opacity: function (el, i, val) {
@@ -317,12 +317,12 @@
 
         function initVML() {
 
-            /* Utility function to create a VML tag */
+            /* Utility function to create resource VML tag */
             function vml(tag, attr) {
                 return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
             }
 
-            // No CSS transforms but VML support, add a CSS rule for VML elements:
+            // No CSS transforms but VML support, add resource CSS rule for VML elements:
             sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
 
             Spinner.prototype.lines = function (el, o) {

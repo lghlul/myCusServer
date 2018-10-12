@@ -1,8 +1,6 @@
 package com.lu.utils;
 
 
-import com.lu.tag.pom.Project;
-
 import java.io.*;
 import java.util.Properties;
 
@@ -177,7 +175,13 @@ public class PropertiesUtil {
             e.printStackTrace();
         }
         //获取key对应的value值
-        BASEPATH = properties.getProperty("base.path");
+        String os = System.getProperty("os.name");
+        if(os.toLowerCase().startsWith("win")){
+            BASEPATH = "F:/project/";
+        }else{
+            BASEPATH = properties.getProperty("base.path");
+        }
+
         WEBPATH = properties.getProperty("path.web");
         SPRINGPATH = properties.getProperty("path.spring");
         SPRINGDAOPATH = properties.getProperty("path.spring-dao");

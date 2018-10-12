@@ -62,7 +62,7 @@ var scrawl = function (options) {
                     arr.push("<tr>");
                 }
                 tmp = '#' + color;
-                arr.push("<td><a title='" + tmp + "' href='javascript:void(0)' style='background-color:" + tmp + "'></a></td>");
+                arr.push("<td><resource title='" + tmp + "' href='javascript:void(0)' style='background-color:" + tmp + "'></resource></td>");
             }
             arr.push("</tr></table>");
             $G("J_colorBar").innerHTML = arr.join("");

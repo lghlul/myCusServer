@@ -60,11 +60,11 @@ spr.menu.menuTable = {
 		          "mRender" : function(data, type, full) {  
 		        	  var _html = '';
 		        	  if(full.menuStatus == 1)
-		        		  _html+='<a class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick="spr.menu.menuTable.opreation.updateStatus('+data+',2)">停用</a>';
+		        		  _html+='<resource class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick="spr.menu.menuTable.opreation.updateStatus('+data+',2)">停用</resource>';
 		        		  else
-		        			  _html+='<a class="btn btn-success-outline radius size-S" href="javascript:void(0);" onclick="spr.menu.menuTable.opreation.updateStatus('+data+',1)">启用</a>';
-		              return '<a class="btn btn-secondary-outline radius size-S" href="javascript:void(0);" onclick="spr.menu.menuTable.opreation.editMenu('+data+')">修改</a> '+
-		                     '<a class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick="spr.menu.menuTable.opreation.deleteMenu('+data+')">删除</a> '+
+		        			  _html+='<resource class="btn btn-success-outline radius size-S" href="javascript:void(0);" onclick="spr.menu.menuTable.opreation.updateStatus('+data+',1)">启用</resource>';
+		              return '<resource class="btn btn-secondary-outline radius size-S" href="javascript:void(0);" onclick="spr.menu.menuTable.opreation.editMenu('+data+')">修改</resource> '+
+		                     '<resource class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick="spr.menu.menuTable.opreation.deleteMenu('+data+')">删除</resource> '+
 		                     _html   
 		          }  
 		      } ]    ,

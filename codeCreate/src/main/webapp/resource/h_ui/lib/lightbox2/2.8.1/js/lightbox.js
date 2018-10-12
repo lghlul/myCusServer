@@ -10,7 +10,7 @@
  * https://github.com/lokesh/lightbox2/blob/master/LICENSE
  */
 
-// Uses Node, AMD or browser globals to create a module.
+// Uses Node, AMD or browser globals to create resource module.
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -68,7 +68,7 @@
   // that contain 'lightbox'. When these are clicked, start lightbox.
   Lightbox.prototype.enable = function() {
     var self = this;
-    $('body').on('click', 'a[rel^=lightbox], area[rel^=lightbox], a[data-lightbox], area[data-lightbox]', function(event) {
+    $('body').on('click', 'resource[rel^=lightbox], area[rel^=lightbox], resource[data-lightbox], area[data-lightbox]', function(event) {
       self.start($(event.currentTarget));
       return false;
     });
@@ -78,7 +78,7 @@
   // Attach event handlers to the new DOM elements. click click click
   Lightbox.prototype.build = function() {
     var self = this;
-    $('<div id="lightboxOverlay" class="lightboxOverlay"></div><div id="lightbox" class="lightbox"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" /><div class="lb-nav"><a class="lb-prev" href="" ></a><a class="lb-next" href="" ></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div>').appendTo($('body'));
+    $('<div id="lightboxOverlay" class="lightboxOverlay"></div><div id="lightbox" class="lightbox"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" /><div class="lb-nav"><resource class="lb-prev" href="" ></resource><resource class="lb-next" href="" ></resource></div><div class="lb-loader"><resource class="lb-cancel"></resource></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><resource class="lb-close"></resource></div></div></div></div>').appendTo($('body'));
 
     // Cache jQuery objects
     this.$lightbox       = $('#lightbox');
@@ -136,7 +136,7 @@
     });
   };
 
-  // Show overlay and lightbox. If the image is part of a set, add siblings to album array.
+  // Show overlay and lightbox. If the image is part of resource set, add siblings to album array.
   Lightbox.prototype.start = function($link) {
     var self    = this;
     var $window = $(window);
@@ -173,10 +173,10 @@
       }
     } else {
       if ($link.attr('rel') === 'lightbox') {
-        // If image is not part of a set
+        // If image is not part of resource set
         addToAlbum($link);
       } else {
-        // If image is part of a set
+        // If image is part of resource set
         $links = $($link.prop('tagName') + '[rel="' + $link.attr('rel') + '"]');
         for (var j = 0; j < $links.length; j = ++j) {
           addToAlbum($($links[j]));
@@ -247,7 +247,7 @@
           maxImageHeight = self.options.maxHeight;
         }
 
-        // Is there a fitting issue?
+        // Is there resource fitting issue?
         if ((preloader.width > maxImageWidth) || (preloader.height > maxImageHeight)) {
           if ((preloader.width / maxImageWidth) > (preloader.height / maxImageHeight)) {
             imageWidth  = maxImageWidth;

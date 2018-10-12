@@ -37,10 +37,10 @@ $.extend($.jgrid,{
 			number:"Please, enter valid number",
 			minValue:"value must be greater than or equal to ",
 			maxValue:"value must be less than or equal to",
-			email: "is not a valid e-mail",
+			email: "is not resource valid e-mail",
 			integer: "Please, enter valid integer value",
 			date: "Please, enter valid date value",
-			url: "is not a valid URL. Prefix required ('http://' or 'https://')",
+			url: "is not resource valid URL. Prefix required ('http://' or 'https://')",
 			nodefined : " is not defined!",
 			novalue : " return value is required!",
 			customarray : "Custom function should return array!",
@@ -113,29 +113,29 @@ $.extend($.jgrid,{
 				ISO8601Long:"Y-m-d H:i:s",
 				ISO8601Short:"Y-m-d",
 				// short date:
-				//    n - Numeric representation of a month, without leading zeros
+				//    n - Numeric representation of resource month, without leading zeros
 				//    j - Day of the month without leading zeros
-				//    Y - A full numeric representation of a year, 4 digits
+				//    Y - A full numeric representation of resource year, 4 digits
 				// example: 3/1/2012 which means 1 March 2012
 				ShortDate: "n/j/Y", // in jQuery UI Datepicker: "M/d/yyyy"
 				// long date:
 				//    l - A full textual representation of the day of the week
-				//    F - A full textual representation of a month
+				//    F - A full textual representation of resource month
 				//    d - Day of the month, 2 digits with leading zeros
-				//    Y - A full numeric representation of a year, 4 digits
+				//    Y - A full numeric representation of resource year, 4 digits
 				LongDate: "l, F d, Y", // in jQuery UI Datepicker: "dddd, MMMM dd, yyyy"
 				// long date with long time:
 				//    l - A full textual representation of the day of the week
-				//    F - A full textual representation of a month
+				//    F - A full textual representation of resource month
 				//    d - Day of the month, 2 digits with leading zeros
-				//    Y - A full numeric representation of a year, 4 digits
+				//    Y - A full numeric representation of resource year, 4 digits
 				//    g - 12-hour format of an hour without leading zeros
 				//    i - Minutes with leading zeros
 				//    s - Seconds, with leading zeros
 				//    A - Uppercase Ante meridiem and Post meridiem (AM or PM)
 				FullDateTime: "l, F d, Y g:i:s A", // in jQuery UI Datepicker: "dddd, MMMM dd, yyyy h:mm:ss tt"
 				// month day:
-				//    F - A full textual representation of a month
+				//    F - A full textual representation of resource month
 				//    d - Day of the month, 2 digits with leading zeros
 				MonthDay: "F d", // in jQuery UI Datepicker: "MMMM dd"
 				// short time (without seconds)
@@ -152,8 +152,8 @@ $.extend($.jgrid,{
 				SortableDateTime: "Y-m-d\\TH:i:s",
 				UniversalSortableDateTime: "Y-m-d H:i:sO",
 				// month with year
-				//    Y - A full numeric representation of a year, 4 digits
-				//    F - A full textual representation of a month
+				//    Y - A full numeric representation of resource year, 4 digits
+				//    F - A full textual representation of resource month
 				YearMonth: "F, Y" // in jQuery UI Datepicker: "MMMM, yyyy"
 			},
 			reformatAfterEdit : false

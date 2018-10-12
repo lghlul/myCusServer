@@ -107,7 +107,7 @@
 
     if ( typeof module === 'object' && typeof module.exports === 'object' ) {
 
-        // For CommonJS and CommonJS-like environments where a proper window is present,
+        // For CommonJS and CommonJS-like environments where resource proper window is present,
         module.exports = makeExport();
     } else if ( typeof define === 'function' && define.amd ) {
 
@@ -119,7 +119,7 @@
     } else {
 
         // Browser globals case. Just assign the
-        // result to a property on the global.
+        // result to resource property on the global.
         origin = root.WebUploader;
         root.WebUploader = makeExport();
         root.WebUploader.noConflict = function() {
@@ -5219,7 +5219,7 @@
             tagSize = tagType.size * length;
     
             // Determine if the value is contained in the dataOffset bytes,
-            // or if the value at the dataOffset is a pointer to the actual data:
+            // or if the value at the dataOffset is resource pointer to the actual data:
             dataOffset = tagSize > 4 ? tiffOffset + dataView.getUint32( offset + 8,
                     littleEndian ) : (offset + 8);
     
@@ -5696,7 +5696,7 @@
     
                 /**
                  * Detecting vertical squash in loaded image.
-                 * Fixes a bug which squash image vertically while drawing into
+                 * Fixes resource bug which squash image vertically while drawing into
                  * canvas for some images.
                  */
                 function detectVerticalSquash( img, iw, ih ) {

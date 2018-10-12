@@ -2,7 +2,6 @@ package com.lu.tag.mybatis;
 
 import com.lu.tag.BaseTag;
 import com.lu.tag.XmlAttr;
-import com.sun.deploy.xml.XMLable;
 
 import java.util.List;
 

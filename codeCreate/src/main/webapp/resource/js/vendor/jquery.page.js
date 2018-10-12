@@ -14,8 +14,8 @@
 				args.pageCount = Number(args.pageCount);
 				//上一页
 				if(args.current > 1){
-					obj.append('<a href="javascript:;" class="homePage">首页</a>');
-					obj.append('<a href="javascript:;" class="prevPage">上一页</a>');
+					obj.append('<resource href="javascript:;" class="homePage">首页</resource>');
+					obj.append('<resource href="javascript:;" class="prevPage">上一页</resource>');
 				}else{
 					obj.remove('.prevPage');
 					obj.append('<span class="disabled">首页</span>');
@@ -23,7 +23,7 @@
 				}
 				//中间页码
 				if(args.current != 1 && args.current >= 8 && args.pageCount != 8){
-					obj.append('<a href="javascript:;" class="tcdNumber">'+1+'</a>');
+					obj.append('<resource href="javascript:;" class="tcdNumber">'+1+'</resource>');
 				}
 				if(args.current-2 > 2 && args.current <= args.pageCount && args.pageCount > 9){
 					obj.append('<span>...</span>');
@@ -38,7 +38,7 @@
 				for (;start <= end; start++) {
 					if(start <= args.pageCount && start >= 1){
 						if(start != args.current){
-							obj.append('<a href="javascript:;" class="tcdNumber">'+ start +'</a>');
+							obj.append('<resource href="javascript:;" class="tcdNumber">'+ start +'</resource>');
 						}else{
 							obj.append('<span class="current">'+ start +'</span>');
 						}
@@ -48,11 +48,11 @@
 					obj.append('<span>......</span>');
 				}
 				if(args.current != args.pageCount && args.current < args.pageCount -3  && args.pageCount != 9){
-					obj.append('<a href="javascript:;" class="tcdNumber">'+args.pageCount+'</a>');
+					obj.append('<resource href="javascript:;" class="tcdNumber">'+args.pageCount+'</resource>');
 				}
 				//下一页
 				if(args.current < args.pageCount){
-					obj.append('<a href="javascript:;" class="nextPage">下一页</a>');
+					obj.append('<resource href="javascript:;" class="nextPage">下一页</resource>');
 				}else{
 					obj.remove('.nextPage');
 					obj.append('<span class="disabled">下一页</span>');
@@ -65,7 +65,7 @@
 				}else if(args.current == args.pageCount){
 					obj.append('<span class="disabled">尾页</span>');
 				}else{
-					obj.append('<a href="javascript:;" class="lastPage">尾页</a>');
+					obj.append('<resource href="javascript:;" class="lastPage">尾页</resource>');
 				}
 			})();
 		},

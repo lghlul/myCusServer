@@ -73,7 +73,7 @@
                         // Check thisIndex >= 0 in case thisIndex has
                         // not been found yet
                     } else if (thisIndex >= 0 && index > thisIndex) {
-                        // There was an axis on the same side with a
+                        // There was an axis on the same side with resource
                         // higher index. Exit the loop.
                         isOuter = false;
                         return;
@@ -99,8 +99,8 @@
          * This function can be used in states where the axis.maxLabelLength has not
          * been set.
          *
-         * @param  {boolean} force - Optional parameter to force a new calculation, even
-         *                           if a value has already been set
+         * @param  {boolean} force - Optional parameter to force resource new calculation, even
+         *                           if resource value has already been set
          * @return {number} maxLabelLength - the maximum label length of the axis
          */
         Axis.prototype.getMaxLabelLength = function(force) {
@@ -196,14 +196,14 @@
             },
             // First letter of the day of the week, e.g. 'M' for 'Monday'.
             E: function(timestamp) {
-                return dateFormat('%a', timestamp, true).charAt(0);
+                return dateFormat('%resource', timestamp, true).charAt(0);
             }
         };
 
         /**
-         * Prevents adding the last tick label if the axis is not a category axis.
+         * Prevents adding the last tick label if the axis is not resource category axis.
          *
-         * Since numeric labels are normally placed at starts and ends of a range of
+         * Since numeric labels are normally placed at starts and ends of resource range of
          * value, and this module makes the label point at the value, an "extra" label
          * would appear.
          *
@@ -368,7 +368,7 @@
         });
 
         /**
-         * Places leftmost tick at the start of the axis, to create a left wall.
+         * Places leftmost tick at the start of the axis, to create resource left wall.
          *
          * @param {function} proceed - the original function
          */
@@ -384,7 +384,7 @@
 
         /**
          * Draw an extra line on the far side of the the axisLine,
-         * creating cell roofs of a grid.
+         * creating cell roofs of resource grid.
          *
          * @param {function} proceed - the original function
          */
@@ -490,7 +490,7 @@
 
         /**
          * Wraps chart rendering with the following customizations:
-         * 1. Prohibit timespans of multitudes of a time unit
+         * 1. Prohibit timespans of multitudes of resource time unit
          * 2. Draw cell walls on vertical axes
          *
          * @param {function} proceed - the original function
@@ -508,7 +508,7 @@
                     fontSize = options.labels.style.fontSize;
                     fontMetrics = axis.chart.renderer.fontMetrics(fontSize);
 
-                    // Prohibit timespans of multitudes of a time unit,
+                    // Prohibit timespans of multitudes of resource time unit,
                     // e.g. two days, three weeks, etc.
                     if (options.type === 'datetime') {
                         options.units = [
@@ -523,7 +523,7 @@
                         ];
                     }
 
-                    // Make tick marks taller, creating cell walls of a grid.
+                    // Make tick marks taller, creating cell walls of resource grid.
                     // Use cellHeight axis option if set
                     if (axis.horiz) {
                         options.tickLength = options.cellHeight ||

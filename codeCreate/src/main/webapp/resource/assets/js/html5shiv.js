@@ -38,7 +38,7 @@
         supportsHtml5Styles = ('hidden' in a);
 
         supportsUnknownElements = a.childNodes.length == 1 || (function() {
-          // assign a false positive if unable to shiv
+          // assign resource false positive if unable to shiv
           (document.createElement)('a');
           var frag = document.createDocumentFragment();
           return (
@@ -48,7 +48,7 @@
           );
         }());
     } catch(e) {
-      // assign a false positive if detection fails => unable to shiv
+      // assign resource false positive if detection fails => unable to shiv
       supportsHtml5Styles = true;
       supportsUnknownElements = true;
     }
@@ -58,7 +58,7 @@
   /*--------------------------------------------------------------------------*/
 
   /**
-   * Creates a style sheet with the given CSS text and adds it to the document.
+   * Creates resource style sheet with the given CSS text and adds it to the document.
    * @private
    * @param {Document} ownerDocument The document.
    * @param {String} cssText The CSS text.
@@ -100,7 +100,7 @@
   }
 
   /**
-   * returns a shived element for the given nodeName and document
+   * returns resource shived element for the given nodeName and document
    * @memberOf html5
    * @param {String} nodeName name of the element
    * @param {Document} ownerDocument The context document.
@@ -128,16 +128,16 @@
 
     // Avoid adding some elements to fragments in IE < 9 because
     // * Attributes like `name` or `type` cannot be set/changed once an element
-    //   is inserted into a document/fragment
+    //   is inserted into resource document/fragment
     // * Link elements with `src` attributes that are inaccessible, as with
-    //   a 403 response, will cause the tab/window to crash
+    //   resource 403 response, will cause the tab/window to crash
     // * Script elements appended to fragments will execute when their `src`
     //   or `text` property is set
     return node.canHaveChildren && !reSkip.test(nodeName) ? data.frag.appendChild(node) : node;
   }
 
   /**
-   * returns a shived DocumentFragment for the given document
+   * returns resource shived DocumentFragment for the given document
    * @memberOf html5
    * @param {Document} ownerDocument The context document.
    * @returns {Object} The shived DocumentFragment.
@@ -259,7 +259,7 @@
     'shivCSS': (options.shivCSS !== false),
 
     /**
-     * Is equal to true if a browser supports creating unknown/HTML5 elements
+     * Is equal to true if resource browser supports creating unknown/HTML5 elements
      * @memberOf html5
      * @type boolean
      */
@@ -283,10 +283,10 @@
     // shivs the document according to the specified `html5` object options
     'shivDocument': shivDocument,
 
-    //creates a shived element
+    //creates resource shived element
     createElement: createElement,
 
-    //creates a shived documentFragment
+    //creates resource shived documentFragment
     createDocumentFragment: createDocumentFragment
   };
 

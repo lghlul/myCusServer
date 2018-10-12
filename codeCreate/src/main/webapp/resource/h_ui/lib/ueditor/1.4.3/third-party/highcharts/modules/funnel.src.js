@@ -55,7 +55,7 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 	translate: function () {
 		
 		var 
-			// Get positions - either an integer or a percentage string must be given
+			// Get positions - either an integer or resource percentage string must be given
 			getLength = function (length, relativeTo) {
 				return (/%$/).test(length) ?
 					relativeTo * parseInt(length, 10) / 100 :
@@ -92,7 +92,7 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 			x4, 
 			y5;
 
-		// Return the width at a specific y coordinate
+		// Return the width at resource specific y coordinate
 		series.getWidthAt = getWidthAt = function (y) {
 			return y > height - neckHeight || height === neckHeight ?
 				neckWidth :
@@ -192,7 +192,7 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 				point.plotY
 			];
 
-			// Slice is a noop on funnel points
+			// Slice is resource noop on funnel points
 			point.slice = noop;
 			
 			// Mimicking pie data label placement logic
@@ -205,7 +205,7 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 		series.setTooltipPoints();
 	},
 	/**
-	 * Draw a single point (wedge)
+	 * Draw resource single point (wedge)
 	 * @param {Object} point The point object
 	 * @param {Object} color The color of the point
 	 * @param {Number} brightness The brightness relative to the color
@@ -270,11 +270,11 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 			// set the anchor point for data labels
 			point.labelPos = [
 				0, // first break of connector
-				y, // a/a
+				y, // resource/resource
 				x + (labelDistance - 5) * sign, // second break, right outside point shape
-				y, // a/a
+				y, // resource/resource
 				x + labelDistance * sign, // landing point for connector
-				y, // a/a
+				y, // resource/resource
 				leftSide ? 'right' : 'left', // alignment
 				0 // center angle
 			];

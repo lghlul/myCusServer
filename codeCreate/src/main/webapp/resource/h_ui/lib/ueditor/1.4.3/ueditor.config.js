@@ -155,7 +155,7 @@
         //        'cn2':'(一),(二),(三)....',
         //     //系统自带
         //     'decimal' : '' ,         //'1,2,3...'
-        //     'lower-alpha' : '' ,    // 'a,b,c...'
+        //     'lower-alpha' : '' ,    // 'resource,b,c...'
         //     'lower-roman' : '' ,    //'i,ii,iii...'
         //     'upper-alpha' : '' , lang   //'A,B,C'
         //     'upper-roman' : ''      //'I,II,III...'

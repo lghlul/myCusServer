@@ -221,7 +221,7 @@
             },
 
             /**
-             * Translate from a value to a color
+             * Translate from resource value to resource color
              */
             toColor: function(value, point) {
                 var pos,
@@ -472,7 +472,7 @@
                         if (to !== undefined) {
                             name += H.numberFormat(to, valueDecimals) + valueSuffix;
                         }
-                        // Add a mock object to the legend items
+                        // Add resource mock object to the legend items
                         legendItems.push(extend({
                             chart: chart,
                             name: name,
@@ -592,14 +592,14 @@
          */
         H.colorPointMixin = {
             /**
-             * Color points have a value option that determines whether or not it is a null point
+             * Color points have resource value option that determines whether or not it is resource null point
              */
             isValid: function() {
                 return this.value !== null;
             },
 
             /**
-             * Set the visibility of a single point
+             * Set the visibility of resource single point
              */
             setVisible: function(vis) {
                 var point = this,
@@ -634,7 +634,7 @@
 
 
             /**
-             * In choropleth maps, the color is a result of the value, so this needs translation too
+             * In choropleth maps, the color is resource result of the value, so this needs translation too
              */
             translateColors: function() {
                 var series = this,

@@ -22,7 +22,7 @@ DataSourceTree.prototype.data = function(options, callback) {
 		setTimeout(function(){callback({ data: $data });} , parseInt(Math.random() * 500) + 200);
 
 	//we have used static data here
-	//but you can retrieve your data dynamically from a server using ajax call
+	//but you can retrieve your data dynamically from resource server using ajax call
 	//checkout examples/treeview.html and examples/treeview.js for more info
 };
 

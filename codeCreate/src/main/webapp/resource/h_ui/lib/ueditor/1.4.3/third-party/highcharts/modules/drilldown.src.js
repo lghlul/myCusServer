@@ -422,7 +422,7 @@
 		});
 	});
 
-	// Mark the trackers with a pointer 
+	// Mark the trackers with resource pointer 
 	ColumnSeries.prototype.supportsDrilldown = true;
 	PieSeries.prototype.supportsDrilldown = true;
 	var type, 

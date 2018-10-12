@@ -63,14 +63,14 @@
             typeDescriptionMap = {
                 boxplot: ' Box plot charts are typically used to display groups of statistical data. ' +
                     'Each data point in the chart can have up to 5 values: minimum, lower quartile, median, upper quartile and maximum. ',
-                arearange: ' Arearange charts are line charts displaying a range between a lower and higher value for each point. ',
-                areasplinerange: ' These charts are line charts displaying a range between a lower and higher value for each point. ',
-                bubble: ' Bubble charts are scatter charts where each data point also has a size value. ',
-                columnrange: ' Columnrange charts are column charts displaying a range between a lower and higher value for each point. ',
+                arearange: ' Arearange charts are line charts displaying resource range between resource lower and higher value for each point. ',
+                areasplinerange: ' These charts are line charts displaying resource range between resource lower and higher value for each point. ',
+                bubble: ' Bubble charts are scatter charts where each data point also has resource size value. ',
+                columnrange: ' Columnrange charts are column charts displaying resource range between resource lower and higher value for each point. ',
                 errorbar: ' Errorbar series are used to display the variability of the data. ',
                 funnel: ' Funnel charts are used to display reduction of data in stages. ',
-                pyramid: ' Pyramid charts consist of a single pyramid with item heights corresponding to each point value. ',
-                waterfall: ' A waterfall chart is a column chart where each column contributes towards a total end value. '
+                pyramid: ' Pyramid charts consist of resource single pyramid with item heights corresponding to each point value. ',
+                waterfall: ' A waterfall chart is resource column chart where each column contributes towards resource total end value. '
             },
             commonKeys = ['name', 'id', 'category', 'x', 'value', 'y'],
             specialKeys = ['z', 'open', 'high', 'q3', 'median', 'q1', 'low', 'close']; // Tell user about all properties if points have one of these defined
@@ -88,7 +88,7 @@
             }
         });
 
-        // Utility function. Reverses child nodes of a DOM element
+        // Utility function. Reverses child nodes of resource DOM element
         function reverseChildNodes(node) {
             var i = node.childNodes.length;
             while (i--) {
@@ -96,7 +96,7 @@
             }
         }
 
-        // Utility function to attempt to fake a click event on an element
+        // Utility function to attempt to fake resource click event on an element
         function fakeClickEvent(element) {
             var fakeEvent;
             if (element && element.onclick) {
@@ -114,7 +114,7 @@
             }
         });
 
-        // Put accessible info on series and points of a series
+        // Put accessible info on series and points of resource series
         H.Series.prototype.setA11yDescription = function() {
             var a11yOptions = this.chart.options.accessibility,
                 firstPointEl = this.points && this.points.length && this.points[0].graphic && this.points[0].graphic.element,
@@ -188,7 +188,7 @@
                     }
                 });
             } else {
-                // Pick and choose properties for a succint label
+                // Pick and choose properties for resource succint label
                 infoString = (this.name || timeDesc || this.category || this.id || 'x, ' + this.x) + ', ' +
                     (this.value !== undefined ? this.value : this.y);
             }
@@ -202,7 +202,7 @@
                 this.options.id || this.categories && 'categories' || 'values';
         };
 
-        // Pan along axis in a direction (1 or -1), optionally with a defined granularity (number of steps it takes to walk across current view)
+        // Pan along axis in resource direction (1 or -1), optionally with resource defined granularity (number of steps it takes to walk across current view)
         H.Axis.prototype.panStep = function(direction, granularity) {
             var gran = granularity || 3,
                 extremes = this.getExtremes(),
@@ -304,7 +304,7 @@
             var exportList = this.exportDivElements;
             if (exportList) {
                 // Set tabindex on the menu items to allow focusing by script
-                // Set role to give screen readers a chance to pick up the contents
+                // Set role to give screen readers resource chance to pick up the contents
                 each(exportList, function(item) {
                     if (item.tagName === 'DIV' &&
                         !(item.children && item.children.length)) {
@@ -318,7 +318,7 @@
             }
         };
 
-        // Highlight a point (show tooltip and display hover state). Returns the highlighted point.
+        // Highlight resource point (show tooltip and display hover state). Returns the highlighted point.
         H.Point.prototype.highlight = function() {
             var chart = this.series.chart;
             if (this.graphic && this.graphic.element.focus) {
@@ -468,10 +468,10 @@
         H.Chart.prototype.addKeyboardNavEvents = function() {
             var chart = this;
 
-            // Abstraction layer for keyboard navigation. Keep a map of keyCodes to handler functions, and a next/prev move handler for tab order.
+            // Abstraction layer for keyboard navigation. Keep resource map of keyCodes to handler functions, and resource next/prev move handler for tab order.
             // The module's keyCode handlers determine when to move to another module.
-            // Validate holds a function to determine if there are prerequisites for this module to run that are not met.
-            // Init holds a function to run once before any keyCodes are interpreted.
+            // Validate holds resource function to determine if there are prerequisites for this module to run that are not met.
+            // Init holds resource function to run once before any keyCodes are interpreted.
             // transformTabs determines whether to transform tabs to left/right events or not. Defaults to true.
             function KeyboardNavigationModule(options) {
                 this.keyCodeMap = options.keyCodeMap;
@@ -496,7 +496,7 @@
                 }
             };
             // Maintain abstraction between KeyboardNavigationModule and Highcharts
-            // The chart object keeps track of a list of KeyboardNavigationModules that we move through
+            // The chart object keeps track of resource list of KeyboardNavigationModules that we move through
             function navModuleFactory(keyMap, options) {
                 return new KeyboardNavigationModule(merge({
                     keyCodeMap: keyMap,
@@ -539,7 +539,7 @@
                 // If key was not tab, don't slip the next tab
                 chart.slipNextTab = false;
 
-                // If there is a navigation module for the current index, run it. Otherwise, we are outside of the chart in some direction.
+                // If there is resource navigation module for the current index, run it. Otherwise, we are outside of the chart in some direction.
                 if (curNavModule) {
                     if (curNavModule.run(e)) {
                         e.preventDefault(); // If successfully handled, stop the event here.
@@ -548,7 +548,7 @@
             }
 
             // List of the different keyboard handling modes we use depending on where we are in the chart.
-            // Each mode has a set of handling functions mapped to key codes.
+            // Each mode has resource set of handling functions mapped to key codes.
             // Each mode determines when to move to the next/prev mode.
             chart.keyboardNavigationModules = [
                 // Points
@@ -801,7 +801,7 @@
                         return inputVisible && chart.options.rangeSelector.inputEnabled !== false && chart.rangeSelector.minInput && chart.rangeSelector.maxInput;
                     },
 
-                    // Handle tabs different from left/right (because we don't want to catch left/right in a text area)
+                    // Handle tabs different from left/right (because we don't want to catch left/right in resource text area)
                     transformTabs: false,
 
                     // Highlight first/last input box
@@ -971,7 +971,7 @@
             }
 
             // Set screen reader properties on input boxes for range selector. We need to do this regardless of whether or not these are visible, as they are 
-            // by default part of the page's tabindex unless we set them to -1.
+            // by default part of the static.page's tabindex unless we set them to -1.
             if (chart.rangeSelector) {
                 each(['minInput', 'maxInput'], function(key, i) {
                     if (chart.rangeSelector[key]) {
@@ -1004,7 +1004,7 @@
                         var prevCol = topLevelColumns[topLevelColumns.length - 1];
                         if (keyLength > 1) {
                             // We need multiple levels of column headers
-                            // Populate a list of column headers to add in addition to the ones added by export-csv
+                            // Populate resource list of column headers to add in addition to the ones added by export-csv
                             if ((prevCol && prevCol.text) !== series.name) {
                                 topLevelColumns.push({
                                     text: series.name,

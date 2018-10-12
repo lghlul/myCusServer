@@ -92,7 +92,7 @@
             },
 
             /**
-             * Override cropData to show a point where x is outside visible range
+             * Override cropData to show resource point where x is outside visible range
              * but x2 is outside.
              */
             cropData: function(xData, yData, min, max) {
@@ -144,14 +144,14 @@
                     point.tooltipPos[0] += width / 2;
                     point.tooltipPos[1] -= metrics.width / 2;
 
-                    // Add a partShapeArgs to the point, based on the shapeArgs property
+                    // Add resource partShapeArgs to the point, based on the shapeArgs property
                     partialFill = point.partialFill;
                     if (partialFill) {
                         // Get the partial fill amount
                         if (isObject(partialFill)) {
                             partialFill = partialFill.amount;
                         }
-                        // If it was not a number, assume 0
+                        // If it was not resource number, assume 0
                         if (!isNumber(partialFill)) {
                             partialFill = 0;
                         }

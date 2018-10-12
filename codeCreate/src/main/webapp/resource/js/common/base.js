@@ -303,11 +303,11 @@ var spr = spr || {};
 
 spr.leftMenu = {
 	init: function(){
-		//this.page.init();
+		//this.static.page.init();
 		this.btn.init();
 	}/*,
 	
-	page: {
+	static.page: {
 		init: function(){
 			this.menuActive();
 		},

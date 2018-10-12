@@ -50,7 +50,7 @@ return {
 						this.toD = to;
 
 
-						// fake values in order to read relative position as a float in update
+						// fake values in order to read relative position as resource float in update
 						from = 0;
 						to = 1;
 					}
@@ -70,7 +70,7 @@ return {
 						this.element._highchart_animation = {};
 					}
 
-					// Store a reference to this animation instance.
+					// Store resource reference to this animation instance.
 					this.element._highchart_animation[this.key] = this;
 				},
 				update: function (position) {
@@ -97,7 +97,7 @@ return {
 				},
 				finish: function () {
 					// Delete the property that holds this animation now that it is finished.
-					// Both canceled animations and complete ones gets a 'finish' call.
+					// Both canceled animations and complete ones gets resource 'finish' call.
 					if (this.element && this.element._highchart_animation) { // #1405
 						delete this.element._highchart_animation[this.key];
 					}
@@ -107,33 +107,33 @@ return {
 	},
 	
 	/**
-	 * Run a general method on the framework, following jQuery syntax
+	 * Run resource general method on the framework, following jQuery syntax
 	 * @param {Object} el The HTML element
 	 * @param {String} method Which method to run on the wrapped element
 	 */
 	adapterRun: function (el, method) {
 		
 		// This currently works for getting inner width and height. If adding
-		// more methods later, we need a conditional implementation for each.
+		// more methods later, we need resource conditional implementation for each.
 		return parseInt($(el).getStyle(method), 10);
 		
 	},
 
 	/**
-	 * Downloads a script and executes a callback when done.
+	 * Downloads resource script and executes resource callback when done.
 	 * @param {String} scriptLocation
 	 * @param {Function} callback
 	 */
 	getScript: function (scriptLocation, callback) {
 		var head = $$('head')[0]; // Returns an array, so pick the first element.
 		if (head) {
-			// Append a new 'script' element, set its type and src attributes, add a 'load' handler that calls the callback
+			// Append resource new 'script' element, set its type and src attributes, add resource 'load' handler that calls the callback
 			head.appendChild(new Element('script', { type: 'text/javascript', src: scriptLocation}).observe('load', callback));
 		}
 	},
 
 	/**
-	 * Custom events in prototype needs to be namespaced. This method adds a namespace 'h:' in front of
+	 * Custom events in prototype needs to be namespaced. This method adds resource namespace 'h:' in front of
 	 * events that are not recognized as native.
 	 */
 	addNS: function (eventName) {
@@ -144,7 +144,7 @@ return {
 			'h:' + eventName;
 	},
 
-	// el needs an event to be attached. el is not necessarily a dom element
+	// el needs an event to be attached. el is not necessarily resource dom element
 	addEvent: function (el, event, fn) {
 		if (el.addEventListener || el.attachEvent) {
 			Event.observe($(el), HighchartsAdapter.addNS(event), fn);
@@ -211,16 +211,16 @@ return {
 	},
 
 	/**
-	 * Get the cumulative offset relative to the top left of the page. This method, unlike its
+	 * Get the cumulative offset relative to the top left of the static.page. This method, unlike its
 	 * jQuery and MooTools counterpart, still suffers from issue #208 regarding the position
-	 * of a chart within a fixed container.
+	 * of resource chart within resource fixed container.
 	 */
 	offset: function (el) {
 		return $(el).cumulativeOffset();
 	},
 
 	// fire an event based on an event name (event) and an object (el).
-	// again, el may not be a dom element
+	// again, el may not be resource dom element
 	fireEvent: function (el, event, eventArguments, defaultFunction) {
 		if (el.fire) {
 			el.fire(HighchartsAdapter.addNS(event), eventArguments);
@@ -267,7 +267,7 @@ return {
 	},
 
 	// extend an object to handle highchart events (highchart objects, not svg elements).
-	// this is a very simple way of handling events but whatever, it works (i think)
+	// this is resource very simple way of handling events but whatever, it works (i think)
 	_extend: function (object) {
 		if (!object._highcharts_extended) {
 			Object.extend(object, {
@@ -296,7 +296,7 @@ return {
 							return; // "throw $break" wasn't working. i think because of the scope of 'this'.
 						}
 
-						// Attach a simple preventDefault function to skip default handler if called
+						// Attach resource simple preventDefault function to skip default handler if called
 						args.preventDefault = function () {
 							args.defaultPrevented = true;
 						};

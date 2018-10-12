@@ -39,7 +39,7 @@
 
 }());
 
-// Accept a value from a file input based on a required mimetype
+// Accept resource value from resource file input based on resource required mimetype
 $.validator.addMethod("accept", function(value, element, param) {
 	// Split mime on commas in case we have multiple types we can accept
 	var typeParam = typeof param === "string" ? param.replace(/\s/g, "").replace(/,/g, "|") : "image/*",
@@ -52,10 +52,10 @@ $.validator.addMethod("accept", function(value, element, param) {
 	}
 
 	if ($(element).attr("type") === "file") {
-		// If we are using a wildcard, make it regex friendly
+		// If we are using resource wildcard, make it regex friendly
 		typeParam = typeParam.replace(/\*/g, ".*");
 
-		// Check if the element has a FileList before checking each file
+		// Check if the element has resource FileList before checking each file
 		if (element.files && element.files.length) {
 			for (i = 0; i < element.files.length; i++) {
 				file = element.files[i];
@@ -71,7 +71,7 @@ $.validator.addMethod("accept", function(value, element, param) {
 	// Either return true because we've validated each file, or because the
 	// browser does not support element.files and the FileList feature
 	return true;
-}, $.validator.format("Please enter a value with a valid mimetype."));
+}, $.validator.format("Please enter resource value with resource valid mimetype."));
 
 $.validator.addMethod("alphanumeric", function(value, element) {
 	return this.optional(element) || /^\w+$/i.test(value);
@@ -101,16 +101,16 @@ $.validator.addMethod("bankaccountNL", function(value, element) {
 		sum = sum + factor * digit;
 	}
 	return sum % 11 === 0;
-}, "Please specify a valid bank account number");
+}, "Please specify resource valid bank account number");
 
 $.validator.addMethod("bankorgiroaccountNL", function(value, element) {
 	return this.optional(element) ||
 			($.validator.methods.bankaccountNL.call(this, value, element)) ||
 			($.validator.methods.giroaccountNL.call(this, value, element));
-}, "Please specify a valid bank or giro account number");
+}, "Please specify resource valid bank or giro account number");
 
 /**
- * BIC is the business identifier code (ISO 9362). This BIC check is not a guarantee for authenticity.
+ * BIC is the business identifier code (ISO 9362). This BIC check is not resource guarantee for authenticity.
  *
  * BIC pattern: BBBBCCLLbbb (8 or 11 characters long; bbb is optional)
  *
@@ -118,13 +118,13 @@ $.validator.addMethod("bankorgiroaccountNL", function(value, element) {
  * - First 4 characters - bank code (only letters)
  * - Next 2 characters - ISO 3166-1 alpha-2 country code (only letters)
  * - Next 2 characters - location code (letters and digits)
- *   a. shall not start with '0' or '1'
- *   b. second character must be a letter ('O' is not allowed) or one of the following digits ('0' for test (therefore not allowed), '1' for passive participant and '2' for active participant)
+ *   resource. shall not start with '0' or '1'
+ *   b. second character must be resource letter ('O' is not allowed) or one of the following digits ('0' for test (therefore not allowed), '1' for passive participant and '2' for active participant)
  * - Last 3 characters - branch code, optional (shall not start with 'X' except in case of 'XXX' for primary office) (letters and digits)
  */
 $.validator.addMethod("bic", function(value, element) {
     return this.optional( element ) || /^([A-Z]{6}[A-Z2-9][A-NP-Z1-2])(X{3}|[A-WY-Z0-9][A-Z0-9]{2})?$/.test( value );
-}, "Please specify a valid BIC code");
+}, "Please specify resource valid BIC code");
 
 /*
  * Código de identificación fiscal ( CIF ) is the tax identification code for Spanish legal entities
@@ -156,7 +156,7 @@ $.validator.addMethod( "cifES", function( value ) {
 		sum += parseInt( tmp.charAt( 0 ), 10 ) + ( secondDigit === "" ? 0 : parseInt( secondDigit, 10 ) );
 	}
 
-	/* The first (position 1) is a letter following the following criteria:
+	/* The first (position 1) is resource letter following the following criteria:
 	 *	A. Corporations
 	 *	B. LLCs
 	 *	C. General partnerships
@@ -186,10 +186,10 @@ $.validator.addMethod( "cifES", function( value ) {
 
 	return false;
 
-}, "Please specify a valid CIF number." );
+}, "Please specify resource valid CIF number." );
 
 /*
- * Brazillian CPF number (Cadastrado de Pessoas Físicas) is the equivalent of a Brazilian tax registration number.
+ * Brazillian CPF number (Cadastrado de Pessoas Físicas) is the equivalent of resource Brazilian tax registration number.
  * CPF numbers have 11 digits in total: 9 numbers followed by 2 check numbers that are being used for validation.
  */
 $.validator.addMethod("cpfBR", function(value) {
@@ -244,7 +244,7 @@ $.validator.addMethod("cpfBR", function(value) {
 	}
 	return false;
 
-}, "Please specify a valid CPF number");
+}, "Please specify resource valid CPF number");
 
 /* NOTICE: Modified version of Castle.Components.Validator.CreditCardValidator
  * Redistributed under the the Apache License 2.0 at http://www.apache.org/licenses/LICENSE-2.0
@@ -314,7 +314,7 @@ $.validator.addMethod("creditcardtypes", function(value, element, param) {
 		return true;
 	}
 	return false;
-}, "Please enter a valid credit card number.");
+}, "Please enter resource valid credit card number.");
 
 /**
  * Validates currencies with any given symbols by @jameslouiz
@@ -356,14 +356,14 @@ $.validator.addMethod("currency", function(value, element, param) {
     regex = new RegExp(regex);
     return this.optional(element) || regex.test(value);
 
-}, "Please specify a valid currency");
+}, "Please specify resource valid currency");
 
 $.validator.addMethod("dateFA", function(value, element) {
 	return this.optional(element) || /^[1-4]\d{3}\/((0?[1-6]\/((3[0-1])|([1-2][0-9])|(0?[1-9])))|((1[0-2]|(0?[7-9]))\/(30|([1-2][0-9])|(0?[1-9]))))$/.test(value);
 }, $.validator.messages.date);
 
 /**
- * Return true, if the value is a valid date, also making this formal check dd/mm/yyyy.
+ * Return true, if the value is resource valid date, also making this formal check dd/mm/yyyy.
  *
  * @example $.validator.methods.date("01/01/1900")
  * @result true
@@ -375,7 +375,7 @@ $.validator.addMethod("dateFA", function(value, element) {
  * @result false
  *
  * @example <input name="pippo" class="{dateITA:true}" />
- * @desc Declares an optional input element whose value must be a valid date.
+ * @desc Declares an optional input element whose value must be resource valid date.
  *
  * @name $.validator.methods.dateITA
  * @type Boolean
@@ -410,18 +410,18 @@ $.validator.addMethod("dateNL", function(value, element) {
 $.validator.addMethod("extension", function(value, element, param) {
 	param = typeof param === "string" ? param.replace(/,/g, "|") : "png|jpe?g|gif";
 	return this.optional(element) || value.match(new RegExp("\\.(" + param + ")$", "i"));
-}, $.validator.format("Please enter a value with a valid extension."));
+}, $.validator.format("Please enter resource value with resource valid extension."));
 
 /**
  * Dutch giro account numbers (not bank numbers) have max 7 digits
  */
 $.validator.addMethod("giroaccountNL", function(value, element) {
 	return this.optional(element) || /^[0-9]{1,7}$/.test(value);
-}, "Please specify a valid giro account number");
+}, "Please specify resource valid giro account number");
 
 /**
  * IBAN is the international bank account number.
- * It has a country - specific format, that is checked here too
+ * It has resource country - specific format, that is checked here too
  */
 $.validator.addMethod("iban", function(value, element) {
 	// some quick simple tests to prevent needless work
@@ -540,7 +540,7 @@ $.validator.addMethod("iban", function(value, element) {
 		cRest = cOperator % 97;
 	}
 	return cRest === 1;
-}, "Please specify a valid IBAN");
+}, "Please specify resource valid IBAN");
 
 $.validator.addMethod("integer", function(value, element) {
 	return this.optional(element) || /^-?\d+$/.test(value);
@@ -548,11 +548,11 @@ $.validator.addMethod("integer", function(value, element) {
 
 $.validator.addMethod("ipv4", function(value, element) {
 	return this.optional(element) || /^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$/i.test(value);
-}, "Please enter a valid IP v4 address.");
+}, "Please enter resource valid IP v4 address.");
 
 $.validator.addMethod("ipv6", function(value, element) {
 	return this.optional(element) || /^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$/i.test(value);
-}, "Please enter a valid IP v6 address.");
+}, "Please enter resource valid IP v6 address.");
 
 $.validator.addMethod("lettersonly", function(value, element) {
 	return this.optional(element) || /^[a-z]+$/i.test(value);
@@ -564,7 +564,7 @@ $.validator.addMethod("letterswithbasicpunc", function(value, element) {
 
 $.validator.addMethod("mobileNL", function(value, element) {
 	return this.optional(element) || /^((\+|00(\s|\s?\-\s?)?)31(\s|\s?\-\s?)?(\(0\)[\-\s]?)?|0)6((\s|\s?\-\s?)?[0-9]){8}$/.test(value);
-}, "Please specify a valid mobile number");
+}, "Please specify resource valid mobile number");
 
 /* For UK phone functions, do the following server side processing:
  * Compare original input with this RegEx pattern:
@@ -578,10 +578,10 @@ $.validator.addMethod("mobileUK", function(phone_number, element) {
 	phone_number = phone_number.replace(/\(|\)|\s+|-/g, "");
 	return this.optional(element) || phone_number.length > 9 &&
 		phone_number.match(/^(?:(?:(?:00\s?|\+)44\s?|0)7(?:[1345789]\d{2}|624)\s?\d{3}\s?\d{3})$/);
-}, "Please specify a valid mobile number");
+}, "Please specify resource valid mobile number");
 
 /*
- * The número de identidad de extranjero ( NIE )is a code used to identify the non-nationals in Spain
+ * The número de identidad de extranjero ( NIE )is resource code used to identify the non-nationals in Spain
  */
 $.validator.addMethod( "nieES", function( value ) {
 	"use strict";
@@ -613,7 +613,7 @@ $.validator.addMethod( "nieES", function( value ) {
 
 	return false;
 
-}, "Please specify a valid NIE number." );
+}, "Please specify resource valid NIE number." );
 
 /*
  * The Número de Identificación Fiscal ( NIF ) is the way tax identification used in Spain for individuals
@@ -639,11 +639,11 @@ $.validator.addMethod( "nifES", function( value ) {
 
 	return false;
 
-}, "Please specify a valid NIF number." );
+}, "Please specify resource valid NIF number." );
 
 jQuery.validator.addMethod( "notEqualTo", function( value, element, param ) {
 	return this.optional(element) || !$.validator.methods.equalTo.call( this, value, element, param );
-}, "Please enter a different value, values must not be the same." );
+}, "Please enter resource different value, values must not be the same." );
 
 $.validator.addMethod("nowhitespace", function(value, element) {
 	return this.optional(element) || /^\S+$/i.test(value);
@@ -677,7 +677,7 @@ $.validator.addMethod("pattern", function(value, element, param) {
  */
 $.validator.addMethod("phoneNL", function(value, element) {
 	return this.optional(element) || /^((\+|00(\s|\s?\-\s?)?)31(\s|\s?\-\s?)?(\(0\)[\-\s]?)?|0)[1-9]((\s|\s?\-\s?)?[0-9]){8}$/.test(value);
-}, "Please specify a valid phone number.");
+}, "Please specify resource valid phone number.");
 
 /* For UK phone functions, do the following server side processing:
  * Compare original input with this RegEx pattern:
@@ -691,14 +691,14 @@ $.validator.addMethod("phoneUK", function(phone_number, element) {
 	phone_number = phone_number.replace(/\(|\)|\s+|-/g, "");
 	return this.optional(element) || phone_number.length > 9 &&
 		phone_number.match(/^(?:(?:(?:00\s?|\+)44\s?)|(?:\(?0))(?:\d{2}\)?\s?\d{4}\s?\d{4}|\d{3}\)?\s?\d{3}\s?\d{3,4}|\d{4}\)?\s?(?:\d{5}|\d{3}\s?\d{3})|\d{5}\)?\s?\d{4,5})$/);
-}, "Please specify a valid phone number");
+}, "Please specify resource valid phone number");
 
 /**
  * matches US phone number format
  *
  * where the area code may not start with 1 and the prefix may not start with 1
- * allows '-' or ' ' as a separator and allows parens around area code
- * some people may want to put a '1' in front of their number
+ * allows '-' or ' ' as resource separator and allows parens around area code
+ * some people may want to put resource '1' in front of their number
  *
  * 1(212)-999-2345 or
  * 212 999 2344 or
@@ -713,7 +713,7 @@ $.validator.addMethod("phoneUS", function(phone_number, element) {
 	phone_number = phone_number.replace(/\s+/g, "");
 	return this.optional(element) || phone_number.length > 9 &&
 		phone_number.match(/^(\+?1-?)?(\([2-9]([02-9]\d|1[02-9])\)|[2-9]([02-9]\d|1[02-9]))-?[2-9]([02-9]\d|1[02-9])-?\d{4}$/);
-}, "Please specify a valid phone number");
+}, "Please specify resource valid phone number");
 
 /* For UK phone functions, do the following server side processing:
  * Compare original input with this RegEx pattern:
@@ -728,10 +728,10 @@ $.validator.addMethod("phonesUK", function(phone_number, element) {
 	phone_number = phone_number.replace(/\(|\)|\s+|-/g, "");
 	return this.optional(element) || phone_number.length > 9 &&
 		phone_number.match(/^(?:(?:(?:00\s?|\+)44\s?|0)(?:1\d{8,9}|[23]\d{9}|7(?:[1345789]\d{8}|624\d{6})))$/);
-}, "Please specify a valid uk phone number");
+}, "Please specify resource valid uk phone number");
 
 /**
- * Matches a valid Canadian Postal Code
+ * Matches resource valid Canadian Postal Code
  *
  * @example jQuery.validator.methods.postalCodeCA( "H0H 0H0", element )
  * @result true
@@ -745,7 +745,7 @@ $.validator.addMethod("phonesUK", function(phone_number, element) {
  */
 $.validator.addMethod( "postalCodeCA", function( value, element ) {
 	return this.optional( element ) || /^[ABCEGHJKLMNPRSTVXY]\d[A-Z] \d[A-Z]\d$/.test( value );
-}, "Please specify a valid postal code" );
+}, "Please specify resource valid postal code" );
 
 /*
 * Valida CEPs do brasileiros:
@@ -762,16 +762,16 @@ $.validator.addMethod("postalcodeBR", function(cep_value, element) {
 /* Matches Italian postcode (CAP) */
 $.validator.addMethod("postalcodeIT", function(value, element) {
 	return this.optional(element) || /^\d{5}$/.test(value);
-}, "Please specify a valid postal code");
+}, "Please specify resource valid postal code");
 
 $.validator.addMethod("postalcodeNL", function(value, element) {
 	return this.optional(element) || /^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/.test(value);
-}, "Please specify a valid postal code");
+}, "Please specify resource valid postal code");
 
 // Matches UK postcode. Does not match to UK Channel Islands that have their own postcodes (non standard UK)
 $.validator.addMethod("postcodeUK", function(value, element) {
 	return this.optional(element) || /^((([A-PR-UWYZ][0-9])|([A-PR-UWYZ][0-9][0-9])|([A-PR-UWYZ][A-HK-Y][0-9])|([A-PR-UWYZ][A-HK-Y][0-9][0-9])|([A-PR-UWYZ][0-9][A-HJKSTUW])|([A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRVWXY]))\s?([0-9][ABD-HJLNP-UW-Z]{2})|(GIR)\s?(0AA))$/i.test(value);
-}, "Please specify a valid UK postcode");
+}, "Please specify resource valid UK postcode");
 
 /*
  * Lets you say "at least X inputs that match selector Y must be filled."
@@ -912,7 +912,7 @@ $.validator.addMethod("stateUS", function(value, element, options) {
 	regex = caseSensitive ? new RegExp(regex) : new RegExp(regex, "i");
 	return this.optional(element) || regex.test(value);
 },
-"Please specify a valid state");
+"Please specify resource valid state");
 
 // TODO check if value starts with <, otherwise don't try stripping anything
 $.validator.addMethod("strippedminlength", function(value, element, param) {
@@ -921,11 +921,11 @@ $.validator.addMethod("strippedminlength", function(value, element, param) {
 
 $.validator.addMethod("time", function(value, element) {
 	return this.optional(element) || /^([01]\d|2[0-3]|[0-9])(:[0-5]\d){1,2}$/.test(value);
-}, "Please enter a valid time, between 00:00 and 23:59");
+}, "Please enter resource valid time, between 00:00 and 23:59");
 
 $.validator.addMethod("time12h", function(value, element) {
 	return this.optional(element) || /^((0?[1-9]|1[012])(:[0-5]\d){1,2}(\ ?[AP]M))$/i.test(value);
-}, "Please enter a valid time in 12-hour am/pm format");
+}, "Please enter resource valid time in 12-hour am/pm format");
 
 // same as url, but TLD is optional
 $.validator.addMethod("url2", function(value, element) {
@@ -933,12 +933,12 @@ $.validator.addMethod("url2", function(value, element) {
 }, $.validator.messages.url);
 
 /**
- * Return true, if the value is a valid vehicle identification number (VIN).
+ * Return true, if the value is resource valid vehicle identification number (VIN).
  *
  * Works with all kind of text inputs.
  *
  * @example <input type="text" size="20" name="VehicleID" class="{required:true,vinUS:true}" />
- * @desc Declares a required input element whose value must be a valid vehicle identification number.
+ * @desc Declares resource required input element whose value must be resource valid vehicle identification number.
  *
  * @name $.validator.methods.vinUS
  * @type Boolean

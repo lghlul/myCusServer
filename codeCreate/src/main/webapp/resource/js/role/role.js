@@ -71,10 +71,10 @@ spr.role.roleTable = {
 		          "mRender" : function(data, type, full) {  
 		        	  var _html = '';
 		        	  if(full.roleStatus == 1)
-		        		  _html+='<a class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick="spr.role.roleTable.opreation.updateRoleStatus('+data+',2)">停用</a>';
+		        		  _html+='<resource class="btn btn-danger-outline radius size-S" href="javascript:void(0);" onclick="spr.role.roleTable.opreation.updateRoleStatus('+data+',2)">停用</resource>';
 		        		  else
-		        			  _html+='<a class="btn btn-success-outline radius size-S" href="javascript:void(0);" onclick="spr.role.roleTable.opreation.updateRoleStatus('+data+',1)">启用</a>';
-		              return '<a class="btn btn-primary-outline radius size-S" href="javascript:void(0);" onclick="spr.role.roleTable.btn.addRole('+data+')">编辑角色</a> ' + 
+		        			  _html+='<resource class="btn btn-success-outline radius size-S" href="javascript:void(0);" onclick="spr.role.roleTable.opreation.updateRoleStatus('+data+',1)">启用</resource>';
+		              return '<resource class="btn btn-primary-outline radius size-S" href="javascript:void(0);" onclick="spr.role.roleTable.btn.addRole('+data+')">编辑角色</resource> ' + 
 		                     _html   
 		          }  
 		      } ]    , 

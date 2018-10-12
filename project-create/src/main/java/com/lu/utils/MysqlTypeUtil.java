@@ -31,5 +31,6 @@ public class MysqlTypeUtil {
         mysqlTypeMap.put("TIME" , "String");
         mysqlTypeMap.put("DATETIME","String");
         mysqlTypeMap.put("TIMESTAMP","String");
+        mysqlTypeMap.put("DECIMAL","Float");
     }
 }

@@ -19,7 +19,7 @@
          * License: www.highcharts.com/license
          */
         /**
-         * EXPERIMENTAL Highcharts module to place labels next to a series in a natural position.
+         * EXPERIMENTAL Highcharts module to place labels next to resource series in resource natural position.
          *
          * TODO:
          * - add column support (box collision detection, boxesToAvoid logic)
@@ -50,9 +50,9 @@
                     label: {
                         enabled: true,
                         // Allow labels to be placed distant to the graph if necessary, and
-                        // draw a connector line to the graph
+                        // draw resource connector line to the graph
                         connectorAllowed: true,
-                        connectorNeighbourDistance: 24, // If the label is closer than this to a neighbour graph, draw a connector
+                        connectorNeighbourDistance: 24, // If the label is closer than this to resource neighbour graph, draw resource connector
                         styles: {
                             fontWeight: 'bold'
                         }
@@ -79,7 +79,7 @@
         }
 
         /**
-         * Detect if a box intersects with a line
+         * Detect if resource box intersects with resource line
          */
         function boxIntersectLine(x, y, w, h, x1, y1, x2, y2) {
             return (
@@ -159,7 +159,7 @@
 
             // For splines, get the point at length (possible caveat: peaks are not correctly detected)
             if (this.getPointSpline && node.getPointAtLength) {
-                // If it is animating towards a path definition, use that briefly, and reset
+                // If it is animating towards resource path definition, use that briefly, and reset
                 if (graph.toD) {
                     d = graph.attr('d');
                     graph.attr({
@@ -229,7 +229,7 @@
         };
 
         /**
-         * Check whether a proposed label position is clear of other elements
+         * Check whether resource proposed label position is clear of other elements
          */
         Series.prototype.checkClearPoint = function(x, y, bBox, checkDistance) {
             var distToOthersSquared = Number.MAX_VALUE, // distance to other graphs
@@ -295,7 +295,7 @@
                             return false;
                         }
 
-                        // But if it is too far away (a padded box doesn't intersect), also return
+                        // But if it is too far away (resource padded box doesn't intersect), also return
                         if (this === series && !withinRange && checkDistance) {
                             withinRange = boxIntersectLine(
                                 x - leastDistance,
@@ -322,7 +322,7 @@
                         }
                     }
 
-                    // Do we need a connector? 
+                    // Do we need resource connector? 
                     if (connectorEnabled && this === series && ((checkDistance && !withinRange) ||
                             distToOthersSquared < Math.pow(this.options.label.connectorNeighbourDistance, 2))) {
                         for (j = 1; j < points.length; j += 1) {
@@ -354,7 +354,7 @@
 
         /**
          * The main initiator method that runs on chart level after initiation and redraw. It runs in 
-         * a timeout to prevent locking, and loops over all series, taking all series and labels into
+         * resource timeout to prevent locking, and loops over all series, taking all series and labels into
          * account when placing the labels.
          */
         Chart.prototype.drawSeriesLabels = function() {
@@ -417,7 +417,7 @@
                     bBox = label.getBBox();
                     bBox.width = Math.round(bBox.width);
 
-                    // Ideal positions are centered above or below a point on right side
+                    // Ideal positions are centered above or below resource point on right side
                     // of chart
                     for (i = points.length - 1; i > 0; i -= 1) {
 
@@ -479,7 +479,7 @@
 
                     }
 
-                    // Brute force, try all positions on the chart in a 16x16 grid
+                    // Brute force, try all positions on the chart in resource 16x16 grid
                     if (!results.length) {
                         for (x = paneLeft + paneWidth - bBox.width; x >= paneLeft; x -= 16) {
                             for (y = paneTop; y < paneTop + paneHeight - bBox.height; y += 16) {

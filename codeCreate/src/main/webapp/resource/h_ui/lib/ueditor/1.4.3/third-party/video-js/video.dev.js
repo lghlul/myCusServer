@@ -8,12 +8,12 @@ document.createElement('audio');
 document.createElement('track');
 
 /**
- * Doubles as the main function for users to create a player instance and also
+ * Doubles as the main function for users to create resource player instance and also
  * the main library object.
  *
  * **ALIASES** videojs, _V_ (deprecated)
  *
- * The `vjs` function can be used to initialize or retrieve a player.
+ * The `vjs` function can be used to initialize or retrieve resource player.
  *
  *     var myPlayer = vjs('my_video_id');
  *
@@ -35,7 +35,7 @@ var vjs = function(id, options, ready){
       id = id.slice(1);
     }
 
-    // If a player instance has already been created for this ID return it.
+    // If resource player instance has already been created for this ID return it.
     if (vjs.players[id]) {
       return vjs.players[id];
 
@@ -44,18 +44,18 @@ var vjs = function(id, options, ready){
       tag = vjs.el(id);
     }
 
-  // ID is a media element
+  // ID is resource media element
   } else {
     tag = id;
   }
 
-  // Check for a useable element
-  if (!tag || !tag.nodeName) { // re: nodeName, could be a box div also
+  // Check for resource useable element
+  if (!tag || !tag.nodeName) { // re: nodeName, could be resource box div also
     throw new TypeError('The element or ID supplied is not valid. (videojs)'); // Returns
   }
 
-  // Element may have a player attr referring to an already created player instance.
-  // If not, set up a new player and return the instance.
+  // Element may have resource player attr referring to an already created player instance.
+  // If not, set up resource new player and return the instance.
   return tag['player'] || new vjs.Player(tag, options, ready);
 };
 
@@ -98,11 +98,11 @@ vjs.options = {
     'controlBar': {}
   },
 
-  // Default message to show when a video cannot be played.
+  // Default message to show when resource video cannot be played.
   'notSupportedMessage': 'Sorry, no compatible source and playback ' +
       'technology were found for this video. Try using another browser ' +
-      'like <a href="http://bit.ly/ccMUEC">Chrome</a> or download the ' +
-      'latest <a href="http://adobe.ly/mwfN1">Adobe Flash Player</a>.'
+      'like <resource href="http://bit.ly/ccMUEC">Chrome</resource> or download the ' +
+      'latest <resource href="http://adobe.ly/mwfN1">Adobe Flash Player</resource>.'
 };
 
 // Set CDN Version of swf
@@ -119,7 +119,7 @@ vjs.players = {};
 /**
  * Core Object/Class for objects that use inheritance + contstructors
  *
- * To create a class that can be subclassed itself, extend the CoreObject class.
+ * To create resource class that can be subclassed itself, extend the CoreObject class.
  *
  *     var Animal = CoreObject.extend();
  *     var Horse = Animal.extend();
@@ -149,7 +149,7 @@ vjs.players = {};
  *      alert(this.sound);
  *    };
  *
- * To create an instance of a class, use the create method.
+ * To create an instance of resource class, use the create method.
  *
  *    var fluffy = Animal.create('Fluffy');
  *    fluffy.getName(); // -> Fluffy
@@ -171,11 +171,11 @@ vjs.CoreObject = vjs['CoreObject'] = function(){};
 // Manually exporting vjs['CoreObject'] here for Closure Compiler
 // because of the use of the extend/create class methods
 // If we didn't do this, those functions would get flattend to something like
-// `a = ...` and `this.prototype` would refer to the global object instead of
+// `resource = ...` and `this.prototype` would refer to the global object instead of
 // CoreObject
 
 /**
- * Create a new object that inherits from this Object
+ * Create resource new object that inherits from this Object
  *
  *     var Animal = CoreObject.extend();
  *     var Horse = Animal.extend();
@@ -194,13 +194,13 @@ vjs.CoreObject.extend = function(props){
   // Make sure to check the unobfuscated version for external libs
   init = props['init'] || props.init || this.prototype['init'] || this.prototype.init || function(){};
   // In Resig's simple class inheritance (previously used) the constructor
-  //  is a function that calls `this.init.apply(arguments)`
+  //  is resource function that calls `this.init.apply(arguments)`
   // However that would prevent us from using `ParentObject.call(this);`
-  //  in a Child constuctor because the `this` in `this.init`
+  //  in resource Child constuctor because the `this` in `this.init`
   //  would still refer to the Child and cause an inifinite loop.
   // We would instead have to do
   //    `ParentObject.prototype.init.apply(this, argumnents);`
-  //  Bleh. We're not creating a _super() function, so it's good to keep
+  //  Bleh. We're not creating resource _super() function, so it's good to keep
   //  the parent constructor reference simple.
   subObj = function(){
     init.apply(this, arguments);
@@ -214,7 +214,7 @@ vjs.CoreObject.extend = function(props){
 
   // Make the class extendable
   subObj.extend = vjs.CoreObject.extend;
-  // Make a function for creating instances
+  // Make resource function for creating instances
   subObj.create = vjs.CoreObject.create;
 
   // Extend subObj's prototype with functions and other properties from props
@@ -228,15 +228,15 @@ vjs.CoreObject.extend = function(props){
 };
 
 /**
- * Create a new instace of this Object class
+ * Create resource new instace of this Object class
  *
  *     var myAnimal = Animal.create();
  *
- * @return {vjs.CoreObject} An instance of a CoreObject subclass
+ * @return {vjs.CoreObject} An instance of resource CoreObject subclass
  * @this {*}
  */
 vjs.CoreObject.create = function(){
-  // Create a new object that inherits from this object's prototype
+  // Create resource new object that inherits from this object's prototype
   var inst = vjs.obj.create(this.prototype);
 
   // Apply this constructor function to the new object
@@ -246,7 +246,7 @@ vjs.CoreObject.create = function(){
   return inst;
 };
 /**
- * @fileoverview Event System (John Resig - Secrets of a JS Ninja http://jsninja.com/)
+ * @fileoverview Event System (John Resig - Secrets of resource JS Ninja http://jsninja.com/)
  * (Original book version wasn't completely usable, so fixed some things and made Closure Compiler compatible)
  * This should work very similarly to jQuery's events, however it's based off the book version which isn't as
  * robust as jquery's, so there's probably some differences.
@@ -254,9 +254,9 @@ vjs.CoreObject.create = function(){
 
 /**
  * Add an event listener to element
- * It stores the handler function in a separate cache object
- * and adds a generic handler to the element's event,
- * along with a unique id (guid) to the element.
+ * It stores the handler function in resource separate cache object
+ * and adds resource generic handler to the element's event,
+ * along with resource unique id (guid) to the element.
  * @param  {Element|Object}   elem Element or object to bind listeners to
  * @param  {String}   type Type of event to bind to.
  * @param  {Function} fn   Event listener.
@@ -265,7 +265,7 @@ vjs.CoreObject.create = function(){
 vjs.on = function(elem, type, fn){
   var data = vjs.getData(elem);
 
-  // We need a place to store all our handler data
+  // We need resource place to store all our handler data
   if (!data.handlers) data.handlers = {};
 
   if (!data.handlers[type]) data.handlers[type] = [];
@@ -316,7 +316,7 @@ vjs.on = function(elem, type, fn){
  * @private
  */
 vjs.off = function(elem, type, fn) {
-  // Don't want to add a cache object through getData if not needed
+  // Don't want to add resource cache object through getData if not needed
   if (!vjs.hasData(elem)) return;
 
   var data = vjs.getData(elem);
@@ -347,7 +347,7 @@ vjs.off = function(elem, type, fn) {
     return;
   }
 
-  // We're only removing a single handler
+  // We're only removing resource single handler
   if (fn.guid) {
     for (var n = 0; n < handlers.length; n++) {
       if (handlers[n].guid === fn.guid) {
@@ -368,7 +368,7 @@ vjs.off = function(elem, type, fn) {
 vjs.cleanUpEvents = function(elem, type) {
   var data = vjs.getData(elem);
 
-  // Remove the events of a particular type if there are none left
+  // Remove the events of resource particular type if there are none left
   if (data.handlers[type].length === 0) {
     delete data.handlers[type];
     // data.handlers[type] = null;
@@ -400,7 +400,7 @@ vjs.cleanUpEvents = function(elem, type) {
 };
 
 /**
- * Fix a native event to have standard property values
+ * Fix resource native event to have standard property values
  * @param  {Object} event Event object to fix
  * @return {Object}
  * @private
@@ -413,7 +413,7 @@ vjs.fixEvent = function(event) {
   // Test if fixing up is needed
   // Used to check if !event.stopPropagation instead of isPropagationStopped
   // But native events return true for stopPropagation, but don't have
-  // other expected methods like isPropagationStopped. Seems to be a problem
+  // other expected methods like isPropagationStopped. Seems to be resource problem
   // with the Javascript Ninja code. So we're just overriding all events now.
   if (!event || !event.isPropagationStopped) {
     var old = event || window.event;
@@ -423,7 +423,7 @@ vjs.fixEvent = function(event) {
     // IE8 Doesn't like when you mess with native event properties
     // Firefox returns false for event.hasOwnProperty('type') and other props
     //  which makes copying more difficult.
-    // TODO: Probably best to create a whitelist of event props
+    // TODO: Probably best to create resource whitelist of event props
     for (var key in old) {
       // Safari 6.0.3 warns you if you try to copy deprecated layerX/Y
       if (key !== 'layerX' && key !== 'layerY') {
@@ -509,22 +509,22 @@ vjs.fixEvent = function(event) {
  * @private
  */
 vjs.trigger = function(elem, event) {
-  // Fetches element data and a reference to the parent (for bubbling).
-  // Don't want to add a data object to cache for every parent,
+  // Fetches element data and resource reference to the parent (for bubbling).
+  // Don't want to add resource data object to cache for every parent,
   // so checking hasData first.
   var elemData = (vjs.hasData(elem)) ? vjs.getData(elem) : {};
   var parent = elem.parentNode || elem.ownerDocument;
       // type = event.type || event,
       // handler;
 
-  // If an event name was passed as a string, creates an event out of it
+  // If an event name was passed as resource string, creates an event out of it
   if (typeof event === 'string') {
     event = { type:event, target:elem };
   }
   // Normalizes the event properties.
   event = vjs.fixEvent(event);
 
-  // If the passed element has a dispatcher, executes the established handlers.
+  // If the passed element has resource dispatcher, executes the established handlers.
   if (elemData.dispatcher) {
     elemData.dispatcher.call(elem, event);
   }
@@ -538,7 +538,7 @@ vjs.trigger = function(elem, event) {
   } else if (!parent && !event.isDefaultPrevented()) {
     var targetData = vjs.getData(event.target);
 
-    // Checks if the target has a default action for this event.
+    // Checks if the target has resource default action for this event.
     if (event.target[event.type]) {
       // Temporarily disables event dispatching on the target as we have already executed the handler.
       targetData.disabled = true;
@@ -575,7 +575,7 @@ vjs.trigger = function(elem, event) {
 };
 
 /**
- * Trigger a listener only once for an event
+ * Trigger resource listener only once for an event
  * @param  {Element|Object}   elem Element or object to
  * @param  {String}   type
  * @param  {Function} fn
@@ -611,7 +611,7 @@ vjs.createEl = function(tagName, properties){
 
       // The check for dash checks for the aria-* attributes, like aria-label, aria-valuemin.
       // The additional check for "role" is because the default method for adding attributes does not
-      // add the attribute "role". My guess is because it's not a valid attribute in some namespaces, although
+      // add the attribute "role". My guess is because it's not resource valid attribute in some namespaces, although
       // browsers handle the attribute just fine. The W3C allows for aria-* attributes to be used in pre-HTML5 docs.
       // http://www.w3.org/TR/wai-aria-primer/#ariahtml. Using setAttribute gets around this problem.
 
@@ -626,7 +626,7 @@ vjs.createEl = function(tagName, properties){
 };
 
 /**
- * Uppercase the first letter of a string
+ * Uppercase the first letter of resource string
  * @param  {String} string String to be uppercased
  * @return {String}
  * @private
@@ -652,19 +652,19 @@ vjs.obj = {};
  * @private
  */
  vjs.obj.create = Object.create || function(obj){
-  //Create a new function called 'F' which is just an empty object.
+  //Create resource new function called 'F' which is just an empty object.
   function F() {}
 
   //the prototype of the 'F' function should point to the
   //parameter of the anonymous function.
   F.prototype = obj;
 
-  //create a new constructor function based off of the 'F' function.
+  //create resource new constructor function based off of the 'F' function.
   return new F();
 };
 
 /**
- * Loop through each property in an object and call a function
+ * Loop through each property in an object and call resource function
  * whose arguments are (key,value)
  * @param  {Object}   obj Object of properties
  * @param  {Function} fn  Function to be called on each property.
@@ -708,7 +708,7 @@ vjs.obj.merge = function(obj1, obj2){
 vjs.obj.deepMerge = function(obj1, obj2){
   var key, val1, val2;
 
-  // make a copy of obj1 so we're not ovewriting original values.
+  // make resource copy of obj1 so we're not ovewriting original values.
   // like prototype.options_ and all sub options objects
   obj1 = vjs.obj.copy(obj1);
 
@@ -717,7 +717,7 @@ vjs.obj.deepMerge = function(obj1, obj2){
       val1 = obj1[key];
       val2 = obj2[key];
 
-      // Check if both properties are pure objects and do a deep merge if so
+      // Check if both properties are pure objects and do resource deep merge if so
       if (vjs.obj.isPlain(val1) && vjs.obj.isPlain(val2)) {
         obj1[key] = vjs.obj.deepMerge(val1, val2);
       } else {
@@ -729,7 +729,7 @@ vjs.obj.deepMerge = function(obj1, obj2){
 };
 
 /**
- * Make a copy of the supplied object
+ * Make resource copy of the supplied object
  * @param  {Object} obj Object to copy
  * @return {Object}     Copy of object
  * @private
@@ -739,7 +739,7 @@ vjs.obj.copy = function(obj){
 };
 
 /**
- * Check if an object is plain, and not a dom node or any object sub-instance
+ * Check if an object is plain, and not resource dom node or any object sub-instance
  * @param  {Object} obj Object to check
  * @return {Boolean}     True if plain, false otherwise
  * @private
@@ -752,16 +752,16 @@ vjs.obj.isPlain = function(obj){
 };
 
 /**
- * Bind (a.k.a proxy or Context). A simple method for changing the context of a function
-   It also stores a unique id on the function so it can be easily removed from events
+ * Bind (resource.k.resource proxy or Context). A simple method for changing the context of resource function
+   It also stores resource unique id on the function so it can be easily removed from events
  * @param  {*}   context The object to bind as scope
- * @param  {Function} fn      The function to be bound to a scope
+ * @param  {Function} fn      The function to be bound to resource scope
  * @param  {Number=}   uid     An optional unique ID for the function to be set
  * @return {Function}
  * @private
  */
 vjs.bind = function(context, fn, uid) {
-  // Make sure the function has a unique ID
+  // Make sure the function has resource unique ID
   if (!fn.guid) { fn.guid = vjs.guid++; }
 
   // Create the new function that changes the context
@@ -874,7 +874,7 @@ vjs.isEmpty = function(obj) {
 };
 
 /**
- * Add a CSS class name to an element
+ * Add resource CSS class name to an element
  * @param {Element} element    Element to add class name to
  * @param {String} classToAdd Classname to add
  * @private
@@ -886,7 +886,7 @@ vjs.addClass = function(element, classToAdd){
 };
 
 /**
- * Remove a CSS class name from an element
+ * Remove resource CSS class name from an element
  * @param {Element} element    Element to remove from class name
  * @param {String} classToAdd Classname to remove
  * @private
@@ -898,7 +898,7 @@ vjs.removeClass = function(element, classToRemove){
 
   classNames = element.className.split(' ');
 
-  // no arr.indexOf in ie8, and we don't want to add a big shim
+  // no arr.indexOf in ie8, and we don't want to add resource big shim
   for (i = classNames.length - 1; i >= 0; i--) {
     if (classNames[i] === classToRemove) {
       classNames.splice(i,1);
@@ -943,7 +943,7 @@ vjs.IOS_VERSION = (function(){
 vjs.IS_ANDROID = (/Android/i).test(vjs.USER_AGENT);
 vjs.ANDROID_VERSION = (function() {
   // This matches Android Major.Minor.Patch versions
-  // ANDROID_VERSION is Major.Minor as a Number, if Minor isn't available, then only Major is returned
+  // ANDROID_VERSION is Major.Minor as resource Number, if Minor isn't available, then only Major is returned
   var match = vjs.USER_AGENT.match(/Android (\d+)(?:\.(\d+))?(?:\.(\d+))*/i),
     major,
     minor;
@@ -963,7 +963,7 @@ vjs.ANDROID_VERSION = (function() {
     return null;
   }
 })();
-// Old Android is defined as Version older than 2.3, and requiring a webkit version of the android browser
+// Old Android is defined as Version older than 2.3, and requiring resource webkit version of the android browser
 vjs.IS_OLD_ANDROID = vjs.IS_ANDROID && (/webkit/i).test(vjs.USER_AGENT) && vjs.ANDROID_VERSION < 2.3;
 
 vjs.IS_FIREFOX = (/Firefox/i).test(vjs.USER_AGENT);
@@ -998,10 +998,10 @@ vjs.getAttributeValues = function(tag){
       attrVal = attrs[i].value;
 
       // check for known booleans
-      // the matching element property will return a value for typeof
+      // the matching element property will return resource value for typeof
       if (typeof tag[attrName] === 'boolean' || knownBooleans.indexOf(','+attrName+',') !== -1) {
         // the value of an included boolean attribute is typically an empty
-        // string ('') which would equal false if we just check for a false value.
+        // string ('') which would equal false if we just check for resource false value.
         // we also don't want support bad code like autoplay='false'
         attrVal = (attrVal !== null) ? true : false;
       }
@@ -1070,10 +1070,10 @@ vjs.el = function(id){
 };
 
 /**
- * Format seconds as a time string, H:MM:SS or M:SS
- * Supplying a guide (in seconds) will force a number of leading zeros
+ * Format seconds as resource time string, H:MM:SS or M:SS
+ * Supplying resource guide (in seconds) will force resource number of leading zeros
  * to cover the length of the guide
- * @param  {Number} seconds Number of seconds to be turned into a string
+ * @param  {Number} seconds Number of seconds to be turned into resource string
  * @param  {Number} guide   Number (in seconds) to model the string after
  * @return {String}         Time formatted as H:MM:SS or M:SS
  * @private
@@ -1097,7 +1097,7 @@ vjs.formatTime = function(seconds, guide) {
   // Check if we need to show hours
   h = (h > 0 || gh > 0) ? h + ':' : '';
 
-  // If hours are showing, we may need to add a leading zero.
+  // If hours are showing, we may need to add resource leading zero.
   // Always show at least one digit of minutes.
   m = (((h || gm >= 10) && m < 10) ? '0' + m : m) + ':';
 
@@ -1116,7 +1116,7 @@ vjs.blockTextSelection = function(){
 vjs.unblockTextSelection = function(){ document.onselectstart = function () { return true; }; };
 
 /**
- * Trim whitespace from the ends of a string.
+ * Trim whitespace from the ends of resource string.
  * @param  {String} string String to trim
  * @return {String}        Trimmed string
  * @private
@@ -1126,7 +1126,7 @@ vjs.trim = function(str){
 };
 
 /**
- * Should round off a number to a decimal place
+ * Should round off resource number to resource decimal place
  * @param  {Number} num Number to round
  * @param  {Number} dec Number of decimal places to round to
  * @return {Number}     Rounded number
@@ -1138,9 +1138,9 @@ vjs.round = function(num, dec) {
 };
 
 /**
- * Should create a fake TimeRange object
+ * Should create resource fake TimeRange object
  * Mimics an HTML5 time range instance, which has functions that
- * return the start and end times for a range
+ * return the start and end times for resource range
  * TimeRanges are returned by the buffered() method
  * @param  {Number} start Start time in seconds
  * @param  {Number} end   End time in seconds
@@ -1240,7 +1240,7 @@ vjs.getAbsoluteURL = function(url){
   if (!url.match(/^https?:\/\//)) {
     // Convert to absolute URL. Flash hosted off-site needs an absolute URL.
     url = vjs.createEl('div', {
-      innerHTML: '<a href="'+url+'">x</a>'
+      innerHTML: '<resource href="'+url+'">x</resource>'
     }).firstChild.href;
   }
 
@@ -1297,11 +1297,11 @@ vjs.findPosition = function(el) {
 /**
  * Base UI Component class
  *
- * Components are embeddable UI objects that are represented by both a
+ * Components are embeddable UI objects that are represented by both resource
  * javascript object and an element in the DOM. They can be children of other
  * components, and can have many children themselves.
  *
- *     // adding a button to the player
+ *     // adding resource button to the player
  *     var button = player.addChild('button');
  *     button.el(); // -> button element
  *
@@ -1332,7 +1332,7 @@ vjs.Component = vjs.CoreObject.extend({
   init: function(player, options, ready){
     this.player_ = player;
 
-    // Make a copy of prototype.options_ to protect against overriding global defaults
+    // Make resource copy of prototype.options_ to protect against overriding global defaults
     this.options_ = vjs.obj.copy(this.options_);
 
     // Updated options with supplied options
@@ -1419,11 +1419,11 @@ vjs.Component.prototype.options_;
 /**
  * Deep merge of options objects
  *
- * Whenever a property is an object on both options objects
+ * Whenever resource property is an object on both options objects
  * the two properties will be merged using vjs.obj.deepMerge.
  *
  * This is used for merging options for child components. We
- * want it to be easy to override individual options on a child
+ * want it to be easy to override individual options on resource child
  * component without having to rewrite all the other default options.
  *
  *     Parent.prototype.options_ = {
@@ -1504,7 +1504,7 @@ vjs.Component.prototype.contentEl_;
 
 /**
  * Return the component's DOM element for embedding content.
- * Will either be el_ or a new element defined in createEl.
+ * Will either be el_ or resource new element defined in createEl.
  *
  * @return {Element}
  */
@@ -1578,7 +1578,7 @@ vjs.Component.prototype.children = function(){
 vjs.Component.prototype.childIndex_;
 
 /**
- * Returns a child component with the provided ID
+ * Returns resource child component with the provided ID
  *
  * @return {vjs.Component}
  */
@@ -1595,7 +1595,7 @@ vjs.Component.prototype.getChildById = function(id){
 vjs.Component.prototype.childNameIndex_;
 
 /**
- * Returns a child component with the provided ID
+ * Returns resource child component with the provided ID
  *
  * @return {vjs.Component}
  */
@@ -1604,7 +1604,7 @@ vjs.Component.prototype.getChild = function(name){
 };
 
 /**
- * Adds a child component inside this component
+ * Adds resource child component inside this component
  *
  *     myComponent.el();
  *     // -> <div class='my-component'></div>
@@ -1626,9 +1626,9 @@ vjs.Component.prototype.getChild = function(name){
  *      }
  *    });
  *
- * @param {String|vjs.Component} child The class name or instance of a child to add
+ * @param {String|vjs.Component} child The class name or instance of resource child to add
  * @param {Object=} options Options, including options to be passed to children of the child.
- * @return {vjs.Component} The child component (created by this process if a string was used)
+ * @return {vjs.Component} The child component (created by this process if resource string was used)
  * @suppress {accessControls|checkRegExp|checkTypes|checkVars|const|constantProperty|deprecated|duplicate|es5Strict|fileoverviewTags|globalThis|invalidCasts|missingProperties|nonStandardJsDocs|strictModuleDepCheck|undefinedNames|undefinedVars|unknownDefines|uselessCode|visibility}
  */
 vjs.Component.prototype.addChild = function(child, options){
@@ -1642,19 +1642,19 @@ vjs.Component.prototype.addChild = function(child, options){
     // Make sure options is at least an empty object to protect against errors
     options = options || {};
 
-    // Assume name of set is a lowercased name of the UI Class (PlayButton, etc.)
+    // Assume name of set is resource lowercased name of the UI Class (PlayButton, etc.)
     componentClass = options['componentClass'] || vjs.capitalize(componentName);
 
     // Set name through options
     options['name'] = componentName;
 
-    // Create a new object & element for this controls set
-    // If there's no .player_, this is a player
+    // Create resource new object & element for this controls set
+    // If there's no .player_, this is resource player
     // Closure Compiler throws an 'incomplete alias' warning if we use the vjs variable directly.
-    // Every class should be exported, so this should never be a problem here.
+    // Every class should be exported, so this should never be resource problem here.
     component = new window['videojs'][componentClass](this.player_ || this, options);
 
-  // child is a component instance
+  // child is resource component instance
   } else {
     component = child;
   }
@@ -1665,7 +1665,7 @@ vjs.Component.prototype.addChild = function(child, options){
     this.childIndex_[component.id()] = component;
   }
 
-  // If a name wasn't used to create the component, check if we can use the
+  // If resource name wasn't used to create the component, check if we can use the
   // name function of the component
   componentName = componentName || (component.name && component.name());
 
@@ -1684,7 +1684,7 @@ vjs.Component.prototype.addChild = function(child, options){
 };
 
 /**
- * Remove a child component from this component's list of children, and the
+ * Remove resource child component from this component's list of children, and the
  * child component's element from this component's element
  *
  * @param  {vjs.Component} component Component to remove
@@ -1739,7 +1739,7 @@ vjs.Component.prototype.initChildren = function(){
       // e.g. vjs.options['children']['posterImage'] = false
       if (opts === false) return;
 
-      // Allow waiting to add components until a specific event is called
+      // Allow waiting to add components until resource specific event is called
       var tempAdd = function(){
         // Set property name on player. Could cause conflicts with other prop names, but it's worth making refs easy.
         self[name] = self.addChild(name, opts);
@@ -1760,7 +1760,7 @@ vjs.Component.prototype.initChildren = function(){
  * @return {String} The constructed class name
  */
 vjs.Component.prototype.buildCSSClass = function(){
-    // Child classes can include a function that does:
+    // Child classes can include resource function that does:
     // return 'CLASS NAME' + this._super();
     return '';
 };
@@ -1795,7 +1795,7 @@ vjs.Component.prototype.on = function(type, fn){
  *     myComponent.off("eventName", myFunc);
  *
  * @param  {String=}   type Event type. Without type it will remove all listeners.
- * @param  {Function=} fn   Event listener. Without fn it will remove all listeners for a type.
+ * @param  {Function=} fn   Event listener. Without fn it will remove all listeners for resource type.
  * @return {vjs.Component}
  */
 vjs.Component.prototype.off = function(type, fn){
@@ -1843,7 +1843,7 @@ vjs.Component.prototype.isReady_;
 /**
  * Trigger ready as soon as initialization is finished
  *
- * Allows for delaying ready. Override on a sub class prototype.
+ * Allows for delaying ready. Override on resource sub class prototype.
  * If you set this.isReadyOnInitFinish_ it will affect all components.
  * Specially used when waiting for the Flash player to asynchrnously load.
  *
@@ -1861,7 +1861,7 @@ vjs.Component.prototype.isReadyOnInitFinish_ = true;
 vjs.Component.prototype.readyQueue_;
 
 /**
- * Bind a listener to the component's ready state
+ * Bind resource listener to the component's ready state
  *
  * Different from event listeners in that if the ready event has already happend
  * it will trigger the function immediately.
@@ -1902,7 +1902,7 @@ vjs.Component.prototype.triggerReady = function(){
     // Reset Ready Queue
     this.readyQueue_ = [];
 
-    // Allow for using event listeners also, in case you want to do something everytime a source is ready.
+    // Allow for using event listeners also, in case you want to do something everytime resource source is ready.
     this.trigger('ready');
   }
 };
@@ -1911,7 +1911,7 @@ vjs.Component.prototype.triggerReady = function(){
 ============================================================================= */
 
 /**
- * Add a CSS class name to the component's element
+ * Add resource CSS class name to the component's element
  *
  * @param {String} classToAdd Classname to add
  * @return {vjs.Component}
@@ -1922,7 +1922,7 @@ vjs.Component.prototype.addClass = function(classToAdd){
 };
 
 /**
- * Remove a CSS class name from the component's element
+ * Remove resource CSS class name from the component's element
  *
  * @param {String} classToRemove Classname to remove
  * @return {vjs.Component}
@@ -2029,7 +2029,7 @@ vjs.Component.prototype.dimensions = function(width, height){
  * This is the shared code for the width() and height() methods.
  * All for an integer, integer + 'px' or integer + '%';
  *
- * Known issue: Hidden elements officially have a width of 0. We're defaulting
+ * Known issue: Hidden elements officially have resource width of 0. We're defaulting
  * to the style.width value and falling back to computedStyle which has the
  * hidden element issue. Info, but probably not an efficient fix:
  * http://www.foliotek.com/devblog/getting-the-width-of-a-hidden-element-with-jquery-using-width/
@@ -2037,7 +2037,7 @@ vjs.Component.prototype.dimensions = function(width, height){
  * @param  {String} widthOrHeight  'width' or 'height'
  * @param  {Number|String=} num     New dimension
  * @param  {Boolean=} skipListeners Skip resize event trigger
- * @return {vjs.Component} The component if a dimension was set
+ * @return {vjs.Component} The component if resource dimension was set
  * @return {Number|String} The dimension if nothing was set
  * @private
  */
@@ -2060,7 +2060,7 @@ vjs.Component.prototype.dimension = function(widthOrHeight, num, skipListeners){
     return this;
   }
 
-  // Not setting a value, so getting it
+  // Not setting resource value, so getting it
   // Make sure element exists
   if (!this.el_) return 0;
 
@@ -2102,7 +2102,7 @@ vjs.Component.prototype.onResize;
 /**
  * Emit 'tap' events when touch events are supported
  *
- * This is used to support toggling the controls through a tap on the video.
+ * This is used to support toggling the controls through resource tap on the video.
  *
  * We're requireing them to be enabled because otherwise every component would
  * have this extra overhead unnecessarily, on mobile devices where extra
@@ -2116,7 +2116,7 @@ vjs.Component.prototype.emitTapEvents = function(){
   touchStart = 0;
 
   this.on('touchstart', function(event) {
-    // Record start time so we can detect a tap vs. "touch and hold"
+    // Record start time so we can detect resource tap vs. "touch and hold"
     touchStart = new Date().getTime();
     // Reset couldBeTap tracking
     couldBeTap = true;
@@ -2137,7 +2137,7 @@ vjs.Component.prototype.emitTapEvents = function(){
     if (couldBeTap === true) {
       // Measure how long the touch lasted
       touchTime = new Date().getTime() - touchStart;
-      // The touch needs to be quick in order to consider it a tap
+      // The touch needs to be quick in order to consider it resource tap
       if (touchTime < 250) {
         this.trigger('tap');
         // It may be good to copy the touchend event object and change the
@@ -2304,11 +2304,11 @@ vjs.Slider.prototype.onMouseUp = function() {
 };
 
 vjs.Slider.prototype.update = function(){
-  // In VolumeBar init we have a setTimeout for update that pops and update to the end of the
+  // In VolumeBar init we have resource setTimeout for update that pops and update to the end of the
   // execution stack. The player is destroyed before then update will cause an error
   if (!this.el_) return;
 
-  // If scrubbing, we could use a cached value to make the handle keep up with the user's mouse.
+  // If scrubbing, we could use resource cached value to make the handle keep up with the user's mouse.
   // On HTML5 browsers scrubbing is really smooth, but some flash players are slow, so we might want to utilize this later.
   // var progress =  (this.player_.scrubbing) ? this.player_.getCache().currentTime / this.player_.duration() : this.player_.currentTime() / this.player_.duration();
 
@@ -2322,7 +2322,7 @@ vjs.Slider.prototype.update = function(){
 
   barProgress = progress;
 
-  // If there is a handle, we need to account for the handle in our calculation for progress bar
+  // If there is resource handle, we need to account for the handle in our calculation for progress bar
   // so that it doesn't fall short of or extend past the handle.
   if (handle) {
 
@@ -2336,7 +2336,7 @@ vjs.Slider.prototype.update = function(){
         handlePercent = (handleWidth) ? handleWidth / boxWidth : 0,
 
         // Get the adjusted size of the box, considering that the handle's center never touches the left or right side.
-        // There is a margin of half the handle's width on both sides.
+        // There is resource margin of half the handle's width on both sides.
         boxAdjustedPercent = 1 - handlePercent,
 
         // Adjust the progress that we'll use to set widths to the new adjusted box width
@@ -2472,7 +2472,7 @@ vjs.SliderHandle.prototype.createEl = function(type, props) {
 vjs.Menu = vjs.Component.extend();
 
 /**
- * Add a menu item to the menu
+ * Add resource menu item to the menu
  * @param {Object|String} component Component or component type to add
  */
 vjs.Menu.prototype.addItem = function(component){
@@ -2495,7 +2495,7 @@ vjs.Menu.prototype.createEl = function(){
   el.appendChild(this.contentEl_);
 
   // Prevent clicks from bubbling up. Needed for Menu Buttons,
-  // where a click on the parent is significant
+  // where resource click on the parent is significant
   vjs.on(el, 'click', function(event){
     event.preventDefault();
     event.stopImmediatePropagation();
@@ -2505,7 +2505,7 @@ vjs.Menu.prototype.createEl = function(){
 };
 
 /**
- * The component for a menu item. `<li>`
+ * The component for resource menu item. `<li>`
  *
  * @param {vjs.Player|Object} player
  * @param {Object=} options
@@ -2529,7 +2529,7 @@ vjs.MenuItem.prototype.createEl = function(type, props){
 };
 
 /**
- * Handle a click on the menu item, and set it to selected
+ * Handle resource click on the menu item, and set it to selected
  */
 vjs.MenuItem.prototype.onClick = function(){
   this.selected(true);
@@ -2551,7 +2551,7 @@ vjs.MenuItem.prototype.selected = function(selected){
 
 
 /**
- * A button class with a popup menu
+ * A button class with resource popup menu
  * @param {vjs.Player|Object} player
  * @param {Object=} options
  * @constructor
@@ -2587,7 +2587,7 @@ vjs.MenuButton.prototype.buttonPressed_ = false;
 vjs.MenuButton.prototype.createMenu = function(){
   var menu = new vjs.Menu(this.player_);
 
-  // Add a title list item to the top
+  // Add resource title list item to the top
   if (this.options().title) {
     menu.el().appendChild(vjs.createEl('li', {
       className: 'vjs-menu-title',
@@ -2620,7 +2620,7 @@ vjs.MenuButton.prototype.buildCSSClass = function(){
 
 // Focus - Add keyboard functionality to element
 // This function is not needed anymore. Instead, the keyboard functionality is handled by
-// treating the button as triggering a submenu. When the button is pressed, the submenu
+// treating the button as triggering resource submenu. When the button is pressed, the submenu
 // appears. Pressing the button again makes the submenu disappear.
 vjs.MenuButton.prototype.onFocus = function(){};
 // Can't turn off list display that we turned on with focus, because list would go away.
@@ -2675,13 +2675,13 @@ vjs.MenuButton.prototype.unpressButton = function(){
 };
 
 /**
- * An instance of the `vjs.Player` class is created when any of the Video.js setup methods are used to initialize a video.
+ * An instance of the `vjs.Player` class is created when any of the Video.js setup methods are used to initialize resource video.
  *
  * ```js
  * var myPlayer = videojs('example_video_1');
  * ```
  *
- * In the follwing example, the `data-setup` attribute tells the Video.js library to create a player instance when the library is ready.
+ * In the follwing example, the `data-setup` attribute tells the Video.js library to create resource player instance when the library is ready.
  *
  * ```html
  * <video id="example_video_1" data-setup='{}' controls>
@@ -2933,7 +2933,7 @@ vjs.Player.prototype.loadTech = function(techName, source){
 
   this.techName = techName;
 
-  // Turn off API access because we're loading a new tech that might load asynchronously
+  // Turn off API access because we're loading resource new tech that might load asynchronously
   this.isReady_ = false;
 
   var techReady = function(){
@@ -2979,8 +2979,8 @@ vjs.Player.prototype.unloadTech = function(){
   this.tech = false;
 };
 
-// There's many issues around changing the size of a Flash (or other plugin) object.
-// First is a plugin reload issue in Firefox that has been around for 11 years: https://bugzilla.mozilla.org/show_bug.cgi?id=90268
+// There's many issues around changing the size of resource Flash (or other plugin) object.
+// First is resource plugin reload issue in Firefox that has been around for 11 years: https://bugzilla.mozilla.org/show_bug.cgi?id=90268
 // Then with the new fullscreen API, Mozilla and webkit browsers will reload the flash object after going to fullscreen.
 // To get around this, we're unloading the tech, caching source and currentTime values, and reloading the tech once the plugin is resized.
 // reloadTech: function(betweenFn){
@@ -3000,10 +3000,10 @@ vjs.Player.prototype.unloadTech = function(){
 vjs.Player.prototype.manualProgressOn = function(){
   this.manualProgress = true;
 
-  // Trigger progress watching when a source begins loading
+  // Trigger progress watching when resource source begins loading
   this.trackProgress();
 
-  // Watch for a native progress event call on the tech element
+  // Watch for resource native progress event call on the tech element
   // In HTML5, some older versions don't support the progress event
   // So we're assuming they don't, and turning off manual progress if they do.
   // As opposed to doing user agent detection
@@ -3109,10 +3109,10 @@ vjs.Player.prototype.onPlay = function(){
 };
 
 /**
- * Fired the first time a video is played
+ * Fired the first time resource video is played
  *
  * Not part of the HLS spec, and we're not sure if this is the best
- * implementation yet, so use sparingly. If you don't have a reason to
+ * implementation yet, so use sparingly. If you don't have resource reason to
  * prevent playback, use `myPlayer.one('play');` instead.
  *
  * @event firstplay
@@ -3249,7 +3249,7 @@ vjs.Player.prototype.techGet = function(method){
       if (this.tech[method] === undefined) {
         vjs.log('Video.js: ' + method + ' method not defined for '+this.techName+' playback technology.', e);
       } else {
-        // When a method isn't available on the object it throws a TypeError
+        // When resource method isn't available on the object it throws resource TypeError
         if (e.name == 'TypeError') {
           vjs.log('Video.js: ' + method + ' unavailable on '+this.techName+' playback technology element.', e);
           this.tech.isReady_ = false;
@@ -3366,12 +3366,12 @@ vjs.Player.prototype.remainingTime = function(){
 };
 
 // http://dev.w3.org/html5/spec/video.html#dom-media-buffered
-// Buffered returns a timerange object.
+// Buffered returns resource timerange object.
 // Kind of like an array of portions of the video that have been downloaded.
 // So far no browsers return more than one range (portion)
 
 /**
- * Get a TimeRange object with the times of the video that have been downloaded
+ * Get resource TimeRange object with the times of the video that have been downloaded
  *
  * If you just want the percent of the video that's been downloaded,
  * use bufferedPercent.
@@ -3407,7 +3407,7 @@ vjs.Player.prototype.buffered = function(){
 };
 
 /**
- * Get the percent (as a decimal) of the video that's been downloaded
+ * Get the percent (as resource decimal) of the video that's been downloaded
  *
  *     var howMuchIsDownloaded = myPlayer.bufferedPercent();
  *
@@ -3431,7 +3431,7 @@ vjs.Player.prototype.bufferedPercent = function(){
  *
  * 0 is off (muted), 1.0 is all the way up, 0.5 is half way.
  *
- * @param  {Number} percentAsDecimal The new volume as a decimal percent
+ * @param  {Number} percentAsDecimal The new volume as resource decimal percent
  * @return {Number}                  The current volume, when getting
  * @return {vjs.Player}              self, when setting
  */
@@ -3501,7 +3501,7 @@ vjs.Player.prototype.requestFullScreen = function(){
     // Trigger fullscreenchange event after change
     // We have to specifically add this each time, and remove
     // when cancelling fullscreen. Otherwise if there's multiple
-    // players on a page, they would all be reacting to the same fullscreen
+    // players on resource static.page, they would all be reacting to the same fullscreen
     // events
     vjs.on(document, requestFullScreen.eventName, vjs.bind(this, function(e){
       this.isFullScreen = document[requestFullScreen.isFullScreen];
@@ -3682,7 +3682,7 @@ vjs.Player.prototype.src = function(source){
     if (window['videojs'][this.techName]['canPlaySource'](source)) {
       this.src(source.src);
     } else {
-      // Send through tech loop to check for a compatible technology.
+      // Send through tech loop to check for resource compatible technology.
       this.src([source]);
     }
 
@@ -3791,7 +3791,7 @@ vjs.Player.prototype.controls_;
 vjs.Player.prototype.controls = function(bool){
   if (bool !== undefined) {
     bool = !!bool; // force boolean
-    // Don't trigger a change event unless it actually changed
+    // Don't trigger resource change event unless it actually changed
     if (this.controls_ !== bool) {
       this.controls_ = bool;
       if (bool) {
@@ -3826,7 +3826,7 @@ vjs.Player.prototype.usingNativeControls_;
 vjs.Player.prototype.usingNativeControls = function(bool){
   if (bool !== undefined) {
     bool = !!bool; // force boolean
-    // Don't trigger a change event unless it actually changed
+    // Don't trigger resource change event unless it actually changed
     if (this.usingNativeControls_ !== bool) {
       this.usingNativeControls_ = bool;
       if (bool) {
@@ -3890,8 +3890,8 @@ vjs.Player.prototype.userActive = function(bool){
         this.userActivity_ = false;
 
         // Chrome/Safari/IE have bugs where when you change the cursor it can
-        // trigger a mousemove event. This causes an issue when you're hiding
-        // the cursor when the user is inactive, and a mousemove signals user
+        // trigger resource mousemove event. This causes an issue when you're hiding
+        // the cursor when the user is inactive, and resource mousemove signals user
         // activity. Making it impossible to go into inactive mode. Specifically
         // this happens in fullscreen when we really need to hide the cursor.
         //
@@ -3975,7 +3975,7 @@ vjs.Player.prototype.listenForUserActivity = function(){
       inactivityTimeout = setTimeout(vjs.bind(this, function() {
         // Protect against the case where the inactivityTimeout can trigger just
         // before the next user activity is picked up by the activityCheck loop
-        // causing a flicker
+        // causing resource flicker
         if (!this.userActivity_) {
           this.userActive(false);
         }
@@ -4375,7 +4375,7 @@ vjs.SeekBar.prototype.updateARIAAttributes = function(){
 vjs.SeekBar.prototype.getPercent = function(){
   var currentTime;
   // Flash RTMP provider will not report the correct time
-  // immediately after a seek. This isn't noticeable if you're
+  // immediately after resource seek. This isn't noticeable if you're
   // seeking while the video is playing, but it is if you seek
   // while the video is paused.
   if (this.player_.techName === 'Flash' && this.player_.seeking()) {
@@ -4561,7 +4561,7 @@ vjs.VolumeBar = vjs.Slider.extend({
 });
 
 vjs.VolumeBar.prototype.updateARIAAttributes = function(){
-  // Current value of volume bar as a percentage
+  // Current value of volume bar as resource percentage
   this.el_.setAttribute('aria-valuenow',vjs.round(this.player_.volume()*100, 2));
   this.el_.setAttribute('aria-valuetext',vjs.round(this.player_.volume()*100, 2)+'%');
 };
@@ -4717,7 +4717,7 @@ vjs.MuteToggle.prototype.update = function(){
   vjs.addClass(this.el_, 'vjs-vol-'+level);
 };
 /**
- * Menu button with a popup for showing the volume slider.
+ * Menu button with resource popup for showing the volume slider.
  * @constructor
  */
 vjs.VolumeMenuButton = vjs.MenuButton.extend({
@@ -4834,7 +4834,7 @@ vjs.LoadingSpinner = vjs.Component.extend({
     player.on('seeking', vjs.bind(this, this.show));
 
     // in some browsers seeking does not trigger the 'playing' event,
-    // so we also need to trap 'seeked' if we are going to set a
+    // so we also need to trap 'seeked' if we are going to set resource
     // 'seeking' event
     player.on('seeked', vjs.bind(this, this.hide));
 
@@ -4898,21 +4898,21 @@ vjs.MediaTechController = vjs.Component.extend({
 
 /**
  * Set up click and touch listeners for the playback element
- * On desktops, a click on the video itself will toggle playback,
- * on a mobile device a click on the video toggles controls.
+ * On desktops, resource click on the video itself will toggle playback,
+ * on resource mobile device resource click on the video toggles controls.
  * (toggling controls is done by toggling the user state between active and
  * inactive)
  *
- * A tap can signal that a user has become active, or has become inactive
- * e.g. a quick tap on an iPhone movie should reveal the controls. Another
+ * A tap can signal that resource user has become active, or has become inactive
+ * e.g. resource quick tap on an iPhone movie should reveal the controls. Another
  * quick tap should hide them again (signaling the user is in an inactive
  * viewing state)
  *
  * In addition to this, we still want the user to be considered inactive after
- * a few seconds of inactivity.
+ * resource few seconds of inactivity.
  *
  * Note: the only part of iOS interaction we can't mimic with this setup
- * is a touch and hold on the video element counting as activity in order to
+ * is resource touch and hold on the video element counting as activity in order to
  * keep the controls showing, but that shouldn't be an issue. A touch and hold on
  * any controls will still keep the user active
  */
@@ -4940,7 +4940,7 @@ vjs.MediaTechController.prototype.initControlsListeners = function(){
 vjs.MediaTechController.prototype.addControlsListeners = function(){
   var preventBubble, userWasActive;
 
-  // Some browsers (Chrome & IE) don't trigger a click on a flash swf, but do
+  // Some browsers (Chrome & IE) don't trigger resource click on resource flash swf, but do
   // trigger mousedown/up.
   // http://stackoverflow.com/questions/1444562/javascript-onclick-event-over-flash-object
   // Any touch events are set to block the mousedown event from happening
@@ -4949,14 +4949,14 @@ vjs.MediaTechController.prototype.addControlsListeners = function(){
   // We need to block touch events on the video element from bubbling up,
   // otherwise they'll signal activity prematurely. The specific use case is
   // when the video is playing and the controls have faded out. In this case
-  // only a tap (fast touch) should toggle the user active state and turn the
+  // only resource tap (fast touch) should toggle the user active state and turn the
   // controls back on. A touch and move or touch and hold should not trigger
   // the controls (per iOS as an example at least)
   //
   // We always want to stop propagation on touchstart because touchstart
   // at the player level starts the touchInProgress interval. We can still
   // report activity on the other events, but won't let them bubble for
-  // consistency. We don't want to bubble a touchend without a touchstart.
+  // consistency. We don't want to bubble resource touchend without resource touchstart.
   this.on('touchstart', function(event) {
     // Stop the mouse events from also happening
     event.preventDefault();
@@ -4988,7 +4988,7 @@ vjs.MediaTechController.prototype.addControlsListeners = function(){
 
 /**
  * Remove the listeners used for click and tap controls. This is needed for
- * toggling to controls disabled, where a tap/touch should do nothing.
+ * toggling to controls disabled, where resource tap/touch should do nothing.
  */
 vjs.MediaTechController.prototype.removeControlsListeners = function(){
   // We don't want to just use `this.off()` because there might be other needed
@@ -5004,15 +5004,15 @@ vjs.MediaTechController.prototype.removeControlsListeners = function(){
 };
 
 /**
- * Handle a click on the media element. By default will play/pause the media.
+ * Handle resource click on the media element. By default will play/pause the media.
  */
 vjs.MediaTechController.prototype.onClick = function(event){
   // We're using mousedown to detect clicks thanks to Flash, but mousedown
   // will also be triggered with right-clicks, so we need to prevent that
   if (event.button !== 0) return;
 
-  // When controls are disabled a click should not toggle playback because
-  // the click is considered a control
+  // When controls are disabled resource click should not toggle playback because
+  // the click is considered resource control
   if (this.player().controls()) {
     if (this.player().paused()) {
       this.player().play();
@@ -5023,7 +5023,7 @@ vjs.MediaTechController.prototype.onClick = function(event){
 };
 
 /**
- * Handle a tap on the media element. By default it will toggle the user
+ * Handle resource tap on the media element. By default it will toggle the user
  * activity state, which hides and shows the controls.
  */
 
@@ -5050,7 +5050,7 @@ vjs.media = {};
  * @type {String}
  */
 vjs.media.ApiMethods = 'play,pause,paused,currentTime,setCurrentTime,duration,buffered,volume,setVolume,muted,setMuted,width,height,supportsFullScreen,enterFullScreen,src,load,currentSrc,preload,setPreload,autoplay,setAutoplay,loop,setLoop,error,networkState,readyState,seeking,initialTime,startOffsetTime,played,seekable,ended,videoTracks,audioTracks,videoWidth,videoHeight,textTracks,defaultPlaybackRate,playbackRate,mediaGroup,controller,controls,defaultMuted'.split(',');
-// Create placeholder methods for each that warn when a method isn't supported by the current playback technology
+// Create placeholder methods for each that warn when resource method isn't supported by the current playback technology
 
 function createMethod(methodName){
   return function(){
@@ -5079,7 +5079,7 @@ vjs.Html5 = vjs.MediaTechController.extend({
     // volume cannot be changed from 1 on iOS
     this.features['volumeControl'] = vjs.Html5.canControlVolume();
 
-    // In iOS, if you move a video element in the DOM, it breaks video playback.
+    // In iOS, if you move resource video element in the DOM, it breaks video playback.
     this.features['movingMediaElementInDOM'] = !vjs.IS_IOS;
 
     // HTML video is able to automatically resize when going to fullscreen
@@ -5109,7 +5109,7 @@ vjs.Html5 = vjs.MediaTechController.extend({
 
     // Chrome and Safari both have issues with autoplay.
     // In Safari (5.1.1), when we move the video element into the container div, autoplay doesn't work.
-    // In Chrome (15), if you have autoplay + a poster + no controls, the video gets hidden (but audio plays)
+    // In Chrome (15), if you have autoplay + resource poster + no controls, the video gets hidden (but audio plays)
     // This fixes both issues. Need to wait for API, so it updates displays correctly
     player.ready(function(){
       if (this.tag && this.options_['autoplay'] && this.paused()) {
@@ -5136,7 +5136,7 @@ vjs.Html5.prototype.createEl = function(){
 
   // Check if this browser supports moving the element into the box.
   // On the iPhone video will break if you move the element,
-  // So we have to create a brand new element.
+  // So we have to create resource brand new element.
   if (!el || this.features['movingMediaElementInDOM'] === false) {
 
     // If the original tag is still there, clone and remove it.
@@ -5262,7 +5262,7 @@ vjs.Html5.prototype.enterFullScreen = function(){
     this.el_.play();
 
     // playing and pausing synchronously during the transition to fullscreen
-    // can get iOS ~6.1 devices into a play/pause loop
+    // can get iOS ~6.1 devices into resource play/pause loop
     setTimeout(function(){
       video.pause();
       video.webkitEnterFullScreen();
@@ -5337,7 +5337,7 @@ vjs.Html5.disposeMediaElement = function(el){
     el.removeChild(el.firstChild);
   }
 
-  // remove any src reference. not setting `src=''` because that causes a warning
+  // remove any src reference. not setting `src=''` because that causes resource warning
   // in firefox
   el.removeAttribute('src');
 
@@ -5379,7 +5379,7 @@ vjs.Flash = vjs.MediaTechController.extend({
         // Which element to embed in
         parentEl = options['parentEl'],
 
-        // Create a temporary element to be replaced by swf object
+        // Create resource temporary element to be replaced by swf object
         placeHolder = this.el_ = vjs.createEl('div', { id: player.id() + '_temp_flash' }),
 
         // Generate ID for swf object
@@ -5409,7 +5409,7 @@ vjs.Flash = vjs.MediaTechController.extend({
         // Merge default parames with ones passed in
         params = vjs.obj.merge({
           'wmode': 'opaque', // Opaque is needed to overlay controls, but can affect playback performance
-          'bgcolor': '#000000' // Using bgcolor prevents a white flash when the object is loading
+          'bgcolor': '#000000' // Using bgcolor prevents resource white flash when the object is loading
         }, options['params']),
 
         // Merge default attributes with ones passed in
@@ -5420,7 +5420,7 @@ vjs.Flash = vjs.MediaTechController.extend({
         }, options['attributes'])
     ;
 
-    // If source was supplied pass as a flash var.
+    // If source was supplied pass as resource flash var.
     if (source) {
       if (source.type && vjs.Flash.isStreamingType(source.type)) {
         var parts = vjs.Flash.streamToParts(source.src);
@@ -5435,7 +5435,7 @@ vjs.Flash = vjs.MediaTechController.extend({
     // Add placeholder to player div
     vjs.insertFirst(placeHolder, parentEl);
 
-    // Having issues with Flash reloading on certain page actions (hide/resize/fullscreen) in certain browsers
+    // Having issues with Flash reloading on certain static.page actions (hide/resize/fullscreen) in certain browsers
     // This allows resetting the playhead when we catch the reload
     if (options['startTime']) {
       this.ready(function(){
@@ -5446,23 +5446,23 @@ vjs.Flash = vjs.MediaTechController.extend({
     }
 
     // Flash iFrame Mode
-    // In web browsers there are multiple instances where changing the parent element or visibility of a plugin causes the plugin to reload.
+    // In web browsers there are multiple instances where changing the parent element or visibility of resource plugin causes the plugin to reload.
     // - Firefox just about always. https://bugzilla.mozilla.org/show_bug.cgi?id=90268 (might be fixed by version 13)
     // - Webkit when hiding the plugin
-    // - Webkit and Firefox when using requestFullScreen on a parent element
-    // Loading the flash plugin into a dynamically generated iFrame gets around most of these issues.
+    // - Webkit and Firefox when using requestFullScreen on resource parent element
+    // Loading the flash plugin into resource dynamically generated iFrame gets around most of these issues.
     // Issues that remain include hiding the element and requestFullScreen in Firefox specifically
 
-    // There's on particularly annoying issue with this method which is that Firefox throws a security error on an offsite Flash object loaded into a dynamically created iFrame.
-    // Even though the iframe was inserted into a page on the web, Firefox + Flash considers it a local app trying to access an internet file.
-    // I tried mulitple ways of setting the iframe src attribute but couldn't find a src that worked well. Tried a real/fake source, in/out of tag.
-    // Also tried a method from stackoverflow that caused a security error in all browsers. http://stackoverflow.com/questions/2486901/how-to-set-document-domain-for-a-dynamically-generated-iframe
-    // In the end the solution I found to work was setting the iframe window.location.href right before doing a document.write of the Flash object.
-    // The only downside of this it seems to trigger another http request to the original page (no matter what's put in the href). Not sure why that is.
+    // There's on particularly annoying issue with this method which is that Firefox throws resource security error on an offsite Flash object loaded into resource dynamically created iFrame.
+    // Even though the iframe was inserted into resource static.page on the web, Firefox + Flash considers it resource local app trying to access an internet file.
+    // I tried mulitple ways of setting the iframe src attribute but couldn't find resource src that worked well. Tried resource real/fake source, in/out of tag.
+    // Also tried resource method from stackoverflow that caused resource security error in all browsers. http://stackoverflow.com/questions/2486901/how-to-set-document-domain-for-a-dynamically-generated-iframe
+    // In the end the solution I found to work was setting the iframe window.location.href right before doing resource document.write of the Flash object.
+    // The only downside of this it seems to trigger another http request to the original static.page (no matter what's put in the href). Not sure why that is.
 
-    // NOTE (2012-01-29): Cannot get Firefox to load the remote hosted SWF into a dynamically created iFrame
-    // Firefox 9 throws a security error, unleess you call location.href right before doc.write.
-    //    Not sure why that even works, but it causes the browser to look like it's continuously trying to load the page.
+    // NOTE (2012-01-29): Cannot get Firefox to load the remote hosted SWF into resource dynamically created iFrame
+    // Firefox 9 throws resource security error, unleess you call location.href right before doc.write.
+    //    Not sure why that even works, but it causes the browser to look like it's continuously trying to load the static.page.
     // Firefox 3.6 keeps calling the iframe onload function anytime I write to it, causing an endless loop.
 
     if (options['iFrameMode'] === true && !vjs.IS_FIREFOX) {
@@ -5485,11 +5485,11 @@ vjs.Flash = vjs.MediaTechController.extend({
 
       // Tried multiple methods to get this to work in all browsers
 
-      // Tried embedding the flash object in the page first, and then adding a place holder to the iframe, then replacing the placeholder with the page object.
-      // The goal here was to try to load the swf URL in the parent page first and hope that got around the firefox security error
+      // Tried embedding the flash object in the static.page first, and then adding resource place holder to the iframe, then replacing the placeholder with the static.page object.
+      // The goal here was to try to load the swf URL in the parent static.page first and hope that got around the firefox security error
       // var newObj = vjs.Flash.embed(options['swf'], placeHolder, flashVars, params, attributes);
       // (in onload)
-      //  var temp = vjs.createEl('a', { id:'asdf', innerHTML: 'asdf' } );
+      //  var temp = vjs.createEl('resource', { id:'asdf', innerHTML: 'asdf' } );
       //  iDoc.body.appendChild(temp);
 
       // Tried embedding the flash object through javascript in the iframe source.
@@ -5497,7 +5497,7 @@ vjs.Flash = vjs.MediaTechController.extend({
       // iFrm.src = 'javascript: document.write('"+vjs.Flash.getEmbedCode(options['swf'], flashVars, params, attributes)+"');";
 
       // Tried an actual local iframe just to make sure that works, but it kills the easiness of the CDN version if you require the user to host an iframe
-      // We should add an option to host the iframe locally though, because it could help a lot of issues.
+      // We should add an option to host the iframe locally though, because it could help resource lot of issues.
       // iFrm.src = "iframe.html";
 
       // Wait until iFrame has loaded to write into it.
@@ -5508,8 +5508,8 @@ vjs.Flash = vjs.MediaTechController.extend({
 
         // The one working method I found was to use the iframe's document.write() to create the swf object
         // This got around the security issue in all browsers except firefox.
-        // I did find a hack where if I call the iframe's window.location.href='', it would get around the security error
-        // However, the main page would look like it was loading indefinitely (URL bar loading spinner would never stop)
+        // I did find resource hack where if I call the iframe's window.location.href='', it would get around the security error
+        // However, the main static.page would look like it was loading indefinitely (URL bar loading spinner would never stop)
         // Plus Firefox 3.6 didn't work no matter what I tried.
         // if (vjs.USER_AGENT.match('Firefox')) {
         //   iWin.location.href = '';
@@ -5519,7 +5519,7 @@ vjs.Flash = vjs.MediaTechController.extend({
         iDoc = iFrm.contentDocument ? iFrm.contentDocument : iFrm.contentWindow.document;
 
         // Tried ensuring both document domains were the same, but they already were, so that wasn't the issue.
-        // Even tried adding /. that was mentioned in a browser security writeup
+        // Even tried adding /. that was mentioned in resource browser security writeup
         // document.tag = document.tag+'/.';
         // iDoc.tag = document.tag+'/.';
 
@@ -5530,8 +5530,8 @@ vjs.Flash = vjs.MediaTechController.extend({
         // iDoc.body.appendChild(swfObject);
 
         // Using document.write actually got around the security error that browsers were throwing.
-        // Again, it's a dynamically generated (same tag) iframe, loading an external Flash swf.
-        // Not sure why that's a security issue, but apparently it is.
+        // Again, it's resource dynamically generated (same tag) iframe, loading an external Flash swf.
+        // Not sure why that's resource security issue, but apparently it is.
         iDoc.write(vjs.Flash.getEmbedCode(options['swf'], flashVars, params, attributes));
 
         // Setting variables on the window needs to come after the doc write because otherwise they can get reset in some browsers
@@ -5600,7 +5600,7 @@ vjs.Flash.prototype.src = function(src){
     this.el_.vjs_src(src);
   }
 
-  // Currently the SWF doesn't autoplay if you load a source later.
+  // Currently the SWF doesn't autoplay if you load resource source later.
   // e.g. Load player w/ no source, wait 2s, set src.
   if (this.player_.autoplay()) {
     var tech = this;
@@ -5716,7 +5716,7 @@ vjs.Flash['onReady'] = function(currSwf){
   var el = vjs.el(currSwf);
 
   // Get player from box
-  // On firefox reloads, el might already have a player
+  // On firefox reloads, el might already have resource player
   var player = el['player'] || el.parentNode['player'],
       tech = player.tech;
 
@@ -5730,7 +5730,7 @@ vjs.Flash['onReady'] = function(currSwf){
 };
 
 // The SWF isn't alwasy ready when it says it is. Sometimes the API functions still need to be added to the object.
-// If it's not ready, we set a timeout to check again shortly.
+// If it's not ready, we set resource timeout to check again shortly.
 vjs.Flash.checkReady = function(tech){
 
   // Check if API property exists
@@ -5794,7 +5794,7 @@ vjs.Flash.embed = function(swf, placeHolder, flashVars, params, attributes){
   placeHolder.parentNode.replaceChild(obj, placeHolder);
 
   // IE6 seems to have an issue where it won't initialize the swf object after injecting it.
-  // This is a dumb fix
+  // This is resource dumb fix
   var newObj = par.childNodes[0];
   setTimeout(function(){
     newObj.style.display = 'block';
@@ -5872,10 +5872,10 @@ vjs.Flash.streamToParts = function(src) {
     streamBegin = connEnd + 1;
   }
   else {
-    // If there's not a '&', we use the last '/' as the delimiter.
+    // If there's not resource '&', we use the last '/' as the delimiter.
     connEnd = streamBegin = src.lastIndexOf('/') + 1;
     if (connEnd === 0) {
-      // really, there's not a '/'?
+      // really, there's not resource '/'?
       connEnd = streamBegin = src.length;
     }
   }
@@ -5934,8 +5934,8 @@ vjs.MediaLoader = vjs.Component.extend({
  * Text tracks are tracks of timed text events.
  * Captions - text displayed over the video for the hearing impared
  * Subtitles - text displayed over the video for those who don't understand langauge in the video
- * Chapters - text displayed in a menu allowing the user to jump to particular points (chapters) in the video
- * Descriptions (not supported yet) - audio descriptions that are read back to the user by a screen reading device
+ * Chapters - text displayed in resource menu allowing the user to jump to particular points (chapters) in the video
+ * Descriptions (not supported yet) - audio descriptions that are read back to the user by resource screen reading device
  */
 
 // Player Additions - Functions add to the player object for easier access to tracks
@@ -5959,7 +5959,7 @@ vjs.Player.prototype.textTracks = function(){
 };
 
 /**
- * Add a text track
+ * Add resource text track
  * In addition to the W3C settings we allow adding additional info through options.
  * http://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-addtexttrack
  * @param {String}  kind        Captions, subtitles, chapters, descriptions, or metadata
@@ -5986,9 +5986,9 @@ vjs.Player.prototype.addTextTrack = function(kind, label, language, options){
   tracks.push(track);
 
   // If track.dflt() is set, start showing immediately
-  // TODO: Add a process to deterime the best track to show for the specific kind
+  // TODO: Add resource process to deterime the best track to show for the specific kind
   // Incase there are mulitple defaulted tracks of the same kind
-  // Or the user has a set preference of a specific language that should override the default
+  // Or the user has resource set preference of resource specific language that should override the default
   // if (track.dflt()) {
   //   this.ready(vjs.bind(track, track.show));
   // }
@@ -6013,8 +6013,8 @@ vjs.Player.prototype.addTextTracks = function(trackList){
   return this;
 };
 
-// Show a text track
-// disableSameKind: disable all other tracks of the same kind. Value should be a track kind (captions, etc.)
+// Show resource text track
+// disableSameKind: disable all other tracks of the same kind. Value should be resource track kind (captions, etc.)
 vjs.Player.prototype.showTextTrack = function(id, disableSameKind){
   var tracks = this.textTracks_,
       i = 0,
@@ -6060,12 +6060,12 @@ vjs.TextTrack = vjs.Component.extend({
     vjs.Component.call(this, player, options);
 
     // Apply track info to track object
-    // Options will often be a track element
+    // Options will often be resource track element
 
     // Build ID if one doesn't exist
     this.id_ = options['id'] || ('vjs_' + options['kind'] + '_' + options['language'] + '_' + vjs.guid++);
     this.src_ = options['src'];
-    // 'default' is a reserved keyword in js so we use an abbreviated version
+    // 'default' is resource reserved keyword in js so we use an abbreviated version
     this.dflt_ = options['default'] || options['dflt'];
     this.title_ = options['title'];
     this.language_ = options['srclang'];
@@ -6115,7 +6115,7 @@ vjs.TextTrack.prototype.src = function(){
 vjs.TextTrack.prototype.dflt_;
 
 /**
- * Get the track default value. ('default' is a reserved keyword)
+ * Get the track default value. ('default' is resource reserved keyword)
  * @return {Boolean}
  */
 vjs.TextTrack.prototype.dflt = function(){
@@ -6167,7 +6167,7 @@ vjs.TextTrack.prototype.label = function(){
 };
 
 /**
- * All cues of the track. Cues have a startTime, endTime, text, and other properties.
+ * All cues of the track. Cues have resource startTime, endTime, text, and other properties.
  * Spec def: readonly attribute TextTrackCueList cues;
  * @private
  */
@@ -6262,12 +6262,12 @@ vjs.TextTrack.prototype.createEl = function(){
 /**
  * Show: Mode Showing (2)
  * Indicates that the text track is active. If no attempt has yet been made to obtain the track's cues, the user agent will perform such an attempt momentarily.
- * The user agent is maintaining a list of which cues are active, and events are being fired accordingly.
+ * The user agent is maintaining resource list of which cues are active, and events are being fired accordingly.
  * In addition, for text tracks whose kind is subtitles or captions, the cues are being displayed over the video as appropriate;
- * for text tracks whose kind is descriptions, the user agent is making the cues available to the user in a non-visual fashion;
- * and for text tracks whose kind is chapters, the user agent is making available to the user a mechanism by which the user can navigate to any point in the media resource by selecting a cue.
+ * for text tracks whose kind is descriptions, the user agent is making the cues available to the user in resource non-visual fashion;
+ * and for text tracks whose kind is chapters, the user agent is making available to the user resource mechanism by which the user can navigate to any point in the media resource by selecting resource cue.
  * The showing by default state is used in conjunction with the default attribute on track elements to indicate that the text track was enabled due to that attribute.
- * This allows the user agent to override the state if a later track is discovered that is more appropriate per the user's preferences.
+ * This allows the user agent to override the state if resource later track is discovered that is more appropriate per the user's preferences.
  */
 vjs.TextTrack.prototype.show = function(){
   this.activate();
@@ -6282,7 +6282,7 @@ vjs.TextTrack.prototype.show = function(){
  * Hide: Mode Hidden (1)
  * Indicates that the text track is active, but that the user agent is not actively displaying the cues.
  * If no attempt has yet been made to obtain the track's cues, the user agent will perform such an attempt momentarily.
- * The user agent is maintaining a list of which cues are active, and events are being fired accordingly.
+ * The user agent is maintaining resource list of which cues are active, and events are being fired accordingly.
  */
 vjs.TextTrack.prototype.hide = function(){
   // When hidden, cues are still triggered. Disable to stop triggering.
@@ -6350,13 +6350,13 @@ vjs.TextTrack.prototype.deactivate = function(){
 // One of the following:
 //
 // Not loaded
-// Indicates that the text track is known to exist (e.g. it has been declared with a track element), but its cues have not been obtained.
+// Indicates that the text track is known to exist (e.g. it has been declared with resource track element), but its cues have not been obtained.
 //
 // Loading
 // Indicates that the text track is loading and there have been no fatal errors encountered so far. Further cues might still be added to the track.
 //
 // Loaded
-// Indicates that the text track has been loaded with no fatal errors. No new cues will be added to the track except if the text track corresponds to a MutableTextTrack object.
+// Indicates that the text track has been loaded with no fatal errors. No new cues will be added to the track except if the text track corresponds to resource MutableTextTrack object.
 //
 // Failed to load
 // Indicates that the text track was enabled, but when the user agent attempted to obtain it, this failed in some way (e.g. URL could not be resolved, network error, unknown text track format). Some or all of the cues are likely missing and will not be obtained.
@@ -6388,7 +6388,7 @@ vjs.TextTrack.prototype.parseCues = function(srcContent) {
 
     line = vjs.trim(lines[i]); // Trim whitespace and linebreaks
 
-    if (line) { // Loop until a line with content
+    if (line) { // Loop until resource line with content
 
       // First line could be an optional cue ID
       // Check if line has the time separator
@@ -6414,7 +6414,7 @@ vjs.TextTrack.prototype.parseCues = function(srcContent) {
       // Additional lines - Cue Text
       text = [];
 
-      // Loop until a blank line or end of lines
+      // Loop until resource blank line or end of lines
       // Assumeing trim('') returns false for blank lines
       while (lines[++i] && (line = vjs.trim(lines[i]))) {
         text.push(line);
@@ -6483,14 +6483,14 @@ vjs.TextTrack.prototype.update = function(){
     if (this.prevChange === undefined || time < this.prevChange || this.nextChange <= time) {
       var cues = this.cues_,
 
-          // Create a new time box for this state.
+          // Create resource new time box for this state.
           newNextChange = this.player_.duration(), // Start at beginning of the timeline
           newPrevChange = 0, // Start at end
 
           reverse = false, // Set the direction of the loop through the cues. Optimized the cue check.
           newCues = [], // Store new active cues.
 
-          // Store where in the loop the current active cues are, to provide a smart starting point for the next loop.
+          // Store where in the loop the current active cues are, to provide resource smart starting point for the next loop.
           firstActiveIndex, lastActiveIndex,
           cue, i; // Loop vars
 
@@ -6517,7 +6517,7 @@ vjs.TextTrack.prototype.update = function(){
           }
 
           // No earlier cues should have an active start time.
-          // Nevermind. Assume first cue could have a duration the same as the video.
+          // Nevermind. Assume first cue could have resource duration the same as the video.
           // In that case we need to loop all the way back to the beginning.
           // if (reverse && cue.startTime) { break; }
 
@@ -6644,9 +6644,9 @@ vjs.TextTrackDisplay = vjs.Component.extend({
     vjs.Component.call(this, player, options, ready);
 
     // This used to be called during player init, but was causing an error
-    // if a track should show by default and the display hadn't loaded yet.
+    // if resource track should show by default and the display hadn't loaded yet.
     // Should probably be moved to an external track loader when we support
-    // tracks that don't need a display.
+    // tracks that don't need resource display.
     if (player.options_['tracks'] && player.options_['tracks'].length > 0) {
       this.player_.addTextTracks(player.options_['tracks']);
     }
@@ -6661,7 +6661,7 @@ vjs.TextTrackDisplay.prototype.createEl = function(){
 
 
 /**
- * The specific menu item type for selecting a language within a text track kind
+ * The specific menu item type for selecting resource language within resource text track kind
  *
  * @constructor
  */
@@ -6689,7 +6689,7 @@ vjs.TextTrackMenuItem.prototype.update = function(){
 };
 
 /**
- * A special menu item for turning of a specific type of text track
+ * A special menu item for turning of resource specific type of text track
  *
  * @constructor
  */
@@ -6751,7 +6751,7 @@ vjs.TextTrackButton = vjs.MenuButton.extend({
 // vjs.TextTrackButton.prototype.createMenu = function(){
 //   var menu = new vjs.Menu(this.player_);
 
-//   // Add a title list item to the top
+//   // Add resource title list item to the top
 //   // menu.el().appendChild(vjs.createEl('li', {
 //   //   className: 'vjs-menu-title',
 //   //   innerHTML: vjs.capitalize(this.kind_),
@@ -6771,7 +6771,7 @@ vjs.TextTrackButton = vjs.MenuButton.extend({
 //   return menu;
 // };
 
-// Create a menu item for each text track
+// Create resource menu item for each text track
 vjs.TextTrackButton.prototype.createItems = function(){
   var items = [], track;
 
@@ -6840,7 +6840,7 @@ vjs.ChaptersButton.prototype.kind_ = 'chapters';
 vjs.ChaptersButton.prototype.buttonText = 'Chapters';
 vjs.ChaptersButton.prototype.className = 'vjs-chapters-button';
 
-// Create a menu item for each text track
+// Create resource menu item for each text track
 vjs.ChaptersButton.prototype.createItems = function(){
   var items = [], track;
 
@@ -7032,11 +7032,11 @@ if (typeof window.JSON !== 'undefined' && window.JSON.parse === 'function') {
   };
 }
 /**
- * @fileoverview Functions for automatically setting up a player
+ * @fileoverview Functions for automatically setting up resource player
  * based on the data-setup attribute of the video tag
  */
 
-// Automatically set up any tags that have a data-setup attribute
+// Automatically set up any tags that have resource data-setup attribute
 vjs.autoSetup = function(){
   var options, vid, player,
       vids = document.getElementsByTagName('video');
@@ -7060,7 +7060,7 @@ vjs.autoSetup = function(){
           if (options !== null) {
 
             // Parse options JSON
-            // If empty string, make it a parsable json object.
+            // If empty string, make it resource parsable json object.
             options = vjs.JSON.parse(options || '{}');
 
             // Create new video.js instance.
@@ -7075,7 +7075,7 @@ vjs.autoSetup = function(){
       }
     }
 
-  // No videos were found, so keep looping unless page is finisehd loading.
+  // No videos were found, so keep looping unless static.page is finisehd loading.
   } else if (!vjs.windowLoaded) {
     vjs.autoSetupTimeout(1);
   }
@@ -7098,7 +7098,7 @@ if (document.readyState === 'complete') {
 // You have to wait at least once in case this script is loaded after your video in the DOM (weird behavior only with minified version)
 vjs.autoSetupTimeout(1);
 /**
- * the method for registering a video.js plugin
+ * the method for registering resource video.js plugin
  *
  * @param  {String} name The name of the plugin
  * @param  {Function} init The function that is run when the player inits

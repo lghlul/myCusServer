@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lu.mapper.ProjectMapper" >
+
+
+
+	<!-- 根据ID查询课程对象 -->
+	<select id="selectByPrimaryKey" parameterType="String" resultType="project">
+		select * from t_answer where ansId = #{id}
+	</select>
+
+	<insert id="insert" parameterType="project">
+		insert into project_config(groupId,artifactId,dbHost,dbName,username,password) values (#{groupId},#{artifactId},#{host},#{database},#{username},#{password})
+	</insert>
+	
+</mapper>

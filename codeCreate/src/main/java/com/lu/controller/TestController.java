@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @CLassName TestController
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Author ll
  * @Date 2018/8/20 11:14
  **/
-@Controller
+@RestController
 public class TestController {
 
     @Autowired

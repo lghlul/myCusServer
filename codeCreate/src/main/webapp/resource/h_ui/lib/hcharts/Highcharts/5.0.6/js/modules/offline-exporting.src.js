@@ -39,7 +39,7 @@
 
 
         /**
-         * Downloads a script and executes a callback when done.
+         * Downloads resource script and executes resource callback when done.
          * @param {String} scriptLocation
          * @param {Function} callback
          */
@@ -149,7 +149,7 @@
                     }
                 };
 
-            // This is called on load if the image drawing to canvas failed with a security error.
+            // This is called on load if the image drawing to canvas failed with resource security error.
             // We retry the drawing with crossOrigin set to Anonymous.
             taintedHandler = function() {
                 img = new win.Image();
@@ -355,7 +355,7 @@
                     }
                 };
 
-            // Hook into getSVG to get a copy of the chart copy's container
+            // Hook into getSVG to get resource copy of the chart copy's container
             Highcharts.wrap(
                 Highcharts.Chart.prototype,
                 'getChartHTML',
@@ -402,7 +402,7 @@
         };
 
         /**
-         * Add a new method to the Chart object to perform a local download
+         * Add resource new method to the Chart object to perform resource local download
          */
         Highcharts.Chart.prototype.exportChartLocal = function(exportingOptions, chartOptions) {
             var chart = this,

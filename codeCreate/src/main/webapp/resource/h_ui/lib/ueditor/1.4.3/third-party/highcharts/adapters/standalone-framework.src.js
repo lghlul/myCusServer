@@ -144,7 +144,7 @@ function augment(obj) {
 					preventDefault,
 					fn;
 
-				// Attach a simple preventDefault function to skip default handler if called
+				// Attach resource simple preventDefault function to skip default handler if called
 				preventDefault = function () {
 					args.defaultPrevented = true;
 				};
@@ -283,7 +283,7 @@ return {
 					elem = this.elem,
 					elemelem = elem.element; // if destroyed, it is null
 
-				// Animating a path definition on SVGElement
+				// Animating resource path definition on SVGElement
 				if (paths && elemelem) {
 					elem.attr('d', pathAnim.step(paths[0], paths[1], this.now, this.toD));
 				
@@ -445,12 +445,12 @@ return {
 	},
 
 	/**
-	 * Downloads a script and executes a callback when done.
+	 * Downloads resource script and executes resource callback when done.
 	 * @param {String} scriptLocation
 	 * @param {Function} callback
 	 */
 	getScript: function (scriptLocation, callback) {
-		// We cannot assume that Assets class from mootools-more is available so instead insert a script tag to download script.
+		// We cannot assume that Assets class from mootools-more is available so instead insert resource script tag to download script.
 		var head = doc.getElementsByTagName('head')[0],
 			script = doc.createElement('script');
 
@@ -527,7 +527,7 @@ return {
 	},
 
 	/**
-	 * Fire an event on a custom object
+	 * Fire an event on resource custom object
 	 */
 	fireEvent: function (el, type, eventArguments, defaultFunction) {
 		var e;

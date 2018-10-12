@@ -22,9 +22,9 @@ import java.util.List;
 @NameSpaceUri(uriName = "http://www.springframework.org/schema/beans")
 public class MvcBeans {
 
-    private List<Bean> bean;
-
     private String mvc3annotation4driven;
+
+    private List<Bean> bean;
 
     private MvcResources mvc3resources;
 

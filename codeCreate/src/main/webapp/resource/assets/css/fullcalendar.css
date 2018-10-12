@@ -551,7 +551,7 @@ table.fc-border-separate {
 	z-index: 2;
 	}
 	
-.fc-event-vert .fc-event-bg { /* makes the event lighter w/ a semi-transparent overlay  */
+.fc-event-vert .fc-event-bg { /* makes the event lighter w/ resource semi-transparent overlay  */
 	position: absolute;
 	z-index: 1;
 	top: 0;

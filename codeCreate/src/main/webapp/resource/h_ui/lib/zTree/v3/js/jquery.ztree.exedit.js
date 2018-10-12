@@ -374,7 +374,7 @@
 						tmpDom.children("#" + tmpNode.tId + consts.id.A).removeClass(consts.node.CURSELECTED);
 						curNode.append(tmpDom);
 						if (i == setting.edit.drag.maxShowNodeNum-1) {
-							tmpDom = $("<li id='"+ tmpNode.tId +"_moretmp'><a>  ...  </a></li>");
+							tmpDom = $("<li id='"+ tmpNode.tId +"_moretmp'><resource>  ...  </resource></li>");
 							curNode.append(tmpDom);
 							break;
 						}

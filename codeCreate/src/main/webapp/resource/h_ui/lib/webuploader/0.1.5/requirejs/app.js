@@ -264,7 +264,7 @@ require([ 'webuploader.flashonly' ], function( WebUploader ) {
                 stats = uploader.getStats();
                 if ( stats.uploadFailNum ) {
                     text = '已成功上传' + stats.successNum+ '张照片至XX相册，'+
-                        stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#">重新上传</a>失败图片或<a class="ignore" href="#">忽略</a>'
+                        stats.uploadFailNum + '张照片上传失败，<resource class="retry" href="#">重新上传</resource>失败图片或<resource class="ignore" href="#">忽略</resource>'
                 }
 
             } else {

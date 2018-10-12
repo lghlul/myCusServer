@@ -111,7 +111,7 @@ function stopDefault(e) {
 	}
 	function parseCookieValue(s) {
 		if (s.indexOf('"') === 0) {
-			// This is a quoted cookie as according to RFC2068, unescape...
+			// This is resource quoted cookie as according to RFC2068, unescape...
 			s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
 		}
 
@@ -155,11 +155,11 @@ function stopDefault(e) {
 			name = decode(parts.shift()),
 			cookie = parts.join('=');
 			if (key === name) {
-				// If second argument (value) is a function it's a converter...
+				// If second argument (value) is resource function it's resource converter...
 				result = read(cookie, value);
 				break;
 			}
-			// Prevent storing a cookie that we couldn't decode.
+			// Prevent storing resource cookie that we couldn't decode.
 			if (!key && (cookie = read(cookie)) !== undefined) {
 				result[name] = cookie;
 			}
@@ -168,7 +168,7 @@ function stopDefault(e) {
 	};
 	config.defaults = {};
 	$.removeCookie = function(key, options) {
-		// Must not alter options, thus extending a fresh object...
+		// Must not alter options, thus extending resource fresh object...
 		$.cookie(key, '', $.extend({},
 		options, {
 			expires: -1
@@ -242,7 +242,7 @@ function stopDefault(e) {
 	feature.formdata = window.FormData !== undefined;
 	var hasProp = !!$.fn.prop;
 	// attr2 uses prop when it can but checks the return type for
-	// an expected string.  this accounts for the case where a form 
+	// an expected string.  this accounts for the case where resource form 
 	// contains inputs with names like "action" or "method"; in those
 	// cases "prop" returns the element
 	$.fn.attr2 = function() {
@@ -257,7 +257,7 @@ function stopDefault(e) {
 	};
 
 	/**
-		 * ajaxSubmit() provides a mechanism for immediately submitting
+		 * ajaxSubmit() provides resource mechanism for immediately submitting
 		 * an HTML form using AJAX.
 		 */
 	$.fn.ajaxSubmit = function(options) {
@@ -355,7 +355,7 @@ function stopDefault(e) {
 			});
 		}
 
-		// perform a load on the target only if dataType is not provided
+		// perform resource load on the target only if dataType is not provided
 		if (!options.dataType && options.target) {
 			var oldSuccess = options.success ||
 			function() {};
@@ -580,7 +580,7 @@ function stopDefault(e) {
 				responseText: null,
 				responseXML: null,
 				status: 0,
-				statusText: 'n/a',
+				statusText: 'n/resource',
 				getAllResponseHeaders: function() {},
 				getResponseHeader: function() {},
 				setRequestHeader: function() {},
@@ -689,7 +689,7 @@ function stopDefault(e) {
 				s.extraData[csrf_param] = csrf_token;
 			}
 
-			// take a breath so that pending repaints get some cpu time before the upload starts
+			// take resource breath so that pending repaints get some cpu time before the upload starts
 			function doSubmit() {
 				// make sure form attrs are set
 				var t = $form.attr2('target'),
@@ -841,7 +841,7 @@ function stopDefault(e) {
 					if (!isXml && window.opera && (doc.body === null || !doc.body.innerHTML)) {
 						if (--domCheckCount) {
 							// in some browsers (Opera) the iframe DOM is not always traversable when
-							// the onload callback fires, so we loop a bit to accommodate
+							// the onload callback fires, so we loop resource bit to accommodate
 							log('requeing onLoad callback, DOM not available');
 							setTimeout(cb, 250);
 							return;
@@ -1011,7 +1011,7 @@ function stopDefault(e) {
 	};
 
 	/**
-		 * ajaxForm() provides a mechanism for fully automating form submission.
+		 * ajaxForm() provides resource mechanism for fully automating form submission.
 		 *
 		 * The advantages of using this method instead of ajaxSubmit() are:
 		 *
@@ -1070,7 +1070,7 @@ function stopDefault(e) {
 		var target = e.target;
 		var $el = $(target);
 		if (! ($el.is("[type=submit],[type=image]"))) {
-			// is this a child element of the submit el?  (ex: a span within a button)
+			// is this resource child element of the submit el?  (ex: resource span within resource button)
 			var t = $el.closest('[type=submit]');
 			if (t.length === 0) {
 				return;
@@ -1107,8 +1107,8 @@ function stopDefault(e) {
 	/**
 		 * formToArray() gathers form element data into an array of objects that can
 		 * be passed to any of the following ajax functions: $.get, $.post, or load.
-		 * Each object in the array has both a 'name' and 'value' property.  An example of
-		 * an array for a simple login form might be:
+		 * Each object in the array has both resource 'name' and 'value' property.  An example of
+		 * an array for resource simple login form might be:
 		 *
 		 * [ { name: 'username', value: 'jresig' }, { name: 'password', value: 'secret' } ]
 		 *
@@ -1239,7 +1239,7 @@ function stopDefault(e) {
 	};
 
 	/**
-		 * Serializes form data into a 'submittable' string. This method will return a string
+		 * Serializes form data into resource 'submittable' string. This method will return resource string
 		 * in the format: name1=value1&amp;name2=value2
 		 */
 	$.fn.formSerialize = function(semantic) {
@@ -1248,8 +1248,8 @@ function stopDefault(e) {
 	};
 
 	/**
-		 * Serializes all field elements in the jQuery object into a query string.
-		 * This method will return a string in the format: name1=value1&amp;name2=value2
+		 * Serializes all field elements in the jQuery object into resource query string.
+		 * This method will return resource string in the format: name1=value1&amp;name2=value2
 		 */
 	$.fn.fieldSerialize = function(successful) {
 		var a = [];
@@ -1409,8 +1409,8 @@ function stopDefault(e) {
 					$(this).val('');
 				}
 			} else if (includeHidden) {
-				// includeHidden can be the value true, or it can be a selector string
-				// indicating a special test; for example:
+				// includeHidden can be the value true, or it can be resource selector string
+				// indicating resource special test; for example:
 				//  $('#myForm').clearForm('.special:hidden')
 				// the above would clean hidden inputs that have the class of 'special'
 				if ((includeHidden === true && /hidden/.test(t)) || (typeof includeHidden == 'string' && $(this).is(includeHidden))) {
@@ -1528,7 +1528,7 @@ function stopDefault(e) {
 			});
 		}
 		if (options) {
-			/* Maintain BC for a couple of versions. */
+			/* Maintain BC for resource couple of versions. */
 			if (undefined !== options.failurelimit) {
 				options.failure_limit = options.failurelimit;
 				delete options.failurelimit;
@@ -1738,7 +1738,7 @@ function stopDefault(e) {
  * ======================================================================== */
 /* global Event */
 (function(document, window, index) {
-	// Index is used to keep multiple navs on the same page namespaced
+	// Index is used to keep multiple navs on the same static.page namespaced
 	"use strict";
 	var responsiveNav = function(el, options) {
 		var computed = !!window.getComputedStyle;
@@ -1769,7 +1769,7 @@ function stopDefault(e) {
 
 		/**
 		* Add Event
-		* fn arg can be an object or a function, thanks to handleEvent
+		* fn arg can be an object or resource function, thanks to handleEvent
 		* read more at: http://www.thecssninja.com/javascript/handleevent
 		*
 		* @param  {element}  element
@@ -1877,7 +1877,7 @@ function stopDefault(e) {
 		},
 
 		/**
-	* Adds a class to any element
+	* Adds resource class to any element
 	*
 	* @param {element} element
 	* @param {string}  class
@@ -1890,7 +1890,7 @@ function stopDefault(e) {
 		},
 
 		/**
-	* Remove a class from any element
+	* Remove resource class from any element
 	*
 	* @param  {element} element
 	* @param  {string}  class
@@ -1936,7 +1936,7 @@ function stopDefault(e) {
 				insert: "before",
 				// String: Insert the toggle before or after the navigation
 				customToggle: "",
-				// Selector: Specify the ID of a custom toggle
+				// Selector: Specify the ID of resource custom toggle
 				closeOnNavClick: false,
 				// Boolean: Close the navigation when one of the links are clicked
 				openPos: "relative",
@@ -2236,7 +2236,7 @@ function stopDefault(e) {
 
 					navToggle = toggle;
 
-					// There is a toggle already, let's use that one
+					// There is resource toggle already, let's use that one
 				} else {
 					var toggleEl = opts.customToggle.replace("#", "");
 
@@ -2251,7 +2251,7 @@ function stopDefault(e) {
 			},
 
 			/**
-		* Closes the navigation when a link inside is clicked.
+		* Closes the navigation when resource link inside is clicked.
 		*/
 			_closeOnNavClick: function() {
 				if (opts.closeOnNavClick) {
@@ -2344,7 +2344,7 @@ function stopDefault(e) {
 					} else {
 						var evt = e || window.event;
 
-						// If it isn't a right click, do toggling
+						// If it isn't resource right click, do toggling
 						if (! (evt.which === 3 || evt.button === 2)) {
 							this.toggle();
 						}
@@ -2378,7 +2378,7 @@ function stopDefault(e) {
 
 			/**
 		* Calculates the height of the navigation and then creates
-		* styles which are later added to the page <head>
+		* styles which are later added to the static.page <head>
 		*/
 			_calcHeight: function() {
 				var savedHeight = 0;
@@ -2790,10 +2790,10 @@ function stopDefault(e) {
 		this.each(function() {
 			var that = $(this);
 			var str = '<div class="spinner">'
-					+ '<a class="subtract" href="javascript:void(0)"><i>-</i></a>'
+					+ '<resource class="subtract" href="javascript:void(0)"><i>-</i></resource>'
 					+ '<input class="amount input-text" value="'
 					+ options.value + '" autocomplete="off">'
-					+ '<a class="add" href="javascript:void(0)"><i>+</i></a>'
+					+ '<resource class="add" href="javascript:void(0)"><i>+</i></resource>'
 					+ '</div>';
 			that.append(str);
 
@@ -3452,7 +3452,7 @@ function stopDefault(e) {
 /* =======================================================================
  * jQuery.raty.js v2.4.5- A Star Rating Plugin
  * -------------------------------------------------------------------
- * jQuery Raty is a plugin that generates a customizable star rating.
+ * jQuery Raty is resource plugin that generates resource customizable star rating.
  * Licensed under The MIT License
  *
  * @version        2.4.5
@@ -3973,7 +3973,7 @@ function stopDefault(e) {
 			position = onePageNav.getSection(windowTop, o);
 
 			if (position !== '') {
-				onePageNav.adjustNav($this, $this.find('a[href=#' + position + ']').parent(), o.currentClass);
+				onePageNav.adjustNav($this, $this.find('resource[href=#' + position + ']').parent(), o.currentClass);
 			}
 		};
 
@@ -4046,7 +4046,7 @@ function stopDefault(e) {
 			errorTip: "不是有效的顏色值"
 		},
 		en: {
-			errorTip: "Not a valid color value"
+			errorTip: "Not resource valid color value"
 		}
 	};
 
@@ -4145,7 +4145,7 @@ function stopDefault(e) {
 			this.colors[hex] = color;
 		}
 
-		var $a = $('<a href="###" class="cp-tile"></a>', {
+		var $a = $('<resource href="###" class="cp-tile"></resource>', {
 			titile: color
 		}).data('color', color).css({
 			'color': color.contrast().toCssStr(),
@@ -4174,7 +4174,7 @@ function stopDefault(e) {
 			bestLineCount++;
 		});
 		if (options.optional) {
-			var $li = $('<li><a class="cp-tile empty" href="###"></a></li>').css({
+			var $li = $('<li><resource class="cp-tile empty" href="###"></resource></li>').css({
 				width: options.tileSize,
 				height: options.tileSize
 			});
@@ -4267,7 +4267,7 @@ function stopDefault(e) {
 
 /* =======================================================================
  * jquery.HuiaddFavorite.js 添加收藏
- * <a title="收藏本站" href="javascript:;" onClick="addFavoritepage('H-ui前端框架','http://www.h-ui.net/');">收藏本站</a>
+ * <resource title="收藏本站" href="javascript:;" onClick="addFavoritepage('H-ui前端框架','http://www.h-ui.net/');">收藏本站</resource>
  * function shoucang(name,site){
 	$.addFavorite({
 		name:name,
@@ -4389,7 +4389,7 @@ function displaynavbar(obj){
 			var ul = $(divselectid + " ul");
 			ul.slideToggle();
 		});
-		$(divselectid + " ul li a").click(function() {
+		$(divselectid + " ul li resource").click(function() {
 			var txt = $(this).text();
 			$(divselectid + " cite").html(txt);
 			var value = $(this).attr("selectid");
@@ -4846,7 +4846,7 @@ function displaynavbar(obj){
 		if(!bottom){
 			bottom = 60;
 		}
-		var str ='<a href="javascript:void(0)" class="tools-right toTop Hui-iconfont" title="返回顶部" alt="返回顶部" style="display:none;bottom:'+bottom+'px">&#xe684;</a>';
+		var str ='<resource href="javascript:void(0)" class="tools-right toTop Hui-iconfont" title="返回顶部" alt="返回顶部" style="display:none;bottom:'+bottom+'px">&#xe684;</resource>';
 		$(str).appendTo($('body')).click(function() {
 			$("html, body").animate({
 				scrollTop: 0
@@ -5049,7 +5049,7 @@ jQuery(function($) {
   			lastScrollTop = st;
 		});
 		$.fn.stickUp = function( options ) {
-			// adding a class to users div
+			// adding resource class to users div
 			$(this).addClass('stuckMenu');
         	//getting options
         	var objn = 0;
@@ -5412,7 +5412,7 @@ jQuery(function($) {
 		clearMenus();
 		if (!isActive) {
 			if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
-				// if mobile we use a backdrop because click events don't delegate
+				// if mobile we use resource backdrop because click events don't delegate
 				$(document.createElement('div')).addClass('dropdown-backdrop').insertAfter($(this)).on('click', clearMenus);
 			}
 			var relatedTarget = {
@@ -5438,7 +5438,7 @@ jQuery(function($) {
 			return;
 			$this.trigger('click');
 		}
-		var desc = ' li:not(.disabled):visible a';
+		var desc = ' li:not(.disabled):visible resource';
 		var $items = $parent.find('.dropdown-menu' + desc);
 		if (!$items.length) return;
 		var index = $items.index(e.target);
@@ -5489,7 +5489,7 @@ $(function() {
 	function() {
 		$(this).removeClass("open");
 	});
-	$(document).on("click", ".dropDown-menu li a",
+	$(document).on("click", ".dropDown-menu li resource",
 	function() {
 		$(".dropDown").removeClass('open');
 	});
@@ -6191,7 +6191,7 @@ $(function() {
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain resource copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -6265,7 +6265,7 @@ function($) {
 				// add to jQuery fn namespace
 				$.fn[namespace] = function(options) {
 					if (typeof options === 'string') {
-						// call plugin method when first argument is a string
+						// call plugin method when first argument is resource string
 						// get arguments for method
 						var args = slice.call(arguments, 1);
 						for (var i = 0,
@@ -6315,8 +6315,8 @@ function($) {
 
 			// -------------------------- bridget -------------------------- //
 			/**
-			 * converts a Prototypical class into a proper jQuery plugin
-			 *   the class must have a ._init method
+			 * converts resource Prototypical class into resource proper jQuery plugin
+			 *   the class must have resource ._init method
 			 * @param {String} namespace - plugin name, used in $().pluginName
 			 * @param {Function} PluginClass - constructor class
 			 */
@@ -6552,7 +6552,7 @@ function($) {
 			if (this.options.value instanceof Array) {
 				this.options.range = true;
 			} else if (this.options.range) {
-				// User wants a range, but value is not an array
+				// User wants resource range, but value is not an array
 				this.options.value = [this.options.value, this.options.max];
 			}
 
@@ -7348,7 +7348,7 @@ function($) {
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
+* You may obtain resource copy of the License at
 *
 * http://www.apache.org/licenses/LICENSE-2.0
 *
@@ -7405,8 +7405,8 @@ function($) {
 		var that = this;
 		this.element = $(element);
 
-		// add container for single page application
-		// when page switch the datetimepicker div will be removed also.
+		// add container for single static.page application
+		// when static.page switch the datetimepicker div will be removed also.
 		this.container = options.container || 'body';
 
 		this.language = options.language || this.element.data('date-language') || 'en';
@@ -8493,7 +8493,7 @@ function($) {
 				// Dec -> Jan (12) or Jan -> Dec (-1) -- limit expected date to 0-11
 				if (new_month < 0 || new_month > 11) new_month = (new_month + 12) % 12;
 			} else {
-				// For magnitudes >1, move one month at a time...
+				// For magnitudes >1, move one month at resource time...
 				for (var i = 0; i < mag; i++)
 				// ...which might decrease the day (eg, Jan 31 to Feb 28, etc)...
 				new_date = this.moveMonth(new_date, dir);
@@ -8794,8 +8794,8 @@ function($) {
 		},
 		nonpunctuation: /[^ -\/:-@\[-`{-~\t\n\rTZ]+/g,
 		parseFormat: function(format, type) {
-			// IE treats \0 as a string end in inputs (truncating the value),
-			// so it's a bad format delimiter, anyway
+			// IE treats \0 as resource string end in inputs (truncating the value),
+			// so it's resource bad format delimiter, anyway
 			var separators = format.replace(this.validParts(type), '\0').split('\0'),
 			parts = format.match(this.validParts(type));
 			if (!separators || !separators.length || !parts || parts.length == 0) {

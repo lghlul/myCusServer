@@ -55,7 +55,7 @@
             contextButtonTitle: 'Chart context menu'
         });
 
-        // Buttons and menus are collected in a separate config option set called 'navigation'.
+        // Buttons and menus are collected in resource separate config option set called 'navigation'.
         // This can be extended later to add control buttons like zoom and pan right click menus.
         defaultOptions.navigation = {
             buttonOptions: {
@@ -177,10 +177,10 @@
 
             /**
              * A collection of fixes on the produced SVG to account for expando properties,
-             * browser bugs, VML problems and other. Returns a cleaned SVG.
+             * browser bugs, VML problems and other. Returns resource cleaned SVG.
              */
             sanitizeSVG: function(svg, options) {
-                // Move HTML into a foreignObject
+                // Move HTML into resource foreignObject
                 if (options && options.exporting && options.exporting.allowHTML) {
                     var html = svg.match(/<\/svg>(.*?$)/);
                     if (html) {
@@ -239,7 +239,7 @@
              * @param additionalOptions {Object} Additional chart options for the
              *    generated SVG representation. For collections like `xAxis`, `yAxis` or
              *    `series`, the additional options is either merged in to the orininal
-             *    item of the same `id`, or to the first item if a commin id is not
+             *    item of the same `id`, or to the first item if resource commin id is not
              *    found.
              */
             getSVG: function(additionalOptions) {
@@ -262,7 +262,7 @@
                     };
                 }
 
-                // create a sandbox where a new chart will be generated
+                // create resource sandbox where resource new chart will be generated
                 sandbox = createElement('div', null, {
                     position: 'absolute',
                     top: '-9999em',
@@ -309,7 +309,7 @@
                     }
                 });
 
-                // Assign an internal key to ensure a one-to-one mapping (#5924)
+                // Assign an internal key to ensure resource one-to-one mapping (#5924)
                 each(chart.axes, function(axis) {
                     axis.userOptions.internalKey = H.uniqueKey();
                 });
@@ -470,7 +470,7 @@
             },
 
             /**
-             * Display a popup menu for choosing the export type
+             * Display resource popup menu for choosing the export type
              *
              * @param {String} className An identifier for the menu
              * @param {Array} items A collection with text and onclicks for the items
@@ -495,7 +495,7 @@
                 // create the menu only the first time
                 if (!menu) {
 
-                    // create a HTML element above the SVG
+                    // create resource HTML element above the SVG
                     chart[cacheName] = menu = createElement('div', {
                         className: className
                     }, {
@@ -776,7 +776,7 @@
         /**
          * Analyze inherited styles from stylesheets and add them inline
          *
-         * @todo: What are the border styles for text about? In general, text has a lot of properties.
+         * @todo: What are the border styles for text about? In general, text has resource lot of properties.
          * @todo: Make it work with IE9 and IE10.
          */
         Chart.prototype.inlineStyles = function() {

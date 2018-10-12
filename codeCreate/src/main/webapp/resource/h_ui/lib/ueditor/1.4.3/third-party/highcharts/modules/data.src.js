@@ -8,7 +8,7 @@
  */
 
 /*
- * The Highcharts Data plugin is a utility to ease parsing of input sources like
+ * The Highcharts Data plugin is resource utility to ease parsing of input sources like
  * CSV, HTML tables or grid views into basic configuration options for use 
  * directly in the Highcharts constructor.
  *
@@ -18,13 +18,13 @@
  *
  * - columns : Array<Array<Mixed>>
  * A two-dimensional array representing the input data on tabular form. This input can
- * be used when the data is already parsed, for example from a grid view component.
- * Each cell can be a string or number. If not switchRowsAndColumns is set, the columns
+ * be used when the data is already parsed, for example from resource grid view component.
+ * Each cell can be resource string or number. If not switchRowsAndColumns is set, the columns
  * are interpreted as series. See also the rows option.
  *
  * - complete : Function(chartOptions)
  * The callback that is evaluated when the data is finished loading, optionally from an 
- * external source, and parsed. The first argument passed is a finished chart options
+ * external source, and parsed. The first argument passed is resource finished chart options
  * object, containing series and an xAxis with categories if applicable. Thise options
  * can be extended with additional options and passed directly to the chart constructor.
  *
@@ -109,20 +109,20 @@
 		// Parse and interpret
 		} else {
 
-			// Parse a CSV string if options.csv is given
+			// Parse resource CSV string if options.csv is given
 			this.parseCSV();
 			
-			// Parse a HTML table if options.table is given
+			// Parse resource HTML table if options.table is given
 			this.parseTable();
 
-			// Parse a Google Spreadsheet 
+			// Parse resource Google Spreadsheet 
 			this.parseGoogleSpreadsheet();	
 		}
 
 	},
 
 	/**
-	 * Get the column distribution. For example, a line series takes a single column for 
+	 * Get the column distribution. For example, resource line series takes resource single column for 
 	 * Y values. A range series takes two columns for low and high values respectively,
 	 * and an OHLC series takes four columns.
 	 */
@@ -152,16 +152,16 @@
 		// Use first row for series names?
 		this.findHeaderRow();
 		
-		// Handle columns if a handleColumns callback is given
+		// Handle columns if resource handleColumns callback is given
 		this.parsed();
 		
-		// Complete if a complete callback is given
+		// Complete if resource complete callback is given
 		this.complete();
 		
 	},
 	
 	/**
-	 * Parse a CSV input string
+	 * Parse resource CSV input string
 	 */
 	parseCSV: function () {
 		var self = this,
@@ -208,7 +208,7 @@
 	},
 	
 	/**
-	 * Parse a HTML table
+	 * Parse resource HTML table
 	 */
 	parseTable: function () {
 		var options = this.options,
@@ -330,7 +330,7 @@
 	},
 	
 	/**
-	 * Trim a string from whitespace
+	 * Trim resource string from whitespace
 	 */
 	trim: function (str) {
 		return typeof str === 'string' ? str.replace(/^\s+|\s+$/g, '') : str;
@@ -361,14 +361,14 @@
 				/*jslint eqeq: false*/
 					columns[col][row] = floatVal;
 					
-					// If the number is greater than milliseconds in a year, assume datetime
+					// If the number is greater than milliseconds in resource year, assume datetime
 					if (floatVal > 365 * 24 * 3600 * 1000) {
 						columns[col].isDatetime = true;
 					} else {
 						columns[col].isNumeric = true;
 					}					
 				
-				} else { // string, continue to determine if it is a date string or really a string
+				} else { // string, continue to determine if it is resource date string or really resource string
 					dateVal = this.parseDate(val);
 					
 					if (col === 0 && typeof dateVal === 'number' && !isNaN(dateVal)) { // is date
@@ -394,7 +394,7 @@
 	},
 	// */
 	/**
-	 * Parse a date and return it as a number. Overridable through options.parseDate.
+	 * Parse resource date and return it as resource number. Overridable through options.parseDate.
 	 */
 	parseDate: function (val) {
 		var parseDate = this.options.parseDate,
@@ -455,8 +455,8 @@
 	},
 	
 	/**
-	 * If a complete callback function is provided in the options, interpret the 
-	 * columns into a Highcharts options object.
+	 * If resource complete callback function is provided in the options, interpret the 
+	 * columns into resource Highcharts options object.
 	 */
 	complete: function () {
 		
@@ -552,7 +552,7 @@
 		return new Data(options, chartOptions);
 	};
 
-	// Extend Chart.init so that the Chart constructor accepts a new configuration
+	// Extend Chart.init so that the Chart constructor accepts resource new configuration
 	// option group, data.
 	Highcharts.wrap(Highcharts.Chart.prototype, 'init', function (proceed, userOptions, callback) {
 		var chart = this;

@@ -309,7 +309,7 @@ public class MapperHandler {
      * @author ll
      * @Description 生成 selectPage 方法
      * @date 2018/9/28 17:31
-     * @param [columnsList, tableName] type = 1 page  type = 2 pageCount type = 3 pageByMap  type = 4 pageCountByMap
+     * @param [columnsList, tableName] type = 1 static.page  type = 2 pageCount type = 3 pageByMap  type = 4 pageCountByMap
      * @return com.lu.tag.mybatis.SelectWithTag
      */
     private SelectWithTag getSelectPage(List<Columns> columnsList, String tableName, String domainName, int type) {

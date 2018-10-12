@@ -1,6 +1,7 @@
 package com.lu.project;
 
 import com.lu.project.handler.*;
+import com.lu.utils.CodeUtil;
 import com.lu.utils.FileUtil;
 import com.lu.utils.PropertiesUtil;
 import java.io.File;
@@ -80,8 +81,15 @@ public class ProjectCreate {
 
         //静态文件目录
         folderCreate(pathConfig.getWebResource());
+
         //复制MANIFEST.MF模板
-        this.fileCopy(PropertiesUtil.MANIFESTPATH , pathConfig.getManifestFilePath());
+        //this.fileCopy(PropertiesUtil.MANIFESTPATH , pathConfig.getManifestFilePath());
+        StringBuffer manifset = new StringBuffer();
+        manifset.append("Manifest-Version: 1.0");
+        manifset.append(CodeUtil.getChangeLine(1));
+        manifset.append("Class-Path:");
+        FileUtil.writeFileByStr(manifset.toString() , pathConfig.getManifestFilePath());
+
         //web.xml
         WebXmlHandler webXmlHandler = new WebXmlHandler(pathConfig.getWebFilePath() ,pathConfig.getProjectName());
         webXmlHandler.writeWebXml();
@@ -171,7 +179,7 @@ public class ProjectCreate {
     }
 
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         PropertiesUtil.initProperties();
         ProjectCreate projectHandler = new ProjectCreate();
         ProjectConfig projectConfig = new ProjectConfig();
@@ -179,5 +187,5 @@ public class ProjectCreate {
         projectConfig.setProjectName("testOne4");
         projectHandler.init(projectConfig);
         projectHandler.create();
-    }
+    }*/
 }

@@ -36,7 +36,7 @@ spr.org.orgTable = {
 				"mDataProp" : "empid",
 				"mRender" : function(data, type, full) {
 					if(full.roleName == null || full.roleName == ""){
-						return '<a class="btn btn-primary-outline radius size-S" href="javascript:void(0);" onclick="spr.org.orgTable.opreation.addRole(\''+data+'\')">设为管理员</a> ';
+						return '<resource class="btn btn-primary-outline radius size-S" href="javascript:void(0);" onclick="spr.org.orgTable.opreation.addRole(\''+data+'\')">设为管理员</resource> ';
 					}else{
 						return full.roleName;
 					}

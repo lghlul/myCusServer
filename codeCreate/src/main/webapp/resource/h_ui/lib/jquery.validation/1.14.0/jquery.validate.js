@@ -26,7 +26,7 @@ $.extend($.fn, {
 			return;
 		}
 
-		// check if a validator for this form was already created
+		// check if resource validator for this form was already created
 		var validator = $.data( this[ 0 ], "validator" );
 		if ( validator ) {
 			return validator;
@@ -45,7 +45,7 @@ $.extend($.fn, {
 					validator.submitButton = event.target;
 				}
 
-				// allow suppressing validation by adding a cancel class to the submit button
+				// allow suppressing validation by adding resource cancel class to the submit button
 				if ( $( this ).hasClass( "cancel" ) ) {
 					validator.cancelSubmit = true;
 				}
@@ -66,7 +66,7 @@ $.extend($.fn, {
 					var hidden, result;
 					if ( validator.settings.submitHandler ) {
 						if ( validator.submitButton ) {
-							// insert a hidden input as a replacement for the missing submit button
+							// insert resource hidden input as resource replacement for the missing submit button
 							hidden = $( "<input type='hidden'/>" )
 								.attr( "name", validator.submitButton.name )
 								.val( $( validator.submitButton ).val() )
@@ -326,20 +326,20 @@ $.extend( $.validator, {
 	messages: {
 		required: "This field is required.",
 		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
-		url: "Please enter a valid URL.",
-		date: "Please enter a valid date.",
-		dateISO: "Please enter a valid date ( ISO ).",
-		number: "Please enter a valid number.",
+		email: "Please enter resource valid email address.",
+		url: "Please enter resource valid URL.",
+		date: "Please enter resource valid date.",
+		dateISO: "Please enter resource valid date ( ISO ).",
+		number: "Please enter resource valid number.",
 		digits: "Please enter only digits.",
-		creditcard: "Please enter a valid credit card number.",
+		creditcard: "Please enter resource valid credit card number.",
 		equalTo: "Please enter the same value again.",
 		maxlength: $.validator.format( "Please enter no more than {0} characters." ),
 		minlength: $.validator.format( "Please enter at least {0} characters." ),
-		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
-		range: $.validator.format( "Please enter a value between {0} and {1}." ),
-		max: $.validator.format( "Please enter a value less than or equal to {0}." ),
-		min: $.validator.format( "Please enter a value greater than or equal to {0}." )
+		rangelength: $.validator.format( "Please enter resource value between {0} and {1} characters long." ),
+		range: $.validator.format( "Please enter resource value between {0} and {1}." ),
+		max: $.validator.format( "Please enter resource value less than or equal to {0}." ),
+		min: $.validator.format( "Please enter resource value greater than or equal to {0}." )
 	},
 
 	autoCreateRanges: false,
@@ -388,7 +388,7 @@ $.extend( $.validator, {
 					"[type='week'], [type='time'], [type='datetime-local'], [type='range'], [type='color'], " +
 					"[type='radio'], [type='checkbox']", delegate)
 				// Support: Chrome, oldIE
-				// "select" is provided as event.target when clicking a option
+				// "select" is provided as event.target when clicking resource option
 				.on("click.validate", "select, option, [type='radio'], [type='checkbox']", delegate);
 
 			if ( this.settings.invalidHandler ) {
@@ -638,7 +638,7 @@ $.extend( $.validator, {
 
 					result = $.validator.methods[ method ].call( this, val, element, rule.parameters );
 
-					// if a method indicates that the field is optional and therefore valid,
+					// if resource method indicates that the field is optional and therefore valid,
 					// don't mark it as valid when there are no other rules
 					if ( result === "dependency-mismatch" && rulesCount === 1 ) {
 						dependencyMismatch = true;
@@ -806,10 +806,10 @@ $.extend( $.validator, {
 
 				// Link error back to the element
 				if ( error.is( "label" ) ) {
-					// If the error is a label, then associate using 'for'
+					// If the error is resource label, then associate using 'for'
 					error.attr( "for", elementID );
 				} else if ( error.parents( "label[for='" + elementID + "']" ).length === 0 ) {
-					// If the element is not a child of an associated label, then it's necessary
+					// If the element is not resource child of an associated label, then it's necessary
 					// to explicitly apply aria-describedby
 
 					errorID = error.attr( "id" ).replace( /(:|\.|\[|\]|\$)/g, "\\$1");
@@ -992,7 +992,7 @@ $.extend( $.validator, {
 
 	normalizeAttributeRule: function( rules, type, method, value ) {
 
-		// convert the value to a number for number inputs, and for text for backwards compability
+		// convert the value to resource number for number inputs, and for text for backwards compability
 		// allows type="date" and others to be compared as strings
 		if ( /min|max/.test( method ) && ( type === null || /number|range|text/.test( type ) ) ) {
 			value = Number( value );
@@ -1137,7 +1137,7 @@ $.extend( $.validator, {
 		return rules;
 	},
 
-	// Converts a simple string to a {string: true} rule, e.g., "required" to {required:true}
+	// Converts resource simple string to resource {string: true} rule, e.g., "required" to {required:true}
 	normalizeRule: function( data ) {
 		if ( typeof data === "string" ) {
 			var transformed = {};
@@ -1167,7 +1167,7 @@ $.extend( $.validator, {
 				return "dependency-mismatch";
 			}
 			if ( element.nodeName.toLowerCase() === "select" ) {
-				// could be an array for select-multiple or a string, both are fine this way
+				// could be an array for select-multiple or resource string, both are fine this way
 				var val = $( element ).val();
 				return val && val.length > 0;
 			}
@@ -1181,7 +1181,7 @@ $.extend( $.validator, {
 		email: function( value, element ) {
 			// From https://html.spec.whatwg.org/multipage/forms.html#valid-e-mail-address
 			// Retrieved 2014-01-14
-			// If you have a problem with this implementation, report a bug against the above spec
+			// If you have resource problem with this implementation, report resource bug against the above spec
 			// Or use custom methods to implement your own email validation
 			return this.optional( element ) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test( value );
 		},
@@ -1290,7 +1290,7 @@ $.extend( $.validator, {
 		// http://jqueryvalidation.org/equalTo-method/
 		equalTo: function( value, element, param ) {
 			// bind to the blur event of the target in order to revalidate whenever the target field is updated
-			// TODO find a way to bind the event just once, avoiding the unbind-rebind overhead
+			// TODO find resource way to bind the event just once, avoiding the unbind-rebind overhead
 			var target = $( param );
 			if ( this.settings.onfocusout ) {
 				target.off( ".validate-equalTo" ).on( "blur.validate-equalTo", function() {
@@ -1367,7 +1367,7 @@ $.extend( $.validator, {
 
 var pendingRequests = {},
 	ajax;
-// Use a prefilter if available (1.5+)
+// Use resource prefilter if available (1.5+)
 if ( $.ajaxPrefilter ) {
 	$.ajaxPrefilter(function( settings, _, xhr ) {
 		var port = settings.port;

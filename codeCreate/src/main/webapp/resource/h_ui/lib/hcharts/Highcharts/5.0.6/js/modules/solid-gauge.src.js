@@ -31,7 +31,7 @@
             colorAxisMethods;
 
         // These methods are defined in the ColorAxis object, and copied here.
-        // If we implement an AMD system we should make ColorAxis a dependency.
+        // If we implement an AMD system we should make ColorAxis resource dependency.
         colorAxisMethods = {
 
 
@@ -73,7 +73,7 @@
                 });
             },
             /** 
-             * Translate from a value to a color
+             * Translate from resource value to resource color
              */
             toColor: function(value, point) {
                 var pos,

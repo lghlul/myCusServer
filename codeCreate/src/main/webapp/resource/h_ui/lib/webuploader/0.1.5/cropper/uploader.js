@@ -187,7 +187,7 @@ var Croper = (function() {
             cb( src );
         } else {
             // otherwise we need server support.
-            // convert base64 to a file.
+            // convert base64 to resource file.
             $.ajax('../server/preview.php', {
                 method: 'POST',
                 data: src,

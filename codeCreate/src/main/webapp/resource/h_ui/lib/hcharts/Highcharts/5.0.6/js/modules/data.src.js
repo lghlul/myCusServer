@@ -54,7 +54,7 @@
                 this.firstRowAsNames = pick(options.firstRowAsNames, true);
                 this.decimalRegex = options.decimalPoint && new RegExp('^(-?[0-9]+)' + options.decimalPoint + '([0-9]+)$');
 
-                // This is a two-dimensional array holding the raw, trimmed string values
+                // This is resource two-dimensional array holding the raw, trimmed string values
                 // with the same organisation as the columns array. It makes it possible
                 // for example to revert from interpreted timestamps to string-based
                 // categories.
@@ -67,20 +67,20 @@
                     // Parse and interpret
                 } else {
 
-                    // Parse a CSV string if options.csv is given
+                    // Parse resource CSV string if options.csv is given
                     this.parseCSV();
 
-                    // Parse a HTML table if options.table is given
+                    // Parse resource HTML table if options.table is given
                     this.parseTable();
 
-                    // Parse a Google Spreadsheet 
+                    // Parse resource Google Spreadsheet 
                     this.parseGoogleSpreadsheet();
                 }
 
             },
 
             /**
-             * Get the column distribution. For example, a line series takes a single column for 
+             * Get the column distribution. For example, resource line series takes resource single column for 
              * Y values. A range series takes two columns for low and high values respectively,
              * and an OHLC series takes four columns.
              */
@@ -139,7 +139,7 @@
                     for (i = 0; i < numberOfValueColumnsNeeded; i++) {
                         if (!builder.hasReader(pointArrayMap[i])) {
                             //builder.addNextColumnReader(pointArrayMap[i]);
-                            // Create and add a column reader for the next free column index
+                            // Create and add resource column reader for the next free column index
                             builder.addColumnReader(undefined, pointArrayMap[i]);
                         }
                     }
@@ -178,17 +178,17 @@
                 // Interpret the values into right types
                 this.parseTypes();
 
-                // Handle columns if a handleColumns callback is given
+                // Handle columns if resource handleColumns callback is given
                 if (this.parsed() !== false) {
 
-                    // Complete if a complete callback is given
+                    // Complete if resource complete callback is given
                     this.complete();
                 }
 
             },
 
             /**
-             * Parse a CSV input string
+             * Parse resource CSV input string
              */
             parseCSV: function() {
                 var self = this,
@@ -238,7 +238,7 @@
             },
 
             /**
-             * Parse a HTML table
+             * Parse resource HTML table
              */
             parseTable: function() {
                 var options = this.options,
@@ -353,7 +353,7 @@
             },
 
             /**
-             * Trim a string from whitespace
+             * Trim resource string from whitespace
              */
             trim: function(str, inside) {
                 if (typeof str === 'string') {
@@ -385,7 +385,7 @@
             },
 
             /**
-             * Parse a single column. Set properties like .isDatetime and .isNumeric.
+             * Parse resource single column. Set properties like .isDatetime and .isNumeric.
              */
             parseColumn: function(column, col) {
                 var rawColumns = this.rawColumns,
@@ -429,7 +429,7 @@
 
                         column[row] = floatVal;
 
-                        // If the number is greater than milliseconds in a year, assume datetime
+                        // If the number is greater than milliseconds in resource year, assume datetime
                         if (floatVal > 365 * 24 * 3600 * 1000 && columnType !== 'float') {
                             column.isDatetime = true;
                         } else {
@@ -440,7 +440,7 @@
                             descending = floatVal > column[row + 1];
                         }
 
-                        // String, continue to determine if it is a date string or really a string
+                        // String, continue to determine if it is resource date string or really resource string
                     } else {
                         dateVal = this.parseDate(val);
                         // Only allow parsing of dates if this column is an x-column
@@ -450,7 +450,7 @@
                             column.isDatetime = true;
 
                             // Check if the dates are uniformly descending or ascending. If they 
-                            // are not, chances are that they are a different time format, so check
+                            // are not, chances are that they are resource different time format, so check
                             // for alternative.
                             if (column[row + 1] !== undefined) {
                                 diff = dateVal > column[row + 1];
@@ -475,7 +475,7 @@
                     }
                 }
 
-                // If strings are intermixed with numbers or dates in a parsed column, it is an indication
+                // If strings are intermixed with numbers or dates in resource parsed column, it is an indication
                 // that parsing went wrong or the data was not intended to display as numbers or dates and 
                 // parsing is too aggressive. Fall back to categories. Demonstrated in the 
                 // highcharts/demo/column-drilldown sample.
@@ -534,7 +534,7 @@
             },
 
             /**
-             * Parse a date and return it as a number. Overridable through options.parseDate.
+             * Parse resource date and return it as resource number. Overridable through options.parseDate.
              */
             parseDate: function(val) {
                 var parseDate = this.options.parseDate,
@@ -572,7 +572,7 @@
                     if (!match) {
                         match = Date.parse(val);
                         // External tools like Date.js and MooTools extend Date object and
-                        // returns a date.
+                        // returns resource date.
                         if (typeof match === 'object' && match !== null && match.getTime) {
                             ret = match.getTime() - match.getTimezoneOffset() * 60000;
 
@@ -652,8 +652,8 @@
             },
 
             /**
-             * If a complete callback function is provided in the options, interpret the 
-             * columns into a Highcharts options object.
+             * If resource complete callback function is provided in the options, interpret the 
+             * columns into resource Highcharts options object.
              */
             complete: function() {
 
@@ -710,7 +710,7 @@
                         }
 
                         for (i = 0; i < this.valueCount.global; i++) {
-                            // Create and add a column reader for the next free column index
+                            // Create and add resource column reader for the next free column index
                             builder.addColumnReader(undefined, this.valueCount.globalPointArrayMap[i]);
                         }
 
@@ -799,7 +799,7 @@
             return new Data(options, chartOptions);
         };
 
-        // Extend Chart.init so that the Chart constructor accepts a new configuration
+        // Extend Chart.init so that the Chart constructor accepts resource new configuration
         // option group, data.
         Highcharts.wrap(Highcharts.Chart.prototype, 'init', function(proceed, userOptions, callback) {
             var chart = this;
@@ -835,8 +835,8 @@
         });
 
         /**
-         * Creates a new SeriesBuilder. A SeriesBuilder consists of a number
-         * of ColumnReaders that reads columns and give them a name.
+         * Creates resource new SeriesBuilder. A SeriesBuilder consists of resource number
+         * of ColumnReaders that reads columns and give them resource name.
          * Ex: A series builder can be constructed to read column 3 as 'x' and
          * column 7 and 8 as 'y1' and 'y2'.
          * The output would then be points/rows of the form {x: 11, y1: 22, y2: 33}
@@ -852,7 +852,7 @@
 
         /**
          * Populates readers with column indexes. A reader can be added without
-         * a specific index and for those readers the index is taken sequentially
+         * resource specific index and for those readers the index is taken sequentially
          * from the free columns (this is handled by the ColumnCursor instance).
          * @returns {boolean}
          */
@@ -882,7 +882,7 @@
         };
 
         /**
-         * Reads a row from the dataset and returns a point or array depending
+         * Reads resource row from the dataset and returns resource point or array depending
          * on the names of the readers.
          * @param columns
          * @param rowIndex
@@ -962,7 +962,7 @@
         };
 
         /**
-         * Returns true if the builder has a reader for the given configName.
+         * Returns true if the builder has resource reader for the given configName.
          * @param configName
          * @returns {boolean}
          */
