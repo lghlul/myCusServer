@@ -43,10 +43,10 @@
 			openID,
 			(score + usedScore) AS score,
 			usedScore,
-			userName,
+			b.realName as userName,
 			userImg
 		FROM
-			t_user
+			t_user a join t_jobnum b on a.jobNum = b.jobNum
 		ORDER BY
 			(score + usedScore) DESC
 		LIMIT #{start}, #{pageSize}
