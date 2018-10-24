@@ -147,6 +147,10 @@ public class UserServiceImpl implements IUserService {
 			return result;
 		}
 
+		if(!jobNum.startsWith("0")){
+			jobNum = "0" + jobNum;
+		}
+
 		BindRecord bindRecord = new BindRecord();
 		bindRecord.setJobNum(jobNum);
 		bindRecord.setOpenID(session.getOpenID());
