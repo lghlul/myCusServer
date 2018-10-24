@@ -1,0 +1,22 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/classify/classify",
+    "pages/practice/practice",
+    "pages/ranking/ranking",
+    "pages/my/my",
+    "pages/mymistakes/mymistakes",
+    "pages/myexchange/myexchange",
+    "pages/productlist/productlist",
+    "pages/productdetail/productdetail",
+    "pages/exchangesuc/exchangesuc",
+    "pages/fighting/fighting"
+  ],
+  "window":{
+    "backgroundTextStyle":"dark",
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#4a90e2",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"white"
+  }
+}

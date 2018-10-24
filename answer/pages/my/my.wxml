@@ -1,0 +1,21 @@
+<!--logs.wxml-->
+<view class="container">
+  <view class='answer-userinfo-content'>
+    <view class='answer-userinfo-box'>
+    <div class='answer-userinfo-avatar-box'>
+            <open-data type="userAvatarUrl" class="answer-userinfo-avatar"></open-data>
+        </div>
+      <!-- <image bindtap="bindViewTap" class="answer-userinfo-avatar" src="{{userInfo.userImg}}" background-size="cover"></image> -->
+      <view class="answer-userinfo-nickname"><open-data type="userNickName" lang="zh_CN"></open-data></view>
+      <view class='answer-userinfo-points-box'>
+        <text class="answer-userinfo-points">积分</text>
+        <image class='answer-points-icon' src='../../images/pointsIcon.png'></image>
+        <text class="answer-userinfo-points">{{userInfo.score}}</text>
+      </view>
+    </view>
+  </view>
+  <view class='my-tap-list-box'>
+    <navigator url='../mymistakes/mymistakes' class='my-tab my-mistakes'>我的错题</navigator>
+    <navigator url='../myexchange/myexchange' class='my-tab my-exchange'>我的兑换</navigator>
+  </view>
+</view>

@@ -1,0 +1,20 @@
+<!--logs.wxml-->
+<view class="container">
+  <view class='classify-content'>
+      <view class='classify-box' wx:for='{{classifyList}}' wx:for-index="classifyIdx" wx:for-item="classifyItem" wx:key='classifyIdx'>
+        <view class='classify-parent-box' id='{{classifyIdx}}' bindtap="classifyTap">
+          <image class='classify-parent-icon' src='{{classifyItem.typeImg}}'></image>
+          <view class='classify-parent-text-box'>
+            <view class='classify-parent-h1'>{{classifyItem.typeName}}</view>
+              
+          </view>
+          <view class='classify-parent-row-box'>
+            <view class="classify-parent-row {{classifyItem.isShowChild?'open':''}}"></view>
+          </view>
+        </view>
+        <view class="classify-child-box" wx:if='{{classifyItem.isShowChild}}'>
+          <navigator url="{{type==2?'../fighting/fighting?typeId='+item.typeID:'../practice/practice?type=practice&typeId='+item.typeID}}" class='classify-child' wx:for='{{classifyItem.typeList}}' wx:key='index'>{{item.typeName}}<text class='classify-parent-scroe' wx:if="{{type==1}}">已答：{{item.answerNum}}/{{item.allNum}}</text>   </navigator>
+        </view>
+      </view>
+  </view>
+</view>

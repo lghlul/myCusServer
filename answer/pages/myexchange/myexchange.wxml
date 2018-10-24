@@ -1,0 +1,18 @@
+<!--logs.wxml-->
+<view class="container">
+  <view class='my-exchange-container'>
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad">
+    <view class='my-exchange-content' wx:if='{{exchangeList.length>0}}' wx:for='{{exchangeList}}' wx:key='index'>
+      <image src='{{item.goodsIcon}}' class='product-icon'></image>
+      <view class='product-info-box'>
+        <view class='product-info-name'>{{item.goodsName}}</view>
+        <text class='exchange-product-info'>兑换积分：{{item.goodsScore}}</text>
+        <text class='exchange-product-info'>兑换码：{{item.orderNo}}</text>
+        <text class='exchange-product-info'>兑换时间：{{item.timeStr}}</text>
+      </view>
+      <view class="exchange-status {{item.orderStatus==2?'exchangeed':''}}">{{item.orderStatus==2?'已兑换':'未兑换'}}</view>
+    </view>
+    <view class='null-data' wx:if='{{exchangeList.length==0}}'>暂无记录</view>
+    </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+.exchange-suc-container{padding:115rpx 40rpx 0;}
+.exchange-suc-icon{width:186rpx;height:186rpx;vertical-align: top;margin:auto;display: block;}
+.exchange-suc-title{text-align: center;margin: 50rpx 0 30rpx;line-height: 56rpx;font-size: 40rpx;color: #333333;}
+.exchange-suc-info{text-align: center;line-height:46rpx;font-size: 28rpx;color: #9B9B9B;}
+.exchange-suc-info text{color: #F5A623;}
+.exchange-suc-btn-box{margin-top: 73rpx;}
+.to-exchange{width: 670rpx;line-height:94rpx;height:94rpx;background-color: #4A90E2;text-align: center;font-size:36rpx;color: #ffffff;margin-bottom: 30rpx;border:1rpx solid RGBA(5, 5, 5, 0.1);box-sizing: border-box;border-radius: 10rpx;}
+.back-home{width: 670rpx;line-height:94rpx;height:94rpx;background-color: #f8f8f8;text-align: center;font-size:36rpx;color: #333333;border:1rpx solid RGBA(5, 5, 5, 0.1);box-sizing: border-box;border-radius: 10rpx;}
+.to-exchange-hover{background-color: #2975cc;}

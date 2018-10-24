@@ -1,0 +1,18 @@
+<!--logs.wxml-->
+<view class="container">
+  <view class='my-mistakes-container'>
+    <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad">
+      <view class='my-mistakes-content' wx:if='mistakesList.length>0' wx:for='{{mistakesList}}' wx:key='index'>
+        <navigator url='../practice/practice?type=mistakes&id={{item.id}}' class='my-mistakes-box' style="{{item.txtStyle}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}">
+          <view class='my-mistakes-question'>{{item.quesDesc}}</view>
+          <text class='my-mistakes-text'>所属级别：{{item.typeDesc}}</text>
+          <text class='my-mistakes-text'>做题时间：{{item.timeStr}}</text>
+        </navigator>
+        <view class='my-mistakes-delete' style="width:{{delBtnWidth}}rpx" data-mistakesId="{{item.id}}" data-index="{{index}}" bindtap="delMistakes">
+          删除
+        </view>
+      </view>
+      <view class='null-data' wx:if='{{mistakesList.length==0}}'>暂无记录</view>
+    </scroll-view>
+  </view>
+</view>

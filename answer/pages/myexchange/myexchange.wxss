@@ -1,0 +1,10 @@
+.my-exchange-container{background-color: #ffffff;}
+.my-exchange-content{width: 700rpx;padding:40rpx 20rpx 40rpx 30rpx;display: flex;justify-content:space-between;align-items: flex-start;border-bottom: 1rpx solid #E5E5E5;}
+.product-icon{width: 120rpx;height:120rpx;vertical-align: top;border:1px solid #dadada;}
+.product-info-box{width:450rpx;}
+.product-info-name{font-size:32rpx;color:#333333;line-height:38rpx;margin-bottom: 10rpx;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
+.exchange-product-info{font-size:24rpx;color:#9B9B9B;line-height:28rpx;display: block;}
+.exchange-product-info:first{margin-bottom: 4rpx;}
+.exchange-status{width:80rpx;font-size:26rpx;color:#4A90E2;line-height:32rpx;}
+.exchangeed{color:#9B9B9B;}
+.null-data{text-align: center;font-size: 26rpx;color: #666666;padding-top:30%;}

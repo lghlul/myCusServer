@@ -1,0 +1,24 @@
+<!--logs.wxml-->
+<view class="container">
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad">
+    <view class='ranking-content'>
+      <view class='ranking-icon-box'>
+        <image class='ranking-icon' src='../../images/ranking1Icon.png'></image>
+      </view>
+      <view class='ranking-list-content'>
+        <view class="ranking-list-box {{(index+1)==myRank?'ranking-my':''}}" wx:for="{{rankingList}}" wx:key='index'>
+            <text class='serial-number'>{{index+1}}</text>
+            <view class='ranking-usericon-box'>
+              <image class='ranking-usericon' src='{{item.userImg}}'></image>
+            </view>
+            <view class='ranking-username'>{{item.userName}}</view>
+            <view class='ranking-points-box'>
+              <view class='ranking-points'><image src='../../images/pointsIcon.png'></image>{{item.score}}</view>
+              <view class='use-points'>已兑换：{{item.usedScore}}</view>
+            </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='now-ranking'>当前我的排名{{myRank}}</view>
+</view>

@@ -1,0 +1,70 @@
+<!--index.wxml-->
+<!-- <loading hidden="{{loading}}">
+  加载中
+</loading> -->
+<view class="container">
+  <view class='answer-content' wx:if='{{showPage}}' style='background:url(https://www.zgshnj.com/file/banner.png) no-repeat center bottom #80baf9;background-size:750rpx 668rpx;'>
+    <view class='answer-userinfo-content'>
+
+      <view class='answer-userinfo-box'>
+
+        <navigator url='../my/my' class='answer-userinfo-avatar-box'>
+          <open-data type="userAvatarUrl" class="answer-userinfo-avatar"></open-data>
+        </navigator>
+        <view class="answer-userinfo-nickname">
+          <open-data type="userNickName" lang="zh_CN"></open-data>
+          <!-- <text class='jobNum'>({{userInfo.jobNum}})</text> -->
+        </view>
+        <view class='answer-userinfo-points-box'>
+          <text class="answer-userinfo-points">积分</text>
+          <image class='answer-points-icon' src='../../images/pointsIcon.png'></image>
+          <text class="answer-userinfo-points">{{userInfo.score}}</text>
+        </view>
+        <view class="sign {{!isSign?'sign-disabled':''}}" bindtap='sign' size='mini'>{{signText}}</view>
+      </view>
+    </view>
+    <view class='answer-module-container'>
+      <view class='answer-module-content'>
+        <navigator url='../classify/classify?type=1' class='answer-module-box' id='training'>
+          <text>练习模式</text>
+          <image src='../../images/trainingIcon.png'></image>
+        </navigator>
+        <navigator url='../productlist/productlist' class='answer-module-box' id='shop'>
+          <text>奖品库</text>
+          <image src='../../images/shopIcon.png'></image>
+        </navigator>
+      </view>
+      <view class='answer-module-content'>
+        <navigator url='../classify/classify?type=2' class='answer-module-box' id='friends'>
+          <text>好友对战</text>
+          <image src='../../images/friendsIcon.png'></image>
+        </navigator>
+        <navigator url='../ranking/ranking' class='answer-module-box' id='ranking'>
+          <text>排行榜</text>
+          <image src='../../images/rankingIcon.png'></image>
+        </navigator>
+      </view>
+    </view>
+    <image class='logo' src='../../images/logo.png'></image>
+  </view>
+  <view class='answer-login-box' wx:if='{{!hasUserInfo}}'>
+    <view class='get-user-content'>
+      <view class='get-user-box'>
+        <view class='get-user-h'>提示</view>
+        <text class='get-user-p'>请先授权登录</text>
+      </view>
+      <button type='primary' open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='answer-login-btn'>授权</button>
+    </view>
+  </view>
+  <view class='answer-login-box' wx:if='{{hasUserInfo && !hasJobNum}}'>
+    <view class='get-user-content' style='margin-bottom:{{keyHeight}}rpx;'>
+      <view class='get-user-box'>
+        <view class='get-user-h'>绑定工号</view>
+        <view class="section">
+          <input placeholder="请输入工号" bindinput="onInput" focus bindfocus='onFocus' bindblur='onBlur'/>
+        </view>
+      </view>
+      <button type='primary' bindtap="bindJobNum" class='answer-login-btn'>确定</button>
+    </view>
+  </view>
+</view>

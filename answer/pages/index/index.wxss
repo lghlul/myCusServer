@@ -1,0 +1,44 @@
+/**index.wxss**/
+.container{position: relative;}
+.answer-content{padding:26rpx 20rpx 10rpx;height:100%;box-sizing: border-box;}
+.answer-userinfo-content{width:710rpx;height:208rpx;background-color:#217bdd;border-radius: 6rpx;}
+.answer-login-box{position: absolute;left: 0;right: 0;top: 0;bottom: 0;background-color: rgba(0, 0, 0, 0.4);display: flex;justify-content: center;align-items: center;}
+.answer-login-box .get-user-content{width:600rpx;height:280rpx;background-color: #ffffff;border-radius: 4rpx;}
+.answer-login-box .get-user-content .get-user-box {display: flex;flex-direction: column;justify-content: center;align-items: center;height:184rpx;}
+.answer-login-box .get-user-content .get-user-box .get-user-h{
+font-size: 36rpx;line-height: 66rpx;color: #333333;
+}
+.answer-login-box .get-user-content .get-user-box .get-user-p{
+  font-size: 30rpx;line-height: 58rpx;color: #888888;
+}
+.answer-login-box .get-user-content button[type=primary].answer-login-btn{background-color:#ffffff;color: #1bbb05;width:100%;line-height: 96rpx;height:96rpx;text-align: center;font-size: 36rpx;border:none;border-radius:0;border-top:1rpx solid #ededed;padding:0;}
+.answer-userinfo-box{position: relative;margin-top: 42rpx;text-align: center;padding-top: 80rpx;}
+.answer-userinfo-avatar-box{width:120rpx;height:120rpx;border-radius: 50%;position: absolute;top:-42rpx;left:0;right:0;margin: auto;overflow: hidden;z-index: 200;}
+.answer-userinfo-avatar{width:100%;height:100%;vertical-align:top;display: block;}
+.answer-userinfo-nickname{font-size: 32rpx;color: #ffffff;line-height: 60rpx;}
+.answer-userinfo-points-box{display: flex;justify-content: center;align-items: center;}
+.answer-userinfo-points{font-size: 26rpx;color:#ffffff;}
+.answer-points-icon{width: 32rpx;height:32rpx;margin:0 12rpx;}
+/**模块**/
+.answer-module-container{display: flex;margin-top: 22rpx;justify-content:space-between}
+.answer-module-content{width: 345rpx;}
+.answer-module-box{width: 285rpx;border-radius: 6rpx;padding:26rpx 30rpx;overflow: hidden;}
+.answer-module-box text{font-size: 34rpx;font-weight: bold;color: #ffffff;float:left;margin-bottom: 16rpx;text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
+.answer-module-box image{float: right;}
+#training{background-color: #4a88e2;margin-bottom: 22rpx;}
+#training text{width:260rpx;}
+#shop{background-color: #78b236;}
+#friends{background-color: #b071e7;margin-bottom: 22rpx;}
+#friends text{width:260rpx;}
+#ranking{background-color: #f16f7f;}
+#training image{width: 150rpx;height:133rpx;}
+#shop image{width: 136rpx;height:116rpx;margin-top: 20rpx;}
+#friends image{width: 184rpx;height:107rpx;}
+#ranking image{width: 123rpx;height:136rpx;}
+.answer-img{width: 750rpx;height:668rpx;vertical-align: top;}
+.logo{width:324rpx;height:94rpx;position: absolute;right:38rpx;bottom: 46rpx;}
+.section{width: 80%;}
+.jobNum{font-size: 26rpx;}
+.sign{background-color:#F5A623;color: #ffffff;margin:0;margin-left: 20rpx;position: absolute;right: 40rpx;top:64rpx;font-size:24rpx;width: 80rpx;height:80rpx;text-align:center;line-height: 80rpx;border-radius: 40rpx;}
+.sign-disabled{background-color:#eee;color: #ccc;}
+

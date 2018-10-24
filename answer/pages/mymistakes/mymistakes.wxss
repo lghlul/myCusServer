@@ -1,0 +1,9 @@
+.my-mistakes-container{background-color: #ffffff;}
+.my-mistakes-content{position: relative;width: 750rpx;height:190rpx;}
+.my-mistakes-box{background-color: #ffffff;padding: 40rpx 30rpx;position: relative; z-index:50;width: 750rpx;height:190rpx;box-sizing:border-box;border-bottom: 1rpx solid #E5E5E5;}
+.my-mistakes-question{line-height: 38rpx;font-size: 32rpx;color: #333333;margin-bottom: 10rpx;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+.my-mistakes-text{line-height: 28rpx;font-size: 24rpx;color: #9B9B9B;display: block;}
+.my-mistakes-text:first{margin-bottom: 4rpx;}
+.my-mistakes-delete{line-height:190rpx;background-color: #F16F7F;text-align: center;position: absolute;right: 0;top:0;bottom:0;font-size: 32rpx;color: #ffffff;z-index: 8;}
+.navigator-hover{background-color:#ffffff;opacity: 1;}
+.null-data{text-align: center;font-size: 26rpx;color: #666666;padding-top:30%;}

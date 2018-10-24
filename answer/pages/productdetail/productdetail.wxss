@@ -1,0 +1,13 @@
+.product-container{padding-bottom: 100rpx;}
+.product-image{width:750rpx;height:750rpx;vertical-align:top;}
+.product-content{padding:20rpx 30rpx 10rpx;background-color: #ffffff;border-top: 1rpx solid #E5E5E5;margin-bottom: 20rpx;}
+.product-name{line-height: 38rpx;font-size: 32rpx;color: #333333;margin-bottom: 4rpx;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
+.product-points{font-size: 40rpx;color:#F5A623;line-height: 52rpx;}
+.product-points image{width:32rpx;height: 32rpx;vertical-align: top;margin:10rpx 10rpx 10rpx 0;}
+.product-introduce-box{background-color: #ffffff;}
+.product-introduce-title{line-height: 68rpx;border-bottom: 1rpx solid #E5E5E5;padding-left: 32rpx;font-size: 28rpx;color: #333333;}
+.product-introduce-content{font-size: 24rpx;line-height: 32rpx;color:#9B9B9B;padding: 32rpx;}
+.exchange-btn{width: 750rpx;line-height: 100rpx;text-align: center;background-color:#F5A623;position: fixed;left: 0;right: 0;bottom: 0;font-size: 36rpx;color: #ffffff;}
+
+
+

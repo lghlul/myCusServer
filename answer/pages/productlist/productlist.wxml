@@ -1,0 +1,14 @@
+<!--logs.wxml-->
+<view class="container">
+  <view class='my-exchange-container'>
+    <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad">
+      <navigator url='../productdetail/productdetail?id={{item.goodsID}}' class='my-exchange-content' wx:for='{{productList}}' wx:key='index'>
+        <image src='{{item.goodsIcon}}' class='product-icon'></image>
+        <view class='product-info-box'>
+          <view class='product-info-name'>{{item.goodsName}}</view>
+          <view class='need-points'><image src='../../images/pointsIcon.png'></image>{{item.goodsScore}}</view>
+        </view>
+      </navigator>
+    </scroll-view>
+  </view>
+</view>

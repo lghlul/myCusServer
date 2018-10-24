@@ -1,0 +1,17 @@
+<!--logs.wxml-->
+<view class="container">
+  <view class='exchange-suc-container'>
+    <image class='exchange-suc-icon' src='../../images/success.png'></image>
+    <view class='exchange-suc-title'>兑换成功</view>
+    <view class='exchange-suc-info'>您的商品兑换码为：
+      <text>{{orderNo}}</text>
+    </view>
+    <!-- <view class='exchange-suc-info'>兑换时间：
+      <text>2018-01-01至2018-12-31</text>
+    </view> -->
+    <view class='exchange-suc-btn-box'>
+      <navigator url='../myexchange/myexchange' class='to-exchange' hover-class="to-exchange-hover">去兑换列表查看</navigator>
+      <navigator url='../index/index' type="default" class='back-home'>返回首页</navigator>
+    </view>
+  </view>
+</view>

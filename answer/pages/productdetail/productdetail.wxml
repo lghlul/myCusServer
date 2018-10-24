@@ -1,0 +1,15 @@
+<!--logs.wxml-->
+<view class="container">
+  <view class='product-container'>
+    <image class='product-image' src='{{productDetail.goodsImg}}'></image>
+    <view class='product-content'>
+      <view class='product-name'>{{productDetail.goodsName}}</view>
+      <view class='product-points'><image src='../../images/pointsIcon.png'></image>{{productDetail.goodsScore}}</view>
+    </view>
+    <view class='product-introduce-box'>
+      <view class='product-introduce-title'>商品介绍</view>
+      <view class='product-introduce-content'>{{productDetail.goodsDesc}}</view>
+    </view>
+  </view>
+  <view class='exchange-btn' bindtap='exchange'>立即兑换</view>
+</view>
