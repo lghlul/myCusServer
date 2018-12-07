@@ -48,7 +48,7 @@
 		FROM
 			t_user a join t_jobnum b on a.jobNum = b.jobNum
 		ORDER BY
-			(score + usedScore) DESC
+			(score + usedScore) DESC ,createTime
 		LIMIT #{start}, #{pageSize}
 	</select>
 	
@@ -73,6 +73,6 @@
 			(score + usedScore) AS score
 
 		FROM
-			t_user where (score + usedScore) = #{score}
+			t_user where (score + usedScore) = #{score} ORDER BY createTime
 	</select>
 </mapper>
