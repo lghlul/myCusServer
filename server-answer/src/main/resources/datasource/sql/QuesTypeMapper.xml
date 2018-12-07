@@ -10,7 +10,9 @@
 		<collection property="typeList" ofType="quesType">
 			<result column="sonTypeID" property="typeID"/> 
 			<result column="sonParentID" property="parentID"/> 
-			<result column="sonType" property="typeName"/>  
+			<result column="sonType" property="typeName"/>
+			<result column="allNum" property="allNum"/>
+			<result column="answerNum" property="answerNum"/>
 		</collection>
 	</resultMap>
 	<select id="queryQuesTypeList" resultMap="quesTypeMap">
@@ -24,6 +26,52 @@
 			t_type a
 		JOIN t_type b ON a.typeID = b.parentID
 		AND a.typeStatus = 1
+	</select>
+
+
+	<select id="queryQuesTypeListWithQuesNum" parameterType="string" resultMap="quesTypeMap">
+		SELECT
+			a.*,b.allNum,b.answerNum
+		FROM
+			(
+				SELECT
+					a.typeID,
+					a.parentID,
+					a.typeName,
+					b.typeID AS sonTypeID,
+					b.parentID AS sonParentID,
+					b.typeName AS sonType,
+					a.typeImg
+				FROM
+					t_type a
+				JOIN t_type b ON a.typeID = b.parentID
+				AND a.typeStatus = 1
+			) a
+		LEFT JOIN (
+			SELECT
+				m.*, n.answerNum
+			FROM
+				(
+					SELECT
+						typeID,
+						count(1) AS allNum
+					FROM
+						t_question
+					GROUP BY
+						typeID
+				) m
+			LEFT JOIN (
+				SELECT
+					typeId,
+					count(DISTINCT(questionID)) AS answerNum
+				FROM
+					t_user_answer
+				WHERE
+					openID = #{openID}
+				GROUP BY
+					typeId
+			) n ON m.typeID = n.typeID
+		) b ON a.sonTypeID = b.typeID
 	</select>
 	
 	
