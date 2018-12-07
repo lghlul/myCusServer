@@ -8,6 +8,8 @@ import com.answer.mapper.QuesTypeMapper;
 import com.answer.mapper.QuestionMapper;
 import com.answer.mapper.UserAnswerMapper;
 import com.answer.service.IQuesTypeService;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +29,11 @@ public class QuesTypeServiceImpl implements IQuesTypeService {
 
 	public Result getQuesTypeList(String wxSession, int type) {
 		Result result = new Result();
-		List<QuesType> typeList = this.quesTypeMapper.queryQuesTypeList();
+		List<QuesType> typeList = new ArrayList<>();
 		if (type == 1) {
 			WXSessionCache session = this.cacheHelper.getSession(wxSession);
-			Map<String, Object> map = new HashMap<>();
+			typeList = this.quesTypeMapper.queryQuesTypeListWithQuesNum(session.getOpenID());
+			/*Map<String, Object> map = new HashMap<>();
 			map.put("openID", session.getOpenID());
 			if (typeList != null) {
 				for (QuesType quesType : typeList) {
@@ -44,8 +47,10 @@ public class QuesTypeServiceImpl implements IQuesTypeService {
 						}
 					}
 				}
-			}
-		} 
+			}*/
+		} else{
+			typeList = this.quesTypeMapper.queryQuesTypeList();
+		}
 		result.setResultData(typeList);
 		
 		return result;
