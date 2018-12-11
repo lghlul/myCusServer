@@ -22,6 +22,16 @@ public class Mapper {
 
     private List<Delete> delete;
 
+    private List<Update> update;
+
+    public List<Update> getUpdate() {
+        return update;
+    }
+
+    public void setUpdate(List<Update> update) {
+        this.update = update;
+    }
+
     public List<Delete> getDelete() {
         return delete;
     }

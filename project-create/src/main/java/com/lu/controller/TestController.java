@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestController {
 
     @Autowired
-    private IProjectService trainService;
+    private IProjectService projectService;
 
     @ResponseBody
     @RequestMapping("/test")
     public Object test(String id){
-        return trainService.selectByPrimaryKey(id);
+        return projectService.selectByPrimaryKey(id);
     }
 
     @RequestMapping("/testPage")

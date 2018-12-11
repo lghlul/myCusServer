@@ -46,6 +46,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements IPro
         //打包
         FileUtil.zip(PropertiesUtil.BASEPATH + "/" + project.getArtifactId() , PropertiesUtil.BASEPATH + "/" + project.getArtifactId() + ".zip");
 
-        projectMapper.insert(project);
+        //projectMapper.insert(project);
     }
 }

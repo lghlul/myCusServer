@@ -180,15 +180,27 @@ public class MapperHandler {
 
 
         List<Delete> deleteList = new ArrayList<>();
-        //selectById
+
+        //deleteById
         DeleteNoTag deleteByIdMethod = getDeleteById(columnsList, tableName);
         if (deleteByIdMethod != null) {
             deleteList.add(deleteByIdMethod);
 
         }
-        deleteList.add(getDelete(columnsList , tableName , domainName));
+        //delete
+        deleteList.add(getDelete(columnsList , tableName , domainName , 1));
+
+        //deleteByMap
+        deleteList.add(getDelete(columnsList , tableName , domainName , 2));
 
         mapper.setDelete(deleteList);
+
+
+        //update
+        Update update = getUpdate(columnsList, tableName, domainName);
+        List<Update> updateList = new ArrayList<>();
+        updateList.add(update);
+        mapper.setUpdate(updateList);
         return mapper;
     }
 
@@ -201,7 +213,7 @@ public class MapperHandler {
      */
     private Insert getInsetMethod(List<Columns> columnsList, String tableName, String domainName) {
         Insert insert = new Insert();
-        insert.setNonTag("insert into" + tableName);
+        insert.setNonTag("insert into " + tableName);
         List<Trim> trimList = new ArrayList<>();
         trimList.add(getTrim(columnsList, 1));
         trimList.add(getTrim(columnsList, 2));
@@ -210,6 +222,15 @@ public class MapperHandler {
         List<XmlAttr> attrList = new ArrayList<>();
         attrList.add(new XmlAttr("id", "insert"));
         attrList.add(new XmlAttr("parameterType", domainName));
+
+        for(Columns c : columnsList){
+            if("PRI".equals(c.getColumnKey())) {
+                attrList.add(new XmlAttr("useGeneratedKeys", "true"));
+                attrList.add(new XmlAttr("keyProperty", c.getVariableName()));
+                break;
+            }
+        }
+
         insert.setAttrList(attrList);
         return insert;
     }
@@ -359,8 +380,8 @@ public class MapperHandler {
             //if标签
             List<If> ifList = new ArrayList<>();
             List<XmlAttr> ifAttrList = new ArrayList<>();
-            ifAttrList.add(new XmlAttr("test", "pageNo != null and pageSize != null"));
-            ifList.add(new If("limit (pageNo - 1)*pageSize,pageSize", ifAttrList));
+            ifAttrList.add(new XmlAttr("test", "offSet != null and limit != null"));
+            ifList.add(new If("limit #{offSet},#{limit}", ifAttrList));
             selectWithTag.setIf2(ifList);
         }
 
@@ -371,13 +392,19 @@ public class MapperHandler {
      * @author ll
      * @Description 生成 delete方法
      * @date 2018/9/28 19:01
-     * @param [columnsList, tableName, domainName]
+     * @param [columnsList, tableName, domainName] type == 1 paramType bean  type == 2 paramType map
      * @return com.lu.tag.mybatis.DeleteWithTag
      */
-    private DeleteWithTag getDelete(List<Columns> columnsList, String tableName , String domainName){
+    private DeleteWithTag getDelete(List<Columns> columnsList, String tableName , String domainName , int type){
         List<XmlAttr> attrList = new ArrayList<>();
-        attrList.add(new XmlAttr("id", "delete"));
-        attrList.add(new XmlAttr("parameterType", domainName));
+        if(type == 1){
+            attrList.add(new XmlAttr("id", "delete"));
+            attrList.add(new XmlAttr("parameterType", domainName));
+        }else{
+            attrList.add(new XmlAttr("id", "deleteByMap"));
+            attrList.add(new XmlAttr("parameterType", "map"));
+        }
+
         DeleteWithTag deleteWithTag = new DeleteWithTag(attrList);
         Where where = new Where();
         List<If> ifList = getIfList(columnsList , 1);
@@ -430,7 +457,7 @@ public class MapperHandler {
      * @author ll
      * @Description 获取if标签列表
      * @date 2018/9/28 18:53
-     * @param [columns, type] type = 1 and 连接  , type = 2 逗号连接
+     * @param [columns, type] type = 1 and 连接  , type = 2 逗号连接 type = 3 逗号连接 去除主键 type = 4 where连接 只要主键
      * @return java.util.List<com.lu.tag.mybatis.If>
      */
     private List<If> getIfList(List<Columns> columnsList , int type){
@@ -440,11 +467,49 @@ public class MapperHandler {
             ifAttrList.add(new XmlAttr("test", columns.getVariableName() + " != null"));
             if(type == 1){
                 ifList.add(new If("and " + columns.getColumnName() + " = #{" + columns.getVariableName() + "}", ifAttrList));
-            }else{
+            }else if(type == 2){
                 ifList.add(new If(columns.getColumnName() + " = #{" + columns.getVariableName() + "},", ifAttrList));
+            }else if(type == 3){
+                if (!"PRI".equals(columns.getColumnKey())) {
+                    ifList.add(new If(columns.getColumnName() + " = #{" + columns.getVariableName() + "},", ifAttrList));
+                }
+            }else if(type == 4){
+                if ("PRI".equals(columns.getColumnKey())) {
+                    ifList.add(new If("where " + columns.getColumnName() + " = #{" + columns.getVariableName() + "}", ifAttrList));
+                }
             }
         }
         return ifList;
+    }
+
+    /*
+     * @author ll
+     * @Description update
+     * @date 2018/11/21 15:14
+     * @param [columnsList, tableName, domainName]
+     * @return com.lu.tag.mybatis.Update
+     */
+    private Update getUpdate(List<Columns> columnsList, String tableName, String domainName){
+        Update update = null;
+        String priColumnName = getPriKey(columnsList);
+        if (priColumnName != null) {
+            update = new Update();
+            String sql = "update " + tableName;
+            update.setNonTag(sql);
+            List<XmlAttr> attrList = new ArrayList<>();
+            attrList.add(new XmlAttr("id", "update"));
+            attrList.add(new XmlAttr("parameterType", domainName));
+            update.setAttrList(attrList);
+
+            List<If> setIfList = getIfList(columnsList, 3);
+            Set set = new Set();
+            set.setIf2(setIfList);
+
+            List<If> whereIfList = getIfList(columnsList, 4);
+            update.setSet(set);
+            update.setIf2(whereIfList);
+        }
+        return update;
     }
 
 }

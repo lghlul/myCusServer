@@ -31,6 +31,6 @@ public interface TableMapper {
      * @param [tableName]
      * @return java.util.List<java.lang.String>
      */
-    @Select("select COLUMN_NAME as columnName , DATA_TYPE as dataType,COLUMN_KEY as columnKey  from INFORMATION_SCHEMA.COLUMNS where table_name = #{tableName} and table_schema = #{databaseName}")
+    @Select("select COLUMN_NAME as columnName , DATA_TYPE as dataType,COLUMN_KEY as columnKey,COLUMN_COMMENT as comment  from INFORMATION_SCHEMA.COLUMNS where table_name = #{tableName} and table_schema = #{databaseName}")
     public List<Columns> getFieldList(@Param("tableName") String tableName , @Param("databaseName") String databaseName);
 }
