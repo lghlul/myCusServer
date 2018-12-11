@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TJobnumMapper">
+    <resultMap id="baseResultMap" type="TJobnum">
+        <id column="id" property="id"/>
+        <result column="jobNum" property="jobNum"/>
+        <result column="status" property="status"/>
+        <result column="sex" property="sex"/>
+        <result column="realName" property="realName"/>
+        <result column="orgName" property="orgName"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_jobnum where id = #{id}
+    </select>
+    <select id="selectPage" parameterType="TJobnum" resultMap="baseResultMap">
+        select * from t_jobnum
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="realName != null">
+                and realName = #{realName}
+            </if>
+            <if test="orgName != null">
+                and orgName = #{orgName}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="TJobnum" resultType="int">
+        select count(*) from t_jobnum
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="realName != null">
+                and realName = #{realName}
+            </if>
+            <if test="orgName != null">
+                and orgName = #{orgName}
+            </if>
+        </where>
+    </select>
+    <select id="selectPageByMap" parameterType="map" resultMap="baseResultMap">
+        select * from t_jobnum
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="realName != null">
+                and realName = #{realName}
+            </if>
+            <if test="orgName != null">
+                and orgName = #{orgName}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCountByMap" parameterType="map" resultType="int">
+        select count(*) from t_jobnum
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="realName != null">
+                and realName = #{realName}
+            </if>
+            <if test="orgName != null">
+                and orgName = #{orgName}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" keyProperty="id" parameterType="TJobnum" useGeneratedKeys="true">
+        insert into t_jobnum
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="jobNum != null">
+                jobNum,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="realName != null">
+                realName,
+            </if>
+            <if test="orgName != null">
+                orgName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="jobNum != null">
+                #{jobNum},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="realName != null">
+                #{realName},
+            </if>
+            <if test="orgName != null">
+                #{orgName},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from t_jobnum where id = #{id}
+    </delete>
+    <delete id="delete" parameterType="TJobnum">
+        delete from t_jobnum
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="realName != null">
+                and realName = #{realName}
+            </if>
+            <if test="orgName != null">
+                and orgName = #{orgName}
+            </if>
+        </where>
+    </delete>
+    <delete id="deleteByMap" parameterType="map">
+        delete from t_jobnum
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="realName != null">
+                and realName = #{realName}
+            </if>
+            <if test="orgName != null">
+                and orgName = #{orgName}
+            </if>
+        </where>
+    </delete>
+    <update id="update" parameterType="TJobnum">
+        update t_jobnum
+        <set>
+            <if test="jobNum != null">
+                jobNum = #{jobNum},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="realName != null">
+                realName = #{realName},
+            </if>
+            <if test="orgName != null">
+                orgName = #{orgName},
+            </if>
+        </set>
+        <if test="id != null">
+            where id = #{id}
+        </if>
+    </update>
+</mapper>

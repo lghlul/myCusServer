@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TRoleMapper">
+    <resultMap id="baseResultMap" type="TRole">
+        <id column="roleId" property="roleId"/>
+        <result column="roleName" property="roleName"/>
+        <result column="roleStatus" property="roleStatus"/>
+        <result column="creater" property="creater"/>
+        <result column="createTime" property="createTime"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_role where roleId = #{id}
+    </select>
+    <select id="selectPage" parameterType="TRole" resultMap="baseResultMap">
+        select * from t_role
+        <where>
+            <if test="roleId != null">
+                and roleId = #{roleId}
+            </if>
+            <if test="roleName != null">
+                and roleName = #{roleName}
+            </if>
+            <if test="roleStatus != null">
+                and roleStatus = #{roleStatus}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="TRole" resultType="int">
+        select count(*) from t_role
+        <where>
+            <if test="roleId != null">
+                and roleId = #{roleId}
+            </if>
+            <if test="roleName != null">
+                and roleName = #{roleName}
+            </if>
+            <if test="roleStatus != null">
+                and roleStatus = #{roleStatus}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+    </select>
+    <select id="selectPageByMap" parameterType="map" resultMap="baseResultMap">
+        select * from t_role
+        <where>
+            <if test="roleId != null">
+                and roleId = #{roleId}
+            </if>
+            <if test="roleName != null">
+                and roleName = #{roleName}
+            </if>
+            <if test="roleStatus != null">
+                and roleStatus = #{roleStatus}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCountByMap" parameterType="map" resultType="int">
+        select count(*) from t_role
+        <where>
+            <if test="roleId != null">
+                and roleId = #{roleId}
+            </if>
+            <if test="roleName != null">
+                and roleName = #{roleName}
+            </if>
+            <if test="roleStatus != null">
+                and roleStatus = #{roleStatus}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" keyProperty="roleId" parameterType="TRole" useGeneratedKeys="true">
+        insert into t_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                roleId,
+            </if>
+            <if test="roleName != null">
+                roleName,
+            </if>
+            <if test="roleStatus != null">
+                roleStatus,
+            </if>
+            <if test="creater != null">
+                creater,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+            <if test="roleName != null">
+                #{roleName},
+            </if>
+            <if test="roleStatus != null">
+                #{roleStatus},
+            </if>
+            <if test="creater != null">
+                #{creater},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from t_role where roleId = #{id}
+    </delete>
+    <delete id="delete" parameterType="TRole">
+        delete from t_role
+        <where>
+            <if test="roleId != null">
+                and roleId = #{roleId}
+            </if>
+            <if test="roleName != null">
+                and roleName = #{roleName}
+            </if>
+            <if test="roleStatus != null">
+                and roleStatus = #{roleStatus}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+    </delete>
+    <delete id="deleteByMap" parameterType="map">
+        delete from t_role
+        <where>
+            <if test="roleId != null">
+                and roleId = #{roleId}
+            </if>
+            <if test="roleName != null">
+                and roleName = #{roleName}
+            </if>
+            <if test="roleStatus != null">
+                and roleStatus = #{roleStatus}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+    </delete>
+    <update id="update" parameterType="TRole">
+        update t_role
+        <set>
+            <if test="roleName != null">
+                roleName = #{roleName},
+            </if>
+            <if test="roleStatus != null">
+                roleStatus = #{roleStatus},
+            </if>
+            <if test="creater != null">
+                creater = #{creater},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+        </set>
+        <if test="roleId != null">
+            where roleId = #{roleId}
+        </if>
+    </update>
+</mapper>
