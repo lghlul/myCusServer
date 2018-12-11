@@ -37,6 +37,18 @@ public class Columns {
      */
     private String columnKey;
 
+    /**
+     * 字段注释
+     */
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public String getColumnKey() {
         return columnKey;

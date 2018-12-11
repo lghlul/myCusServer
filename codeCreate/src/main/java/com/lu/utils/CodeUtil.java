@@ -94,6 +94,9 @@ public class CodeUtil {
             String variableName = delSpecialMark(columns.getColumnName(), 2);
             columns.setVariableName(variableName);
             String variableType = MysqlTypeUtil.mysqlTypeMap.get((columns.getDataType()).toUpperCase());
+            if(variableType == null){
+                variableType = "String";
+            }
             columns.setVariableType(variableType);
             String variableMethod = delSpecialMark(columns.getColumnName(), 1);
             columns.setVariableMethod(variableMethod);

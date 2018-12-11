@@ -12,7 +12,7 @@ import java.util.Map;
  * @Author ll
  * @Date 2018/9/26 11:03
  **/
-public class CodeUtil {
+public class  CodeUtil {
 
 
 
@@ -94,6 +94,9 @@ public class CodeUtil {
             String variableName = delSpecialMark(columns.getColumnName(), 2);
             columns.setVariableName(variableName);
             String variableType = MysqlTypeUtil.mysqlTypeMap.get((columns.getDataType()).toUpperCase());
+            if(variableType == null){
+                variableType = "String";
+            }
             columns.setVariableType(variableType);
             String variableMethod = delSpecialMark(columns.getColumnName(), 1);
             columns.setVariableMethod(variableMethod);
@@ -131,19 +134,26 @@ public class CodeUtil {
      * @author ll
      * @Description 删除特殊符号
      * @date 2018/9/26 9:55
-     * @param [s] type = 1 类名   type = 2 属性名称
+     * @param [s] type = 1 首字母大写 type = 2 首字母小写
      * @return java.lang.String
      */
     public static String delSpecialMark(String s , int type){
         String result = s;
-        String [] specialMark = {"`" , "~" , "!" ,"@" ,"#" ,"%" ,"^" ,"&" ,"-","_","=",";",":","'","\"" ,"," ,"<" ,  ">" ,  "/"};
+        String [] specialMark = {"`" , "~" , "!" ,"@" ,"#" ,"%" ,"^" ,"&" ,"-","_","=",";",":","'","\"" ,"," ,"<" ,  ">" ,  "/"," " };
         for(String mark : specialMark){
             String[] marks = result.split(mark);
             StringBuffer stringBuffer = new StringBuffer();
-            for(String m : marks){
-                stringBuffer.append(toCaseFirstOne(m , type));
+            for(int i = 0 ; i < marks.length ; i++){
+                String m = marks[i];
+                // 如果是变量名 首字母小写  其他特殊字符后的首字母大写
+                if(i == 0){
+                    stringBuffer.append(toCaseFirstOne(m , type));
+                }else{
+                    stringBuffer.append(toCaseFirstOne(m , 1));
+                }
+
             }
-            result = stringBuffer.toString();
+            result = stringBuffer.toString().trim();
         }
         return result;
     }
