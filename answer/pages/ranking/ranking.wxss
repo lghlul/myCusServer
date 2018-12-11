@@ -4,10 +4,10 @@
 .ranking-list-content{width:710rpx;}
 .ranking-list-box{width: 710rpx;height:185rpx;background: linear-gradient(#4a90e2, #80c3f2);border-radius: 6rpx;margin-bottom: 20rpx;padding:20rpx 45rpx 20rpx 30rpx;box-sizing: border-box;}
 .ranking-my{border:4rpx solid #F8CA1E;padding-top:16rpx;padding-bottom:16rpx;position: relative;}
-.serial-number{font-size: 37rpx;width:28rpx;line-height: 145rpx;text-align: center;color: #ffffff;float: left;}
+.serial-number{font-size: 37rpx;widranking-usernameth:28rpx;line-height: 145rpx;text-align: center;color: #ffffff;float: left;}
 .ranking-usericon-box{position: relative;width: 125rpx;height:125rpx;border:10rpx solid rgba(255,255,255,0);border-radius: 50%;float: left;margin:0 14rpx 0 20rpx;}
 .ranking-usericon{width:100%;height:100%;border-radius: 50%;vertical-align: top;}
-.ranking-username{line-height: 145rpx;font-size: 37rpx;color: #ffffff;float: left;width:285rpx;height:145rpx;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+.ranking-username{line-height: 145rpx;font-size: 37rpx;color: #ffffff;float: left;width:200rpx;height:145rpx;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 .ranking-points-box{float: right;margin: 30rpx 0;}
 .ranking-points{text-align: right;font-size: 32rpx;line-height: 45rpx;color: #ffffff;}
 .ranking-points image{width:32rpx;height:32rpx;display: inline-block;margin-right:10rpx;}
