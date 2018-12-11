@@ -56,10 +56,19 @@ public class DomainHandler {
         domainCode.append("package " + basePackage + "." + PropertiesUtil.PACKAGE_DOMAIN + ";");
         domainCode.append(CodeUtil.getChangeLine(2));
         //domainCode.append("public class " + domainName + " extends " + PropertiesUtil.CLASS_BASE_DOMAIN + "{");
-        domainCode.append("public class " + domainName + "{");
+        domainCode.append("public class " + domainName + " extends BaseDomain{");
         domainCode.append(CodeUtil.getChangeLine(2));
         //声明变量
         for(Columns columns : columnList){
+            if(columns.getComment() != null && !"".equals(columns.getComment())){
+                //添加字段注释
+                domainCode.append(CodeUtil.getIndent(1) + "/**");
+                domainCode.append(CodeUtil.getChangeLine(1));
+                domainCode.append(CodeUtil.getIndent(1) + " * " + columns.getComment());
+                domainCode.append(CodeUtil.getChangeLine(1));
+                domainCode.append(CodeUtil.getIndent(1) + " */");
+                domainCode.append(CodeUtil.getChangeLine(1));
+            }
             domainCode.append(CodeUtil.getIndent(1) + "private " + columns.getVariableType() + " " + columns.getVariableName() + ";");
             domainCode.append(CodeUtil.getChangeLine(2));
         }
@@ -109,15 +118,29 @@ public class DomainHandler {
         baseDomainCode.append(CodeUtil.getChangeLine(2));
         baseDomainCode.append(CodeUtil.getIndent(1) + "private Integer pageSize;");
         baseDomainCode.append(CodeUtil.getChangeLine(2));
-        //get 方法
-        CodeUtil.addGetMethod(baseDomainCode , "int" , pageNoName , (new StringBuilder()).append(Character.toUpperCase(pageNoName.charAt(0))).append(pageNoName.substring(1)).toString());
-        //set方法
-        CodeUtil.addSetMethod(baseDomainCode , "int" , pageNoName , (new StringBuilder()).append(Character.toUpperCase(pageNoName.charAt(0))).append(pageNoName.substring(1)).toString());
+        baseDomainCode.append(CodeUtil.getIndent(1) + "private Integer offSet;");
+        baseDomainCode.append(CodeUtil.getChangeLine(2));
+        baseDomainCode.append(CodeUtil.getIndent(1) + "private Integer limit;");
         baseDomainCode.append(CodeUtil.getChangeLine(2));
         //get 方法
-        CodeUtil.addGetMethod(baseDomainCode , "int" , pageSizeName , (new StringBuilder()).append(Character.toUpperCase(pageSizeName.charAt(0))).append(pageSizeName.substring(1)).toString());
+        CodeUtil.addGetMethod(baseDomainCode , "Integer" , pageNoName , (new StringBuilder()).append(Character.toUpperCase(pageNoName.charAt(0))).append(pageNoName.substring(1)).toString());
         //set方法
-        CodeUtil.addSetMethod(baseDomainCode , "int" , pageSizeName , (new StringBuilder()).append(Character.toUpperCase(pageSizeName.charAt(0))).append(pageSizeName.substring(1)).toString());
+        CodeUtil.addSetMethod(baseDomainCode , "Integer" , pageNoName , (new StringBuilder()).append(Character.toUpperCase(pageNoName.charAt(0))).append(pageNoName.substring(1)).toString());
+        baseDomainCode.append(CodeUtil.getChangeLine(2));
+        //get 方法
+        CodeUtil.addGetMethod(baseDomainCode , "Integer" , pageSizeName , (new StringBuilder()).append(Character.toUpperCase(pageSizeName.charAt(0))).append(pageSizeName.substring(1)).toString());
+        //set方法
+        CodeUtil.addSetMethod(baseDomainCode , "Integer" , pageSizeName , (new StringBuilder()).append(Character.toUpperCase(pageSizeName.charAt(0))).append(pageSizeName.substring(1)).toString());
+
+        //get 方法
+        CodeUtil.addGetMethod(baseDomainCode , "Integer" , "offSet" , (new StringBuilder()).append(Character.toUpperCase("offSet".charAt(0))).append("offSet".substring(1)).toString());
+        //set方法
+        CodeUtil.addSetMethod(baseDomainCode , "Integer" , "offSet" , (new StringBuilder()).append(Character.toUpperCase("offSet".charAt(0))).append("offSet".substring(1)).toString());
+        baseDomainCode.append(CodeUtil.getChangeLine(2));
+        //get 方法
+        CodeUtil.addGetMethod(baseDomainCode , "Integer" , "limit" , (new StringBuilder()).append(Character.toUpperCase("limit".charAt(0))).append("limit".substring(1)).toString());
+        //set方法
+        CodeUtil.addSetMethod(baseDomainCode , "Integer" , "limit" , (new StringBuilder()).append(Character.toUpperCase("limit".charAt(0))).append("limit".substring(1)).toString());
 
         baseDomainCode.append(CodeUtil.getChangeLine(2));
         baseDomainCode.append("}");

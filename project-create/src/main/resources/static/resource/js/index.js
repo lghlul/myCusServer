@@ -1,6 +1,4 @@
 $(function(){
-    var load = new Loading();
-    load.init();
 
     $("form button").click(function(){
         var loading;

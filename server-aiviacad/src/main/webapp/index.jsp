@@ -44,7 +44,7 @@
 					<span>孔公差</span>
 					<select id="k_nm">
 					</select>
-					
+
 				</div>
 				<div class="select-name">
 					<span>轴公差</span>
@@ -52,7 +52,7 @@
 					</select>
 				</div>
 				<div style="text-align: center;width: 100%;">
-					<div class="botton" >	
+					<div class="botton" >
 						全部公差
 					</div>
 					<div class="botton" >
@@ -60,7 +60,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
 		<div class="item">
 			<span>结果</span>
@@ -89,7 +89,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="bottom">
 		<div class="email">
 			<img src="images/email.png"/><span id="email">&nbsp;站长邮箱:<a href="mailto:aiviacad@163.com">aiviacad@163.com</a></span>
