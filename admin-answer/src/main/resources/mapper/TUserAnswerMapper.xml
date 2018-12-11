@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TUserAnswerMapper">
+    <resultMap id="baseResultMap" type="TUserAnswer">
+        <id column="id" property="id"/>
+        <result column="openID" property="openID"/>
+        <result column="questionID" property="questionID"/>
+        <result column="typeID" property="typeID"/>
+        <result column="answerID" property="answerID"/>
+        <result column="isRight" property="isRight"/>
+        <result column="status" property="status"/>
+        <result column="createTime" property="createTime"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_user_answer where id = #{id}
+    </select>
+    <select id="selectPage" parameterType="TUserAnswer" resultMap="baseResultMap">
+        select * from t_user_answer
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="isRight != null">
+                and isRight = #{isRight}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="TUserAnswer" resultType="int">
+        select count(*) from t_user_answer
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="isRight != null">
+                and isRight = #{isRight}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+    </select>
+    <select id="selectPageByMap" parameterType="map" resultMap="baseResultMap">
+        select * from t_user_answer
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="isRight != null">
+                and isRight = #{isRight}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCountByMap" parameterType="map" resultType="int">
+        select count(*) from t_user_answer
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="isRight != null">
+                and isRight = #{isRight}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" keyProperty="id" parameterType="TUserAnswer" useGeneratedKeys="true">
+        insert into t_user_answer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="openID != null">
+                openID,
+            </if>
+            <if test="questionID != null">
+                questionID,
+            </if>
+            <if test="typeID != null">
+                typeID,
+            </if>
+            <if test="answerID != null">
+                answerID,
+            </if>
+            <if test="isRight != null">
+                isRight,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="openID != null">
+                #{openID},
+            </if>
+            <if test="questionID != null">
+                #{questionID},
+            </if>
+            <if test="typeID != null">
+                #{typeID},
+            </if>
+            <if test="answerID != null">
+                #{answerID},
+            </if>
+            <if test="isRight != null">
+                #{isRight},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from t_user_answer where id = #{id}
+    </delete>
+    <delete id="delete" parameterType="TUserAnswer">
+        delete from t_user_answer
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="isRight != null">
+                and isRight = #{isRight}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+    </delete>
+    <delete id="deleteByMap" parameterType="map">
+        delete from t_user_answer
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="isRight != null">
+                and isRight = #{isRight}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+    </delete>
+    <update id="update" parameterType="TUserAnswer">
+        update t_user_answer
+        <set>
+            <if test="openID != null">
+                openID = #{openID},
+            </if>
+            <if test="questionID != null">
+                questionID = #{questionID},
+            </if>
+            <if test="typeID != null">
+                typeID = #{typeID},
+            </if>
+            <if test="answerID != null">
+                answerID = #{answerID},
+            </if>
+            <if test="isRight != null">
+                isRight = #{isRight},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+        </set>
+        <if test="id != null">
+            where id = #{id}
+        </if>
+    </update>
+</mapper>

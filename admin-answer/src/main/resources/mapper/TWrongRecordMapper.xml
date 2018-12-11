@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TWrongRecordMapper">
+    <resultMap id="baseResultMap" type="TWrongRecord">
+        <id column="id" property="id"/>
+        <result column="questionID" property="questionID"/>
+        <result column="openID" property="openID"/>
+        <result column="answerID" property="answerID"/>
+        <result column="createTime" property="createTime"/>
+        <result column="typeID" property="typeID"/>
+        <result column="status" property="status"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_wrong_record where id = #{id}
+    </select>
+    <select id="selectPage" parameterType="TWrongRecord" resultMap="baseResultMap">
+        select * from t_wrong_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="TWrongRecord" resultType="int">
+        select count(*) from t_wrong_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+    <select id="selectPageByMap" parameterType="map" resultMap="baseResultMap">
+        select * from t_wrong_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCountByMap" parameterType="map" resultType="int">
+        select count(*) from t_wrong_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" keyProperty="id" parameterType="TWrongRecord" useGeneratedKeys="true">
+        insert into t_wrong_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="questionID != null">
+                questionID,
+            </if>
+            <if test="openID != null">
+                openID,
+            </if>
+            <if test="answerID != null">
+                answerID,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="typeID != null">
+                typeID,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="questionID != null">
+                #{questionID},
+            </if>
+            <if test="openID != null">
+                #{openID},
+            </if>
+            <if test="answerID != null">
+                #{answerID},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="typeID != null">
+                #{typeID},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from t_wrong_record where id = #{id}
+    </delete>
+    <delete id="delete" parameterType="TWrongRecord">
+        delete from t_wrong_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </delete>
+    <delete id="deleteByMap" parameterType="map">
+        delete from t_wrong_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="questionID != null">
+                and questionID = #{questionID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="answerID != null">
+                and answerID = #{answerID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </delete>
+    <update id="update" parameterType="TWrongRecord">
+        update t_wrong_record
+        <set>
+            <if test="questionID != null">
+                questionID = #{questionID},
+            </if>
+            <if test="openID != null">
+                openID = #{openID},
+            </if>
+            <if test="answerID != null">
+                answerID = #{answerID},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+            <if test="typeID != null">
+                typeID = #{typeID},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        <if test="id != null">
+            where id = #{id}
+        </if>
+    </update>
+</mapper>
