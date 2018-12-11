@@ -1,0 +1,24 @@
+server:
+  port: 18006
+  context-path: /
+spring:
+  datasource:
+    url: jdbc:mysql://47.100.229.122:3306/project?useUnicode=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  devtools:
+    livereload:
+      enabled: true
+  resources:
+    static-locations: classpath:/static/,file:/data/project/
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.lu.domain
+
+
+
+
+
