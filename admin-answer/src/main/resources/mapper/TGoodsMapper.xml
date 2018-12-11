@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TGoodsMapper">
+    <resultMap id="baseResultMap" type="TGoods">
+        <id column="goodsID" property="goodsID"/>
+        <result column="goodsIcon" property="goodsIcon"/>
+        <result column="goodsImg" property="goodsImg"/>
+        <result column="goodsDesc" property="goodsDesc"/>
+        <result column="goodsSort" property="goodsSort"/>
+        <result column="goodsScore" property="goodsScore"/>
+        <result column="goodsStatus" property="goodsStatus"/>
+        <result column="goodsName" property="goodsName"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_goods where goodsID = #{id}
+    </select>
+    <select id="selectPage" parameterType="TGoods" resultMap="baseResultMap">
+        select * from t_goods
+        <where>
+            <if test="goodsID != null">
+                and goodsID = #{goodsID}
+            </if>
+            <if test="goodsIcon != null">
+                and goodsIcon = #{goodsIcon}
+            </if>
+            <if test="goodsImg != null">
+                and goodsImg = #{goodsImg}
+            </if>
+            <if test="goodsDesc != null">
+                and goodsDesc = #{goodsDesc}
+            </if>
+            <if test="goodsSort != null">
+                and goodsSort = #{goodsSort}
+            </if>
+            <if test="goodsScore != null">
+                and goodsScore = #{goodsScore}
+            </if>
+            <if test="goodsStatus != null">
+                and goodsStatus = #{goodsStatus}
+            </if>
+            <if test="goodsName != null">
+                and goodsName = #{goodsName}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="TGoods" resultType="int">
+        select count(*) from t_goods
+        <where>
+            <if test="goodsID != null">
+                and goodsID = #{goodsID}
+            </if>
+            <if test="goodsIcon != null">
+                and goodsIcon = #{goodsIcon}
+            </if>
+            <if test="goodsImg != null">
+                and goodsImg = #{goodsImg}
+            </if>
+            <if test="goodsDesc != null">
+                and goodsDesc = #{goodsDesc}
+            </if>
+            <if test="goodsSort != null">
+                and goodsSort = #{goodsSort}
+            </if>
+            <if test="goodsScore != null">
+                and goodsScore = #{goodsScore}
+            </if>
+            <if test="goodsStatus != null">
+                and goodsStatus = #{goodsStatus}
+            </if>
+            <if test="goodsName != null">
+                and goodsName = #{goodsName}
+            </if>
+        </where>
+    </select>
+    <select id="selectPageByMap" parameterType="map" resultMap="baseResultMap">
+        select * from t_goods
+        <where>
+            <if test="goodsID != null">
+                and goodsID = #{goodsID}
+            </if>
+            <if test="goodsIcon != null">
+                and goodsIcon = #{goodsIcon}
+            </if>
+            <if test="goodsImg != null">
+                and goodsImg = #{goodsImg}
+            </if>
+            <if test="goodsDesc != null">
+                and goodsDesc = #{goodsDesc}
+            </if>
+            <if test="goodsSort != null">
+                and goodsSort = #{goodsSort}
+            </if>
+            <if test="goodsScore != null">
+                and goodsScore = #{goodsScore}
+            </if>
+            <if test="goodsStatus != null">
+                and goodsStatus = #{goodsStatus}
+            </if>
+            <if test="goodsName != null">
+                and goodsName = #{goodsName}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCountByMap" parameterType="map" resultType="int">
+        select count(*) from t_goods
+        <where>
+            <if test="goodsID != null">
+                and goodsID = #{goodsID}
+            </if>
+            <if test="goodsIcon != null">
+                and goodsIcon = #{goodsIcon}
+            </if>
+            <if test="goodsImg != null">
+                and goodsImg = #{goodsImg}
+            </if>
+            <if test="goodsDesc != null">
+                and goodsDesc = #{goodsDesc}
+            </if>
+            <if test="goodsSort != null">
+                and goodsSort = #{goodsSort}
+            </if>
+            <if test="goodsScore != null">
+                and goodsScore = #{goodsScore}
+            </if>
+            <if test="goodsStatus != null">
+                and goodsStatus = #{goodsStatus}
+            </if>
+            <if test="goodsName != null">
+                and goodsName = #{goodsName}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" keyProperty="goodsID" parameterType="TGoods" useGeneratedKeys="true">
+        insert into t_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsID != null">
+                goodsID,
+            </if>
+            <if test="goodsIcon != null">
+                goodsIcon,
+            </if>
+            <if test="goodsImg != null">
+                goodsImg,
+            </if>
+            <if test="goodsDesc != null">
+                goodsDesc,
+            </if>
+            <if test="goodsSort != null">
+                goodsSort,
+            </if>
+            <if test="goodsScore != null">
+                goodsScore,
+            </if>
+            <if test="goodsStatus != null">
+                goodsStatus,
+            </if>
+            <if test="goodsName != null">
+                goodsName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsID != null">
+                #{goodsID},
+            </if>
+            <if test="goodsIcon != null">
+                #{goodsIcon},
+            </if>
+            <if test="goodsImg != null">
+                #{goodsImg},
+            </if>
+            <if test="goodsDesc != null">
+                #{goodsDesc},
+            </if>
+            <if test="goodsSort != null">
+                #{goodsSort},
+            </if>
+            <if test="goodsScore != null">
+                #{goodsScore},
+            </if>
+            <if test="goodsStatus != null">
+                #{goodsStatus},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from t_goods where goodsID = #{id}
+    </delete>
+    <delete id="delete" parameterType="TGoods">
+        delete from t_goods
+        <where>
+            <if test="goodsID != null">
+                and goodsID = #{goodsID}
+            </if>
+            <if test="goodsIcon != null">
+                and goodsIcon = #{goodsIcon}
+            </if>
+            <if test="goodsImg != null">
+                and goodsImg = #{goodsImg}
+            </if>
+            <if test="goodsDesc != null">
+                and goodsDesc = #{goodsDesc}
+            </if>
+            <if test="goodsSort != null">
+                and goodsSort = #{goodsSort}
+            </if>
+            <if test="goodsScore != null">
+                and goodsScore = #{goodsScore}
+            </if>
+            <if test="goodsStatus != null">
+                and goodsStatus = #{goodsStatus}
+            </if>
+            <if test="goodsName != null">
+                and goodsName = #{goodsName}
+            </if>
+        </where>
+    </delete>
+    <delete id="deleteByMap" parameterType="map">
+        delete from t_goods
+        <where>
+            <if test="goodsID != null">
+                and goodsID = #{goodsID}
+            </if>
+            <if test="goodsIcon != null">
+                and goodsIcon = #{goodsIcon}
+            </if>
+            <if test="goodsImg != null">
+                and goodsImg = #{goodsImg}
+            </if>
+            <if test="goodsDesc != null">
+                and goodsDesc = #{goodsDesc}
+            </if>
+            <if test="goodsSort != null">
+                and goodsSort = #{goodsSort}
+            </if>
+            <if test="goodsScore != null">
+                and goodsScore = #{goodsScore}
+            </if>
+            <if test="goodsStatus != null">
+                and goodsStatus = #{goodsStatus}
+            </if>
+            <if test="goodsName != null">
+                and goodsName = #{goodsName}
+            </if>
+        </where>
+    </delete>
+    <update id="update" parameterType="TGoods">
+        update t_goods
+        <set>
+            <if test="goodsIcon != null">
+                goodsIcon = #{goodsIcon},
+            </if>
+            <if test="goodsImg != null">
+                goodsImg = #{goodsImg},
+            </if>
+            <if test="goodsDesc != null">
+                goodsDesc = #{goodsDesc},
+            </if>
+            <if test="goodsSort != null">
+                goodsSort = #{goodsSort},
+            </if>
+            <if test="goodsScore != null">
+                goodsScore = #{goodsScore},
+            </if>
+            <if test="goodsStatus != null">
+                goodsStatus = #{goodsStatus},
+            </if>
+            <if test="goodsName != null">
+                goodsName = #{goodsName},
+            </if>
+        </set>
+        <if test="goodsID != null">
+            where goodsID = #{goodsID}
+        </if>
+    </update>
+</mapper>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TBindRecordMapper">
+    <resultMap id="baseResultMap" type="TBindRecord">
+        <id column="id" property="id"/>
+        <result column="jobNum" property="jobNum"/>
+        <result column="openID" property="openID"/>
+        <result column="operYear" property="operYear"/>
+        <result column="operMonth" property="operMonth"/>
+        <result column="operDay" property="operDay"/>
+        <result column="operTime" property="operTime"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_bind_record where id = #{id}
+    </select>
+    <select id="selectPage" parameterType="TBindRecord" resultMap="baseResultMap">
+        select * from t_bind_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="operYear != null">
+                and operYear = #{operYear}
+            </if>
+            <if test="operMonth != null">
+                and operMonth = #{operMonth}
+            </if>
+            <if test="operDay != null">
+                and operDay = #{operDay}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="TBindRecord" resultType="int">
+        select count(*) from t_bind_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="operYear != null">
+                and operYear = #{operYear}
+            </if>
+            <if test="operMonth != null">
+                and operMonth = #{operMonth}
+            </if>
+            <if test="operDay != null">
+                and operDay = #{operDay}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+        </where>
+    </select>
+    <select id="selectPageByMap" parameterType="map" resultMap="baseResultMap">
+        select * from t_bind_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="operYear != null">
+                and operYear = #{operYear}
+            </if>
+            <if test="operMonth != null">
+                and operMonth = #{operMonth}
+            </if>
+            <if test="operDay != null">
+                and operDay = #{operDay}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCountByMap" parameterType="map" resultType="int">
+        select count(*) from t_bind_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="operYear != null">
+                and operYear = #{operYear}
+            </if>
+            <if test="operMonth != null">
+                and operMonth = #{operMonth}
+            </if>
+            <if test="operDay != null">
+                and operDay = #{operDay}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" keyProperty="id" parameterType="TBindRecord" useGeneratedKeys="true">
+        insert into t_bind_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="jobNum != null">
+                jobNum,
+            </if>
+            <if test="openID != null">
+                openID,
+            </if>
+            <if test="operYear != null">
+                operYear,
+            </if>
+            <if test="operMonth != null">
+                operMonth,
+            </if>
+            <if test="operDay != null">
+                operDay,
+            </if>
+            <if test="operTime != null">
+                operTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="jobNum != null">
+                #{jobNum},
+            </if>
+            <if test="openID != null">
+                #{openID},
+            </if>
+            <if test="operYear != null">
+                #{operYear},
+            </if>
+            <if test="operMonth != null">
+                #{operMonth},
+            </if>
+            <if test="operDay != null">
+                #{operDay},
+            </if>
+            <if test="operTime != null">
+                #{operTime},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from t_bind_record where id = #{id}
+    </delete>
+    <delete id="delete" parameterType="TBindRecord">
+        delete from t_bind_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="operYear != null">
+                and operYear = #{operYear}
+            </if>
+            <if test="operMonth != null">
+                and operMonth = #{operMonth}
+            </if>
+            <if test="operDay != null">
+                and operDay = #{operDay}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+        </where>
+    </delete>
+    <delete id="deleteByMap" parameterType="map">
+        delete from t_bind_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="operYear != null">
+                and operYear = #{operYear}
+            </if>
+            <if test="operMonth != null">
+                and operMonth = #{operMonth}
+            </if>
+            <if test="operDay != null">
+                and operDay = #{operDay}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+        </where>
+    </delete>
+    <update id="update" parameterType="TBindRecord">
+        update t_bind_record
+        <set>
+            <if test="jobNum != null">
+                jobNum = #{jobNum},
+            </if>
+            <if test="openID != null">
+                openID = #{openID},
+            </if>
+            <if test="operYear != null">
+                operYear = #{operYear},
+            </if>
+            <if test="operMonth != null">
+                operMonth = #{operMonth},
+            </if>
+            <if test="operDay != null">
+                operDay = #{operDay},
+            </if>
+            <if test="operTime != null">
+                operTime = #{operTime},
+            </if>
+        </set>
+        <if test="id != null">
+            where id = #{id}
+        </if>
+    </update>
+</mapper>
