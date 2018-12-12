@@ -25,7 +25,7 @@ public class TAdmin extends BaseDomain{
     /**
      * 角色ID
      */
-    private Byte roleId;
+    private Long roleId;
 
     /**
      * 创建者
@@ -69,11 +69,11 @@ public class TAdmin extends BaseDomain{
         this.adminStatus = adminStatus;
     }
 
-    public Byte getRoleId(){
-        return this.roleId;
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setRoleId(Byte roleId){
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

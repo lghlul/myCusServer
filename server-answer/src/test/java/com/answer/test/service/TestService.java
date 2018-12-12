@@ -1,4 +1,4 @@
-package com.sprcms.test.service;
+package com.answer.test.service;
 
 //@ContextConfiguration(locations={"classpath:applicationContext.xml"})
 //@RunWith(SpringJUnit4ClassRunner.class)

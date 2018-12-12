@@ -8,11 +8,13 @@
         <result column="roleStatus" property="roleStatus"/>
         <result column="creater" property="creater"/>
         <result column="createTime" property="createTime"/>
+        <result column="adminName" property="adminName"/>
     </resultMap>
     <select id="selectById" parameterType="string" resultMap="baseResultMap">
         select * from t_role where roleId = #{id}
     </select>
     <select id="selectPage" parameterType="TRole" resultMap="baseResultMap">
+        select a.*,b.adminName from (
         select * from t_role
         <where>
             <if test="roleId != null">
@@ -33,7 +35,7 @@
         </where>
         <if test="offSet != null and limit != null">
             limit #{offSet},#{limit}
-        </if>
+        </if>) a join t_admin b on a.creater = b.adminId
     </select>
     <select id="selectPageCount" parameterType="TRole" resultType="int">
         select count(*) from t_role

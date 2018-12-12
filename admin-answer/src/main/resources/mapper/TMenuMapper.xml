@@ -353,7 +353,7 @@
 			FROM
 				t_role_menu
 			WHERE
-				roleId = 1
+				roleId = #{roleId}
 		) c
 	JOIN (
 		SELECT
@@ -361,8 +361,10 @@
 		FROM
 			t_menu
 		WHERE
-			parentId != 0
-		AND menuStatus = 1
+		  menuStatus = 1
+		<if test="parentId != null">
+          and parentId = #{parentId}
+        </if>
 	) d ON c.menuId = d.menuId ORDER BY menuOrder
     </select>
 </mapper>

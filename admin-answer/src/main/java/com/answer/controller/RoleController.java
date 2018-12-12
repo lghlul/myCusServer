@@ -2,21 +2,27 @@ package com.answer.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.answer.common.Forward;
+import com.answer.common.CommonConstant;
 import com.answer.common.ResultCodeEnum;
-import com.answer.common.StrConstant;
+import com.answer.domain.TAdmin;
+import com.answer.domain.TMenu;
 import com.answer.domain.TRole;
+import com.answer.service.ITMenuService;
+import com.answer.service.ITRoleMenuService;
 import com.answer.service.ITRoleService;
+import com.answer.utils.CommonUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/role")
 public class RoleController  {
 
@@ -24,41 +30,45 @@ public class RoleController  {
 
     @Autowired
     private ITRoleService rolesService;
+    @Autowired
+    private ITMenuService menuService;
 
-    @RequestMapping(value = "/listPage")
-    public String roleList( ModelMap map){
-        logger.info("listPage start...");
-        map.put(StrConstant.PAGE, Forward.AjaxPage.ROLE_LIST_PAGE);
-        logger.info("listPage end...");
-        return Forward.ActionPage.PUBLIC;
-    }
 
-    @ResponseBody
-    @RequestMapping(value = "/listData")
-    public Object roleTable(Integer iDisplayStart, Integer iDisplayLength, Integer sEcho, TRole role) throws Exception{
-        logger.info("listData start...role=" + JSON.toJSONString(role));
-        role.setOffSet(iDisplayStart);
-        role.setLimit(iDisplayLength);
+    @GetMapping("/list")
+    public Object list(TRole role){
+        logger.info("list start...role=" + JSON.toJSONString(role));
+        CommonConstant.pageHandler(role);
         List<TRole> roles = rolesService.queryPage(role);
         int pageCount = rolesService.queryPageCount(role);
-        int totalPage = pageCount % iDisplayLength == 0?pageCount / iDisplayLength : pageCount / iDisplayLength + 1;
+        int totalPage = pageCount % role.getLimit() == 0?pageCount / role.getLimit() : pageCount / role.getLimit() + 1;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("aaData", roles);
-        jsonObject.put("sEcho", sEcho);
-        jsonObject.put("iDisplayStart", iDisplayStart);
-        jsonObject.put("iDisplayLength", iDisplayLength);
-        jsonObject.put("iTotalDisplayRecords", totalPage);
-        jsonObject.put("iTotalRecords", pageCount);
-        logger.debug("listData end...pages=" + jsonObject);
-        return jsonObject.toString();
+        jsonObject.put("items", roles);
+        jsonObject.put("totalPage", totalPage);
+        jsonObject.put("pageCount", pageCount);
+        logger.debug("list end...pages=" + jsonObject);
+        return ResultCodeEnum.SUCCESS.getResponse(jsonObject);
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/updateRoleStatus")
-    public Object updateRoleStatus(TRole role) throws Exception{
-        logger.info("updateRoleStatus start...role=" + JSON.toJSONString(role));
+    @GetMapping("/menuList")
+    public Object menuList(HttpServletRequest request){
+        // todo 测试使用
+        TAdmin admin = (TAdmin) CommonUtil.getSessionObj(request,
+                CommonConstant.Str.ADMIN);
+        logger.info("menuList start...role=" + JSON.toJSONString(admin));
+        if(admin == null){
+            admin = new TAdmin();
+            admin.setRoleId(1l);
+        }
+        List<TMenu> tMenus = menuService.queryAdminMenu(admin.getRoleId());
+        logger.debug("menuList end...pages=" + JSON.toJSONString(tMenus));
+        return ResultCodeEnum.SUCCESS.getResponse(tMenus);
+    }
+
+    @PostMapping("/updateStatus")
+    public Object updateStatus(TRole role){
+        logger.info("updateStatus start...role=" + JSON.toJSONString(role));
         int i = rolesService.edit(role);
-        logger.debug("updateRoleStatus end...pages=" + i);
+        logger.debug("updateStatus end...pages=" + i);
         return ResultCodeEnum.SUCCESS.getResponse();
     }
 }

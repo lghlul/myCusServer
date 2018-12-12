@@ -2,7 +2,7 @@ package com.answer.Interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.answer.common.ResultCodeEnum;
-import com.answer.common.StrConstant;
+import com.answer.common.CommonConstant;
 import com.answer.domain.TAdmin;
 import com.answer.utils.CommonUtil;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -27,12 +27,13 @@ public class SessionInterceptor implements HandlerInterceptor {
                 || request.getServletPath().equals("/login")) {
             return true;
         }
+
         TAdmin admin = (TAdmin) CommonUtil.getSessionObj(request,
-                StrConstant.ADMIN);
+                CommonConstant.Str.ADMIN);
         if (null == admin) {
             response.setCharacterEncoding("UTF-8");
             PrintWriter printWriter = response.getWriter();
-            printWriter.write(JSON.toJSONString(ResultCodeEnum.NOT_LOGIN.getResponse()));
+            printWriter.write(ResultCodeEnum.NOT_LOGIN.getResponse());
             return false;
         }
         return true;

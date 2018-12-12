@@ -14,9 +14,10 @@ public class TMenuServiceImpl extends BaseServiceImpl<TMenu> implements ITMenuSe
     @Autowired
     private TMenuMapper menuMapper;
 
+
     @Override
     public List<TMenu> queryAdminMenu(long roleId) {
-        List<TMenu> tMenus = menuMapper.selectAdminMenu(roleId, 0);
+        List<TMenu> tMenus = menuMapper.selectAdminMenu(roleId, 0l);
         for(TMenu menu : tMenus){
             List<TMenu> childList = menuMapper.selectAdminMenu(roleId, menu.getMenuId());
             menu.setChildren(childList);

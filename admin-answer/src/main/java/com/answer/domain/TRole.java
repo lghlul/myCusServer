@@ -12,6 +12,16 @@ public class TRole extends BaseDomain{
 
     private Long createTime;
 
+    private String adminName;
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
+
     public Long getRoleId(){
         return this.roleId;
     }

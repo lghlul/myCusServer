@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface TMenuMapper extends BaseMapper<TMenu>{
 
-    List<TMenu> selectAdminMenu(@Param("roleId") long roleId ,@Param("parentId") long parentId);
+    List<TMenu> selectAdminMenu(@Param("roleId") Long roleId ,@Param("parentId") Long parentId);
 
 }
