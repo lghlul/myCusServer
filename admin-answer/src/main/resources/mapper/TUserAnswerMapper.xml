@@ -253,6 +253,29 @@
             </if>
         </where>
     </delete>
+    <select id="selectOrgCount" parameterType="map" resultType="orgCount">
+        SELECT
+        <if test="isRight = 1">
+            count(b.orgID)  rightNum,
+        </if>
+        <if test="isRight = 0 or isRight = null ">
+            count(b.orgID)  countNum,
+        </if>
+        b.orgID,
+        b.orgName
+        FROM
+        t_organization b
+        left JOIN t_user_answer a
+        ON a.orgID = b.orgID
+        AND createTime &lt;= #{endTime}
+        AND createTime &gt;= #{statTime}
+        <if test="isRight != null and isRight > 0">
+            and isRight = #{right}
+        </if>
+        GROUP BY
+        b.orgID
+    </select>
+
     <update id="update" parameterType="TUserAnswer">
         update t_user_answer
         <set>
@@ -282,4 +305,5 @@
             where id = #{id}
         </if>
     </update>
+
 </mapper>

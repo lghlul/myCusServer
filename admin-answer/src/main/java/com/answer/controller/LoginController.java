@@ -50,13 +50,13 @@ public class LoginController {
 
             if(tAdmin.getAdminPwd().equals(MD5Util.md5Password(admin.getAdminPwd()))){
                 //查询出角色菜单
-                List<TMenu> menuList = menuService.queryAdminMenu(tAdmin.getRoleId());
+                //List<TMenu> menuList = menuService.queryAdminMenu(tAdmin.getRoleId());
                 CommonUtil.setSession(request ,CommonConstant.Str.ADMIN ,admins.get(0));
                 Map<String , Object> map = new HashMap<>();
                 tAdmin.setAdminPwd(null);
                 map.put("admin" , tAdmin);
-                map.put("menuList" , menuList);
-                return ResultCodeEnum.SUCCESS.getResponse(map);
+                //map.put("menuList" , menuList);
+                return ResultCodeEnum.SUCCESS.getResponse(tAdmin);
             }else{
                 //密码不正确
                 return ResultCodeEnum.PWD_ERROR.getResponse();
