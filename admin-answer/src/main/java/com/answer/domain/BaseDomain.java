@@ -1,5 +1,7 @@
 package com.answer.domain;
 
+import com.answer.common.CommonConstant;
+
 public class  BaseDomain{
 
     private Integer pageNo;
@@ -46,6 +48,22 @@ public class  BaseDomain{
         this.limit = limit;
     }
 
+    public void pageHandler(){
+        if(this.limit == null){
+            if(this.pageSize == null){
+                this.limit = CommonConstant.Common.limit;
+            }else{
+                this.limit = this.pageSize;
+            }
+        }
 
+        if(this.offSet == null){
+            if(this.pageNo == null){
+                this.offSet = CommonConstant.Common.offset;
+            }else{
+                this.offSet = (this.pageNo - 1) * this.limit;
+            }
+        }
+    }
 
 }

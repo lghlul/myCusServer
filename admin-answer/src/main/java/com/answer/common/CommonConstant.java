@@ -19,26 +19,4 @@ public abstract class CommonConstant {
 		Integer offset = 0;
 		Integer limit = 10;
 	}
-
-
-	public static void pageHandler(BaseDomain domain){
-		if(domain.getLimit() == null){
-			if(domain.getPageSize() == null){
-				domain.setLimit(CommonConstant.Common.limit);
-			}else{
-				domain.setLimit(domain.getPageSize());
-			}
-		}
-
-		if(domain.getOffSet() == null){
-			if(domain.getPageNo() == null){
-				domain.setOffSet(CommonConstant.Common.offset);
-			}else{
-				domain.setOffSet((domain.getPageNo() - 1) * domain.getLimit());
-			}
-		}
-	}
-
-
-
 }

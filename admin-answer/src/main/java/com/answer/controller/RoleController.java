@@ -8,7 +8,6 @@ import com.answer.domain.TAdmin;
 import com.answer.domain.TMenu;
 import com.answer.domain.TRole;
 import com.answer.service.ITMenuService;
-import com.answer.service.ITRoleMenuService;
 import com.answer.service.ITRoleService;
 import com.answer.utils.CommonUtil;
 import org.apache.log4j.Logger;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -37,7 +35,7 @@ public class RoleController  {
     @GetMapping("/list")
     public Object list(TRole role){
         logger.info("list start...role=" + JSON.toJSONString(role));
-        CommonConstant.pageHandler(role);
+        role.pageHandler();
         List<TRole> roles = rolesService.queryPage(role);
         int pageCount = rolesService.queryPageCount(role);
         int totalPage = pageCount % role.getLimit() == 0?pageCount / role.getLimit() : pageCount / role.getLimit() + 1;

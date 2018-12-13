@@ -256,10 +256,10 @@
     <select id="selectOrgCount" parameterType="map" resultType="orgCount">
         SELECT
         <if test="isRight == 1">
-            count(b.orgID)  rightNum,
+            count(a.orgID)  rightNum,
         </if>
         <if test="isRight == null ">
-            count(b.orgID)  countNum,
+            count(a.orgID)  countNum,
         </if>
         b.orgID,
         b.orgName
