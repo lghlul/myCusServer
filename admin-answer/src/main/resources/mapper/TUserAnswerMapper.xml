@@ -255,10 +255,10 @@
     </delete>
     <select id="selectOrgCount" parameterType="map" resultType="orgCount">
         SELECT
-        <if test="isRight = 1">
+        <if test="isRight == 1">
             count(b.orgID)  rightNum,
         </if>
-        <if test="isRight = 0 or isRight = null ">
+        <if test="isRight == null ">
             count(b.orgID)  countNum,
         </if>
         b.orgID,
@@ -268,9 +268,9 @@
         left JOIN t_user_answer a
         ON a.orgID = b.orgID
         AND createTime &lt;= #{endTime}
-        AND createTime &gt;= #{statTime}
-        <if test="isRight != null and isRight > 0">
-            and isRight = #{right}
+        AND createTime &gt;= #{startTime}
+        <if test="isRight != null">
+            and isRight = #{isRight}
         </if>
         GROUP BY
         b.orgID
