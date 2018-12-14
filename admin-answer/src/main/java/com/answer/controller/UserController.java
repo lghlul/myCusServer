@@ -3,7 +3,11 @@ package com.answer.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.answer.common.ResultCodeEnum;
+import com.answer.domain.AnswerDetailParam;
+import com.answer.domain.TOrganization;
 import com.answer.domain.TUser;
+import com.answer.service.ITOrganizationService;
+import com.answer.service.ITUserAnswerService;
 import com.answer.service.ITUserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +34,12 @@ public class UserController {
     @Autowired
     private ITUserService userService;
 
+    @Autowired
+    private ITUserAnswerService userAnswerService;
+
+    @Autowired
+    private ITOrganizationService organizationService;
+
     @GetMapping("/list")
     public Object list(TUser user , Long startTime , Long endTime){
         logger.info("list start...user=" + JSON.toJSONString(user));
@@ -46,6 +56,9 @@ public class UserController {
         if(user.getRealName() != null){
             map.put("realName" , user.getRealName());
         }
+        if(user.getOrgID() != null){
+            map.put("orgID" , user.getOrgID());
+        }
         user.pageHandler();
         map.put("offSet" , user.getOffSet());
         map.put("limit" , user.getLimit());
@@ -58,5 +71,20 @@ public class UserController {
         jsonObject.put("pageCount", pageCount);
         logger.debug("list end...pages=" + jsonObject);
         return ResultCodeEnum.SUCCESS.getResponse(jsonObject);
+    }
+
+
+    @GetMapping("/orgList")
+    public Object orgList(){
+        List<TOrganization> tOrganizationList = organizationService.query(null);
+        return ResultCodeEnum.SUCCESS.getResponse(tOrganizationList);
+    }
+
+
+    @GetMapping("/answerDetail")
+    public Object answerDetail(AnswerDetailParam answerDetailParam){
+        answerDetailParam.pageHandler();
+        Map<String, Object> answerDetailPage = userAnswerService.getAnswerDetailPage(answerDetailParam);
+        return ResultCodeEnum.SUCCESS.getResponse(answerDetailPage);
     }
 }

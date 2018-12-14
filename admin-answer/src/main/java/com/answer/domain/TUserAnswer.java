@@ -1,5 +1,7 @@
 package com.answer.domain;
 
+import java.util.List;
+
 public class TUserAnswer extends BaseDomain{
 
     private Long id;
@@ -35,6 +37,26 @@ public class TUserAnswer extends BaseDomain{
     private Byte status;
 
     private Long createTime;
+
+    private String quesDesc;
+
+    private List<TAnswer> answerList;
+
+    public List<TAnswer> getAnswerList() {
+        return answerList;
+    }
+
+    public void setAnswerList(List<TAnswer> answerList) {
+        this.answerList = answerList;
+    }
+
+    public String getQuesDesc() {
+        return quesDesc;
+    }
+
+    public void setQuesDesc(String quesDesc) {
+        this.quesDesc = quesDesc;
+    }
 
     public Long getId(){
         return this.id;

@@ -11,6 +11,11 @@
         <result column="isRight" property="isRight"/>
         <result column="status" property="status"/>
         <result column="createTime" property="createTime"/>
+        <result column="quesDesc" property="quesDesc"/>
+        <collection property="answerList" ofType="TAnswer">
+            <id column="ansID" property="ansID"/>
+            <result column="ansDesc" property="ansDesc"/>
+        </collection>
     </resultMap>
     <select id="selectById" parameterType="string" resultMap="baseResultMap">
         select * from t_user_answer where id = #{id}
@@ -256,24 +261,40 @@
     <select id="selectOrgCount" parameterType="map" resultType="orgCount">
         SELECT
         <if test="isRight == 1">
-            count(a.orgID)  rightNum,
+            rightNum,
         </if>
         <if test="isRight == null ">
-            count(a.orgID)  countNum,
+            countNum,
         </if>
         b.orgID,
         b.orgName
         FROM
         t_organization b
-        left JOIN t_user_answer a
-        ON a.orgID = b.orgID
-        AND createTime &lt;= #{endTime}
-        AND createTime &gt;= #{startTime}
-        <if test="isRight != null">
-            and isRight = #{isRight}
+        left JOIN (
+        select
+        <if test="isRight == 1">
+            count(orgID) rightNum,
         </if>
-        GROUP BY
-        b.orgID
+        <if test="isRight == null ">
+            count(orgID) countNum,
+        </if>
+            orgID
+        from t_user_answer
+        <where>
+            <if test="endTime != null">
+            AND createTime &lt;= #{endTime}
+            </if>
+            <if test="startTime != null">
+            AND createTime &gt;= #{startTime}
+            </if>
+            <if test="isRight != null">
+                and isRight = #{isRight}
+            </if>
+        </where>
+        GROUP BY orgID
+        ) a
+        ON a.orgID = b.orgID
+
     </select>
 
     <update id="update" parameterType="TUserAnswer">
@@ -305,5 +326,65 @@
             where id = #{id}
         </if>
     </update>
+
+    <select id="answerDetailPage" parameterType="AnswerDetailParam" resultMap="baseResultMap">
+        SELECT
+            a.id,
+            a.questionID,
+            a.createTime,
+            a.answerID,
+            a.isRight,
+            b.ansDesc,
+            b.ansID,
+            c.quesDesc,
+            c.rightAnswerID
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    t_user_answer
+                WHERE
+                    openID = #{openID}
+                <if test="isRight != null and isRight != 0">
+                  AND isRight = #{isRight}
+                </if>
+                <if test="endTime != null">
+                    and createTime &lt;= #{endTime}
+                </if>
+                <if test="startTime != null">
+                    and createTime &gt;= #{startTime}
+                </if>
+                ORDER BY
+                createTime DESC
+                limit #{offSet},#{limit}
+            ) a,
+            t_answer b,
+            t_question c
+        WHERE
+            a.questionID = b.quesID
+        AND a.questionID = c.quesID
+        <if test="quesDesc != null">
+          and c.quesDesc like CONCAT('%', #{quesDesc},'%')
+        </if>
+    </select>
+
+    <select id="answerDetailCount" parameterType="AnswerDetailParam" resultType="int">
+        SELECT
+          count(openID)
+        FROM
+          t_user_answer
+        WHERE
+        openID = #{openID}
+            <if test="isRight != null and isRight != 0">
+                AND isRight = #{isRight}
+            </if>
+            <if test="endTime != null">
+                and createTime &lt;= #{endTime}
+            </if>
+            <if test="startTime != null">
+                and createTime &gt;= #{startTime}
+            </if>
+    </select>
 
 </mapper>

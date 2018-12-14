@@ -52,6 +52,16 @@ public class TUser extends BaseDomain{
 
     private String orgName;
 
+    private Long orgID;
+
+    public Long getOrgID() {
+        return orgID;
+    }
+
+    public void setOrgID(Long orgID) {
+        this.orgID = orgID;
+    }
+
     public String getRealName() {
         return realName;
     }

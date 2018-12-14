@@ -285,14 +285,11 @@
                     <if test="orgID != null">
                         and p.orgID = #{orgID}
                     </if>
-                    <if test="jobNum != null">
-                        and p.jobNum = #{jobNum}
-                    </if>
                     <if test="realName != null">
                         and p.realName like CONCAT('%', #{realName},'%')
                     </if>
                 </where>
-                   LIMIT #{offSet},#{limit}
+                   LIMIT #{offSet} ,#{limit}
             ) a
         left JOIN (
             SELECT

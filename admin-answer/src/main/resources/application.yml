@@ -3,7 +3,7 @@ server:
   context-path: /
 spring:
   datasource:
-    url: jdbc:mysql://116.62.188.101:3306/wc_answer_test?useUnicode=true
+    url: jdbc:mysql://116.62.188.101:3306/wc_answer_test?useUnicode=true&characterEncoding=utf8
     username: root
     password: Njsyc@456
     driver-class-name: com.mysql.jdbc.Driver
