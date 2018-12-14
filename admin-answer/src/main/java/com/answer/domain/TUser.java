@@ -42,6 +42,56 @@ public class TUser extends BaseDomain{
      */
     private String userImg;
 
+    private int countNum;
+
+    private int rightNum;
+
+    private String rightPercent;
+
+    private String realName;
+
+    private String orgName;
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public int getCountNum() {
+        return countNum;
+    }
+
+    public void setCountNum(int countNum) {
+        this.countNum = countNum;
+    }
+
+    public int getRightNum() {
+        return rightNum;
+    }
+
+    public void setRightNum(int rightNum) {
+        this.rightNum = rightNum;
+    }
+
+    public String getRightPercent() {
+        return rightPercent;
+    }
+
+    public void setRightPercent(String rightPercent) {
+        this.rightPercent = rightPercent;
+    }
+
     public Long getUserID(){
         return this.userID;
     }

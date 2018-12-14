@@ -1,9 +1,50 @@
 package com.answer.service.impl;
 
+import com.answer.domain.OrgCount;
 import com.answer.domain.TUser;
+import com.answer.mapper.TUserMapper;
 import com.answer.service.ITUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
 
 @Service
 public class TUserServiceImpl extends BaseServiceImpl<TUser> implements ITUserService{
+
+    @Autowired
+    private TUserMapper userMapper;
+
+    @Override
+    public List<TUser> answerCount(Map<String , Object> map) {
+
+        List<TUser> counts = userMapper.selectAnswerCount(map);
+        map.put("isRight" , 1);
+        List<TUser> rightCounts = userMapper.selectAnswerCount(map);
+        Map<Long , TUser> rightMap = new HashMap<>();
+        if(rightCounts != null){
+            for(TUser u : rightCounts){
+                rightMap.put(u.getUserID() , u);
+            }
+        }
+        if(counts != null){
+            for(TUser u : counts){
+                if( u.getCountNum() == 0){
+                    u.setRightPercent("0.00%");
+                }else{
+                    double countNum = u.getCountNum();
+                    u.setRightNum( rightMap.get(u.getUserID()) == null ? 0 :  rightMap.get(u.getUserID()).getRightNum());
+                    double rightNum = u.getRightNum();
+                    DecimalFormat df = new DecimalFormat("######0.00");
+                    String  percent = df.format(rightNum/countNum * 100) + "%";
+                    u.setRightPercent(percent);
+                }
+            }
+        }
+        return counts;
+    }
 }

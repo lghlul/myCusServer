@@ -25,6 +25,11 @@ public class BaseServiceImpl<T> implements IBaseService<T>{
         return baseMapper.selectPageByMap(map);
     }
 
+    @Override
+    public int queryPageCounteByMap(Map<String, Object> map) {
+        return baseMapper.selectPageCountByMap(map);
+    }
+
     public List<T> queryPage(T t){
         return baseMapper.selectPage(t);
     }

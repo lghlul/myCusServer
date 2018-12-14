@@ -11,6 +11,8 @@ public interface IBaseService<T> {
 
     List<T> queryPageByMap(Map<String, Object> map);
 
+    int queryPageCounteByMap(Map<String, Object> map);
+
     List<T> queryPage(T t);
 
     int queryPageCount(T t);
