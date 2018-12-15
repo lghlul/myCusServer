@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @MapperScan(basePackages="com.answer.mapper")
@@ -29,5 +30,9 @@ public class ServerApplication extends WebMvcConfigurerAdapter {
 		//添加拦截器
 		//registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**");
 		super.addInterceptors(registry);
+	}
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 	}
 }
