@@ -22,7 +22,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+        System.out.println(request.getServletPath());
         if (request.getServletPath().equals("/toLogin")
                 || request.getServletPath().equals("/login")) {
             return true;
@@ -30,11 +30,16 @@ public class SessionInterceptor implements HandlerInterceptor {
 
         TAdmin admin = (TAdmin) CommonUtil.getSessionObj(request,
                 CommonConstant.Str.ADMIN);
+
         if (null == admin) {
-            response.setCharacterEncoding("UTF-8");
-            PrintWriter printWriter = response.getWriter();
-            printWriter.write(ResultCodeEnum.NOT_LOGIN.getResponse());
-            return false;
+            if(request.getServletPath().equals("/toPage")){
+                request.getRequestDispatcher("toLogin").forward(request,response);
+            }else{
+                response.setCharacterEncoding("UTF-8");
+                PrintWriter printWriter = response.getWriter();
+                printWriter.write(ResultCodeEnum.NOT_LOGIN.getResponse());
+                return false;
+            }
         }
         return true;
     }

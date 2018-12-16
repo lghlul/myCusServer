@@ -12,7 +12,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @MapperScan(basePackages="com.answer.mapper")
-@ComponentScan(basePackages = {"com.answer"})
 @SpringBootApplication
 public class ServerApplication extends WebMvcConfigurerAdapter {
 
@@ -28,7 +27,7 @@ public class ServerApplication extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		// todo 测试使用
 		//添加拦截器
-		//registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**");
 		super.addInterceptors(registry);
 	}
 	@Override

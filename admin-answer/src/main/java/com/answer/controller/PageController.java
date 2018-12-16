@@ -16,4 +16,9 @@ public class PageController {
     public String toPage(String path){
         return path;
     }
+
+    @RequestMapping("toLogin")
+    public String toLogin(){
+        return "login";
+    }
 }

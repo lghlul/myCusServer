@@ -11,7 +11,7 @@ spring:
     livereload:
       enabled: true
   thymeleaf:
-      prefix: classpath:/static/pages/
+      prefix: classpath:/pages/
       mode: LEGACYHTML5
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
