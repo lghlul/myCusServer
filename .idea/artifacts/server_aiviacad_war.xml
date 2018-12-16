@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="server-aiviacad:war">
-    <output-path>$PROJECT_DIR$/server-aiviacad/target</output-path>
-    <root id="archive" name="server-aiviacad.war">
-      <element id="artifact" artifact-name="server-aiviacad:war exploded" />
-    </root>
-  </artifact>
-</component>
