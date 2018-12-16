@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PageController {
 
     @RequestMapping("toPage")
-    public String toPage(String path){
-        return path;
+    public String toPage(String page){
+        return page;
     }
 
     @RequestMapping("toLogin")
