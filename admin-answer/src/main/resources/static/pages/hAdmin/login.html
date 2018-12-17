@@ -75,9 +75,9 @@
             }
             $.post("/login",{adminName:$("#userName").val(),adminPwd:$("#password").val()},function(res){
                 if(res.resultCode==1){
-                    window.localStorage.setItem("roleId",res.data.admin.roleId);
-                    window.localStorage.setItem("adminId",res.data.admin.adminId);
-                    window.location.href = "index.html";
+                    window.localStorage.setItem("roleId",res.data.roleId);
+                    window.localStorage.setItem("adminId",res.data.adminId);
+                    window.location.href = "toPage?page=index.html";
                 }else{
 
                     $(".alert-dismissable").show(1000);

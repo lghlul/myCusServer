@@ -19,7 +19,7 @@ $(document).ready(function () {
                     <ul class="nav nav-second-level">`;
                     $.each(obj.children,function(index,child){
                         menuHtml +=`<li>
-                        <a class="J_menuItem" href="graph_echarts.html">`+child.menuName+`</a>
+                        <a class="J_menuItem" href="`+child.menuUrl+`">`+child.menuName+`</a>
                         </li>`;
                         
                     })
