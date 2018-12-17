@@ -59,6 +59,12 @@
     <script src="/static/pages/hAdmin/js/jquery.min.js?v=2.1.4"></script>
     <script src="/static/pages/hAdmin/js/bootstrap.min.js?v=3.3.6"></script>
     <script>
+        document.onkeydown = function (event) {
+        var e = event || window.event;
+            if (e && e.keyCode == 13) { //回车键的键值为13
+                $("#login").click(); //调用登录按钮的登录事件
+            }
+        }; 
         $("#login").click(function(){
             var userName = $("#userName").val();
             var password = $("#password").val();
@@ -75,9 +81,9 @@
             }
             $.post("/login",{adminName:$("#userName").val(),adminPwd:$("#password").val()},function(res){
                 if(res.resultCode==1){
-                    window.localStorage.setItem("roleId",res.data.admin.roleId);
-                    window.localStorage.setItem("adminId",res.data.admin.adminId);
-                    window.location.href = "index.html";
+                    window.localStorage.setItem("roleId",res.data.roleId);
+                    window.localStorage.setItem("adminId",res.data.adminId);
+                    window.location.href = "toPage?page=index";
                 }else{
 
                     $(".alert-dismissable").show(1000);
