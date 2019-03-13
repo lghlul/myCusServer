@@ -139,8 +139,10 @@ public class QuestionServiceImpl implements IQuestionService {
 					User user = new User();
 					user.setOpenID(session.getOpenID());
 					user.setScore(Constant.score.TEN);
-					userMapper.updateUser(user);
-					this.userAnswerMapper.updateUserAnswer(session.getOpenID());
+                    Log4jUtil.info("userAnswer...取消计分  20190218");
+					//取消计分  20190218
+					//userMapper.updateUser(user);
+					//this.userAnswerMapper.updateUserAnswer(session.getOpenID());
 				}
 			}else{
 				//答错

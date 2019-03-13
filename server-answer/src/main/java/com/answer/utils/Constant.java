@@ -117,7 +117,7 @@ public interface Constant {
 		
 		public static int FIVE = 5;
 
-
-		public static float SIGN_SCORE = 0.1f;
+		public static float SIGN_SCORE = 1;
+		//public static float SIGN_SCORE = 0.1f;
 	}
 }

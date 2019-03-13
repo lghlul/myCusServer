@@ -3,6 +3,8 @@ package com.answer.service.impl;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.alibaba.fastjson.JSON;
+import com.answer.utils.Log4jUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,7 @@ public class SignServiceImpl implements ISignService {
 			User user = new User();
 			user.setOpenID(session.getOpenID());
 			user.setScore(Constant.score.SIGN_SCORE);
+			Log4jUtil.info("userSign...user=" + JSON.toJSONString(user));
 			userMapper.updateUser(user);
 		} else {
 			result.setResultCode(Constant.returnCode.SIGN_FAIL);
