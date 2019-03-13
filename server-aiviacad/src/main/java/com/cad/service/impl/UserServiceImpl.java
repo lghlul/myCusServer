@@ -1,8 +1,12 @@
 package com.cad.service.impl;
 
+import com.cad.constant.ResultCode;
+import com.cad.domain.Result;
 import com.cad.domain.User;
 import com.cad.mapper.UserMapper;
+import com.cad.service.IBaseService;
 import com.cad.service.IUserService;
+import com.cad.utils.CodeUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +42,33 @@ public class UserServiceImpl implements IUserService {
             return userList.get(0);
         }
         return null;
+    }
+
+
+    public int updatePwd(String userId, String userOldPwd, String userPwd) {
+        User user = userMapper.selectById(userId);
+        if(user.getUserPwd().equals(DigestUtils.md5Hex(userOldPwd))){
+            User u = new User();
+            u.setUserPwd(DigestUtils.md5Hex(userPwd));
+            u.setUserId(userId);
+            userMapper.update(u);
+            return ResultCode.SUCCESS;
+        }else{
+            return ResultCode.OLD_PWD_ERROR;
+        }
+
+    }
+
+    public List<User> searchByMap(Map<String, Object> map) {
+        List<User> userList = userMapper.search(map);
+        return userList;
+    }
+
+
+    public int updatePwdByEmail(String email, String userPwd) {
+        User u = new User();
+        u.setUserPwd(DigestUtils.md5Hex(userPwd));
+        u.setEmail(email);
+        return userMapper.updateByEmail(u);
     }
 }

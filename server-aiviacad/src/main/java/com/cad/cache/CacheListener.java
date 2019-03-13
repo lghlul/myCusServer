@@ -38,8 +38,8 @@ public class CacheListener implements ServletContextListener{
 		context = servletContextEvent.getServletContext(); 
 		ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 		CacheInit cacheHelper = ctx.getBean(CacheInit.class);
-		/*cacheHelper.cleanCache();
-		cacheHelper.initCache();*/
+		//cacheHelper.cleanCache();
+		//cacheHelper.initCache();
 		LogUtil.i(TAG, "contextInitialized end...");
 	}
 

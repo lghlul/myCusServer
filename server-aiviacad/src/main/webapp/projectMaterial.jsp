@@ -4,20 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>AIVIACAD</title>
+	<title>MATLACDOM</title>
 <link rel="stylesheet" type="text/css" href="../css/gccx.css">
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <style type="text/css">
-	.searchBtn{
-		background-color: blue;
-		height: 35px;
-		line-height: 35px;
-		border-radius:5px;
-		color: white; 
-		cursor: pointer;
-		width: 80%;
-		font-size: 15px;
-	}
 	select{
 		text-align: center;
 	}
@@ -31,17 +21,6 @@
 		margin:  auto auto;
 		margin-left: 10px;
 		width: 100px;
-	}
-	.seaBtn{
-		margin: 0px 10px;
-		float: right;
-		background-color: rgb(138, 131, 151);
-		text-align: center;
-		height: 26px;
-		line-height: 26px;
-		width: 50px;
-		border-radius: 5px;
-		cursor: pointer;
 	}
 
 	
@@ -87,11 +66,14 @@
 			<a href="../pressure/toIndex.do">气缸压力</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="../pressureChange/toIndex.do">压力转换</a>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工程材料
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			工程材料
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="../codeManage/toIndex.do">编码管理</a>
 		</div>
 		<div class="login">
 			<c:if test="${user == null}"> <a href="../user/toLogin.do">登录</a></c:if>
-			<c:if test="${user != null}"> 你好,<span class="accountStyle">${user.userAccount}</span> <a href="../user/logout.do">退出</a></c:if>
+			<c:if test="${user != null}"> 你好,<a href="../user/toResetPwd.do"><span class="accountStyle">${user.userAccount}</span></a> <a href="../user/logout.do">退出</a></c:if>
 		</div>
 	</div>
 
@@ -212,7 +194,7 @@
 	
 	<div class="bottom">
 		<div class="email">
-			<img src="../images/email.png"/><span id="email" style="font-family: Microsoft YaHei;">&nbsp;站长邮箱:<a href="mailto:aiviacad@163.com">aiviacad@163.com</a></span>
+			<img src="../images/email.png"/><span id="email" style="font-family: Microsoft YaHei;">&nbsp;站长邮箱:<a href="mailto:matlacdom@163.com">matlacdom@163.com</a></span>
 		</div>
 		<div class="count">
 			<span id="visitCount">${visitCount}</span>

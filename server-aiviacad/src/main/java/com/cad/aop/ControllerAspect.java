@@ -79,7 +79,7 @@ public class ControllerAspect {
 				visit.setCountry(jsonObject.getString("country"));
 				visit.setProvince(jsonObject.getString("region"));
 			}*/
-			visitMapper.insertVisit(visit);
+			//visitMapper.insertVisit(visit);
 		}
 		
 		try {

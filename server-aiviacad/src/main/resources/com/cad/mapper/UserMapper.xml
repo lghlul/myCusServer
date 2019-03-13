@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cad.mapper.UserMapper">
- 	
- 	<insert id="insert" parameterType="user" >
- 		insert into t_user(userId,userAccount,userPwd,registerTime,phone,email) values(#{userId},#{userAccount},#{userPwd},#{registerTime},#{phone},#{email})
+
+    <insert id="insert" parameterType="user" >
+ 		insert into t_user(userId,userAccount,userPwd,registerTime,phone,email,userCode) values(#{userId},#{userAccount},#{userPwd},#{registerTime},#{phone},#{email},#{userCode})
  	</insert>
- 	
- 	
- 	<select id="searchCount" parameterType="map" resultType="Integer" >
- 		select count(userId) from t_user
- 		<where>
-			<if test="userAccount != null">
-				and userAccount = #{userAccount}
-			</if>
+
+
+    <select id="searchCount" parameterType="map" resultType="Integer" >
+        select count(userId) from t_user
+        <where>
+            <if test="userAccount != null">
+                and userAccount = #{userAccount}
+            </if>
             <if test="userPwd != null">
                 and userPwd = #{userPwd}
             </if>
@@ -22,18 +22,55 @@
             <if test="email != null">
                 and email = #{email}
             </if>
-		</where>
-	</select>
+            <if test="userCode != null">
+                and userCode = #{userCode}
+            </if>
+        </where>
+    </select>
 
     <select id="search" parameterType="map" resultType="user" >
         select * from t_user
         <where>
             <if test="userAccount != null">
-                and userAccount = #{userAccount}
+                and (userAccount = #{userAccount} or email = #{userAccount} or userCode = #{userAccount})
             </if>
             <if test="userPwd != null">
                 and userPwd = #{userPwd}
             </if>
+            <if test="userId != null">
+                and userId = #{userId}
+            </if>
+            <if test="email != null">
+                and email = #{email}
+            </if>
         </where>
     </select>
+
+    <select id="selectById" parameterType="string" resultType="user">
+        select * from t_user
+                where userId = #{id}
+    </select>
+
+    <update id="update" parameterType="user">
+        update  t_user
+        <set>
+            <if test="userPwd != null">
+              userPwd = #{userPwd},
+            </if>
+
+        </set>
+        where userId = #{userId}
+    </update>
+
+    <update id="updateByEmail" parameterType="user">
+        update  t_user
+        <set>
+            <if test="userPwd != null">
+                userPwd = #{userPwd},
+            </if>
+
+        </set>
+        where email = #{email}
+    </update>
+
 </mapper>

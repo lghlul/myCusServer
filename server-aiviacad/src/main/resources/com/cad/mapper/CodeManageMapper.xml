@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cad.mapper.CodeManageMapper">
+
+ 	<insert id="insertCodeManage" parameterType="codeManage">
+ 		insert into t_code_manage(codeType,codeName,codeValue,createTime) values(#{codeType},#{codeName},#{codeValue},#{createTime})
+ 	</insert>
+
+
+	<select id="query" parameterType="map" resultType="codeManage">
+ 		select * from t_code_manage
+ 		<where>
+			<if test="codeValue != null">
+				and codeValue = #{codeValue}
+			</if>
+		</where>
+ 	</select>
+</mapper>

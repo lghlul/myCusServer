@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>AIVIACAD</title>
+	<title>MATLACDOM</title>
 <link rel="stylesheet" type="text/css" href="../css/gccx.css">
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <style type="text/css">
@@ -109,10 +109,12 @@ var checkNum = function(number){
 			压力转换
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="../projectMaterial/toIndex.do">工程材料</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="../codeManage/toIndex.do">编码管理</a>
 		</div>
 		<div class="login">
 			<c:if test="${user == null}"> <a href="../user/toLogin.do">登录</a></c:if>
-			<c:if test="${user != null}"> 你好,<span class="accountStyle">${user.userAccount}</span> <a href="../user/logout.do">退出</a></c:if>
+			<c:if test="${user != null}"> 你好,<a href="../user/toResetPwd.do"><span class="accountStyle">${user.userAccount}</span></a> <a href="../user/logout.do">退出</a></c:if>
 		</div>
 	</div>
 
@@ -222,7 +224,7 @@ var checkNum = function(number){
 	
 	<div class="bottom">
 		<div class="email">
-			<img src="../images/email.png"/><span id="email" style="font-family: Microsoft YaHei;">&nbsp;站长邮箱:<a href="mailto:aiviacad@163.com">aiviacad@163.com</a></span>
+			<img src="../images/email.png"/><span id="email" style="font-family: Microsoft YaHei;">&nbsp;站长邮箱:<a href="mailto:matlacdom@163.com">matlacdom@163.com</a></span>
 		</div>
 		<div class="count">
 			<span id="visitCount">${visitCount}</span>
