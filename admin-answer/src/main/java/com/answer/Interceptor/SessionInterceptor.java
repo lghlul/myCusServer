@@ -22,7 +22,6 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(request.getServletPath());
         if (request.getServletPath().equals("/toLogin")
                 || request.getServletPath().equals("/login")) {
             return true;

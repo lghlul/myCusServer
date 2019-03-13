@@ -54,10 +54,10 @@ function loadOrgChart(orgChart){
             tooltip: {
                 formatter: function(params, ticket, callback) {
                     console.log(params);
-                    var info = orgArr[params.dataIndex]+`</br>`;
-                        info += `答题总数：`+rallArr[params.dataIndex]+`</br>`;
-                        info += `正确题数：`+rigArr[params.dataIndex]+`</br>`;
-                        info += `正确率：`+regArr[params.dataIndex];
+                    var info = orgArr[params.dataIndex]+'</br>';
+                        info += '答题总数：' + rallArr[params.dataIndex]+'</br>';
+                        info += '正确题数：' + rigArr[params.dataIndex]+'</br>';
+                        info += '正确率：'+regArr[params.dataIndex];
                     return info;
                 }
             },
