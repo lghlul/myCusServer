@@ -27,6 +27,17 @@ public interface Constant {
 	 * 对战房间已经计分
 	 */
 	public static byte ROOM_STATUS_COUNT = 2;
+
+
+	/**
+	 * 考试练习未结束
+	 */
+	byte TRAIN_STATUS_UN_FINISH = 1;
+
+	/**
+	 * 考试练习结束
+	 */
+	byte TRAIN_STATUS_FINISH = 2;
 	
 	public static interface returnCode {
 		/**
