@@ -1,16 +1,14 @@
 package com.answer.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.answer.cache.CacheHelper;
 import com.answer.domain.Result;
 import com.answer.domain.Train;
 import com.answer.domain.TrainQuestion;
 import com.answer.service.ITrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,18 +33,31 @@ public class TrainController {
      * @return java.lang.String
      */
     @PostMapping("createTrain")
-    public String createTrain(Long typeID){
+    public String createTrain(Long typeID,String wxSession){
         Train train = new Train();
         train.setTypeID(typeID);
+        train.setCreater(wxSession);
         Result result = trainService.createTrain(train);
         return JSON.toJSONString(result);
     }
 
 
     @PostMapping("finishTrain")
-    public String finishTrain(String strList){
+    public String finishTrain(Long trainID , String strList){
         List<TrainQuestion> list = JSON.parseArray(strList, TrainQuestion.class);
-        Result result = trainService.finishTrain(list);
+        Result result = trainService.finishTrain(trainID , list);
+        return JSON.toJSONString(result);
+    }
+
+    @GetMapping("trainList")
+    public String trainList(String wxSession,Integer pageNo , Integer pageSize){
+        Result result = this.trainService.getTrainList(wxSession, pageNo, pageSize);
+        return JSON.toJSONString(result);
+    }
+
+    @GetMapping("trainDetail")
+    public String trainDetail(String wxSession,Long trainID){
+        Result result = this.trainService.getTrainDetail( wxSession , trainID);
         return JSON.toJSONString(result);
     }
 }

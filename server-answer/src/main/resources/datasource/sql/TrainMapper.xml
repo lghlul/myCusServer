@@ -4,8 +4,10 @@
 	<resultMap type="question" id="questionMap">
 		<result column="quesID" property="quesID"/> 
 		<result column="quesDesc" property="quesDesc"/> 
-		<result column="rightAnswerID" property="rightAnswerID"/> 
-		<result column="quesType" property="quesType"/> 
+		<result column="rightAnswerID" property="rightAnswerID"/>
+		<result column="quesType" property="quesType"/>
+		<result column="isRight" property="isRight"/>
+		<result column="answerID" property="answerID"/>
 		<collection property="answerList" ofType="answer">
 			<result column="ansID" property="ansID"/> 
 			<result column="ansDesc" property="ansDesc"/> 
@@ -18,7 +20,7 @@
 	</insert>
 
 	<update id="update" parameterType="train">
-		update t_train set trainStatus = #{trainStatus},finishTime = #{finishTime} where trainID = #{trainID}
+		update t_train set trainStatus = #{trainStatus},finishTime = #{finishTime},rightNum = #{rightNum} where trainID = #{trainID}
 	</update>
 
 	<insert id="insertTrainQuestion" parameterType="java.util.List">
@@ -29,29 +31,67 @@
 	</insert>
 
 	<update id="updateTrainQuestion" parameterType="trainQuestion">
-		update t_train_question set answerID = #{answerID} where quesID = #{quesID} and trainID = #{trainID}
+		update t_train_question set answerID = #{answerID},isRight = #{isRight} where quesID = #{quesID} and trainID = #{trainID}
 	</update>
 
 	<select id="queryTrainQues" parameterType="map" resultMap="questionMap">
+			SELECT
+				*
+			FROM
+				t_question
+			<where>
+				<if test="typeId != null and typeId != 0">
+					typeId = #{typeId}
+				</if>
+			</where>
+
+			ORDER BY
+				rand()
+			LIMIT #{size}
+	</select>
+
+	<select id="queryTrainList" parameterType="map" resultType="train">
 		SELECT
-			*
+		*
+		FROM
+		t_train
+		<where>
+			<if test="creater != null">
+				creater = #{creater}
+			</if>
+		</where>
+		ORDER BY createTime desc
+		LIMIT #{offSet},#{size}
+	</select>
+
+	<select id="queryTrainListCount" parameterType="map" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		t_train
+		<where>
+			<if test="creater != null">
+				creater = #{creater}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="queryTrainDetail" parameterType="long" resultMap="questionMap">
+		SELECT
+			m.*,n.ansID,n.ansDesc
 		FROM
 			(
 				SELECT
-					*
+					b.*, a.isRight,
+					a.answerID
 				FROM
-					t_question
-				<where>
-					<if test="typeId != null and typeId != 0">
-						typeId = #{typeId}
-					</if>
-				</where>
-
-				ORDER BY
-					rand()
-				LIMIT #{size}
-			) a
-		JOIN t_answer b ON a.quesId = b.quesId
+					t_train_question a
+				JOIN t_question b ON a.quesID = b.quesID
+				WHERE
+					trainID = #{trainID}
+			) m
+		JOIN t_answer n ON m.quesID = n.quesID
 	</select>
 
 </mapper>

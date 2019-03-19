@@ -26,6 +26,9 @@ public class Train {
     private Integer rightNum;
 
     public Integer getQuesNum() {
+        if(rightNum == null){
+            return 0;
+        }
         return quesNum;
     }
 
@@ -34,6 +37,9 @@ public class Train {
     }
 
     public Integer getRightNum() {
+        if(rightNum == null){
+            return 0;
+        }
         return rightNum;
     }
 

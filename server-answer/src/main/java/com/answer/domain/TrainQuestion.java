@@ -11,7 +11,20 @@ public class TrainQuestion {
 
     private Long quesID;
 
-    private Long answerID;
+    private String answerID;
+
+    /**
+     * 是否正确 1正确 2错误
+     */
+    private Byte isRight;
+
+    public Byte getIsRight() {
+        return isRight;
+    }
+
+    public void setIsRight(Byte isRight) {
+        this.isRight = isRight;
+    }
 
     public Long getTrainID() {
         return trainID;
@@ -29,11 +42,11 @@ public class TrainQuestion {
         this.quesID = quesID;
     }
 
-    public Long getAnswerID() {
+    public String getAnswerID() {
         return answerID;
     }
 
-    public void setAnswerID(Long answerID) {
+    public void setAnswerID(String answerID) {
         this.answerID = answerID;
     }
 }

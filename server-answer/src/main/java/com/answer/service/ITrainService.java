@@ -12,6 +12,10 @@ public interface ITrainService {
 
 	Result createTrain(Train train);
 
-	Result finishTrain(List<TrainQuestion> list);
+	Result finishTrain(Long trainID , List<TrainQuestion> list);
+
+	Result getTrainList(String wxSession , Integer pageNo , Integer pageSize);
+
+	Result getTrainDetail(String wxSession , Long trainID);
 
 }

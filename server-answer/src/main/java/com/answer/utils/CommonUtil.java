@@ -1,5 +1,10 @@
 package com.answer.utils;
 
+import com.answer.domain.Question;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class CommonUtil {
 
 	/**
@@ -54,5 +59,34 @@ public class CommonUtil {
 		} while (bDone);
 
 		return retStr;
+	}
+
+
+	/**
+	 * 判断是否回答正确
+	 * @param question
+	 * @param answerID
+	 * @return
+	 */
+	public static boolean isRight(Question question, String answerID){
+		String[] rightAnswers = question.getRightAnswerID().split(",");
+		String[] answerIDs = answerID.split(",");
+
+		//答案个数不一样 错误
+		if(rightAnswers.length != answerIDs.length){
+			return false;
+		}else{
+			Set<String> answerSet = new HashSet<>();
+			for(String rightAnswer : rightAnswers){
+				answerSet.add(rightAnswer);
+			}
+			for(String answer : answerIDs){
+				//如果正确答案不包含  回答的答案就是回答错误
+				if(!answerSet.contains(answer)){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }

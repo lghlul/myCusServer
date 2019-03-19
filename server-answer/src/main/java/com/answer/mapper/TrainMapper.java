@@ -13,12 +13,17 @@ public interface TrainMapper {
 
 	 int insert(Train train);
 
-
 	 int insertTrainQuestion(List<TrainQuestion> list);
-
 
 	 int updateTrainQuestion(TrainQuestion trainQuestion);
 
 	 int update(Train train);
+
+	 List<Train> queryTrainList(Map<String , Object> map);
+
+	 int queryTrainListCount(Map<String , Object> map);
+
+
+	 List<Question> queryTrainDetail(Map<String , Object> map);
 
 }

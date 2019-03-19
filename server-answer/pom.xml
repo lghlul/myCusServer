@@ -87,7 +87,9 @@
 			<artifactId>ezmorph</artifactId>
 			<version>1.0.6</version>
 		</dependency>
-		
+
+
+
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -167,7 +169,6 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-		
 		<!-- 日志文件管理包 -->
         <!-- log start -->
         <dependency>
@@ -355,9 +356,7 @@
 	        <artifactId>spring-data-redis</artifactId>  
 	        <version>1.0.2.RELEASE</version>  
 	    </dependency> 
-		
-		
-			<dependency>    
+			<dependency>
    <groupId>org.springframework</groupId>    
    <artifactId>spring-websocket</artifactId>    
    <version>4.3.7.RELEASE</version>    

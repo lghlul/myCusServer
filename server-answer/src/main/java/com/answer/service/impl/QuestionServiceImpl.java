@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import com.answer.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,27 +91,7 @@ public class QuestionServiceImpl implements IQuestionService {
 		result.setResultData(resultMap);
 		return result;
 	}
-	private boolean isRight(Question question,String answerID){
-		String[] rightAnswers = question.getRightAnswerID().split(",");
-		String[] answerIDs = answerID.split(",");
-		
-		//答案个数不一样 错误
-		if(rightAnswers.length != answerIDs.length){
-			return false;
-		}else{
-			Set<String> answerSet = new HashSet<>();
-			for(String rightAnswer : rightAnswers){
-				answerSet.add(rightAnswer);
-			}
-			for(String answer : answerIDs){
-				//如果正确答案不包含  回答的答案就是回答错误
-				if(!answerSet.contains(answer)){
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+
 	
 	@Override
 	public Result userAnswer(String wxSession, long questionID, String answerID) {
@@ -130,7 +111,7 @@ public class QuestionServiceImpl implements IQuestionService {
 			userAnswer.setTypeID(question.getTypeID());
 			userAnswer.setAnswerID(answerID);
 			userAnswer.setQuestionID(questionID);
-			if(this.isRight(question, answerID)){
+			if(CommonUtil.isRight(question, answerID)){
 				//答对
 				userAnswer.setIsRight(Constant.ANSWER_RIGHT);
 				int rightCount = this.userAnswerMapper.queryAnswerRightCount(session.getOpenID());

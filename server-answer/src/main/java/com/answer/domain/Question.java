@@ -8,8 +8,27 @@ public class Question {
 	private String rightAnswerID;
 	private long typeID;
 	private byte quesType;
-	
-	
+	private Byte isRight;
+	private Long answerID;
+
+	public Long getAnswerID() {
+		return answerID;
+	}
+
+	public void setAnswerID(Long answerID) {
+		this.answerID = answerID;
+	}
+
+	public Byte getIsRight() {
+		if(isRight == null){
+			return 0;
+		}
+		return isRight;
+	}
+
+	public void setIsRight(Byte isRight) {
+		this.isRight = isRight;
+	}
 
 	public byte getQuesType() {
 		return quesType;
