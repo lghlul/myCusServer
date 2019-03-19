@@ -90,18 +90,18 @@
 			<div class="alert msg" style="width: 60%;margin-left: 20%;display: none!important;" id="msg">
 			</div>
 			<div class="form-group" >
-				<label class="col-sm-2 control-label">编号类别</label>
-				<div class="col-sm-9">
+				<label class="col-sm-4 control-label">编码类别</label>
+				<div class="col-sm-5">
 					<select class="form-control" id="codeType">
-						<option value="1">项目编号</option>
-						<option value="2">文件编号</option>
-						<option value="3">用户编号</option>
+						<option value="1">项目编码</option>
+						<option value="2">文件编码</option>
+						<option value="3">用户编码</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-2 control-label">编号名称</label>
-				<div class="col-sm-9">
+				<label class="col-sm-4 control-label">编码名称</label>
+				<div class="col-sm-5">
 					<select class="form-control" id="codeName">
 						<option value="1">公差查询</option>
 						<option value="2">气缸压力</option>
@@ -113,8 +113,8 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-2 control-label">编号生成</label>
-				<div class="col-sm-7">
+				<label class="col-sm-4 control-label">编码生成</label>
+				<div class="col-sm-3">
 					<input type="text" class="form-control" maxlength="9" name="codeValue" id="codeValue" oninput="value=value.replace(/[^\d]/g,'')"/>
 				</div>
 				<div class="col-sm-1">

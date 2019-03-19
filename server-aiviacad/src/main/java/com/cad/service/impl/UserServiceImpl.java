@@ -1,12 +1,9 @@
 package com.cad.service.impl;
 
 import com.cad.constant.ResultCode;
-import com.cad.domain.Result;
 import com.cad.domain.User;
 import com.cad.mapper.UserMapper;
-import com.cad.service.IBaseService;
 import com.cad.service.IUserService;
-import com.cad.utils.CodeUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

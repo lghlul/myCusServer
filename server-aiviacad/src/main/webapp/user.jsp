@@ -13,6 +13,9 @@
 		.form-group{
 			text-align: center;
 		}
+		.layui-layer-btn{
+			text-align: center;
+		}
 	</style>
 	<script type="text/javascript">
         $(function(){
@@ -130,26 +133,26 @@
 		<div class="alert alert-danger msg" style="width: 60%;margin-left: 20%;display: none!important;" id="msg">
 		</div>
 		<div class="form-group" >
-			<label class="col-sm-2 control-label">用户名称</label>
-			<div class="col-sm-9">
+			<label class="col-sm-4 control-label">用户名称</label>
+			<div class="col-sm-5">
 				<input type="text" class="form-control" value="${user.userAccount}" readonly/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><span style="color: red;">*</span>&nbsp;当前密码</label>
-			<div class="col-sm-9">
+			<label class="col-sm-4 control-label"><span style="color: red;">*</span>&nbsp;当前密码</label>
+			<div class="col-sm-5">
 				<input type="password" class="form-control" name="userOldPwd" id="userOldPwd"/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><span style="color: red;">*</span>&nbsp;新密码</label>
-			<div class="col-sm-9">
+			<label class="col-sm-4 control-label"><span style="color: red;">*</span>&nbsp;新密码</label>
+			<div class="col-sm-5">
 				<input type="password" class="form-control" name="userPwd" id="userPwd"/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><span style="color: red;">*</span>&nbsp;再次输入</label>
-			<div class="col-sm-9">
+			<label class="col-sm-4 control-label"><span style="color: red;">*</span>&nbsp;再次输入</label>
+			<div class="col-sm-5">
 				<input type="password" class="form-control" name="userConfirmPwd" id="userConfirmPwd"/>
 			</div>
 		</div>

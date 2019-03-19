@@ -114,7 +114,7 @@ $(function(){
         }
         var userCode = $("#registerForm input[name='userCode']").val();
         if(!userCode){
-            msg.html("请输入用户编号");
+            msg.html("请输入用户编码");
             msg.show();
             return false;
         }
@@ -203,7 +203,9 @@ $(function(){
             }else if(data.code == 0){
                 //changeForm(0);
                 $('#findPwdForm')[0].reset();
-                layer.alert("密码修改成功",{closeBtn:0});
+                layer.alert("密码修改成功",{closeBtn:0},function(){
+                    window.location.href = "../user/logout.do";
+                });
             }
         },"JSON");
 
@@ -271,7 +273,7 @@ var register = function(userAccount , userPwd ,phone , email,userCode){
             msg.show();
         }else if(data.code == 996) {
             var msg = $("#registerForm .msg");
-            msg.html("用户编号重复");
+            msg.html("用户编码重复");
             msg.show();
         }else{
                 var msg = $("#registerForm .msg");

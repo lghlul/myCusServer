@@ -11,6 +11,11 @@
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 	<script src="../layer/layer.js"></script>
 <script src="${basePath}/js/login.js"></script>
+	<style type="text/css">
+		.layui-layer-btn{
+			text-align: center;
+		}
+	</style>
 </head>
 <body>
 	<div class="top">
@@ -68,7 +73,7 @@
 				<span>*</span><input type="text" class="form-control input-lg" name="email" value="" placeholder="请输入邮箱">
 			</div>
 			<div class="form-group  has-feedback">
-				<span>*</span><input type="text" class="form-control input-lg" maxlength="9" name="userCode" id="userCode" value="" placeholder="请输入用户编号(9位数字)" style="width: 65%;" oninput="value=value.replace(/[^\d]/g,'')"><button type="" class="btn input-lg" style="width: 25%;float: right;background-color: #5bc0de;color: white;" id="createCodeBtn">随机</button>
+				<span>*</span><input type="text" class="form-control input-lg" maxlength="9" name="userCode" id="userCode" value="" placeholder="请输入用户编码(9位数字)" style="width: 65%;" oninput="value=value.replace(/[^\d]/g,'')"><button type="" class="btn input-lg" style="width: 25%;float: right;background-color: #5bc0de;color: white;" id="createCodeBtn">随机</button>
 			</div>
 			<div class="form-group  has-feedback">
 				<button type="submit" class="btn btn-success" id="registerBtn">注册</button>
