@@ -55,6 +55,8 @@ public class TrainServiceImpl implements ITrainService {
 		Map<String , Object> dataMap = new HashMap<>();
 		dataMap.put("trainID" , train.getTrainID());
 		dataMap.put("questions" , questions);
+		dataMap.put("trainTime" , 200);
+        dataMap.put("questionSize" , size);
 		result.setResultData(dataMap);
 		return result;
 	}

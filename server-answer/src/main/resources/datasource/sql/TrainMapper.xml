@@ -35,19 +35,25 @@
 	</update>
 
 	<select id="queryTrainQues" parameterType="map" resultMap="questionMap">
-			SELECT
-				*
-			FROM
-				t_question
-			<where>
-				<if test="typeId != null and typeId != 0">
-					typeId = #{typeId}
-				</if>
-			</where>
+		SELECT
+		a.*,b.ansID,b.ansDesc
+		FROM
+		(
+		SELECT
+		*
+		FROM
+		t_question
+		<where>
+			<if test="typeId != null and typeId != 0">
+				typeId = #{typeId}
+			</if>
+		</where>
 
-			ORDER BY
-				rand()
-			LIMIT #{size}
+		ORDER BY
+		rand()
+		LIMIT #{size}
+		) a
+		JOIN t_answer b ON a.quesId = b.quesId
 	</select>
 
 	<select id="queryTrainList" parameterType="map" resultType="train">
