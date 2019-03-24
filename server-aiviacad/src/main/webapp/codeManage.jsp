@@ -61,7 +61,33 @@
             return false;
 		});
 
+
+
+        $("#searchBtn").click(function(){
+            var codeType = $("#searchCodeType").val();
+            var codeName = $("#searchCodeName").val();
+			var args = {"codeType":codeType , "codeName":codeName};
+			var url = "../codeManage/codeList.do";
+            $.getJSON(url,args,function(data){
+                if(data.code == 0){
+                    $("#codeList").html("");
+                    var codeList = data.resultData;
+                    for(var i= 0 ; i< codeList.length ; i++){
+                        $("#codeList").append("<div>" + codeList[i].codeValue + "</div>");
+					}
+                }
+            });
+            return false;
+		});
+
     })
+
+    var changeForm = function(index){
+        $("#codeList").html("");
+        $("form").eq(index).show();
+        $("form:gt(" + index + ")").hide();
+        $("form:lt(" + index + ")").hide();
+    }
 </script>
 
 </head>
@@ -122,7 +148,47 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<a href="javascript:void(0)" style="color: #337ab7!important;font-size: 15px;" onclick="changeForm(1)">编码查询</a>
+			</div>
+			<div class="form-group">
 				<button type="button" class="btn btn-success " style="width: 20%;" id="submitBtn">确定</button>
+			</div>
+		</form>
+
+
+		<form class="form-horizontal" style="display: none;">
+			<div class="form-group" >
+				<label class="col-sm-4 control-label">编码类别</label>
+				<div class="col-sm-5">
+					<select class="form-control" id="searchCodeType">
+						<option value="1">项目编码</option>
+						<option value="2">文件编码</option>
+						<option value="3">用户编码</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">编码名称</label>
+				<div class="col-sm-5">
+					<select class="form-control" id="searchCodeName">
+						<option value="1">公差查询</option>
+						<option value="2">气缸压力</option>
+						<option value="3">压力转换</option>
+						<option value="4">工程材料</option>
+						<option value="5">编码管理</option>
+						<option value="6">注册登录</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<a href="javascript:void(0)" style="color: #337ab7!important;font-size: 15px;" onclick="changeForm(0)">编码创建</a>
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-success " style="width: 20%;" id="searchBtn">查询</button>
+			</div>
+			<div class="form-group" style="text-align: center;" id="codeList">
+				<div>1111</div>
+				<div>1111</div>
 			</div>
 		</form>
 

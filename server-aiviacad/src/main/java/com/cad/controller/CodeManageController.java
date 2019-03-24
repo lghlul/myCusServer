@@ -69,4 +69,16 @@ public class CodeManageController extends BaseController{
 		}
 		return JSON.toJSONString(result);
 	}
+
+	@ResponseBody
+	@RequestMapping("/codeList.do")
+	public String codeList(CodeManage codeManage) {
+		Result result = new Result();
+		Map<String ,Object> map = new HashMap<String, Object>();
+		map.put("codeType" , codeManage.getCodeType());
+		map.put("codeName" , codeManage.getCodeName());
+		result.setCode(ResultCode.SUCCESS);
+		result.setResultData(codeManageService.query(map));
+		return JSON.toJSONString(result);
+	}
 }

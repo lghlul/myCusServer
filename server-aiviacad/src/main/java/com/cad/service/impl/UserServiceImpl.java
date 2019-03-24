@@ -1,10 +1,14 @@
 package com.cad.service.impl;
 
+import com.cad.constant.CommenConstant;
 import com.cad.constant.ResultCode;
+import com.cad.domain.CodeManage;
 import com.cad.domain.User;
+import com.cad.mapper.CodeManageMapper;
 import com.cad.mapper.UserMapper;
 import com.cad.service.IUserService;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,9 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    CodeManageMapper codeManageMapper;
+
     public int searchCount(Map<String , Object> map) {
         int count = this.userMapper.searchCount(map);
         return count;
@@ -26,6 +33,12 @@ public class UserServiceImpl implements IUserService {
     public int register(User user) {
         user.setUserPwd(DigestUtils.md5Hex(user.getUserPwd()));
         int count = this.userMapper.insert(user);
+        CodeManage codeManage = new CodeManage();
+        codeManage.setCreateTime(System.currentTimeMillis());
+        codeManage.setCodeValue(user.getUserCode());
+        codeManage.setCodeName(CommenConstant.CODE_TYPE_USER);
+        codeManage.setCodeType(CommenConstant.CODE_NAME_ZCDL);
+        codeManageMapper.insertCodeManage(codeManage);
         return count;
     }
 

@@ -3,6 +3,7 @@ package com.cad.service;
 
 import com.cad.domain.CodeManage;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,4 +18,6 @@ public interface ICodeManageService {
 	public int addCodeManage(CodeManage codeManage);
 
 	public boolean checkCodeExist(Map<String , Object> map);
+
+	List<CodeManage> query(Map<String , Object> map);
 }

@@ -31,4 +31,10 @@ public class CodeManageServiceImpl implements ICodeManageService {
 			return true;
 		}
 	}
+
+
+	public List<CodeManage> query(Map<String, Object> map) {
+		List<CodeManage> list = codeManageMapper.query(map);
+		return list;
+	}
 }
