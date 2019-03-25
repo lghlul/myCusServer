@@ -34,10 +34,10 @@ public class TrainServiceImpl implements ITrainService {
 		train.setCreateTime(System.currentTimeMillis());
 		WXSessionCache session = this.cacheHelper.getSession(train.getCreater());
 		train.setCreater(session.getOpenID());
-		trainMapper.insert(train);
-		Map<String , Object> map = new HashMap<>();
 		int size = 20;
 		train.setQuesNum(size);
+		trainMapper.insert(train);
+		Map<String , Object> map = new HashMap<>();
 		map.put("typeID" , train.getTypeID());
 		map.put("size" , size);
 		List<Question> questions = trainMapper.queryTrainQues(map);

@@ -9,15 +9,7 @@ public class Question {
 	private long typeID;
 	private byte quesType;
 	private Byte isRight;
-	private Long answerID;
-
-	public Long getAnswerID() {
-		return answerID;
-	}
-
-	public void setAnswerID(Long answerID) {
-		this.answerID = answerID;
-	}
+	private String answerID;
 
 	public Byte getIsRight() {
 		if(isRight == null){
@@ -79,6 +71,12 @@ public class Question {
 	public void setRightAnswerID(String rightAnswerID) {
 		this.rightAnswerID = rightAnswerID;
 	}
-	
 
+	public String getAnswerID() {
+		return answerID;
+	}
+
+	public void setAnswerID(String answerID) {
+		this.answerID = answerID;
+	}
 }
