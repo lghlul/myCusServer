@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.cad.constant.ResultCode;
 import com.cad.domain.CodeManage;
 import com.cad.domain.Result;
+import com.cad.domain.User;
 import com.cad.service.ICodeManageService;
 import com.cad.service.IVisitService;
 import com.cad.utils.CodeUtil;
+import com.cad.utils.ConstantUtil;
 import com.cad.utils.DataFormatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +41,11 @@ public class CodeManageController extends BaseController{
 	private IVisitService visitService;
 
 	@RequestMapping("/toIndex.do")
-	public String toIndex(Model model) {
+	public String toIndex(Model model, HttpServletRequest request) {
+		User user = (User)request.getSession().getAttribute(ConstantUtil.SESSION_USER);
+		if(user == null){
+			return "index";
+		}
 		//访问数量
 		model.addAttribute("visitCount", DataFormatUtil.intFarmat(this.visitService.getVisitCount()));
 		return "codeManage";

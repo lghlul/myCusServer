@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>MATLACDOM</title>
-<link rel="stylesheet" type="text/css" href="../css/gccx.css">
+<link rel="stylesheet" type="text/css" href="${basePath}/css/gccx.css">
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <style type="text/css">
@@ -94,19 +94,19 @@
 <body>
 	<div class="top">
 		<div class="title">
-			<a href="../index.jsp">公差查询</a>
+			<a href="${basePath}/index.jsp">公差查询</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="../pressure/toIndex.do">气缸压力</a>
+			<a href="${basePath}/pressure/toIndex.do">气缸压力</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="../pressureChange/toIndex.do">压力转换</a>
+			<a href="${basePath}/pressureChange/toIndex.do">压力转换</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="../projectMaterial/toIndex.do">工程材料</a>
+			<a href="${basePath}/projectMaterial/toIndex.do">工程材料</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			编码管理
 		</div>
 		<div class="login">
-			<c:if test="${user == null}"> <a href="../user/toLogin.do">登录</a></c:if>
-			<c:if test="${user != null}"> 你好,<a href="../user/toResetPwd.do"><span class="accountStyle">${user.userAccount}</span></a> <a href="../user/logout.do">退出</a></c:if>
+			<c:if test="${user == null}"> <a href="${basePath}/user/toLogin.do">登录</a></c:if>
+			<c:if test="${user != null}"> 你好,<a href="${basePath}/user/toResetPwd.do"><span class="accountStyle">${user.userAccount}</span></a> <a href="${basePath}/user/logout.do">退出</a></c:if>
 		</div>
 	</div>
 
