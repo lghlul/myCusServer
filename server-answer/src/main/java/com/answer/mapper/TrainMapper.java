@@ -2,6 +2,7 @@ package com.answer.mapper;
 
 import com.answer.domain.Question;
 import com.answer.domain.Train;
+import com.answer.domain.TrainConfig;
 import com.answer.domain.TrainQuestion;
 
 import java.util.List;
@@ -25,5 +26,10 @@ public interface TrainMapper {
 
 
 	 List<Question> queryTrainDetail(Map<String , Object> map);
+
+
+	 TrainConfig queryConfigByType(Long typeID);
+
+	 Train queryById(Long trainID);
 
 }

@@ -113,6 +113,10 @@ public interface Constant {
 		 * 不在线
 		 */
 		public static final int NOT_ONLINE = 9994;
+		/**
+		 * 考试已经结束
+		 */
+		public static final int TRAIN_FINISHED = 9994;
 		
 	}
 
