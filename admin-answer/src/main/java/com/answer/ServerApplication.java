@@ -23,13 +23,13 @@ public class ServerApplication extends WebMvcConfigurerAdapter {
 	public static void main(String[] args) {
 		SpringApplication.run(ServerApplication.class, args);
 	}
-	@Override
+	/*@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// todo 测试使用
 		//添加拦截器
 		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**");
 		super.addInterceptors(registry);
-	}
+	}*/
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
