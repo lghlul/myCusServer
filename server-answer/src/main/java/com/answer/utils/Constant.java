@@ -116,7 +116,7 @@ public interface Constant {
 		/**
 		 * 考试已经结束
 		 */
-		public static final int TRAIN_FINISHED = 9994;
+		public static final int TRAIN_FINISHED = 9993;
 		
 	}
 

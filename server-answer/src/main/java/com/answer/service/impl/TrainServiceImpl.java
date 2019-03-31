@@ -82,26 +82,25 @@ public class TrainServiceImpl implements ITrainService {
 	@Override
 	public Result finishTrain(Long trainID , List<TrainQuestion> list) {
 		int rightNum = 0;
+		Result result = new Result();
+		Map<String , Object> dataMap = new HashMap<>();
 		if(list != null){
-
+			float score = 0;
 			//对线程进行关闭
 			TrainThread thread = ThreadCache.get(trainID);
 			if(thread != null){
 				thread.interrupt();
 				ThreadCache.remove(trainID);
 			}
-			float score = 0;
 			//获取考试信息
 			Train trainDO = trainMapper.queryById(trainID);
 			if(trainDO.getTrainStatus() == Constant.TRAIN_STATUS_FINISH){
-				Result result = new Result();
 				result.setResultCode(Constant.returnCode.TRAIN_FINISHED);
 				return result;
 			}
 
 			//获取考试配置信息
 			TrainConfig trainConfig = trainMapper.queryConfigByType(trainDO.getTypeID());
-
 			for(TrainQuestion tq : list){
 				tq.setTrainID(trainID);
 				Question question = this.questionMapper.queryQuestionByID(tq.getQuesID());
@@ -127,8 +126,15 @@ public class TrainServiceImpl implements ITrainService {
 			user.setScore(score);
 			Log4jUtil.info("finishTrain userAnswer...考试结束计分user=" + JSON.toJSONString(user));
 			userMapper.updateUser(user);
+			//得分
+			dataMap.put("score" , score);
+			//正确题数
+			dataMap.put("rightNum" , rightNum);
+			//总题数
+			dataMap.put("totalNum" , trainDO.getQuesNum());
+			result.setResultData(dataMap);
 		}
-		Result result = new Result();
+
 		return result;
 	}
 
