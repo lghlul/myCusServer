@@ -120,13 +120,15 @@ public interface ConstantUtil {
 	}
 
 	interface Page{
-		public static final String INDEX = "index";
+		String INDEX = "index";
 
-		public static final String LOGIN = "login";
+		String LOGIN = "login";
+
+		String USER = "user";
 	}
 
 
-	public static final String SESSION_USER = "user";
+	String SESSION_USER = "user";
 	
 	
 }

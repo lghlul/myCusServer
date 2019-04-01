@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TTrainConfigMapper">
+    <select id="selectById" parameterType="string" resultType="trainConfig">
+      select * from t_train_config where typeID = #{typeID}
+    </select>
+
+    <select id="selectPage" parameterType="trainConfig" resultType="trainConfig">
+      select * from t_train_config
+    </select>
+
+    <update id="update" parameterType="trainConfig">
+        update t_train_config
+        <set>
+            <if test="quesNum != null">
+                quesNum = #{quesNum},
+            </if>
+            <if test="trainTime != null">
+                trainTime = #{trainTime},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+        </set>
+        where typeID = #{typeID}
+    </update>
+</mapper>

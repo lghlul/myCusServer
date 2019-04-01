@@ -1,7 +1,10 @@
 body{
 	margin: 0px;
 	font-family: Microsoft YaHei!important;
-	font-size: 15px;
+	font-size: 15px!important;
+}
+label{
+	font-weight: 100!important;
 }
 .title{
 	color: white;float: left;line-height: 50px;font-weight: bold;font-size: 20px;margin-left: 10px;
@@ -101,10 +104,10 @@ select{font-family: Arial Narrow!important;}
 	color: white;float: right;line-height: 50px;font-weight: bold;font-size: 20px;margin-left: 10px;margin-right: 10px;
 }
 .login{
-	font-size: 1rem!important;
+	font-size: 15px!important;
 }
 .login a{
-	font-size: 1rem!important;
+	font-size: 15px!important;
 }
 .form-inline{
 	width: 35rem;
@@ -150,4 +153,9 @@ select{font-family: Arial Narrow!important;}
 #registerForm .msg{
 	width: 95%;
 	margin-left: 5%;
+}
+
+
+#findPwdForm input{
+	width: 95%;
 }

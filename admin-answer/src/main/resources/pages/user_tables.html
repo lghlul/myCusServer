@@ -103,7 +103,7 @@
         $(document).ready(function () {
             $.get("/user/orgList",function(res){
                 $.each(res.data,function(index,obj){
-                    $("#orgId").append(`<option value="`+obj.orgID+`">`+obj.orgName+`</option>`);
+                    $("#orgId").append('<option value=" ' +obj.orgID + '">'+obj.orgName+'</option>');
                 })
             },"json");
 

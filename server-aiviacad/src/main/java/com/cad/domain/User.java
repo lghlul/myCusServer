@@ -14,6 +14,16 @@ public class User {
 
     private String email;
 
+    private String userCode;
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
     public String getEmail() {
         return email;
     }

@@ -5,21 +5,23 @@
             <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY" />
             <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n" />
         </Console>
-        <File name="log" fileName="/Users/san_can/Documents/work/logs/answer/admin-answer.log" append="false">
+        <File name="log" fileName="/data/logs//admin-answer.log" append="false">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n" />
         </File>
-        <RollingFile name="RollingFile" fileName="logs/project-create.log" filePattern="log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log">
+        <RollingFile name="RollingFile" fileName="/data/logs/admin-answer.log" filePattern="/data/logs/admin-answer-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n" />
-            <SizeBasedTriggeringPolicy size="50MB" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
         </RollingFile>
     </appenders>
 
     <loggers>
         <root level="info">
-           <!-- <appender-ref ref="RollingFile" />
-            
+            <!-- <appender-ref ref="RollingFile" />
             <appender-ref ref="log" />-->
-            <appender-ref ref="Console" />
+         <appender-ref ref="Console" />
         </root>
     </loggers>
 </configuration>

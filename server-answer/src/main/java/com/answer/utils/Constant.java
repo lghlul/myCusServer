@@ -27,6 +27,17 @@ public interface Constant {
 	 * 对战房间已经计分
 	 */
 	public static byte ROOM_STATUS_COUNT = 2;
+
+
+	/**
+	 * 考试练习未结束
+	 */
+	byte TRAIN_STATUS_UN_FINISH = 1;
+
+	/**
+	 * 考试练习结束
+	 */
+	byte TRAIN_STATUS_FINISH = 2;
 	
 	public static interface returnCode {
 		/**
@@ -102,6 +113,10 @@ public interface Constant {
 		 * 不在线
 		 */
 		public static final int NOT_ONLINE = 9994;
+		/**
+		 * 考试已经结束
+		 */
+		public static final int TRAIN_FINISHED = 9993;
 		
 	}
 
@@ -117,7 +132,7 @@ public interface Constant {
 		
 		public static int FIVE = 5;
 
-
-		public static float SIGN_SCORE = 0.1f;
+		public static float SIGN_SCORE = 1;
+		//public static float SIGN_SCORE = 0.1f;
 	}
 }

@@ -32,9 +32,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 
-
-
-		/*String wx_session = request.getParameter("wxSession");
+		String wx_session = request.getParameter("wxSession");
 		Log4jUtil.info("preHandle...wx_session=" + wx_session);
 		WXSessionCache session = this.cacheHelper.getSession(wx_session);
 		Log4jUtil.info("preHandle...session=" + JSON.toJSONString(session));
@@ -67,7 +65,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 					return false;
 				}
 			}
-		}*/
+		}
 		return true;
 	}
 }

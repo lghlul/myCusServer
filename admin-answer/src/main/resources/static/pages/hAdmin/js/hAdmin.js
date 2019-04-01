@@ -10,20 +10,20 @@ $(document).ready(function () {
             if(res.resultCode==1){
                 var menuHtml = '';
                 $.each(res.data,function(index,obj){
-                    menuHtml +=`<li>
-                    <a href="#">
-                        <i class="fa fa fa-bar-chart-o"></i>
-                        <span class="nav-label">`+obj.menuName+`</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">`;
+                    menuHtml += '<li>' +
+                    '<a href="#">' +
+                        '<i class="fa fa fa-bar-chart-o"></i>' +
+                        '<span class="nav-label">' + obj.menuName + '</span>' +
+                        '<span class="fa arrow"></span>' +
+                    '</a>' +
+                    '<ul class="nav nav-second-level">';
                     $.each(obj.children,function(index,child){
-                        menuHtml +=`<li>
-                        <a class="J_menuItem" href="`+child.menuUrl+`">`+child.menuName+`</a>
-                        </li>`;
+                        menuHtml +='<li>' +
+                        '<a class="J_menuItem" href=" ' +child.menuUrl+ ' ">'+child.menuName+ '</a>' +
+                        '</li>';
                         
                     })
-                    menuHtml +=`</ul></li>`;
+                    menuHtml +='</ul></li>';
                     
                 })
                 $("#home").after(menuHtml);

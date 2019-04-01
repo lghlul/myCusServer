@@ -6,11 +6,12 @@ import com.cad.domain.User;
 import java.util.List;
 import java.util.Map;
 
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User>{
 
-    public int insert(User user);
+    int searchCount(Map<String , Object> map);
 
-    public int searchCount(Map<String , Object> map);
+    List<User> search(Map<String , Object> map);
 
-    public List<User> search(Map<String , Object> map);
+    int updateByEmail(User user);
+
 }

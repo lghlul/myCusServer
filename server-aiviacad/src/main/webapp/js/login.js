@@ -35,8 +35,16 @@ $(function(){
         return false;
     });
 
+    $("#createCodeBtn").click(function(){
+        var url = "../codeManage/getCode.do"
+        $.getJSON(url,function(data){
+            $("#userCode").val(data.resultData);
+        })
+        return false;
+    });
 
-    $("#registerForm button").click(function(){
+
+    $("#registerBtn").click(function(){
         var msg = $("#registerForm .msg");
         msg.hide();
         //校验用户名
@@ -77,37 +85,156 @@ $(function(){
         //校验邮箱和手机号码
         var phone = $("#registerForm input[name='phone']").val();
         var email = $("#registerForm input[name='email']").val();
-        if(!(phone || email)){
-            msg.html("请输入手机或者邮箱");
+        /*if(!phone){
+            msg.html("请输入手机");
             msg.show();
             return false;
-        }
+        }*/
+
         if(phone && !isPoneAvailable(phone)){
             msg.html("请输入正确的手机");
             msg.show();
             return false;
         }
+        if(!email){
+            msg.html("请输入邮箱");
+            msg.show();
+            return false;
+        }
+       /* if(!(phone || email)){
+            msg.html("请输入手机或者邮箱");
+            msg.show();
+            return false;
+        }*/
+
         if(email && !isEmail(email)){
             msg.html("请输入正确的邮箱");
             msg.show();
             return false;
         }
+        var userCode = $("#registerForm input[name='userCode']").val();
+        if(!userCode){
+            msg.html("请输入用户编码");
+            msg.show();
+            return false;
+        }
 
-        register(userAccount,userPwd,phone,email);
+        register(userAccount,userPwd,phone,email,userCode);
         return false;
     });
 
-})
+
+
+    $("#sendCodeBtn").click(function() {
+        var msg = $("#findPwdForm .msg");
+        msg.hide();
+        var email = $("#findPwdForm input[name='email']").val();
+        if(!email || !isEmail(email)){
+            msg.html("请输入正确的邮箱");
+            msg.show();
+            return false;
+        }
+
+        var url = "../user/sendEmailCode.do";
+        var arg = {"email" : email};
+        $.post(url,arg,function(data){
+            if(data.code == 994){
+                msg.html("邮箱尚未注册");
+                msg.show();
+            }else if(data.code == 0){
+                settime();
+            }
+        },"JSON");
+
+
+        return false;
+    });
+
+
+    $("#findPwdBtn").click(function(){
+        var msg = $("#findPwdForm .msg");
+        msg.hide();
+
+        var email = $("#findPwdForm input[name='email']").val();
+        if(!email || !isEmail(email)){
+            msg.html("请输入正确的邮箱");
+            msg.show();
+            return false;
+        }
+        
+        //校验用户密码
+        var userPwd = $("#findPwdForm input[name='userPwd']").val();
+        if(!userPwd){
+            msg.html("请输入密码");
+            msg.show();
+            return false;
+        }
+        if(userPwd.length < 6){
+            msg.html("密码长度不能小于6");
+            msg.show();
+            return false;
+        }
+        if(!$("#findPwdForm input[name='userConfirmPwd']").val()){
+            msg.html("请输入确认密码");
+            msg.show();
+            return false;
+        }
+
+        if($("#findPwdForm input[name='userPwd']").val() != $("#findPwdForm input[name='userConfirmPwd']").val()){
+            msg.html("密码不一致");
+            msg.show();
+            return false;
+        }
+
+        var emailCode = $("#findPwdForm input[name='emailCode']").val();
+        if(!emailCode || emailCode.length < 6){
+            msg.html("请输入6位数验证码");
+            msg.show();
+            return false;
+        }
+
+
+        var url = "../user/findPwd.do";
+        var arg = {"email" : email , "userPwd" : userPwd , "emailCode" : emailCode};
+        $.post(url,arg,function(data){
+            if(data.code == 993){
+                msg.html("验证码无效或者已过期");
+                msg.show();
+            }else if(data.code == 0){
+                //changeForm(0);
+                $('#findPwdForm')[0].reset();
+                layer.alert("密码修改成功",{closeBtn:0},function(){
+                    window.location.href = "../user/logout.do";
+                });
+            }
+        },"JSON");
+
+        return false;
+    });
+
+});
+var countdown = 60;
+function settime() {
+    if (countdown == 0) {
+        $("#sendCodeBtn").removeAttr("disabled");
+        $("#sendCodeBtn").html("获取验证码");
+        countdown = 60;
+        return false;
+    } else {
+        $("#sendCodeBtn").attr("disabled","disabled")
+        $("#sendCodeBtn").html("重新发送(" + countdown + ")");
+        countdown--;
+    }
+    setTimeout(function() {
+        settime();
+    },1000);
+}
 
 var changeForm = function(index){
     $(".msg").hide();
-    if(index == 0){
-        $("form").eq(index).hide();
-        $("form").eq(1).show();
-    }else{
-        $("form").eq(index).hide();
-        $("form").eq(0).show();
-    }
+    $("form").eq(index).show();
+    $("form:gt(" + index + ")").hide();
+    $("form:lt(" + index + ")").hide();
 }
 
 
@@ -125,8 +252,8 @@ var login = function(userAccount , userPwd){
     });
 }
 
-var register = function(userAccount , userPwd ,phone , email){
-    var data = {"userAccount":userAccount , "userPwd" : userPwd , "phone" : phone , "email":email};
+var register = function(userAccount , userPwd ,phone , email,userCode){
+    var data = {"userAccount":userAccount , "userPwd" : userPwd , "phone" : phone , "email":email, "userCode" : userCode};
     var url = "register.do";
 
     $.post(url,data,function(data){
@@ -143,6 +270,10 @@ var register = function(userAccount , userPwd ,phone , email){
         }else if(data.code == 997) {
             var msg = $("#registerForm .msg");
             msg.html("邮箱重复");
+            msg.show();
+        }else if(data.code == 996) {
+            var msg = $("#registerForm .msg");
+            msg.html("用户编码重复");
             msg.show();
         }else{
                 var msg = $("#registerForm .msg");
