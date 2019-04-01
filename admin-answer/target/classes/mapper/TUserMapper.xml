@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TUserMapper">
+    <resultMap id="baseResultMap" type="TUser">
+        <id column="userID" property="userID"/>
+        <result column="openID" property="openID"/>
+        <result column="createTime" property="createTime"/>
+        <result column="score" property="score"/>
+        <result column="usedScore" property="usedScore"/>
+        <result column="jobNum" property="jobNum"/>
+        <result column="userName" property="userName"/>
+        <result column="userImg" property="userImg"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_user where userID = #{id}
+    </select>
+    <select id="selectPage" parameterType="TUser" resultMap="baseResultMap">
+        select * from t_user
+        <where>
+            <if test="userID != null">
+                and userID = #{userID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="score != null">
+                and score = #{score}
+            </if>
+            <if test="usedScore != null">
+                and usedScore = #{usedScore}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="userName != null">
+                and userName = #{userName}
+            </if>
+            <if test="userImg != null">
+                and userImg = #{userImg}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="TUser" resultType="int">
+        select count(*) from t_user
+        <where>
+            <if test="userID != null">
+                and userID = #{userID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="score != null">
+                and score = #{score}
+            </if>
+            <if test="usedScore != null">
+                and usedScore = #{usedScore}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="jobNum == null">
+                and jobNum is not null
+            </if>
+            <if test="userName != null">
+                and userName = #{userName}
+            </if>
+            <if test="userImg != null">
+                and userImg = #{userImg}
+            </if>
+        </where>
+    </select>
+    <select id="selectPageByMap" parameterType="map" resultMap="baseResultMap">
+        select * from t_user
+        <where>
+            <if test="userID != null">
+                and userID = #{userID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="score != null">
+                and score = #{score}
+            </if>
+            <if test="usedScore != null">
+                and usedScore = #{usedScore}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="userName != null">
+                and userName = #{userName}
+            </if>
+            <if test="userImg != null">
+                and userImg = #{userImg}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+
+    <insert id="insert" keyProperty="userID" parameterType="TUser" useGeneratedKeys="true">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userID != null">
+                userID,
+            </if>
+            <if test="openID != null">
+                openID,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="usedScore != null">
+                usedScore,
+            </if>
+            <if test="jobNum != null">
+                jobNum,
+            </if>
+            <if test="userName != null">
+                userName,
+            </if>
+            <if test="userImg != null">
+                userImg,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userID != null">
+                #{userID},
+            </if>
+            <if test="openID != null">
+                #{openID},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="score != null">
+                #{score},
+            </if>
+            <if test="usedScore != null">
+                #{usedScore},
+            </if>
+            <if test="jobNum != null">
+                #{jobNum},
+            </if>
+            <if test="userName != null">
+                #{userName},
+            </if>
+            <if test="userImg != null">
+                #{userImg},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from t_user where userID = #{id}
+    </delete>
+    <delete id="delete" parameterType="TUser">
+        delete from t_user
+        <where>
+            <if test="userID != null">
+                and userID = #{userID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="score != null">
+                and score = #{score}
+            </if>
+            <if test="usedScore != null">
+                and usedScore = #{usedScore}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="userName != null">
+                and userName = #{userName}
+            </if>
+            <if test="userImg != null">
+                and userImg = #{userImg}
+            </if>
+        </where>
+    </delete>
+    <delete id="deleteByMap" parameterType="map">
+        delete from t_user
+        <where>
+            <if test="userID != null">
+                and userID = #{userID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="score != null">
+                and score = #{score}
+            </if>
+            <if test="usedScore != null">
+                and usedScore = #{usedScore}
+            </if>
+            <if test="jobNum != null">
+                and jobNum = #{jobNum}
+            </if>
+            <if test="userName != null">
+                and userName = #{userName}
+            </if>
+            <if test="userImg != null">
+                and userImg = #{userImg}
+            </if>
+        </where>
+    </delete>
+    <update id="update" parameterType="TUser">
+        update t_user
+        <set>
+            <if test="openID != null">
+                openID = #{openID},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+            <if test="usedScore != null">
+                usedScore = #{usedScore},
+            </if>
+            <if test="jobNum != null">
+                jobNum = #{jobNum},
+            </if>
+            <if test="userName != null">
+                userName = #{userName},
+            </if>
+            <if test="userImg != null">
+                userImg = #{userImg},
+            </if>
+        </set>
+        <if test="userID != null">
+            where userID = #{userID}
+        </if>
+    </update>
+
+    <select id="selectAnswerCount" parameterType="map" resultType="TUser">
+      SELECT
+            a.*,
+        <if test="isRight == null">
+            b.answerCount as countNum
+        </if>
+        <if test="isRight == 1">
+            b.answerCount as rightNum
+        </if>
+        FROM
+            (
+                SELECT
+                    e.*, r.orgName,
+                    p.realName
+                FROM
+                    t_user e,
+                    t_organization r,
+                    t_jobnum p
+                <where>
+                    and e.jobNum = p.jobNum
+                    AND p.orgID = r.orgID
+                    <if test="jobNum != null">
+                        and e.jobNum = #{jobNum}
+                    </if>
+                    <if test="orgID != null">
+                        and p.orgID = #{orgID}
+                    </if>
+                    <if test="realName != null">
+                        and p.realName like CONCAT('%', #{realName},'%')
+                    </if>
+                </where>
+                   LIMIT #{offSet} ,#{limit}
+            ) a
+        left JOIN (
+            SELECT
+                openID,
+                count(openID) answerCount
+            FROM
+                t_user_answer
+           <where>
+               <if test="isRight != null">
+                   and isRight = #{isRight}
+               </if>
+               <if test="endTime != null">
+                   and createTime &lt;= #{endTime}
+               </if>
+               <if test="startTime != null">
+                   and createTime &gt;= #{startTime}
+               </if>
+           </where>
+            GROUP BY
+                openID
+        ) b ON a.openID = b.openID
+    </select>
+    <select id="selectPageCountByMap" parameterType="map" resultType="int">
+        select count(userID) from t_user a join t_jobnum b on a.jobNum = b.jobNum
+        <where>
+            <if test="userID != null">
+                and userID = #{userID}
+            </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="createTime != null">
+                and a.createTime = #{createTime}
+            </if>
+            <if test="score != null">
+                and score = #{score}
+            </if>
+            <if test="usedScore != null">
+                and usedScore = #{usedScore}
+            </if>
+            <if test="jobNum != null">
+                and a.jobNum = #{jobNum}
+            </if>
+            <if test="userName != null">
+                and userName = #{userName}
+            </if>
+            <if test="userImg != null">
+                and userImg = #{userImg}
+            </if>
+            <if test="orgID != null">
+                and b.orgID = #{orgID}
+            </if>
+            <if test="realName != null">
+                and b.realName like CONCAT('%', #{realName},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

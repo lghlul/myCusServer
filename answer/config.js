@@ -72,7 +72,19 @@ var config = {
 
   //获取对战题目
   getRoomQueation: `${host}/question/roomQuestion`,
-  
+
+  //获取考试题目
+  getExamQueation: `${host}/train/createTrain`,
+  //获取历史考试
+  getExamHistory: `${host}/train/trainList`,
+
+
+  //获取历史考试详情
+  getExamDetail: `${host}/train/trainDetail`,
+
+
+  //提交考试
+  submitExamDetail: `${host}/train/finishTrain`
 };
 
 module.exports = config

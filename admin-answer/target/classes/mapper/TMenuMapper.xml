@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TMenuMapper">
+    <resultMap id="baseResultMap" type="TMenu">
+        <id column="menuId" property="menuId"/>
+        <result column="parentId" property="parentId"/>
+        <result column="menuName" property="menuName"/>
+        <result column="menuUrl" property="menuUrl"/>
+        <result column="menuOrder" property="menuOrder"/>
+        <result column="menuStatus" property="menuStatus"/>
+        <result column="menuDesc" property="menuDesc"/>
+        <result column="menuIcon" property="menuIcon"/>
+        <result column="createTime" property="createTime"/>
+        <result column="creater" property="creater"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_menu where menuId = #{id}
+    </select>
+    <select id="selectPage" parameterType="TMenu" resultMap="baseResultMap">
+        select * from t_menu
+        <where>
+            <if test="menuId != null">
+                and menuId = #{menuId}
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
+            <if test="menuName != null">
+                and menuName = #{menuName}
+            </if>
+            <if test="menuUrl != null">
+                and menuUrl = #{menuUrl}
+            </if>
+            <if test="menuOrder != null">
+                and menuOrder = #{menuOrder}
+            </if>
+            <if test="menuStatus != null">
+                and menuStatus = #{menuStatus}
+            </if>
+            <if test="menuDesc != null">
+                and menuDesc = #{menuDesc}
+            </if>
+            <if test="menuIcon != null">
+                and menuIcon = #{menuIcon}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="TMenu" resultType="int">
+        select count(*) from t_menu
+        <where>
+            <if test="menuId != null">
+                and menuId = #{menuId}
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
+            <if test="menuName != null">
+                and menuName = #{menuName}
+            </if>
+            <if test="menuUrl != null">
+                and menuUrl = #{menuUrl}
+            </if>
+            <if test="menuOrder != null">
+                and menuOrder = #{menuOrder}
+            </if>
+            <if test="menuStatus != null">
+                and menuStatus = #{menuStatus}
+            </if>
+            <if test="menuDesc != null">
+                and menuDesc = #{menuDesc}
+            </if>
+            <if test="menuIcon != null">
+                and menuIcon = #{menuIcon}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+        </where>
+    </select>
+    <select id="selectPageByMap" parameterType="map" resultMap="baseResultMap">
+        select * from t_menu
+        <where>
+            <if test="menuId != null">
+                and menuId = #{menuId}
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
+            <if test="menuName != null">
+                and menuName = #{menuName}
+            </if>
+            <if test="menuUrl != null">
+                and menuUrl = #{menuUrl}
+            </if>
+            <if test="menuOrder != null">
+                and menuOrder = #{menuOrder}
+            </if>
+            <if test="menuStatus != null">
+                and menuStatus = #{menuStatus}
+            </if>
+            <if test="menuDesc != null">
+                and menuDesc = #{menuDesc}
+            </if>
+            <if test="menuIcon != null">
+                and menuIcon = #{menuIcon}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCountByMap" parameterType="map" resultType="int">
+        select count(*) from t_menu
+        <where>
+            <if test="menuId != null">
+                and menuId = #{menuId}
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
+            <if test="menuName != null">
+                and menuName = #{menuName}
+            </if>
+            <if test="menuUrl != null">
+                and menuUrl = #{menuUrl}
+            </if>
+            <if test="menuOrder != null">
+                and menuOrder = #{menuOrder}
+            </if>
+            <if test="menuStatus != null">
+                and menuStatus = #{menuStatus}
+            </if>
+            <if test="menuDesc != null">
+                and menuDesc = #{menuDesc}
+            </if>
+            <if test="menuIcon != null">
+                and menuIcon = #{menuIcon}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" keyProperty="menuId" parameterType="TMenu" useGeneratedKeys="true">
+        insert into t_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="menuId != null">
+                menuId,
+            </if>
+            <if test="parentId != null">
+                parentId,
+            </if>
+            <if test="menuName != null">
+                menuName,
+            </if>
+            <if test="menuUrl != null">
+                menuUrl,
+            </if>
+            <if test="menuOrder != null">
+                menuOrder,
+            </if>
+            <if test="menuStatus != null">
+                menuStatus,
+            </if>
+            <if test="menuDesc != null">
+                menuDesc,
+            </if>
+            <if test="menuIcon != null">
+                menuIcon,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="creater != null">
+                creater,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="menuId != null">
+                #{menuId},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="menuName != null">
+                #{menuName},
+            </if>
+            <if test="menuUrl != null">
+                #{menuUrl},
+            </if>
+            <if test="menuOrder != null">
+                #{menuOrder},
+            </if>
+            <if test="menuStatus != null">
+                #{menuStatus},
+            </if>
+            <if test="menuDesc != null">
+                #{menuDesc},
+            </if>
+            <if test="menuIcon != null">
+                #{menuIcon},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="creater != null">
+                #{creater},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from t_menu where menuId = #{id}
+    </delete>
+    <delete id="delete" parameterType="TMenu">
+        delete from t_menu
+        <where>
+            <if test="menuId != null">
+                and menuId = #{menuId}
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
+            <if test="menuName != null">
+                and menuName = #{menuName}
+            </if>
+            <if test="menuUrl != null">
+                and menuUrl = #{menuUrl}
+            </if>
+            <if test="menuOrder != null">
+                and menuOrder = #{menuOrder}
+            </if>
+            <if test="menuStatus != null">
+                and menuStatus = #{menuStatus}
+            </if>
+            <if test="menuDesc != null">
+                and menuDesc = #{menuDesc}
+            </if>
+            <if test="menuIcon != null">
+                and menuIcon = #{menuIcon}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+        </where>
+    </delete>
+    <delete id="deleteByMap" parameterType="map">
+        delete from t_menu
+        <where>
+            <if test="menuId != null">
+                and menuId = #{menuId}
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
+            <if test="menuName != null">
+                and menuName = #{menuName}
+            </if>
+            <if test="menuUrl != null">
+                and menuUrl = #{menuUrl}
+            </if>
+            <if test="menuOrder != null">
+                and menuOrder = #{menuOrder}
+            </if>
+            <if test="menuStatus != null">
+                and menuStatus = #{menuStatus}
+            </if>
+            <if test="menuDesc != null">
+                and menuDesc = #{menuDesc}
+            </if>
+            <if test="menuIcon != null">
+                and menuIcon = #{menuIcon}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+        </where>
+    </delete>
+    <update id="update" parameterType="TMenu">
+        update t_menu
+        <set>
+            <if test="parentId != null">
+                parentId = #{parentId},
+            </if>
+            <if test="menuName != null">
+                menuName = #{menuName},
+            </if>
+            <if test="menuUrl != null">
+                menuUrl = #{menuUrl},
+            </if>
+            <if test="menuOrder != null">
+                menuOrder = #{menuOrder},
+            </if>
+            <if test="menuStatus != null">
+                menuStatus = #{menuStatus},
+            </if>
+            <if test="menuDesc != null">
+                menuDesc = #{menuDesc},
+            </if>
+            <if test="menuIcon != null">
+                menuIcon = #{menuIcon},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+            <if test="creater != null">
+                creater = #{creater},
+            </if>
+        </set>
+        <if test="menuId != null">
+            where menuId = #{menuId}
+        </if>
+    </update>
+
+    <select id="selectAdminMenu" resultMap="baseResultMap">
+      SELECT
+		d.menuId ,
+		d.parentId ,
+		d.menuName ,
+		d.menuUrl ,
+		d.menuOrder
+	FROM
+		(
+			SELECT
+				*
+			FROM
+				t_role_menu
+			WHERE
+				roleId = #{roleId}
+		) c
+	JOIN (
+		SELECT
+			*
+		FROM
+			t_menu
+		WHERE
+		  menuStatus = 1
+		<if test="parentId != null">
+          and parentId = #{parentId}
+        </if>
+	) d ON c.menuId = d.menuId ORDER BY menuOrder
+    </select>
+</mapper>

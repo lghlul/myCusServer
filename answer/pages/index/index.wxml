@@ -3,7 +3,7 @@
   加载中
 </loading> -->
 <view class="container">
-  <view class='answer-content' wx:if='{{showPage}}' style='background:url(https://www.zgshnj.com/file/banner.png) no-repeat center bottom #80baf9;background-size:750rpx 668rpx;'>
+  <view class='answer-content' wx:if='{{showPage}}' style='background-color:#80baf9;background-size:750rpx 668rpx;'>
     <view class='answer-userinfo-content'>
 
       <view class='answer-userinfo-box'>
@@ -33,6 +33,10 @@
           <text>奖品库</text>
           <image src='../../images/shopIcon.png'></image>
         </navigator>
+        <navigator url='../war/war' class='answer-module-box' id='war'>
+          <text>谁与争峰</text>
+          <image src='../../images/warIcon.png'></image>
+        </navigator>
       </view>
       <view class='answer-module-content'>
         <navigator url='../classify/classify?type=2' class='answer-module-box' id='friends'>
@@ -42,6 +46,10 @@
         <navigator url='../ranking/ranking' class='answer-module-box' id='ranking'>
           <text>排行榜</text>
           <image src='../../images/rankingIcon.png'></image>
+        </navigator>
+        <navigator url='../exam/exam' class='answer-module-box' id='exam'>
+          <text>冲刺100</text>
+          <image src='../../images/examIcon.png'></image>
         </navigator>
       </view>
     </view>

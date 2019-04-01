@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TOperlogMapper">
+    <resultMap id="baseResultMap" type="TOperlog">
+        <id column="logId" property="logId"/>
+        <result column="adminIp" property="adminIp"/>
+        <result column="operTime" property="operTime"/>
+        <result column="description" property="description"/>
+        <result column="adminId" property="adminId"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_operlog where logId = #{id}
+    </select>
+    <select id="selectPage" parameterType="TOperlog" resultMap="baseResultMap">
+        select * from t_operlog
+        <where>
+            <if test="logId != null">
+                and logId = #{logId}
+            </if>
+            <if test="adminIp != null">
+                and adminIp = #{adminIp}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+            <if test="description != null">
+                and description = #{description}
+            </if>
+            <if test="adminId != null">
+                and adminId = #{adminId}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="TOperlog" resultType="int">
+        select count(*) from t_operlog
+        <where>
+            <if test="logId != null">
+                and logId = #{logId}
+            </if>
+            <if test="adminIp != null">
+                and adminIp = #{adminIp}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+            <if test="description != null">
+                and description = #{description}
+            </if>
+            <if test="adminId != null">
+                and adminId = #{adminId}
+            </if>
+        </where>
+    </select>
+    <select id="selectPageByMap" parameterType="map" resultMap="baseResultMap">
+        select * from t_operlog
+        <where>
+            <if test="logId != null">
+                and logId = #{logId}
+            </if>
+            <if test="adminIp != null">
+                and adminIp = #{adminIp}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+            <if test="description != null">
+                and description = #{description}
+            </if>
+            <if test="adminId != null">
+                and adminId = #{adminId}
+            </if>
+        </where>
+        <if test="offSet != null and limit != null">
+            limit #{offSet},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCountByMap" parameterType="map" resultType="int">
+        select count(*) from t_operlog
+        <where>
+            <if test="logId != null">
+                and logId = #{logId}
+            </if>
+            <if test="adminIp != null">
+                and adminIp = #{adminIp}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+            <if test="description != null">
+                and description = #{description}
+            </if>
+            <if test="adminId != null">
+                and adminId = #{adminId}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" keyProperty="logId" parameterType="TOperlog" useGeneratedKeys="true">
+        insert into t_operlog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="logId != null">
+                logId,
+            </if>
+            <if test="adminIp != null">
+                adminIp,
+            </if>
+            <if test="operTime != null">
+                operTime,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="adminId != null">
+                adminId,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="logId != null">
+                #{logId},
+            </if>
+            <if test="adminIp != null">
+                #{adminIp},
+            </if>
+            <if test="operTime != null">
+                #{operTime},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="adminId != null">
+                #{adminId},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from t_operlog where logId = #{id}
+    </delete>
+    <delete id="delete" parameterType="TOperlog">
+        delete from t_operlog
+        <where>
+            <if test="logId != null">
+                and logId = #{logId}
+            </if>
+            <if test="adminIp != null">
+                and adminIp = #{adminIp}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+            <if test="description != null">
+                and description = #{description}
+            </if>
+            <if test="adminId != null">
+                and adminId = #{adminId}
+            </if>
+        </where>
+    </delete>
+    <delete id="deleteByMap" parameterType="map">
+        delete from t_operlog
+        <where>
+            <if test="logId != null">
+                and logId = #{logId}
+            </if>
+            <if test="adminIp != null">
+                and adminIp = #{adminIp}
+            </if>
+            <if test="operTime != null">
+                and operTime = #{operTime}
+            </if>
+            <if test="description != null">
+                and description = #{description}
+            </if>
+            <if test="adminId != null">
+                and adminId = #{adminId}
+            </if>
+        </where>
+    </delete>
+    <update id="update" parameterType="TOperlog">
+        update t_operlog
+        <set>
+            <if test="adminIp != null">
+                adminIp = #{adminIp},
+            </if>
+            <if test="operTime != null">
+                operTime = #{operTime},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="adminId != null">
+                adminId = #{adminId},
+            </if>
+        </set>
+        <if test="logId != null">
+            where logId = #{logId}
+        </if>
+    </update>
+</mapper>

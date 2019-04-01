@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ServerApplication",
+            "request": "launch",
+            "mainClass": "com.answer.ServerApplication",
+            "projectName": "admin-answer"
+        }
+    ]
+}

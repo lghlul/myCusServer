@@ -24,4 +24,3 @@ module.exports = {
   formatTime: formatTime,
   isEmptyObject: isEmptyObject
 }
-

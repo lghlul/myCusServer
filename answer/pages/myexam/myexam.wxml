@@ -1,0 +1,19 @@
+<!--logs.wxml-->
+<view class="container">
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad">
+    <view class='ranking-content'>
+      <view class='ranking-list-content'>
+      <navigator wx:for="{{examList}}" url='../examinfo/examinfo?type=mistakes&id={{item.trainID}}' >
+        <view class="ranking-list-box {{(index+1)==myRank?'ranking-my':''}}"  wx:key='index'>
+            <text class='serial-number'>{{item.rightNum}}/2{{item.quesNum}}</text>
+            <view class='ranking-username'>{{item.time}}</view>
+            <view class='ranking-points-box'>
+              <view class='ranking-points'>{{item.statusTxt}}</view>
+            </view>
+        </view>
+        </navigator>
+      </view>
+    </view>
+    <view class='null-data' wx:if='{{examList.length==0}}'>暂无记录</view>
+  </scroll-view>
+</view>

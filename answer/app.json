@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/classify/classify",
     "pages/practice/practice",
@@ -10,13 +10,18 @@
     "pages/productlist/productlist",
     "pages/productdetail/productdetail",
     "pages/exchangesuc/exchangesuc",
-    "pages/fighting/fighting"
+    "pages/fighting/fighting",
+    "pages/exam/exam",
+    "pages/myexam/myexam",
+    "pages/examinfo/examinfo",
+    "pages/war/war",
+    "pages/examover/examover"
   ],
-  "window":{
-    "backgroundTextStyle":"dark",
+  "window": {
+    "backgroundTextStyle": "dark",
     "enablePullDownRefresh": true,
     "navigationBarBackgroundColor": "#4a90e2",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
   }
 }

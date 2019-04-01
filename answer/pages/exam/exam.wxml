@@ -1,0 +1,36 @@
+<!--logs.wxml-->
+<view class="exam-content">
+  <view wx:if="{{!startExam}}" class='exam-info'>
+    <view class='exam-info-title'>考试介绍</view>
+
+    <view class='exam-info-txt'>题目总数：{{questionData.allNum}}题</view>
+    <view class='exam-info-txt'>考试时间：{{countDownNum}}秒</view>
+  </view>
+  <view wx:if="{{!startExam}}" class='exam-btn' bindtap='startExam'>
+      <view class="exam-btn-txt">开始考试</view>
+  </view>
+  <view wx:if="{{startExam}}" class='practice-container'>
+    <view class='practice-content'>
+    <div class='practice-userinfo-avatar-box'>
+            <open-data type="userAvatarUrl" class="practice-userinfo-avatar"></open-data>
+        </div>
+      <view class='practice-info-box'>
+        <view class='practice-text' >已答 <text>{{questionData.answerNum}}</text> /{{questionData.allNum}}题</view>
+        <view class='practice-text' ><text></text> </view>
+        <view class='practice-text' >时间 <text>{{countDownNum}}</text> 秒</view>
+      </view>
+      <view class='practice-questions-box' wx:if='{{questionData.question}}'>
+        <view class='practice-questions'>{{questionData.question.quesType==2?'（多选）':''}}{{questionData.question.quesDesc}}</view>
+
+         <view  class="practice-option {{item.choose}}" wx:for='{{questionData.question.answerList}}'  wx:key='item.ansID'><button disabled='{{isDisabled}}' class='practice-button' id='{{item.ansID}}' data-index='{{index}}' bindtap="chooseAnswer">{{item.ansDesc}}</button></view>
+        
+         
+      </view>
+    </view>
+
+    <view class='next-error-questions'  data-nextid='-1' bindtap="nextMistake">上一题</view>
+    <view class='next-error-questions'  data-nextid='1' bindtap="nextMistake">下一题</view>
+        <view class='next-error-questions'  bindtap="submitExam">交卷</view>
+
+  </view>
+</view>

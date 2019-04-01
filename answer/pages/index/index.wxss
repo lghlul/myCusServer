@@ -30,11 +30,16 @@ font-size: 36rpx;line-height: 66rpx;color: #333333;
 #shop{background-color: #78b236;}
 #friends{background-color: #b071e7;margin-bottom: 22rpx;}
 #friends text{width:260rpx;}
-#ranking{background-color: #f16f7f;}
+#ranking{background-color: #f16f7f;margin-bottom: 22rpx;}
 #training image{width: 150rpx;height:133rpx;}
 #shop image{width: 136rpx;height:116rpx;margin-top: 20rpx;}
 #friends image{width: 184rpx;height:107rpx;}
 #ranking image{width: 123rpx;height:136rpx;}
+#exam image{width: 136rpx;height:136rpx;}
+#exam{background-color: #F5A623;}
+
+#war image{width: 136rpx;height:136rpx;}
+#war{background-color: #B8860B;margin-top:20rpx}
 .answer-img{width: 750rpx;height:668rpx;vertical-align: top;}
 .logo{width:324rpx;height:94rpx;position: absolute;right:38rpx;bottom: 46rpx;}
 .section{width: 80%;}

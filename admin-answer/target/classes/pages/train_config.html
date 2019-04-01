@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 考试配置</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/pages/hAdmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/pages/hAdmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/static/pages/hAdmin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/static/pages/hAdmin/css/animate.css" rel="stylesheet">
+    <link href="/static/pages/hAdmin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+        <div class="row  border-bottom white-bg dashboard-header"> 
+                <div class="form-inline">
+                        <label class="col-sm-2 control-label">条件：</label>
+                        <div class="col-sm-10">
+                                <input type="text" id="quesDesc"  placeholder="问题描述" class="form-control">
+                            </div>
+                </div>
+                <label></label>    
+                <div class="form-inline">
+                    <label class="col-sm-2 control-label">条件：</label>
+                    <div class="col-sm-10">
+                            <input type="text" id="quesDesc"  placeholder="问题描述" class="form-control">
+                        </div>
+                </div>
+                <label></label>
+                <div class="form-inline">
+                    <label class="col-sm-2 control-label">条件：</label>
+                    <div class="col-sm-10">
+                            <input type="text" id="quesDesc"  placeholder="问题描述" class="form-control">
+                        </div>
+                </div>
+                <label></label>
+                <div class="form-group">
+                        <label class="col-sm-2 control-label">日期：</label>
+                        <div class="col-sm-10">
+                            <input placeholder="开始日期" class="form-control layer-date" id="start">
+                            <input placeholder="结束日期" class="form-control layer-date" id="end">
+                            <button class="btn btn-info " id="search" type="button"><i class="fa fa-search"></i> 搜索</button>
+                        </div>
+                    </div>
+            </div>
+
+    <!-- 全局js -->
+    <script src="/static/pages/hAdmin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/pages/hAdmin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/static/pages/hAdmin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/static/pages/hAdmin/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/pages/hAdmin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/pages/hAdmin/js/content.js?v=1.0.0"></script>
+
+
+    <!-- Page-Level Scripts -->
+
+    <!-- layerDate plugin javascript -->
+    <script src="/static/pages/hAdmin/js/plugins/layer/laydate/laydate.js"></script>
+    <script src="/static/pages/hAdmin/js/demo/timeutil.js"></script>
+
+    <script>
+        var openID = localStorage.getItem("openID");
+        $(document).ready(function () {
+            $.ajax({
+                    type: "GET",
+                    url: "/train/configList",
+                    cache: false,  //禁用缓存
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result);
+                       
+                    }
+                });
+        })
+    </script>
+    <style>
+        .form-control{
+            width: 240px!important;
+        }
+    </style>
+    
+    
+
+</body>
+
+</html>
