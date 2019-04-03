@@ -1,5 +1,7 @@
 package com.answer.service;
 
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +16,8 @@ public interface IBaseService<T> {
     int queryPageCounteByMap(Map<String, Object> map);
 
     List<T> queryPage(T t);
+
+    PageInfo<T> page(T t);
 
     int queryPageCount(T t);
 

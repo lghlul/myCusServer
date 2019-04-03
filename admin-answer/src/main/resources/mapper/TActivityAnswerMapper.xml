@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TActivityAnswerMapper">
+    <resultMap id="baseResultMap" type="TActivityAnswer">
+        <id column="ansID" property="ansID"/>
+        <result column="ansDesc" property="ansDesc"/>
+        <result column="quesID" property="quesID"/>
+        <result column="createTime" property="createTime"/>
+        <result column="activityID" property="activityID"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_activity_answer where ansID = #{id}
+    </select>
+    <select id="selectPage" parameterType="TActivityAnswer" resultMap="baseResultMap">
+        select * from t_activity_answer
+        <where>
+            <if test="ansID != null">
+                and ansID = #{ansID}
+            </if>
+            <if test="ansDesc != null">
+                and ansDesc = #{ansDesc}
+            </if>
+            <if test="quesID != null">
+                and quesID = #{quesID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" keyProperty="ansID" parameterType="TActivityAnswer" useGeneratedKeys="true">
+        insert into t_activity_answer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ansID != null">
+                ansID,
+            </if>
+            <if test="ansDesc != null">
+                ansDesc,
+            </if>
+            <if test="quesID != null">
+                quesID,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="activityID != null">
+                activityID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ansID != null">
+                #{ansID},
+            </if>
+            <if test="ansDesc != null">
+                #{ansDesc},
+            </if>
+            <if test="quesID != null">
+                #{quesID},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="activityID != null">
+                #{activityID},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="TActivityAnswer">
+        update t_activity_answer
+        <set>
+            <if test="ansDesc != null">
+                ansDesc = #{ansDesc},
+            </if>
+            <if test="quesID != null">
+                quesID = #{quesID},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+        </set>
+        <if test="ansID != null">
+            where ansID = #{ansID}
+        </if>
+    </update>
+
+    <delete id="deleteById" parameterType="string">
+      delete from t_activity_answer where activityID = #{activityID}
+    </delete>
+</mapper>

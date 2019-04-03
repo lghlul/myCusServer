@@ -3,8 +3,8 @@ server:
   context-path: /
 spring:
   datasource:
-    #url: jdbc:mysql://116.62.188.101:3306/wc_answer_test?useUnicode=true&characterEncoding=utf8&useSSL=false
-    url: jdbc:mysql://127.0.0.1:3306/wc_answer_test?useUnicode=true&characterEncoding=utf8&useSSL=false
+    #url: jdbc:mysql://116.62.188.101:3306/wc_answer?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://116.62.188.101:3306/wc_answer_test?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: Njsyc@456
     driver-class-name: com.mysql.jdbc.Driver

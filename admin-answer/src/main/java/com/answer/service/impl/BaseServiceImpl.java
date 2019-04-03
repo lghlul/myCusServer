@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import com.answer.mapper.BaseMapper;
 import com.answer.service.IBaseService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +59,10 @@ public class BaseServiceImpl<T> implements IBaseService<T>{
     @Override
     public int queryPageCount(T t) {
         return baseMapper.selectPageCount(t);
+    }
+
+    @Override
+    public PageInfo<T> page(T t) {
+        return null;
     }
 }

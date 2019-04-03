@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TActivityMapper">
+    <select id="selectById" parameterType="string" resultType="activity">
+      select * from t_activity where activityID = #{activityID}
+    </select>
+
+    <select id="selectPage" parameterType="trainConfig" resultType="activity">
+      select * from t_activity
+    </select>
+
+    <update id="update" parameterType="activity">
+        update t_activity
+        <set>
+            <if test="activityName != null">
+                activityName = #{activityName},
+            </if>
+            <if test="activityStatus != null">
+                activityStatus = #{activityStatus},
+            </if>
+            <if test="startTime != null">
+                startTime = #{startTime},
+            </if>
+            <if test="endTime != null">
+                endTime = #{endTime},
+            </if>
+        </set>
+        where activityID = #{activityID}
+    </update>
+
+    <insert id="insert" parameterType="activity">
+        insert into t_activity(activityName,activityStatus,creater,createTime) values(#{activityName},#{activityStatus},#{creater},#{createTime})
+    </insert>
+</mapper>

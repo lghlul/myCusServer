@@ -18,5 +18,9 @@ public abstract class CommonConstant {
 	public interface Common{
 		Integer offset = 0;
 		Integer limit = 10;
+
+		Byte ACTIVITY_STATUS_UN_START = 1;
+		Byte ACTIVITY_STATUS_START = 2;
+		Byte ACTIVITY_STATUS_END = 3;
 	}
 }

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TActivityQuestionMapper">
+    <resultMap id="baseResultMap" type="TActivityQuestion">
+        <id column="quesID" property="quesID"/>
+        <result column="quesDesc" property="quesDesc"/>
+        <result column="activityID" property="activityID"/>
+        <result column="createTime" property="createTime"/>
+        <result column="creater" property="creater"/>
+        <result column="rightAnswerID" property="rightAnswerID"/>
+        <result column="quesType" property="quesType"/>
+
+        <collection property="answerList"
+                    ofType="TActivityAnswer"
+                    select="com.answer.mapper.TActivityAnswerMapper.selectPage"
+                    column="quesID" fetchType="lazy"/>
+    </resultMap>
+
+
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from t_activity_question where quesID = #{id}
+    </select>
+    <select id="selectPage" parameterType="TActivityQuestion" resultMap="baseResultMap">
+        select * from t_activity_question
+        <where>
+            <if test="quesID != null">
+                and quesID = #{quesID}
+            </if>
+            <if test="quesDesc != null">
+                and quesDesc = #{quesDesc}
+            </if>
+            <if test="activityID != null">
+                and activityID = #{activityID}
+            </if>
+            <if test="createTime != null">
+                and createTime = #{createTime}
+            </if>
+            <if test="creater != null">
+                and creater = #{creater}
+            </if>
+            <if test="rightAnswerID != null">
+                and rightAnswerID = #{rightAnswerID}
+            </if>
+            <if test="quesType != null">
+                and quesType = #{quesType}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" keyProperty="quesID" parameterType="TActivityQuestion" useGeneratedKeys="true">
+        insert into t_activity_question
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="quesID != null">
+                quesID,
+            </if>
+            <if test="quesDesc != null">
+                quesDesc,
+            </if>
+            <if test="activityID != null">
+                activityID,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="creater != null">
+                creater,
+            </if>
+            <if test="rightAnswerID != null">
+                rightAnswerID,
+            </if>
+            <if test="quesType != null">
+                quesType,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="quesID != null">
+                #{quesID},
+            </if>
+            <if test="quesDesc != null">
+                #{quesDesc},
+            </if>
+            <if test="activityID != null">
+                #{activityID},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="creater != null">
+                #{creater},
+            </if>
+            <if test="rightAnswerID != null">
+                #{rightAnswerID},
+            </if>
+            <if test="quesType != null">
+                #{quesType},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+      delete from t_activity_question where activityID = #{activityID}
+    </delete>
+    <update id="update" parameterType="TActivityQuestion">
+        update t_activity_question
+        <set>
+            <if test="quesDesc != null">
+                quesDesc = #{quesDesc},
+            </if>
+            <if test="activityID != null">
+                activityID = #{activityID},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+            <if test="creater != null">
+                creater = #{creater},
+            </if>
+            <if test="rightAnswerID != null">
+                rightAnswerID = #{rightAnswerID},
+            </if>
+            <if test="quesType != null">
+                quesType = #{quesType},
+            </if>
+        </set>
+        <if test="quesID != null">
+            where quesID = #{quesID}
+        </if>
+    </update>
+</mapper>
