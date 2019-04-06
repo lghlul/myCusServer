@@ -64,12 +64,12 @@ public class CommonUtil {
 
 	/**
 	 * 判断是否回答正确
-	 * @param question
+	 * @param
 	 * @param answerID
 	 * @return
 	 */
-	public static boolean isRight(Question question, String answerID){
-		String[] rightAnswers = question.getRightAnswerID().split(",");
+	public static boolean isRight(String rightAnswerID, String answerID){
+		String[] rightAnswers = rightAnswerID.split(",");
 		String[] answerIDs = answerID.split(",");
 
 		//答案个数不一样 错误

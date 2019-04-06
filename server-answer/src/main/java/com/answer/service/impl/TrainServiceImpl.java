@@ -104,7 +104,7 @@ public class TrainServiceImpl implements ITrainService {
 			for(TrainQuestion tq : list){
 				tq.setTrainID(trainID);
 				Question question = this.questionMapper.queryQuestionByID(tq.getQuesID());
-				if(CommonUtil.isRight(question, tq.getAnswerID())){
+				if(CommonUtil.isRight(question.getRightAnswerID(), tq.getAnswerID())){
 					tq.setIsRight(Constant.ANSWER_RIGHT);
 					rightNum++;
 					score += trainConfig.getScore();

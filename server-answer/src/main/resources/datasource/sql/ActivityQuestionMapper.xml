@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.ActivityQuestionMapper">
+    <resultMap id="baseResultMap" type="ActivityQuestion">
+        <id column="quesID" property="quesID"/>
+        <result column="quesDesc" property="quesDesc"/>
+        <result column="activityID" property="activityID"/>
+        <result column="createTime" property="createTime"/>
+        <result column="creater" property="creater"/>
+        <result column="rightAnswerID" property="rightAnswerID"/>
+        <result column="quesType" property="quesType"/>
+
+        <collection property="answerList" ofType="ActivityAnswer">
+            <id column="ansID" property="ansID"/>
+            <result column="ansDesc" property="ansDesc"/>
+        </collection>
+    </resultMap>
+
+    <select id="listByActivityID" parameterType="string" resultMap="baseResultMap">
+              SELECT
+                a.quesID,
+                a.quesDesc,
+                a.activityID,
+                b.ansID,
+                b.ansDesc,
+                a.quesType
+            FROM
+                t_activity_question a
+            JOIN t_activity_answer b ON a.quesID = b.quesID
+            WHERE
+                a.activityID = #{activityID}
+    </select>
+
+    <select id="readByQuesID" parameterType="string" resultType="ActivityQuestion">
+              SELECT
+                *
+            FROM
+                t_activity_question
+            WHERE
+                quesID = #{quesID}
+    </select>
+
+    <insert id="insertUserAnswer" parameterType="java.util.List">
+        insert into t_activity_user_answer(openID,activityID,quesID,answerID,isRight) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.openID},#{item.activityID},#{item.quesID},#{item.answerID},#{item.isRight})
+        </foreach>
+    </insert>
+</mapper>

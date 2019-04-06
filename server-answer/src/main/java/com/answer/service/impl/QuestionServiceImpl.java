@@ -111,7 +111,7 @@ public class QuestionServiceImpl implements IQuestionService {
 			userAnswer.setTypeID(question.getTypeID());
 			userAnswer.setAnswerID(answerID);
 			userAnswer.setQuestionID(questionID);
-			if(CommonUtil.isRight(question, answerID)){
+			if(CommonUtil.isRight(question.getRightAnswerID(), answerID)){
 				//答对
 				userAnswer.setIsRight(Constant.ANSWER_RIGHT);
 				int rightCount = this.userAnswerMapper.queryAnswerRightCount(session.getOpenID());
