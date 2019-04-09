@@ -7,6 +7,7 @@ import com.answer.domain.ActivityQuestion;
 import com.answer.domain.ActivityUserAnswer;
 import com.answer.domain.Result;
 import com.answer.service.IActivityService;
+import com.answer.utils.Constant;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +25,9 @@ public class ActivityController {
 
 
 	@GetMapping("list")
-	public String list(Activity activity) {
+	public String list(Activity activity , String wxSession) {
 		Result result = new Result();
-		PageInfo<Activity> page = activityService.page(activity);
+		PageInfo<Activity> page = activityService.page(activity,wxSession);
 		PageResult pageResult = new PageResult();
 		pageResult.setTotalCount(page.getTotal());
 		pageResult.setTotalPage(page.getPages());
@@ -36,9 +37,17 @@ public class ActivityController {
 	}
 
 	@GetMapping("listByActivityID")
-	public String listByActivityID(Long activityID) {
+	public String listByActivityID(Long activityID, String wxSession) {
 		Result result = new Result();
-		List<ActivityQuestion> activityQuestions = activityService.listByActivityID(activityID + "");
+		Activity activity = activityService.read(activityID + "");
+		if(activity.getActivityStatus() == Constant.ACTIVITY_UN_START){
+			//活动尚未开始
+			result.setResultCode(Constant.returnCode.ACTIVITY_UN_START);
+			return JSON.toJSONString(result);
+		}
+
+
+		List<ActivityQuestion> activityQuestions = activityService.listByActivityID(activityID ,wxSession);
 		result.setResultData(activityQuestions);
 		return JSON.toJSONString(result);
 	}

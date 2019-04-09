@@ -1,6 +1,7 @@
 package com.answer.mapper;
 
 
+import com.answer.domain.ActivityAnswer;
 import com.answer.domain.ActivityQuestion;
 import com.answer.domain.ActivityUserAnswer;
 
@@ -12,5 +13,7 @@ public interface ActivityQuestionMapper {
     int insertUserAnswer(List<ActivityUserAnswer> list);
 
     ActivityQuestion readByQuesID(String quesID);
+
+    List<ActivityUserAnswer> listUserAnswer(ActivityUserAnswer activityUserAnswer);
 
 }

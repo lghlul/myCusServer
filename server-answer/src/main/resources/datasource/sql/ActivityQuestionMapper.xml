@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.answer.mapper.ActivityQuestionMapper">
     <resultMap id="baseResultMap" type="ActivityQuestion">
         <id column="quesID" property="quesID"/>
@@ -24,13 +24,15 @@
                 a.activityID,
                 b.ansID,
                 b.ansDesc,
-                a.quesType
+                a.quesType,
+                a.rightAnswerID
             FROM
                 t_activity_question a
             JOIN t_activity_answer b ON a.quesID = b.quesID
             WHERE
                 a.activityID = #{activityID}
     </select>
+
 
     <select id="readByQuesID" parameterType="string" resultType="ActivityQuestion">
               SELECT
@@ -47,4 +49,17 @@
             (#{item.openID},#{item.activityID},#{item.quesID},#{item.answerID},#{item.isRight})
         </foreach>
     </insert>
+
+
+    <select id="listUserAnswer"  parameterType="activityUserAnswer" resultType="activityUserAnswer">
+        select * from  t_activity_user_answer
+        <where>
+          <if test="activityID != null">
+            and activityID = #{activityID}
+          </if>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+        </where>
+    </select>
 </mapper>

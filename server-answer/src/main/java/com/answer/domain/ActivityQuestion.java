@@ -38,8 +38,33 @@ public class ActivityQuestion{
      * 1 单选2 多选 3判断
      */
     private Byte quesType;
+    /**
+     * 用户答案
+     */
+    private String answerID;
+
+
+    private Byte isRight;
+
+    public Byte getIsRight() {
+        return isRight;
+    }
+
+    public void setIsRight(Byte isRight) {
+        this.isRight = isRight;
+    }
 
     private List<ActivityAnswer> answerList;
+
+
+    public String getAnswerID() {
+        return answerID;
+    }
+
+    public void setAnswerID(String answerID) {
+        this.answerID = answerID;
+    }
+
 
     public List<ActivityAnswer> getAnswerList() {
         return answerList;

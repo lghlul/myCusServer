@@ -33,7 +33,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		roomMapper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(RoomMapper.class);
 		roomQuestionMapper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(RoomQuestionMapper.class);
 		userMapper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(UserMapper.class);
-		this.task();
+		//this.task();
 	}
 	
 	private void task(){
@@ -107,7 +107,7 @@ public class ContextLoaderListener implements ServletContextListener{
 						}
 					}
 					try {
-						Thread.sleep(500);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

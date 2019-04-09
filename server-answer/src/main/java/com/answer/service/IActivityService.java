@@ -12,11 +12,14 @@ import java.util.List;
 
 public interface IActivityService {
 
-	PageInfo<Activity> page(Activity activity);
+	PageInfo<Activity> page(Activity activity, String wxSession);
 
-	List<ActivityQuestion> listByActivityID(String activityID);
+	List<ActivityQuestion> listByActivityID(Long activityID , String wxSession);
 
 
 	Result finish(List<ActivityUserAnswer> activityUserAnswers , String wxSession, Long activityID);
+
+
+	Activity read(String activityID);
 }
 

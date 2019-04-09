@@ -23,6 +23,17 @@ public class Activity extends PageQuery {
 
     private Long endTime;
 
+    private Integer quesNum;
+
+    /**************拓展字段**************/
+    private Integer rightNum;
+
+
+    /**
+     * 是否参加过该活动 1参加过  2 没有参加过
+     */
+    private Integer isJoin;
+
     public Long getStartTime() {
         return startTime;
     }
@@ -77,5 +88,30 @@ public class Activity extends PageQuery {
 
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
+    }
+
+
+    public Integer getQuesNum() {
+        return quesNum;
+    }
+
+    public void setQuesNum(Integer quesNum) {
+        this.quesNum = quesNum;
+    }
+
+    public Integer getRightNum() {
+        return rightNum;
+    }
+
+    public void setRightNum(Integer rightNum) {
+        this.rightNum = rightNum;
+    }
+
+    public Integer getIsJoin() {
+        return isJoin;
+    }
+
+    public void setIsJoin(Integer isJoin) {
+        this.isJoin = isJoin;
     }
 }
