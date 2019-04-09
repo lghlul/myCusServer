@@ -25,6 +25,9 @@
             <if test="endTime != null">
                 endTime = #{endTime},
             </if>
+            <if test="quesNum != null">
+                quesNum = #{quesNum},
+            </if>
         </set>
         where activityID = #{activityID}
     </update>

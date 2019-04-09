@@ -23,6 +23,16 @@ public class Activity extends PageQuery {
 
     private Long endTime;
 
+    private Integer quesNum;
+
+    public Integer getQuesNum() {
+        return quesNum;
+    }
+
+    public void setQuesNum(Integer quesNum) {
+        this.quesNum = quesNum;
+    }
+
     public Long getStartTime() {
         return startTime;
     }
