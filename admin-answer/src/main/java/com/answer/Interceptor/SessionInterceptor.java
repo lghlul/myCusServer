@@ -1,6 +1,5 @@
 package com.answer.Interceptor;
 
-import com.alibaba.fastjson.JSON;
 import com.answer.common.ResultCodeEnum;
 import com.answer.common.CommonConstant;
 import com.answer.domain.TAdmin;

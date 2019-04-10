@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TJobnumCopy extends BaseDomain{
+public class TJobnumCopy extends BaseDomain {
 
     private Long id;
 

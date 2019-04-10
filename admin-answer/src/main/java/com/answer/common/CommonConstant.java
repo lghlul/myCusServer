@@ -1,7 +1,5 @@
 package com.answer.common;
 
-import com.answer.domain.BaseDomain;
-
 /**
  * CommonConstant
  *

@@ -2,7 +2,7 @@ package com.answer.domain;
 
 import java.util.List;
 
-public class TUserAnswer extends BaseDomain{
+public class TUserAnswer extends BaseDomain {
 
     private Long id;
 

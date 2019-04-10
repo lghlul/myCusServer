@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TGoods extends BaseDomain{
+public class TGoods extends BaseDomain {
 
     private Long goodsID;
 

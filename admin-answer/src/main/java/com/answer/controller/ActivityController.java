@@ -4,12 +4,15 @@ import com.answer.common.CommonConstant;
 import com.answer.common.PageResult;
 import com.answer.common.ResultCodeEnum;
 import com.answer.domain.Activity;
+import com.answer.domain.ActivityUser;
 import com.answer.domain.TActivityQuestion;
+import com.answer.domain.query.ActivityUserQuery;
 import com.answer.service.IActivityAnswerService;
 import com.answer.service.IActivityQuestionService;
 import com.answer.service.IActivityService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +37,7 @@ public class ActivityController {
 
     @Autowired
     private IActivityQuestionService activityQuestionService;
+
 
     @GetMapping("list")
     public Object list(Activity activity) {
@@ -77,14 +81,29 @@ public class ActivityController {
     @PostMapping("importQues")
     public Object importQues(MultipartFile file, Long activityID) {
 
-        //判断活动状态
-        Activity activity = activityService.queryById(activityID + "");
-        if (activity.getActivityStatus() != CommonConstant.Common.ACTIVITY_STATUS_UN_START) {
-            return ResultCodeEnum.ACTIVITY_START.getResponse();
+        String originalFilename = file.getOriginalFilename();
+        if(originalFilename.contains("xls") || originalFilename.contains("xlsx")){
+            //判断活动状态
+            Activity activity = activityService.queryById(activityID + "");
+            if (activity.getActivityStatus() != CommonConstant.Common.ACTIVITY_STATUS_UN_START) {
+                return ResultCodeEnum.ACTIVITY_START.getResponse();
+            }
+            activityService.insertQues(file, activityID);
+            return ResultCodeEnum.SUCCESS.getResponse();
+        }else{
+            return ResultCodeEnum.FILE_FORMAT_ERROR.getResponse();
         }
-        activityService.insertQues(file, activityID);
+    }
 
-        return ResultCodeEnum.SUCCESS.getResponse();
+
+    @GetMapping("listUser")
+    public Object listUser(ActivityUserQuery activityUserQuery) {
+        PageInfo<ActivityUser> page = activityService.listActivityUser(activityUserQuery);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotalCount(page.getTotal());
+        pageResult.setTotalPage(page.getPages());
+        pageResult.setList(page.getList());
+        return ResultCodeEnum.SUCCESS.getResponse(pageResult);
     }
 
 

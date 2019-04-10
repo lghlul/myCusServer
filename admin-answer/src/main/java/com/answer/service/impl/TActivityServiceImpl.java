@@ -1,9 +1,8 @@
 package com.answer.service.impl;
 
-import com.answer.domain.Activity;
-import com.answer.domain.TActivityAnswer;
-import com.answer.domain.TActivityQuestion;
-import com.answer.domain.TrainConfig;
+import com.answer.common.CommonConfig;
+import com.answer.domain.*;
+import com.answer.domain.query.ActivityUserQuery;
 import com.answer.mapper.TActivityAnswerMapper;
 import com.answer.mapper.TActivityMapper;
 import com.answer.mapper.TActivityQuestionMapper;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -109,11 +109,11 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
                         rightAnswer = sheet.getCell(1, i).getContents().trim().toUpperCase();
                         String quesType = sheet.getCell(2, i).getContents().trim().toUpperCase();
                         //题型1 单选2 多选 3判断
-                        if("单选题".equals(quesType)){
+                        if ("单选题".equals(quesType)) {
                             question.setQuesType((byte) 1);
-                        }else if("多选题".equals(quesType)){
+                        } else if ("多选题".equals(quesType)) {
                             question.setQuesType((byte) 2);
-                        }else if("判断题".equals(quesType)){
+                        } else if ("判断题".equals(quesType)) {
                             question.setQuesType((byte) 3);
                         }
                         question.setActivityID(activityID);
@@ -141,10 +141,26 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
                 rightAnswer = "";
             }
 
+
+            String fileName = System.currentTimeMillis() + "." + file.getOriginalFilename().split("\\.")[1];;
+            //保存文件
+            String filePath = CommonConfig.FILE_SAVE_PATH + fileName;
+            File desFile = new File(filePath);
+            if (!desFile.getParentFile().exists()) {
+                desFile.mkdirs();
+            }
+            try {
+                file.transferTo(desFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
             //更新活动的题数
             Activity activity = new Activity();
             activity.setActivityID(activityID);
             activity.setQuesNum(quesNum);
+            activity.setFileName(fileName);
             activityMapper.update(activity);
 
 
@@ -152,5 +168,18 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
                 Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public PageInfo<ActivityUser> listActivityUser(ActivityUserQuery activityUserQuery) {
+        PageHelper.startPage(activityUserQuery.getOffset(), activityUserQuery.getLimit());
+        if (activityUserQuery.getSortField() != null) {
+            PageHelper.orderBy(activityUserQuery.getSortField() + " " + activityUserQuery.getSortDir());
+        }
+        List<ActivityUser> activityUserList = activityMapper.listJoinUser(activityUserQuery);
+        //得到分页的结果对象
+        PageInfo<ActivityUser> pageInfo = new PageInfo<>(activityUserList);
+        return pageInfo;
     }
 }

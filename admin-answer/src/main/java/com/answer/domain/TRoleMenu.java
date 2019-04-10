@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TRoleMenu extends BaseDomain{
+public class TRoleMenu extends BaseDomain {
 
     private Integer id;
 

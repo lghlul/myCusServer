@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TActivityAnswer extends BaseDomain{
+public class TActivityAnswer extends BaseDomain {
 
     /**
      * 主键id

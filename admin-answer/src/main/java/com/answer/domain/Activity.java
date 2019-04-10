@@ -25,6 +25,16 @@ public class Activity extends PageQuery {
 
     private Integer quesNum;
 
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public Integer getQuesNum() {
         return quesNum;
     }

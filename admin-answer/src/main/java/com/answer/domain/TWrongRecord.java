@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TWrongRecord extends BaseDomain{
+public class TWrongRecord extends BaseDomain {
 
     private Long id;
 

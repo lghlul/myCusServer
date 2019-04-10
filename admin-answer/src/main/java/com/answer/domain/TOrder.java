@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TOrder extends BaseDomain{
+public class TOrder extends BaseDomain {
 
     private Long orderID;
 

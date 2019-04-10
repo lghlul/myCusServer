@@ -10,11 +10,6 @@
         <result column="creater" property="creater"/>
         <result column="rightAnswerID" property="rightAnswerID"/>
         <result column="quesType" property="quesType"/>
-
-        <collection property="answerList"
-                    ofType="TActivityAnswer"
-                    select="com.answer.mapper.TActivityAnswerMapper.selectPage"
-                    column="quesID" fetchType="lazy"/>
     </resultMap>
 
 

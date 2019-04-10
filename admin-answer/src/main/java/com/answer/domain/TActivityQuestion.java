@@ -2,7 +2,7 @@ package com.answer.domain;
 
 import java.util.List;
 
-public class TActivityQuestion extends BaseDomain{
+public class TActivityQuestion extends BaseDomain {
 
     /**
      * 主键iD

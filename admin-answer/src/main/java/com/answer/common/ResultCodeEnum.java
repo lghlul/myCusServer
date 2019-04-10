@@ -11,7 +11,8 @@ public enum ResultCodeEnum {
     PWD_ERROR(1000, "密码错误"),
     NAME_ERROR(1001, "账号错误"),
     NOT_LOGIN(1002, "尚未登录"),
-    ACTIVITY_START(1003,"活动已经开始,不能修改");
+    ACTIVITY_START(1003,"活动已经开始,不能修改"),
+    FILE_FORMAT_ERROR(1004,"文件格式错误");
 
     /**
      * 编号

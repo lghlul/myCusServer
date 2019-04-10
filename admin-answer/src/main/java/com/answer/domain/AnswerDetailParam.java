@@ -6,7 +6,7 @@ package com.answer.domain;
  * @Author ll
  * @Date 2018/12/14 16:49
  **/
-public class AnswerDetailParam extends BaseDomain{
+public class AnswerDetailParam extends BaseDomain {
 
     private String openID;
 

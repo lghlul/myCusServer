@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TQuestion extends BaseDomain{
+public class TQuestion extends BaseDomain {
 
     /**
      * 主键iD

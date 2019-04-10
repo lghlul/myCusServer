@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TType extends BaseDomain{
+public class TType extends BaseDomain {
 
     private Long typeID;
 

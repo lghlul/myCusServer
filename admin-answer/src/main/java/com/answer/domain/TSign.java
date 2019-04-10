@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TSign extends BaseDomain{
+public class TSign extends BaseDomain {
 
     /**
      * 签到id

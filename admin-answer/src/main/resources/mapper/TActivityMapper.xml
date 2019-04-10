@@ -6,7 +6,7 @@
       select * from t_activity where activityID = #{activityID}
     </select>
 
-    <select id="selectPage" parameterType="trainConfig" resultType="activity">
+    <select id="selectPage" parameterType="ActivityQuery" resultType="activity">
       select * from t_activity
     </select>
 
@@ -28,6 +28,9 @@
             <if test="quesNum != null">
                 quesNum = #{quesNum},
             </if>
+            <if test="fileName != null">
+                fileName = #{fileName},
+            </if>
         </set>
         where activityID = #{activityID}
     </update>
@@ -35,4 +38,31 @@
     <insert id="insert" parameterType="activity">
         insert into t_activity(activityName,activityStatus,creater,createTime) values(#{activityName},#{activityStatus},#{creater},#{createTime})
     </insert>
+
+
+    <select id="listJoinUser" parameterType="ActivityUserQuery" resultType="activityUser">
+        SELECT
+        a.createTime,
+        a.rightNum,
+        c.realName,
+        d.orgName,
+        a.openID,
+        d.orgID
+        FROM
+        t_activity_user a,
+        t_user b,
+        t_jobnum c,
+        t_organization d
+        WHERE
+        a.openID = b.openID
+        AND b.jobNum = c.jobNum
+        AND c.orgID = d.orgID
+        and a.activityID = #{activityID}
+        <if test="orgID != null">
+            and c.orgID = #{orgID}
+        </if>
+        <if test="realName != null">
+            and c.realName like CONCAT("%" ,#{realName} , "%")
+        </if>
+    </select>
 </mapper>

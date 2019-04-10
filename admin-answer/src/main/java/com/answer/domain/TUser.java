@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TUser extends BaseDomain{
+public class TUser extends BaseDomain {
 
     /**
      * 自增id

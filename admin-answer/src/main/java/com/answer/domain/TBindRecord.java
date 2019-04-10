@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TBindRecord extends BaseDomain{
+public class TBindRecord extends BaseDomain {
 
     private Long id;
 

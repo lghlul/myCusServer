@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TOperlog extends BaseDomain{
+public class TOperlog extends BaseDomain {
 
     private Long logId;
 

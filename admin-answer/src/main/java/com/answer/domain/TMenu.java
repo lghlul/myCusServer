@@ -2,7 +2,7 @@ package com.answer.domain;
 
 import java.util.List;
 
-public class TMenu extends BaseDomain{
+public class TMenu extends BaseDomain {
 
     /**
      * 菜单ID

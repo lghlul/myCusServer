@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TRole extends BaseDomain{
+public class TRole extends BaseDomain {
 
     private Long roleId;
 

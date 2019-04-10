@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TAdmin extends BaseDomain{
+public class TAdmin extends BaseDomain {
 
     /**
      * 管理员ID

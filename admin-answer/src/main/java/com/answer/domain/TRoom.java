@@ -1,6 +1,6 @@
 package com.answer.domain;
 
-public class TRoom extends BaseDomain{
+public class TRoom extends BaseDomain {
 
     private Long roomID;
 
