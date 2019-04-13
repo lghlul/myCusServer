@@ -3,7 +3,7 @@
  */
 
 // var host = "https://www.lghll.com/server-answer"
-var host = "https://www.zgshnj.com/server-answer"
+var host = "https://www.zgshnj.com/test/server-answer"
 var SinopecSession = wx.getStorageSync('SinopecSession') || '';
 var config = {
   SinopecSession,
@@ -84,7 +84,19 @@ var config = {
 
 
   //提交考试
-  submitExamDetail: `${host}/train/finishTrain`
+  submitExamDetail: `${host}/train/finishTrain`,
+
+
+  //活动列表
+  warList: `${host}/activity/list`,
+
+
+  //活动详情
+  getWarQueation: `${host}/activity/listByActivityID`,
+
+
+  //活动提交
+  submitWarQueation: `${host}/activity/finish`
 };
 
 module.exports = config

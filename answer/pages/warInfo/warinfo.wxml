@@ -1,0 +1,27 @@
+<!--logs.wxml-->
+<view class="exam-content">
+  
+  <view class='practice-container'>
+    <view class='practice-content'>
+    <div class='practice-userinfo-avatar-box'>
+            <open-data type="userAvatarUrl" class="practice-userinfo-avatar"></open-data>
+        </div>
+      <view class='practice-info-box'>
+        <view class='practice-text' >已答 <text>{{questionData.answerNum}}</text> /{{questionData.allNum}}题</view>
+        <view class='practice-text' ><text></text> </view>
+      </view>
+      <view class='practice-questions-box' wx:if='{{questionData.question}}'>
+        <view class='practice-questions'>{{questionData.question.quesType==2?'（多选）':''}}{{questionData.question.quesDesc}}</view>
+
+         <view  class="practice-option {{item.choose}}" wx:for='{{questionData.question.answerList}}'  wx:key='item.ansID'><button disabled='{{isDisabled}}' class='practice-button' id='{{item.ansID}}' data-index='{{index}}' bindtap="chooseAnswer">{{item.ansDesc}}</button></view>
+        
+         
+      </view>
+    </view>
+
+    <view class='next-error-questions'  data-nextid='-1' bindtap="nextMistake">上一题</view>
+    <view class='next-error-questions'  data-nextid='1' bindtap="nextMistake">下一题</view>
+        <view class='next-error-questions'  bindtap="submitWar">交卷</view>
+
+  </view>
+</view>

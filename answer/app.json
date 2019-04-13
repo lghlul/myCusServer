@@ -15,7 +15,9 @@
     "pages/myexam/myexam",
     "pages/examinfo/examinfo",
     "pages/war/war",
-    "pages/examover/examover"
+    "pages/examover/examover",
+    "pages/warInfo/warinfo",
+    "pages/warHistory/warHistory"
   ],
   "window": {
     "backgroundTextStyle": "dark",

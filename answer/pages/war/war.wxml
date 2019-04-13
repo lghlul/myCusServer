@@ -1,2 +1,17 @@
-<!--pages/war/war.wxml-->
-<text></text>
+<!--logs.wxml-->
+<view class="container">
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad">
+    <view class='ranking-content'>
+      <view class='ranking-list-content'>
+        <view wx:for="{{warList}}" data-id="{{item.activityID}}" bindtap='toInfo' class="ranking-list-box {{(index+1)==myRank?'ranking-my':''}}"  wx:key='index'>
+            <text class='serial-number'>{{item.activityName}}</text>
+            <view class='ranking-username'>{{item.time}}</view>
+            <view class='ranking-points-box'>
+              <view class='ranking-points'>{{item.statusTxt}}</view>
+            </view>
+        </view>
+      </view>
+    </view>
+    <view class='null-data' wx:if='{{warList.length==0}}'>暂无记录</view>
+  </scroll-view>
+</view>
