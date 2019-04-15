@@ -1,7 +1,7 @@
 package com.answer.mapper;
 
+
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author: nhsoft.ll
@@ -12,6 +12,5 @@ import java.util.Map;
 public interface BaseMapper<T> {
     int insert(T t);
     List<T> list(T t);
-    List<T> listByMap(Map<String , Object> map);
-    T read(String id);
+    List<T> selectPage(T t);
 }
