@@ -5,60 +5,80 @@ const util = require('../../utils/util.js');
 Page({
   data: {
     userInfo: {},
-    warList: [],
+    bbsId: 0,
+    bbsInfo: 0,
+    replyList: [],
     pageNo: 1,
     pageSize: 10,
     pageCount: 1,
     scrollTop: 0,
     scrollHeight: 0
   },
-  onLoad: function () {
-    
+  onLoad: function (options) {
+    var that = this;
+    that.setData({
+      userInfo: app.globalData.userInfo,
+      bbsId: options.id ? options.id : ''
+    })
   },
   onShow: function () {
-    this.setData({
-      warList:[]
-    })
+
     var that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          scrollHeight: res.windowHeight
+    wx.getStorage({
+      key: 'bbsInfo',
+      success: function(res) {
+        wx.getSystemInfo({
+          success: function (res) {
+            that.setData({
+              scrollHeight: res.windowHeight
+            });
+          }
         });
-      }
-    });
-    if (that.data.pageNo <= that.data.pageCount) {
-      that.getRanking('');
-    }
+        that.setData({
+          replyList: [],
+          bbsInfo:res.data
+        })
+        if (that.data.pageNo <= that.data.pageCount) {
+          that.getRanking('');
+        }
+      },
+    })
+    
+  },
+  toReply: function () {
+    let that = this;
+
+    wx.navigateTo({
+      url: '../bbsRelpy/bbsRelpy?id=' + that.data.bbsId,
+    })
   },
   getRanking: function (callback) {
     let that = this;
     let SinopecSession = wx.getStorageSync('SinopecSession');
     wx.request({
-      url: url.warList,
+      url: url.bbsReplyList,
       data: {
         wxSession: SinopecSession,
         offset: that.data.pageNo,
-        limit: that.data.pageSize
+        limit: that.data.pageSize,
+        sortField: "createTime",
+        sortDir: "desc",
+        bbsId: that.data.bbsId
       },
       success: function (result) {
         // console.log(result.data)
         if (result.data.resultCode == 0) {
-          let statusArr = ["", "未开始", "已开始",'已结束'];
-  
-          let list = that.data.warList;
+
+          let list = that.data.replyList;
           list = list.concat(result.data.resultData.list);
           for (var i in result.data.resultData.list) {
-            let war = result.data.resultData.list[i];
-            war.time = util.formatTime(new Date(war.createTime));
-            war.statusTxt = statusArr[war.activityStatus];
-            if(war.isJoin == 1){
-              war.statusTxt = '已参加';
-            }
+            let reply = result.data.resultData.list[i];
+            reply.time = util.formatTime(new Date(reply.createTime));
+
           }
           that.setData({
             pageCount: result.data.resultData.totalPage,
-            warList: list
+            replyList: list
           })
           // console.log(result.data.resultData)
           if (typeof callback === "function") {
@@ -75,35 +95,35 @@ Page({
       }
     });
   },
-  toInfo:function(e){
+  toInfo: function (e) {
     var id = e.currentTarget.dataset.id;
     console.log(id);
-    for (var i in this.data.warList) {
-      let war = this.data.warList[i];
-      if(war.activityID==id){
-        if(war.isJoin == 1){
+    for (var i in this.data.replyList) {
+      let war = this.data.replyList[i];
+      if (war.activityID == id) {
+        if (war.isJoin == 1) {
           wx.navigateTo({
-            url: '../warHistory/warHistory?id='+id,
+            url: '../warHistory/warHistory?id=' + id,
           })
-        }else
-        if(war.activityStatus==2){
-          wx.navigateTo({
-            url: '../warInfo/warinfo?warId='+id,
-          })
-        }else
-        if(war.activityStatus==3){
-          wx.showToast({
-            title: '活动已结束',
-          })
+        } else
+          if (war.activityStatus == 2) {
+            wx.navigateTo({
+              url: '../warInfo/warinfo?warId=' + id,
+            })
+          } else
+            if (war.activityStatus == 3) {
+              wx.showToast({
+                title: '活动已结束',
+              })
 
-        }else if (war.activityStatus ==1){
-          wx.showToast({
-            title: '活动未开始',
-          })
-        }
+            } else if (war.activityStatus == 1) {
+              wx.showToast({
+                title: '活动未开始',
+              })
+            }
 
       }
-     
+
     }
   },
   bindDownLoad: function () {

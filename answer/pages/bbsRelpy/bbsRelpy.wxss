@@ -1,0 +1,57 @@
+
+
+.exam-content{padding:86rpx 20rpx 20rpx;background-color:#4a90e2;
+min-height:100%;
+}
+.exam-info{
+  background-color:#ecf5ff;
+  border-radius:6rpx;
+  padding:10rpx 20rpx; 
+  color:#4a90e2;
+
+}
+.exam-info-title{
+  font-size: 32rpx;
+  text-align: center;
+  font-weight: 700;
+}
+.exam-info-txt{
+  line-height:88rpx;
+  font-size:24rpx;
+  text-align:left;
+}
+.exam-btn{width:668rpx;
+height:131rpx;
+background:linear-gradient(#4990e2, #80c3f3);
+border-radius:6rpx;
+padding:27rpx 18rpx 27rpx 24rpx;
+overflow:hidden;
+}
+.exam-btn-txt{
+display:flex;
+align-items:flex-start;
+justify-content:center;
+height:132rpx;
+line-height:132rpx;
+color:#fff;
+text-align: center;
+}
+.container{background-color: #4a90e2;min-height: 100%;height: auto;overflow: hidden;}
+.reply{
+ width:710rpx;
+line-height:100rpx;
+text-align:center;
+font-size:34rpx;
+color:#ffffff;
+margin:43rpx 0;
+background-color:#F5A623;
+border-radius:10rpx;
+}
+.textarea{
+  font-size: 28rpx;
+  padding: 10rpx;
+  width:690rpx;
+  background:#FFF;
+  border-radius:10rpx;
+
+}

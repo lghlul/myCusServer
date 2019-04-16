@@ -5,7 +5,7 @@
       <view class='ranking-list-content'>
       <navigator wx:for="{{examList}}" url='../examinfo/examinfo?type=mistakes&id={{item.trainID}}' >
         <view class="ranking-list-box {{(index+1)==myRank?'ranking-my':''}}"  wx:key='index'>
-            <text class='serial-number'>{{item.rightNum}}/2{{item.quesNum}}</text>
+            <text class='serial-number'>{{item.rightNum}}/{{item.quesNum}}</text>
             <view class='ranking-username'>{{item.time}}</view>
             <view class='ranking-points-box'>
               <view class='ranking-points'>{{item.statusTxt}}</view>

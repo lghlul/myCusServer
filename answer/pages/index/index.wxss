@@ -46,4 +46,6 @@ font-size: 36rpx;line-height: 66rpx;color: #333333;
 .jobNum{font-size: 26rpx;}
 .sign{background-color:#F5A623;color: #ffffff;margin:0;margin-left: 20rpx;position: absolute;right: 40rpx;top:64rpx;font-size:24rpx;width: 80rpx;height:80rpx;text-align:center;line-height: 80rpx;border-radius: 40rpx;}
 .sign-disabled{background-color:#eee;color: #ccc;}
+#bbs image{width: 136rpx;height:136rpx;}
+#bbs {background-color: #ede387;margin-top:20rpx}
 

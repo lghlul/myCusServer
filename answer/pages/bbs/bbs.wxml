@@ -1,18 +1,20 @@
 <!--logs.wxml-->
 <view class="container">
+       <view class='reply' bindtap='toBbs' >发布主题</view>
+
   <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad">
     <view class='ranking-content'>
       <view class='ranking-list-content'>
-        <view wx:for="{{warList}}" data-id="{{item.activityID}}" bindtap='toInfo' class="ranking-list-box {{(index+1)==myRank?'ranking-my':''}}"  wx:key='index'>
-            <text class='serial-number'>{{item.activityName}}\n{{item.time}}</text>
+        <view wx:for="{{bbsList}}" data-id="{{item.bbsID}}" bindtap='toInfo' class="ranking-list-box "  wx:key='index'>
+            <text class='serial-number'>{{item.title}}\n{{item.time}}</text>
             <view class='ranking-points-box'>
-              <view class='ranking-points'>{{item.statusTxt}}</view>
+              <view class='ranking-points'>XX回复</view>
             </view>
           <view>
           </view>
         </view>
       </view>
     </view>
-    <view class='null-data' wx:if='{{warList.length==0}}'>暂无记录</view>
+    <view class='null-data' wx:if='{{bbsList.length==0}}'>暂无记录</view>
   </scroll-view>
 </view>

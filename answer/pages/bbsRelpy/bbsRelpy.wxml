@@ -1,0 +1,11 @@
+<!--logs.wxml-->
+  <view class="exam-content">
+    
+    <view class='practice-container'>
+      <view class='practice-content'>
+      <textarea class='textarea' bindinput="inputeidt" maxlength="500" placeholder="请输入回复内容" value="{{content}}"></textarea>
+      <view class='reply' bindtap='toReply' >回复</view>
+
+      </view>
+    </view>
+  </view>
