@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customer.supu.mapper.PrizeStoreMapper">
+    <resultMap id="baseResultMap" type="PrizeStore">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="path" property="path"/>
+        <result column="stock" property="stock"/>
+        <result column="probability" property="probability"/>
+        <result column="activityId" property="activityId"/>
+        <result column="max" property="max"/>
+        <result column="status" property="status"/>
+        <result column="type" property="type"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from prize_store where id = #{id}
+    </select>
+    <select id="selectPage" parameterType="PrizeStore" resultMap="baseResultMap">
+        select * from prize_store
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="path != null">
+                and path = #{path}
+            </if>
+            <if test="stock != null">
+                and stock = #{stock}
+            </if>
+            <if test="probability != null">
+                and probability = #{probability}
+            </if>
+            <if test="activityId != null">
+                and ctivityId = #{activityId}
+            </if>
+            <if test="max != null">
+                and max = #{max}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+        <if test="pageNo != null and pageSize != null">
+            limit (pageNo - 1)*pageSize,pageSize
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="PrizeStore" resultType="int">
+        select count(*) from prize_store
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="path != null">
+                and path = #{path}
+            </if>
+            <if test="stock != null">
+                and stock = #{stock}
+            </if>
+            <if test="probability != null">
+                and probability = #{probability}
+            </if>
+            <if test="activityId != null">
+                and activityId = #{activityId}
+            </if>
+            <if test="max != null">
+                and max = #{max}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" parameterType="PrizeStore">
+        insert intoprize_store
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="stock != null">
+                stock,
+            </if>
+            <if test="probability != null">
+                probability,
+            </if>
+            <if test="  activityId != null">
+                activityId,
+            </if>
+            <if test="max != null">
+                max,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="path != null">
+                #{path},
+            </if>
+            <if test="stock != null">
+                #{stock},
+            </if>
+            <if test="probability != null">
+                #{probability},
+            </if>
+            <if test="  activityId != null">
+                #{activityId},
+            </if>
+            <if test="max != null">
+                #{max},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from prize_store where id = #{id}
+    </delete>
+    <delete id="delete" parameterType="PrizeStore">
+        delete from prize_store
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="path != null">
+                and path = #{path}
+            </if>
+            <if test="stock != null">
+                and stock = #{stock}
+            </if>
+            <if test="probability != null">
+                and probability = #{probability}
+            </if>
+            <if test="  activityId != null">
+                and activityId = #{activityId}
+            </if>
+            <if test="max != null">
+                and max = #{max}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="selectActivePrize" parameterType="string" resultMap="baseResultMap">
+        select * from prize_store where activityId = #{activityId} and stock != 0 and status = 1 and probability > 0
+    </select>
+
+
+
+    <update id="update" parameterType="PrizeStore" >
+        update prize_store
+        <set>
+            <if test="name != null">
+                 name = #{name},
+            </if>
+            <if test="path != null">
+                 path = #{path},
+            </if>
+            <if test="stock != null">
+                 stock = #{stock},
+            </if>
+            <if test="probability != null">
+                 probability = #{probability},
+            </if>
+            <if test="activityId != null">
+                 ctivityId = #{activityId},
+            </if>
+            <if test="max != null">
+                 max = #{max},
+            </if>
+            <if test="status != null">
+                 status = #{status},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+
+
+
+
+    <select id="selectAll" parameterType="PrizeStore" resultMap="baseResultMap">
+        select * from prize_store
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="path != null">
+                and path = #{path}
+            </if>
+            <if test="stock != null">
+                and stock = #{stock}
+            </if>
+            <if test="probability != null">
+                and probability = #{probability}
+            </if>
+            <if test="activityId != null">
+                and activityId = #{activityId}
+            </if>
+            <if test="max != null">
+                and max = #{max}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+
+</mapper>

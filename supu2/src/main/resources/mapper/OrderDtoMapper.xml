@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.OrderDao" >
+
+
+   <resultMap id="BaseResultMap" type="customer.supu.dto.OrderDto" >
+
+  </resultMap>
+
+<!--查询所有的-->
+	<select id="selectOrderByList" parameterType="Map" resultMap="BaseResultMap">
+		SELECT b.id,b.userid,b.cid,b.type,b.buytime,b.amount,b.ordernumber,b.returncode,b.issuccess,b.ecode,b.ordername FROM
+		(SELECT *,(SELECT a.ecode FROM u_employee a WHERE a.employeeid=u_order.userid) ecode,
+		CASE
+		WHEN TYPE=0  THEN (SELECT membername FROM member_card WHERE member_card.id=u_order.cid)
+		WHEN TYPE=1 THEN (SELECT coursename FROM course_pri_coach WHERE course_pri_coach.id=u_order.cid)
+		WHEN TYPE=2 THEN (SELECT coursename FROM course_exc_group WHERE course_exc_group.id=u_order.cid)
+		WHEN TYPE=3 THEN (SELECT coursename FROM course_exc_group WHERE course_exc_group.id=u_order.cid)
+		END AS ordername
+		FROM u_order) b
+		WHERE 1=1
+			<if test="issuccess != null">
+				and b.issuccess=#{issuccess}
+			</if>
+			<if test="type != null">
+				and b.type=#{type}
+			</if>
+			<if test="ecode != null and ecode !='' ">
+				and b.ecode like #{ecode}
+			</if>
+			<if test="starttime != null and starttime !='' ">
+				and b.buytime&gt;=#{starttime}
+			</if>
+			<if test="endtime != null and endtime !='' ">
+				and b.buytime&lt;=#{endtime}
+			</if>
+		order by b.buytime desc
+			<if test="start != null and end !='' ">
+				limit #{start},#{end}
+			</if>
+	</select>
+
+	<!-- 查询个数 -->
+	<select id="countByList" parameterType="Map" resultType="java.lang.Integer">
+		SELECT count(*) FROM
+		(SELECT *,(SELECT a.ecode FROM u_employee a WHERE a.employeeid=u_order.userid) ecode,
+		CASE
+		WHEN TYPE=0  THEN (SELECT membername FROM member_card WHERE member_card.id=u_order.cid)
+		WHEN TYPE=1 THEN (SELECT coursename FROM course_pri_coach WHERE course_pri_coach.id=u_order.cid)
+		WHEN TYPE=2 THEN (SELECT coursename FROM course_exc_group WHERE course_exc_group.id=u_order.cid)
+		ELSE TYPE=4 END AS ordername
+		FROM u_order) b
+		where 1=1
+			<if test="issuccess != null">
+				and b.issuccess=#{issuccess}
+			</if>
+			<if test="type != null">
+				and b.type=#{type}
+			</if>
+			<if test="ecode != null and ecode !='' ">
+				and b.ecode like #{ecode}
+			</if>
+			<if test="starttime != null and starttime !='' ">
+				and b.buytime&gt;=#{starttime}
+			</if>
+			<if test="endtime != null and endtime !='' ">
+				and b.buytime&lt;=#{endtime}
+			</if>
+			order by b.buytime desc
+	</select>
+
+</mapper>

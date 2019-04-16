@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+    PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+  <generatorConfiguration>
+
+      <classPathEntry    location="D:/mybatis_generator/mysql-connector-java-5.1.20-bin.jar"/>
+      <context id="DB2Tables"    targetRuntime="MyBatis3">
+
+		  <!-- plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin> -->
+
+		<!-- plugin type="cn.itcast.ssm.plugin.CustomizeContextPlugin">
+			<property name="poSuffix" value=""/>
+			<property name="daoSuffix" value="DAO"/>
+			<property name="customDaoPrjDir" value="E:/sbc/"/>
+			<property name="customDaoPkg" value="com/nagasoft/wstvb/mybatis/dao"/>
+			<property name="customDaoPkgName" value="com.nagasoft.wstvb.mybatis.dao"/>
+		</plugin>
+
+		<plugin type="cn.itcast.ssm.plugin.CustomizPlugin" /> -->
+		<!-- 已经成包，不用改 -->
+		<plugin type="cn.itcast.ssm.plugin.MySQLLimitPlugin" />
+
+	   <commentGenerator>
+             <property name="suppressDate" value="true"/>
+             <property name="suppressAllComments" value="true"/>
+         </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://172.16.122.57:3306/supu_test" userId="root" password="111111">
+         </jdbcConnection>
+         <javaTypeResolver>
+             <property name="forceBigDecimals" value="false"/>
+         </javaTypeResolver>
+
+         <javaModelGenerator targetPackage="customer.supu.po" targetProject="src">
+             <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+         <sqlMapGenerator targetPackage="lc.mapping" targetProject="src">
+            <property name="enableSubPackages" value="true"/>
+         </sqlMapGenerator>
+
+         <javaClientGenerator type="XMLMAPPER" targetPackage="customer.supu.mapper" targetProject="src">
+            <property name="enableSubPackages" value="true"/>
+         </javaClientGenerator>
+	<!-- 			<table tableName="u_employee" domainObjectName="Employee" >
+			<generatedKey column="employeeid" sqlStatement="MySql" identity="true"/>
+		</table> -->
+
+		<!-- <table tableName="store" domainObjectName="Store" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+
+			<table tableName="basicdata" domainObjectName="BasicData" >
+			<generatedKey column="BasicDataId" sqlStatement="MySql" identity="true"/>
+		</table>
+		<table tableName="course" domainObjectName="Course" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+
+	<!--
+	<table tableName="member_middel_card" domainObjectName="memberMiddelCard" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+	<table tableName="member_card" domainObjectName="MemberCard" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+			<table tableName="coach" domainObjectName="CoachBean" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+		<table tableName="zone" domainObjectName="Zone" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+		-->
+<!--
+		<table tableName="member_middel_card" domainObjectName="MemberMiddelCard" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+
+
+		<!-- <table tableName="coach_certificate" domainObjectName="CoachCertificate" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+<!-- <table tableName="course_exc_group" domainObjectName="CourseExcGroup" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+		<table tableName="course_pri_coach" domainObjectName="CoursePriCoachBean" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+		<table tableName="member_card_store" domainObjectName="MemberCardStore" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+		-->
+<!--
+<table tableName="coach_service_area" domainObjectName="CoachServiceArea" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+
+<table tableName="coach_goodat" domainObjectName="CoachGoodat" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+	<!-- 	<table tableName="coach_service_area" domainObjectName="CoachServiceArea" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+
+<table tableName="coach_goodat" domainObjectName="CoachGoodat" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+
+<table tableName="coach_stores" domainObjectName="CoachStores" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+
+		<table tableName="member_card_store" domainObjectName="MemberCardStore" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+	<!-- 	<table tableName="course_stores" domainObjectName="CourseStores" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+		<!-- 	<table tableName="course_coach" domainObjectName="CourseCoach" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+		<!-- <table tableName="comment" domainObjectName="Comment" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+	<!-- 	<table tableName="smsLog" domainObjectName="SmsLog" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+
+<!-- 		<table tableName="employee_buy_card" domainObjectName="EmployeeBuyCard" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+
+		<table tableName="employee_buy_course" domainObjectName="EmployeeBuyCourse" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+
+
+		<!-- <table tableName="employee_appoint_course" domainObjectName="EmployeeAppointCourse" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+		<!-- <table tableName="coach_time" domainObjectName="CoachTime" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+
+		<table tableName="employee_buy_card" domainObjectName="EmployeeBuyCard" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+<!-- 		<table tableName="u_employee" domainObjectName="Employee" >
+			<generatedKey column="employeeid" sqlStatement="MySql" identity="true"/>
+		</table> -->
+
+		<!-- <table tableName="u_order" domainObjectName="Order" >
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table> -->
+     </context>
+ </generatorConfiguration>

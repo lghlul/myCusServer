@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.CourseStudioTimeDao" >
+
+
+   <resultMap id="BaseCourseStudioTimeMap" type="customer.supu.dto.CourseStudioTimeDto" >
+
+   </resultMap>
+
+   	<!--根据工作室课程id 查询某课程所有计划时间内的排期列表-->
+      <select id="selectStudioListByCondition" parameterType="Map" resultMap="BaseCourseStudioTimeMap">
+		<!--当前时间为为2017年9月27日17:00，则2017年9月1日~2017年9月26日的排期均不可以编辑，若2017年9月27日的排期时
+   			间为17:00之前则27日当前的排期也不支持编辑  -->
+			SELECT IF(CONCAT(t.`year`,'-',t.`month`,'-',t.`day`) &gt; DATE_FORMAT(NOW(),'%Y-%m-%d') ||
+			(CONCAT(t.`year`,'-',t.`month`,'-',t.`day`)= DATE_FORMAT(NOW(),'%Y-%m-%d')
+			 and DATE_FORMAT(NOW(),'%H:%i') &lt;=t.endtime) ,1,0)isEdit,
+			t.* FROM course_studio_time t
+			where 1=1
+			<if test="courseId != null" >
+				and t.courseId=#{courseId}
+			</if>
+			<if test="year != null" >
+				and t.year=#{year}
+			</if>
+			<if test="month != null" >
+				and t.month=#{month}
+			</if>
+   	</select>
+
+
+
+	  <!--根据工作室课程id 查询某课程所有计划时间内的排期列表-->
+      <select id="selectListByCourseId" parameterType="Map" resultMap="BaseCourseStudioTimeMap">
+
+
+			SELECT IF(CONCAT(a.`year`,'-',a.`month`) &lt; DATE_FORMAT(NOW(),'%Y-%m') ,1,0) isEdit, a.* FROM course_studio_time a
+			WHERE 1=1
+			<if test="courseId != null" >
+				and a.courseId=#{courseId}
+			</if>
+			GROUP BY a.year, a.month ORDER BY a.year DESC,a.month DESC;
+   	</select>
+
+
+	<!--根据条件查询工作室排期时间  是否冲突  -->
+   	<select id="selectStudioTimeIsConflict" parameterType="Map" resultType="java.lang.Integer">
+			SELECT  count(1) FROM course_studio_time t WHERE t.`courseId`=#{courseId}
+			AND t.`year`=#{year}
+			AND t.`month`=#{month}
+			AND t.`day`=#{day}
+			<!--如果是  编辑不能等于自身  -->
+			<if test="id !=null">
+				and t.id != #{id}
+			</if>
+			and (((t.`startTime`&lt;#{startTime} and t.`endTime` &gt;#{startTime})  <!-- 传入的开始或结束时间在   数据库查询的开始和结束之间，表示时间冲突 -->
+			OR (t.`startTime`&lt;#{endTime}  and t.`endTime`&gt;#{endTime}))
+			OR(t.`startTime`&gt;=#{startTime}  and t.`endTime`&lt;=#{endTime})
+
+			)
+
+   	</select>
+
+
+
+   	  <!--根据工作室课程id 查询某课程所有计划时间内的排期列表-->
+      <select id="selectTimeListByCourseId" parameterType="Map" resultMap="BaseCourseStudioTimeMap">
+			SELECT cst.*,GROUP_CONCAT(CONCAT(cst.`startTime`,"~",cst.`endTime`) ORDER BY cst.starttime ASC)timelist FROM course_studio_time cst
+			WHERE 1=1
+			<if test="courseId != null" >
+				and cst.courseId=#{courseId}
+			</if>
+			GROUP BY cst.`year`,cst.`month`,cst.`day` ORDER BY cst.day ASC
+   		</select>
+
+
+<!-- 查询  工作室时间 -->
+   		<select id="selectTimeList" parameterType="Map" resultMap="BaseCourseStudioTimeMap">
+   			SELECT
+			IF(CONCAT(a.`year`,'-',a.`month`,'-',a.`day`,' ',a.`startTime`) >= DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i')  ,1,0) isEdit,a.*
+			FROM  course_studio_time a
+			where 1=1
+			<if test="courseId != null" >
+				and a.courseId=#{courseId}
+			</if>
+			<if test="year != null" >
+				and a.year=#{year}
+			</if>
+			<if test="month != null" >
+				and a.month=#{month}
+			</if>
+			<if test="day != null" >
+				and a.day=#{month}
+			</if>
+			order by a.starttime asc
+   		</select>
+
+
+</mapper>

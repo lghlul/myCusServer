@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.CourseDao" >
+
+
+   <resultMap id="BaseResultMap" type="customer.supu.dto.CourseDto" >
+
+  </resultMap>
+
+<!--查询所有的-->
+	<select id="selectCourseByList" parameterType="Map" resultMap="BaseResultMap">
+		SELECT * FROM (
+		SELECT id id,TYPE,courseName coursename,courseType coursetype,STATUS STATUS,ADDTIME ADDTIME,coachs,enddate isexperience FROM course_exc_group
+		UNION
+		SELECT id id,fitDemand TYPE,courseName coursename,courseType coursetype,STATUS STATUS,ADDTIME ADDTIME,coachs,isexperience isexperience FROM course_pri_coach)a
+     	where 1=1
+     <if test="coursename != null" >
+       and a.coursename like CONCAT('%',#{coursename},'%')
+      </if>
+      <if test="coursetype != null" >
+       and a.coursetype=#{coursetype}
+	       <if test="type !=null">
+				and a.type=#{type}
+	       </if>
+      </if>
+      <if test="status != null" >
+       and a.status in
+       		<foreach collection="status" item="item" index="index"
+	            open="(" close=")" separator=",">
+	            #{item}
+	        </foreach>
+      </if>
+		order by a.addtime desc
+			<if test="start != null and end !=null ">
+				limit #{start},#{end}
+			</if>
+	</select>
+
+	<!-- 查询个数 -->
+	<select id="countByList" parameterType="Map" resultType="java.lang.Integer">
+		SELECT count(*) FROM (
+		SELECT id id,TYPE,courseName coursename,courseType coursetype,STATUS STATUS,ADDTIME ADDTIME,coachs,enddate isexperience FROM course_exc_group
+		UNION
+		SELECT id id,fitDemand TYPE,courseName coursename,courseType coursetype,STATUS STATUS,ADDTIME ADDTIME,coachs,isexperience isexperience FROM course_pri_coach)a
+     	where 1=1
+     <if test="coursename != null" >
+       and a.coursename like CONCAT('%',#{coursename},'%')
+      </if>
+      <if test="coursetype != null" >
+       and a.coursetype=#{coursetype}
+      </if>
+      <if test="status != null" >
+              and a.status in
+       		<foreach collection="status" item="item" index="index"
+	            open="(" close=")" separator=",">
+	            #{item}
+	        </foreach>
+      </if>
+		order by a.addtime desc
+
+	</select>
+
+<!-- 查询课程是否结束   type=1 表示查询结束的课程    type=0表示 未完成课程 -->
+	<select id="selectFinishedCourse" parameterType="map" resultMap="BaseResultMap">
+		SELECT a.id,
+		c.coursename,a.starttime,a.endtime,a.appointtime,s.storename,a.type,a.courseId
+		FROM employee_appoint_course a ,store s,course_pri_coach   c
+		WHERE  a.status=1 and a.TYPE=0 AND a.`storeId`=s.id AND c.id=a.`courseId`  AND a.userId=#{userId}
+		<if test="type==1">
+		AND CONCAT(a.appointTime,' ',a.`endTime`)&lt;=NOW()
+		</if>
+		<if test="type==0">
+		AND CONCAT(a.appointTime,' ',a.`endTime`)&gt;=NOW()
+		</if>
+		UNION
+		<!-- a.TYPE!=0 有基础团课和工作室-->
+		SELECT a.id,
+		c.coursename,a.starttime,a.endtime,a.appointtime,s.storename,a.type,a.courseId
+		FROM employee_appoint_course a ,store s, course_exc_group   c
+		WHERE  a.status=1 and a.TYPE!=0 AND a.`storeId`=s.id AND c.id=a.`courseId`  AND a.userId=#{userId}
+
+		<if test="type==1">
+		AND CONCAT(a.appointTime,' ',a.`endTime`)&lt;=NOW()
+		</if>
+		<if test="type==0">
+		AND CONCAT(a.appointTime,' ',a.`endTime`)&gt;=NOW()
+		</if>
+	</select>
+</mapper>

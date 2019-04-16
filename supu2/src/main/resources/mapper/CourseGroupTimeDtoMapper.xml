@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.CourseGroupTimeDao" >
+
+
+   <resultMap id="BaseResultMap" type="customer.supu.po.CourseGroupTime" >
+
+   </resultMap>
+
+   <resultMap id="BaseCourseGroupTimeMap" type="customer.supu.dto.CourseGroupTimeDto" >
+
+   </resultMap>
+
+
+   <select id="selectCourseGroupTimeByCondition" parameterType="Map" resultMap="BaseCourseGroupTimeMap">
+
+		<!--当前时间为为2017年9月27日17:00，则2017年9月1日~2017年9月26日的排期均不可以编辑，若2017年9月27日的排期时
+   			间为17:00之前则27日当前的排期也不支持编辑  -->
+			SELECT IF(CONCAT(t.`year`,'-',t.`month`,'-',t.`day`) &gt; DATE_FORMAT(NOW(),'%Y-%m-%d') ||
+			(CONCAT(t.`year`,'-',t.`month`,'-',t.`day`)= DATE_FORMAT(NOW(),'%Y-%m-%d')
+			 and DATE_FORMAT(NOW(),'%H:%i') &lt;=t.endtime) ,1,0)isEdit,
+			t.* FROM course_group_time t
+			where 1=1
+			<if test="courseId != null" >
+				and t.courseId=#{courseId}
+			</if>
+			<if test="year != null" >
+				and t.year=#{year}
+			</if>
+			<if test="month != null" >
+				and t.month=#{month}
+			</if>
+			order by t.day asc
+   </select>
+
+
+	  <!--根据团课id 查询某团课每个月排期列表-->
+      <select id="selectListByCourseId" parameterType="Map" resultMap="BaseCourseGroupTimeMap">
+
+
+			SELECT IF(CONCAT(a.`year`,'-',a.`month`) &lt; DATE_FORMAT(NOW(),'%Y-%m') ,1,0) isEdit, a.* FROM course_group_time a
+			WHERE 1=1
+			<if test="courseId != null" >
+				and a.courseId=#{courseId}
+			</if>
+			GROUP BY a.year, a.month ORDER BY a.year DESC,a.month DESC;
+   	</select>
+</mapper>

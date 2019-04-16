@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.MemberCardDao" >
+  <resultMap id="MemberCardDtoMap" type="customer.supu.dto.MemberCardDto" >
+
+  </resultMap>
+
+   <resultMap id="BaseResultMap" type="customer.supu.po.MemberCard" >
+
+  </resultMap>
+
+  <select id="selectMcardChecked" parameterType="map"  resultMap="MemberCardDtoMap">
+  		  <!--  SELECT
+  		   IF(mc.id IN
+  		   <foreach collection="ids" item="item" index="index"
+            open="(" close=")" separator=",">
+            #{item}
+        </foreach>,1,0)checked,
+        mc.* FROM member_card mc WHERE mc.isuse='1' -->
+		  SELECT mmc.`buyTime` buytime,mmc.`memberid`,mc.*
+		FROM member_card mc
+		LEFT JOIN member_middle_card mmc
+		ON mc.id=mmc.`memberCardId` AND mmc.`memberId`=#{id}  AND mmc.`status`=1
+
+		WHERE mc.`isuse`=1 ORDER BY mc.`addTime` DESC
+
+  </select>
+
+<!--查询所有的-->
+	<select id="selectMcardByList" parameterType="Map" resultMap="BaseResultMap">
+		SELECT * FROM  member_card where isuse=#{isuse}
+		<if test="cardtype != null and cardtype!='' ">
+			and cardtype in
+			<foreach collection="ids" item="item" index="index"
+	            open="(" close=")" separator=",">
+	            #{item}
+	        </foreach>
+		</if>
+		order by addtime desc
+		limit #{start},#{end}
+	</select>
+
+
+	<!-- 根据用户名  查询  会员卡信息        且没有过期  -->
+  <select id="selectMcardByUserId" parameterType="Map" resultMap="MemberCardDtoMap">
+  		SELECT IF(m.id=e.mCardId  AND e.`expireTime`>NOW(),1,0)isbuy,e.buytime,e.expireTime,m.* FROM member_card  m LEFT JOIN
+		employee_buy_card e
+		ON e.`mCardId` =m.`id` AND e.status=1 AND e.userId=#{userId}
+
+
+	<!-- 	m.isuse=1 -->
+		<if test="mCardId !=null and mCardId !=''">
+				WHERE m.id=#{mCardId}
+		</if>
+
+  </select>
+
+
+<!--  查询用户的会员卡   （如果停用，前台仍然显示）-->
+<!-- 	  <select id="selectHasMcardByUserId" parameterType="Map" resultMap="MemberCardDtoMap">
+	  		SELECT IF(m.id=e.mCardId  AND e.`expireTime`>NOW(),1,0)isbuy,e.buytime,m.* FROM member_card  m LEFT JOIN
+			employee_buy_card e
+			ON e.`mCardId` =m.`id` AND e.status=1 AND e.userId=#{userId}
+
+
+
+			<if test="mCardId !=null and mCardId !=''">
+				WHERE m.id=#{mCardId}
+			</if>
+
+	  </select> -->
+
+
+	<!--  查询会员卡信息，并且查出该会员卡  对应的过期月份  -->
+	<select id="selectMcardInfo"  resultMap="MemberCardDtoMap">
+
+			SELECT mc.*,b.BasicValue AS MONTH FROM member_card mc ,basicdata b
+			WHERE b.BasicType='memberCardTimeLong' AND
+			mc.timeLong=b.BasicValue
+			<if test="mCardId !=null and mCardId !=''">
+			AND mc.id=#{mCardId}
+		</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.mapper.EmployeeAppointCourseMapper" >
+  <resultMap id="BaseResultMap" type="customer.supu.po.EmployeeAppointCourse" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="courseId" property="courseid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="storeId" property="storeid" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="appointTime" property="appointtime" jdbcType="DATE" />
+    <result column="startTime" property="starttime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
+    <result column="addTime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="coachId" property="coachId" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, courseId, userId, storeId, type, status, appointTime, startTime, endTime, addTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="customer.supu.po.EmployeeAppointCourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from employee_appoint_course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_appoint_course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee_appoint_course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="customer.supu.po.EmployeeAppointCourseExample" >
+    delete from employee_appoint_course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="customer.supu.po.EmployeeAppointCourse" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into employee_appoint_course (courseId, userId, storeId, 
+      type, status, appointTime, 
+      startTime, endTime, addTime
+      )
+    values (#{courseid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{storeid,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{appointtime,jdbcType=DATE}, 
+      #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="customer.supu.po.EmployeeAppointCourse" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into employee_appoint_course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        courseId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="storeid != null" >
+        storeId,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="appointtime != null" >
+        appointTime,
+      </if>
+      <if test="starttime != null" >
+        startTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="addtime != null" >
+        addTime,
+      </if>
+      <if test="coachId != null" >
+        coachId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="storeid != null" >
+        #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="appointtime != null" >
+        #{appointtime,jdbcType=DATE},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coachId != null" >
+        #{coachId},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="customer.supu.po.EmployeeAppointCourseExample" resultType="java.lang.Integer" >
+    select count(*) from employee_appoint_course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update employee_appoint_course
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseid != null" >
+        courseId = #{record.courseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeid != null" >
+        storeId = #{record.storeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.appointtime != null" >
+        appointTime = #{record.appointtime,jdbcType=DATE},
+      </if>
+      <if test="record.starttime != null" >
+        startTime = #{record.starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endtime != null" >
+        endTime = #{record.endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null" >
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update employee_appoint_course
+    set id = #{record.id,jdbcType=INTEGER},
+      courseId = #{record.courseid,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      storeId = #{record.storeid,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      appointTime = #{record.appointtime,jdbcType=DATE},
+      startTime = #{record.starttime,jdbcType=VARCHAR},
+      endTime = #{record.endtime,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="customer.supu.po.EmployeeAppointCourse" >
+    update employee_appoint_course
+    <set >
+      <if test="courseid != null" >
+        courseId = #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="storeid != null" >
+        storeId = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="appointtime != null" >
+        appointTime = #{appointtime,jdbcType=DATE},
+      </if>
+      <if test="starttime != null" >
+        startTime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="customer.supu.po.EmployeeAppointCourse" >
+    update employee_appoint_course
+    set courseId = #{courseid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER},
+      storeId = #{storeid,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      appointTime = #{appointtime,jdbcType=DATE},
+      startTime = #{starttime,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAppointTime" parameterType="EmployeeAppointCourse" resultMap="BaseResultMap">
+    select * from employee_appoint_course where courseId = #{courseid} and coachId = #{coachId} and appointTime = #{appointTimeStr}
+  </select>
+
+  <select id="selectAppointPriPage" parameterType="EmployeeAppointCourse" resultMap="BaseResultMap">
+    select * from employee_appoint_course where courseId = #{courseid} and coachId = #{coachId} and type = 11 and userId = #{userid} ORDER BY addTime desc limit #{pageNo},#{pageSize}
+  </select>
+
+  <select id="selectAppointPriCount" parameterType="EmployeeAppointCourse" resultType="int">
+    select count(*) from employee_appoint_course
+     <where>
+       <if test="courseid != null">
+         and courseId = #{courseid}
+       </if>
+       <if test="courseId != null">
+         and coachId = #{coachId}
+       </if>
+       <if test="userid != null">
+         and userId = #{userid}
+       </if>
+       <if test="status != null">
+         and status = #{status}
+       </if>
+       and type = 11
+     </where>
+  </select>
+
+  <select id="selectAppointTimeByPri" parameterType="map" resultMap="BaseResultMap">
+    select * from employee_appoint_course where type = 11 and status != 2 and coachId = #{coachId} and appointTime = #{appointTime}
+  </select>
+
+  <select id="selectUnFinishPri" resultMap="BaseResultMap">
+    select * from employee_appoint_course where type = 11 and status = 1
+  </select>
+
+
+</mapper>

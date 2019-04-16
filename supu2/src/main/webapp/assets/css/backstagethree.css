@@ -1,0 +1,112 @@
+body{
+    color: #666;
+}
+.breadcrumb li a{
+    color: #FF0000;
+}
+.step{
+    background-color: #fff;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+.stepOne,.step-arrow-one,.stepTwo,.step-arrow-two,.stepThree{
+    display: inline-block;
+    height: 60px;
+}
+.stepOne{
+    color: #FF0000;
+    padding: 0px 5px;
+    margin: 0 10px;
+}
+.stepOne i{
+    font-size: 34px;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+.stepOne span{
+    font-size: 18px;
+}
+.step-arrow-one{
+    margin: 0 10px;
+    color: #FF0000;
+}
+.step-arrow-one i{
+    font-size: 20px;
+
+}
+.stepTwo{
+    color: #FF0000;
+    padding: 0px 5px;
+    margin: 0 10px;
+}
+.stepTwo i{
+    font-size: 34px;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+.stepTwo span{
+    font-size: 18px;
+}
+.step-arrow-two{
+    margin: 0 10px;
+    color: #FF0000;
+}
+.step-arrow-two i{
+    font-size: 20px;
+}
+.stepThree{
+    color: #FF0000;
+    padding: 0px 5px;
+    margin: 0 10px;
+}
+.stepThree i{
+    font-size: 34px;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+.stepThree span{
+    font-size: 18px;
+}
+.serRelease{
+    background-color: #ffffff;
+    padding: 40px 0;
+    text-align: center;
+    margin-top: 20px;
+}
+.sr-face i{
+    font-size: 60px;
+    color: #509FEC;
+    position: relative;
+    top: 10px;
+    left: -10px;
+}
+.sr-face span{
+    font-size: 24px;
+    color: #509FEC;
+}
+.release-succeed{
+    margin-top: 60px;
+}
+.checkService{
+    border: 1px solid #D2D4E0;
+    color: #666;
+}
+.return-list{
+    background-color: #FF0000;
+    color: #fff;
+    margin: 0 10px;
+}
+.return-list:hover{
+    color: #fff;
+}
+.continue-release{
+    background-color: #FF9900;
+    color: #ffffff;
+}
+.continue-release:hover{
+    color: #fff;
+}

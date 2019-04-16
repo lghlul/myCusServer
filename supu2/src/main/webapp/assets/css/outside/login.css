@@ -1,0 +1,435 @@
+/* login css start */
+
+html,
+body {
+  height: 100%;
+}
+
+.container .weui_cells {
+  margin-top: 0;
+  box-shadow: 0 10px 20px 0;
+}
+
+.login-container {
+  background: url(../../images/outside/bg_login1@2x.jpg) no-repeat center center;
+  background-size: cover;
+  height: 100%;
+}
+
+.login-header {
+  text-align: center;
+  width:63%;
+  margin: 0 auto;
+  padding-top: 20%;
+  padding-bottom: 15%;
+}
+.login-header img{
+  width: 100%;
+}
+.icon-logo_lefit {
+  font-size: .38rem;
+  color: #fff;
+  position: relative;
+}
+/* 同意 用户协议 css start */
+.sign-agreement {
+  margin-top: .24rem;
+  text-align: center;
+  color: #fff;
+  font-size: .12rem;
+  height: .12rem;
+  line-height: .12rem;
+}
+.sign-agreement-gou{
+	display: inline-block;
+	width: .12rem;
+	height: .12rem;
+	background: rgba(255,255,255,.3);
+	border-radius: 50%;
+	margin-right: .03rem;
+}
+.sign-agreement a {
+	color: #FF0000;
+}
+.sign-agreement-gou.checked{
+	background: #FF0000;
+}
+.sign-agreement-gou .icon-gou{
+	font-size: .08rem;
+	position: relative;
+	top: -.01rem;
+}
+/* 同意 用户协议 css end */
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /*background-image: linear-gradient(-0deg, rgb(0, 0, 0), #414141);*/
+  opacity: .8;
+}
+
+.icon-img_lefitlogo {
+  font-size: 38px;
+  color: #fff;
+  z-index: 999;
+  position: relative;
+}
+
+.mask-login {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+}
+
+.mask-login .mask {
+  background-image: linear-gradient(-180deg, rgba(51, 55, 82, 0), #333752);
+  opacity: .8;
+}
+
+.leui_btn_warn {
+  background: #FF0000;
+  border-radius: 2px;
+}
+
+.login-form {
+  margin: 0 .075rem;
+  color: rgba(0, 0, 0, .6);
+}
+
+.login-form .weui_label {
+  width: .14rem;
+}
+
+.login-form .weui_cell_hd {
+  margin-right: 7px;
+}
+
+.login-form .weui_label .iconfont {
+  font-size: .16rem;
+}
+
+.login-form .weui_input {
+  font-size: .13rem;
+}
+
+.login-form .weui_cells:before {
+  top: 0;
+  border-top: none;
+}
+
+.login-form .weui_cell:before {
+  border-top: 1px solid rgba(0, 0, 0, .1);
+  left: 0;
+}
+
+.login-form .weui_cells:after {
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.login-form .weui_cells:after {
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.form-submit {
+  font-size: .08rem;
+  margin-top: .18rem;
+}
+
+.login-form .weui_cell_bd.weui_cell_primary {
+  line-height: .14rem;
+}
+
+.login-form .leui_btn_warn {
+  height: .44rem;
+  line-height: .44rem;
+  font-size: .16rem;
+  border-radius: 0;
+  z-index: 99;
+  position: relative;
+}
+
+.leui_btn_scarpa {
+  background: #57596A;
+  border-radius: 0;
+  height: 44px;
+  line-height: 44px;
+  font-size: .16rem
+}
+
+.login-form .leui_btn_disabled {
+  color: hsla(0, 0%, 100%, .3);
+  transition: all .3s;
+  -webkit-transition: all .3s;
+}
+
+.login-sms-form .weui_cells:after,
+.login-sms-form .weui_cells:before {
+  width: 50%;
+}
+
+.login-form .weui_cell {
+  /*padding: 7px 0 7px 15px;*/
+}
+
+.other-login {
+  margin: .1rem .075rem;
+  color: rgba(255, 255, 255, .6);
+  background: none;
+}
+
+.other-login .weui_cell {
+  padding: 10px 0;
+}
+
+.other-login.weui_cells:before {
+  border-top: 1px solid rgba(255, 255, 255, 0);
+}
+
+.other-login.weui_cells:after {
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.le-other-box {
+  text-align: center;
+  margin: 0 auto;
+  font-size: .06rem;
+  position: relative;
+  /*left: 0;
+  right: 0;
+  bottom: 0;*/
+  min-height: 30%;
+}
+
+
+/* le-other-box start */
+
+.le-other-box {
+  text-align: center;
+  margin: 0 auto;
+  font-size: .12rem;
+}
+
+.le-other-items {
+  text-align: center;
+}
+
+.le-other-item {
+  display: inline-block;
+  margin: 0 .15rem;
+  color: rgba(255, 255, 255, .6);
+}
+
+.le-item-iconfont {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 50%;
+  margin: 0 auto .05rem;
+}
+
+.le-other-item .iconfont {
+  color: rgba(255, 255, 255, .6);
+  font-size: .18rem;
+  line-height: 40px;
+}
+
+
+/* le-other-box end */
+.le-bottom-fixed{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.le-bg-w01{
+  background: rgba(255, 255, 255, 0.1);
+}
+.le_btn_captcha {
+  font-size: .13rem;
+  color: #FF0000;
+  padding: 0 .1rem;
+}
+
+.other-login-box .iconfont {
+  font-size: .12rem;
+  color: rgba(255, 255, 255, .6);
+}
+
+.sign-login-box {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+}
+
+.sign-login-item {
+  width: 50%;
+  margin: 0 -1px;
+  display: inline-block;
+  text-align: center;
+  line-height: .4rem;
+  height: .4rem;
+}
+
+.sign-login-item.boder-1px-right:before {
+  top: .1rem;
+}
+
+.le-login-other-box {
+  margin: .4rem auto 0;
+}
+
+.le-sign-other-box {
+  margin: .2rem auto 0;
+}
+
+.le-login-other-box .le-divider,
+.le-sign-other-box .le-divider {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.le-login-other-text {
+  margin-top: .2rem;
+}
+
+.le-other-items.boder-1px-bottom {
+  padding-bottom: .2rem;
+}
+
+.le-other-items.boder-1px-bottom:after {
+  width: 80%;
+  left: 10%;
+  -webkit-transform: scaleY(1);
+  transform: scaleY(1);
+}
+
+
+/* login css end */
+
+
+/*sign-container start*/
+
+.sign-container {
+  background-image: linear-gradient(0deg,#333752, #171C30);
+  padding-top: 25px;
+  height: 100%;
+}
+
+
+/*sign-container end*/
+
+.loginBgAnimation {
+  animation: loginBgA 16s infinite linear;
+  -moz-animation: loginBgA 16s infinite linear;
+  /* Firefox */
+  -webkit-animation: loginBgA 16s infinite linear;
+  /* Safari 和 Chrome */
+  -o-animation: loginBgA 16s infinite linear;
+  /* Opera */
+}
+
+
+/* login 主页面 背景切换动画 开始 */
+
+@keyframes loginBgA {
+  0% {
+    background-image: url(../../images/outside/bg_login1@2x.jpg)
+  }
+  10% {
+    background-image: url(../../images/outside/bg_login2@2x.jpg)
+  }
+  25% {
+    background-image: url(../../images/outside/bg_login2@2x.jpg)
+  }
+  35% {
+    background-image: url(../../images/outside/bg_login3@2x.jpg)
+  }
+  50% {
+    background-image: url(../../images/outside/bg_login3@2x.jpg)
+  }
+  60% {
+    background-image: url(../../images/outside/bg_login4@2x.jpg)
+  }
+  75% {
+    background-image: url(../../images/outside/bg_login4@2x.jpg)
+  }
+  85% {
+    background-image: url(../../images/outside/bg_login1@2x.jpg)
+  }
+  100% {
+    background-image: url(../../images/outside/bg_login1@2x.jpg)
+  }
+}
+
+@-webkit-keyframes loginBgA {
+  0% {
+    background-image: url(../../images/outside/bg_login1@2x.jpg)
+  }
+  10% {
+    background-image: url../../images/outside/bg_login2@2x.jpg)
+  }
+  25% {
+    background-image: url(../../images/outside/bg_login2@2x.jpg)
+  }
+  35% {
+    background-image: url(../../images/outside/bg_login3@2x.jpg)
+  }
+  50% {
+    background-image: url(../../images/outside/bg_login3@2x.jpg)
+  }
+  60% {
+    background-image: url(../../images/outside/bg_login4@2x.jpg)
+  }
+  75% {
+    background-image: url(../../images/outside/bg_login4@2x.jpg)
+  }
+  85% {
+    background-image: url(../../images/outside/bg_login1@2x.jpg)
+  }
+  100% {
+    background-image: url(../../images/outside/bg_login1@2x.jpg)
+  }
+}
+
+
+/* login 主页面 背景切换动画 结束 */
+
+
+/* 更改placeholder样式 start*/
+
+.login-form input::-webkit-input-placeholder,
+.login-form textarea::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, .3);
+}
+
+.login-form input:-moz-placeholder,
+.login-form textarea:-moz-placeholder {
+  color: rgba(0, 0, 0, .3);
+}
+
+.login-form input::-moz-placeholder,
+.login-form textarea::-moz-placeholder {
+  color: rgba(0, 0, 0, .3);
+}
+
+.login-form input:-ms-input-placeholder,
+.login-form textarea:-ms-input-placeholder {
+  color: rgba(0, 0, 0, .3);
+}
+
+
+/* 更改placeholder样式 end*/
+
+.weui_btn_dialog.primary {
+  color: #FF0000;
+}
+
+.weui_dialog {
+  border-radius: 0;
+}

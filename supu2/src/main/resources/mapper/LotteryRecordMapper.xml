@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customer.supu.mapper.LotteryRecordMapper">
+    <resultMap id="baseResultMap" type="LotteryRecord">
+        <id column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <result column="prizeId" property="prizeId"/>
+        <result column="status" property="status"/>
+        <result column="createDate" property="createDate"/>
+        <result column="lastModifiedDate" property="lastModifiedDate"/>
+        <result column="lastModifiedBy" property="lastModifiedBy"/>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from lottery_record where id = #{id}
+    </select>
+    <select id="selectPage" parameterType="LotteryRecord" resultMap="baseResultMap">
+        select * from lottery_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and userId = #{userId}
+            </if>
+            <if test="prizeId != null">
+                and prizeId = #{prizeId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createDate != null">
+                and createDate = #{createDate}
+            </if>
+            <if test="lastModifiedDate != null">
+                and lastModifiedDate = #{lastModifiedDate}
+            </if>
+            <if test="lastModifiedBy != null">
+                and lastModifiedBy = #{lastModifiedBy}
+            </if>
+        </where>
+        <if test="pageNo != null and pageSize != null">
+            limit #{offset},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="LotteryRecord" resultType="int">
+        select count(*) from lottery_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and userId = #{userId}
+            </if>
+            <if test="prizeId != null">
+                and prizeId = #{prizeId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createDate != null">
+                and createDate = #{createDate}
+            </if>
+            <if test="lastModifiedDate != null">
+                and lastModifiedDate = #{lastModifiedDate}
+            </if>
+            <if test="lastModifiedBy != null">
+                and lastModifiedBy = #{lastModifiedBy}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" parameterType="LotteryRecord">
+        insert into lottery_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="prizeId != null">
+                prizeId,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createDate != null">
+                createDate,
+            </if>
+            <if test="lastModifiedDate != null">
+                lastModifiedDate,
+            </if>
+            <if test="lastModifiedBy != null">
+                lastModifiedBy,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="prizeId != null">
+                #{prizeId},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="lastModifiedDate != null">
+                #{lastModifiedDate},
+            </if>
+            <if test="lastModifiedBy != null">
+                #{lastModifiedBy},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from lottery_record where id = #{id}
+    </delete>
+    <delete id="delete" parameterType="LotteryRecord">
+        delete from lottery_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and userId = #{userId}
+            </if>
+            <if test="prizeId != null">
+                and prizeId = #{prizeId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createDate != null">
+                and createDate = #{createDate}
+            </if>
+            <if test="lastModifiedDate != null">
+                and lastModifiedDate = #{lastModifiedDate}
+            </if>
+            <if test="lastModifiedBy != null">
+                and lastModifiedBy = #{lastModifiedBy}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="selectJoinNum" parameterType="map" resultType="int">
+        select count(*) from prize_store a join lottery_record b on a.id = b.prizeId and a.activityId = #{activityId} and b.userId = #{userId} and FROM_UNIXTIME(b.createDate/1000,'%Y-%m-%d') = #{nowDay}
+    </select>
+
+
+    <select id="selectMyPrize" parameterType="map" resultMap="baseResultMap">
+        select a.createDate,a.prizeId,b.id,b.name,b.path from lottery_record a join prize_store b ON a.prizeId=b.id and b.activityId =  #{activityId} and a.userId = #{userId} and b.type=1
+    </select>
+
+
+    <select id="selectPageWithPrize" parameterType="map" resultType="LotteryRecord">
+      SELECT
+        a.*,
+        b.MobilePhone,
+        c.activityId,
+        c.name,
+        c.path,
+        c.type
+    FROM
+        lottery_record a,
+        u_employee b,
+        prize_store c
+    WHERE
+        a.userId = b.EmployeeId
+    AND a.prizeId = c.id
+    AND c.activityId = #{activityId}
+     and c.type=1
+     <if test="status != null and status != 0">
+      and a.status = #{status}
+     </if>
+    <if test="mobilePhone != null">
+        and b.mobilePhone like CONCAT("%",  #{mobilePhone}, "%")
+    </if>
+    LIMIT #{offset}, #{limit}
+    </select>
+
+
+    <select id="selectCountWithPrize" parameterType="map" resultType="int">
+      SELECT
+        count(*)
+    FROM
+        lottery_record a,
+        u_employee b,
+        prize_store c
+    WHERE
+        a.userId = b.EmployeeId
+    AND a.prizeId = c.id
+    AND c.activityId = #{activityId}
+    and c.type=1
+    <if test="status != null and status != 0">
+        and a.status = #{status}
+    </if>
+    <if test="mobilePhone != null">
+        and b.mobilePhone like CONCAT("%",  #{mobilePhone}, "%")
+    </if>
+    </select>
+
+
+
+    <update id="update" parameterType="LotteryRecord">
+        update lottery_record
+        <set>
+            <if test="userId != null">
+                 userId = #{userId},
+            </if>
+            <if test="prizeId != null">
+                 prizeId = #{prizeId},
+            </if>
+            <if test="status != null">
+                 status = #{status},
+            </if>
+            <if test="createDate != null">
+                 createDate = #{createDate},
+            </if>
+            <if test="lastModifiedDate != null">
+                 lastModifiedDate = #{lastModifiedDate},
+            </if>
+            <if test="lastModifiedBy != null">
+                 lastModifiedBy = #{lastModifiedBy},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

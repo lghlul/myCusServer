@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.CourseExcTimeDao" >
+
+
+   <resultMap id="BaseCourseExcTimeMap" type="customer.supu.dto.CourseExcTimeDto" >
+
+   </resultMap>
+
+   	<!--根据精品团课id 查询某精品团课所有计划时间内的排期列表-->
+      <select id="selectExcListByCourseId" parameterType="Map" resultMap="BaseCourseExcTimeMap">
+
+
+			SELECT IF(a.startdate  &lt;= DATE_FORMAT(NOW(),'%Y-%m-%d') ,1,0) isEdit, a.* FROM course_exc_time a
+			WHERE 1=1 and a.enddate !=''
+			<if test="courseId != null" >
+				and a.courseId=#{courseId}
+			</if>
+			GROUP BY a.startdate ORDER BY a.startdate DESC;
+   	</select>
+
+<!-- 根据课程id查询该训练营的最大结束时间 -->
+   	  <select id="selectMaxDateByCourseId" parameterType="Map" resultType="customer.supu.dto.CourseExcTimeDto">
+			SELECT MAX(enddate)enddate FROM  course_exc_time WHERE courseId=#{courseId}
+   	</select>
+
+
+   	  <!--根据精品团课id 查询精品团课某个计划时间内的  详细排期-->
+      <select id="selectExcListByWeek" parameterType="Map" resultMap="BaseCourseExcTimeMap">
+			SELECT a.* FROM course_exc_time a
+			WHERE 1=1
+			<if test="courseId != null" >
+				and a.courseId=#{courseId}
+			</if>
+			<if test="startdate != null" >
+				and a.startdate=#{startdate}
+			</if>
+			GROUP BY a.startdate,a.`week`
+   	</select>
+
+
+<!--根据courseid 查询精品团课排期 -->
+<select id="selectCourseExcTimeList" parameterType="map" resultMap="BaseCourseExcTimeMap">
+		SELECT a.* FROM
+		(SELECT cet.*,GROUP_CONCAT(DISTINCT cet.week ORDER BY cet.week ASC)concatweek FROM  course_exc_time cet
+		WHERE cet.enddate &gt;= DATE_FORMAT(NOW(),'%Y-%m-%d')
+		<if test="courseId != null ">
+			  and cet.courseId=#{courseId}
+		</if>
+		<if test="startdate != null ">
+			  and cet.startdate=#{startdate}
+		</if>
+		<if test="enddate != null ">
+			  and cet.enddate=#{enddate}
+		</if>
+		GROUP BY cet.starttime,cet.endtime)a ORDER BY a.concatweek ASC;
+
+</select>
+</mapper>

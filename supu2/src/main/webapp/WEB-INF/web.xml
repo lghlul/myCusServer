@@ -1,0 +1,172 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+   <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+       		    classpath:spring/applicationContext-*.xml
+       			classpath*:/shiro/applicationContext-shiro.xml
+        </param-value>
+
+    </context-param>
+
+<!-- 配置springmvc的dispatchServlet的处理类 -->
+  <servlet>
+    <servlet-name>srpingDispatherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- 配置DispatchServlet的初始化参数,加载配置文件(配置处理映射器,适配器)springmvc配置文件的位置和名称 -->
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/springmvc.xml</param-value>
+    </init-param>
+    <!-- 可以自定义servlet.xml配置文件的位置和名称，默认为WEB-INF目录下，名称为-->
+    <!--[<servlet-name>]-servlet.xml，如SpringMVC-servlet.xml -->
+    <!-- <init-param>
+       <param-name>contextConfigLocation</param-name>
+       <param-value>/WEB-INF/SpringMVC-servlet.xml</param-value>
+    </init-param> -->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+
+<!-- 配置Spring上下文监听器 -->
+    <listener>
+        <listener-class>customer.supu.listener.MyContextLoaderListener</listener-class>
+    </listener>
+
+<!--     <listener>
+     <listener-class>official.website.listener.SessionChangeListener</listener-class>
+   </listener> -->
+
+        <!-- listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener> -->
+
+  <!-- 配置springmvc的DispathServlet的映射匹配URL -->
+  <servlet-mapping>
+    <servlet-name>srpingDispatherServlet</servlet-name>
+    <!--
+        第一种: *.action，访问以.action结尾 由DispatcherServlet进行解析
+        第二种: /. 所有访问的地址都由DispatcherServlet进行解析，对于静态文件的解析需要配置不让DispatcherServlet进行解析
+        第三种: /*  这种配置不对，使用这种配置，最终要转发到一个jsp页面时,仍然会由DispatcherServlet解析jsp地址，不能根据jsp页面找到handler，会报错
+     -->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+	<servlet>
+		<servlet-name>TopayServlet</servlet-name>
+		<servlet-class>customer.supu.common.utils.pay.pay.servlet.TopayServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TopayServlet</servlet-name>
+		<url-pattern>/topayServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>NotifyServlet</servlet-name>
+		<servlet-class>customer.supu.common.utils.pay.pay.servlet.NotifyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NotifyServlet</servlet-name>
+		<url-pattern>/notifyServlet</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>GetWechatUserInfo</servlet-name>
+		<servlet-class>customer.supu.common.utils.pay.pay.servlet.GetWechatUserInfo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetWechatUserInfo</servlet-name>
+		<url-pattern>/getWechatUserInfo</url-pattern>
+	</servlet-mapping>
+	<!-- servlet-mapping>
+	    <servlet-name>default</servlet-name>
+	    <url-pattern>*.css</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>default</servlet-name>
+	    <url-pattern>*.js</url-pattern>
+	</servlet-mapping> -->
+	<!-- 能够访问js,css等资源 -->
+	<!-- servlet-mapping>
+	    <servlet-name>default</servlet-name>
+	    <url-pattern>/assets/*</url-pattern>
+	</servlet-mapping> -->
+
+
+	 <!-- shiro 安全过滤器-->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <async-supported>true</async-supported>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	<!--刷新Introspector 防止内存泄露 -->
+	<listener>
+		<listener-class>
+			org.springframework.web.util.IntrospectorCleanupListener
+		</listener-class>
+	</listener>
+
+	<!-- 配置Spring字符编码过滤器 -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+	 <servlet>
+	    <servlet-name>kaptcha</servlet-name>
+	    <servlet-class>
+	        com.google.code.kaptcha.servlet.KaptchaServlet
+	    </servlet-class>
+		<!--  <init-param>
+		    <param-name>kaptcha.border</param-name>
+		    <param-value>no</param-value>
+		</init-param>-->
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>kaptcha</servlet-name>
+	    <url-pattern>/images/kaptcha.jpg</url-pattern>
+	</servlet-mapping>
+
+    <!-- 过滤器 -->
+	 <filter>
+	    <filter-name>sessionFilter</filter-name>
+	    <filter-class>customer.supu.filter.OutsideLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>sessionFilter</filter-name>
+        <url-pattern>/outside/aboutClass/*</url-pattern>
+        <url-pattern>/outside/myCourse/*</url-pattern>
+        <url-pattern>/outside/memberCard/*</url-pattern>
+       <url-pattern>/outside/personal/*</url-pattern>
+        <url-pattern>/outside/activity/*</url-pattern>
+
+	</filter-mapping>
+  <!--<welcome-file-list>-->
+    <!--<welcome-file>index.jsp</welcome-file>-->
+  <!--</welcome-file-list>-->
+</web-app>

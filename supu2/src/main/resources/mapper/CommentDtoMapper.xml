@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.CommentDao" >
+ <resultMap id="CommentBasicMap" type="customer.supu.po.Comment" >
+
+  </resultMap>
+  <resultMap id="CommentDtoMap" type="customer.supu.dto.CommentDto" extends="CommentBasicMap">
+
+  </resultMap>
+
+
+	 <select id="selectCommentByContion" parameterType="customer.supu.dto.CommentDto" resultMap="CommentDtoMap">
+
+			  SELECT c.*,u.userName appraiserName, ch.coachName,s.storeName,b.title courseTypeName FROM COMMENT c
+			  LEFT JOIN u_employee u ON c.appraiserCode=u.eCode
+				LEFT JOIN coach ch  ON ch.id=c.coachs
+			  LEFT JOIN  store s ON s.id=c.stores
+			  	LEFT JOIN (SELECT * FROM basicdata WHERE basictype='courseFitDemand')b ON b.basicvalue=c.courseType
+
+
+			  WHERE 1=1
+			   <if test="status != null and status !=''">
+			  	 and c.`status`=#{status}
+			  </if>
+			  <if test="startlevel != null and startlevel !=''">
+			  	 and c.startlevel=#{startlevel}
+			  </if>
+			  <if test="stores != null and stores !=''">
+			  	 and c.stores=#{stores}
+			  </if>
+			  <if test="coachs != null and coachs !=''">
+			  	 and c.coachs=#{coachs}
+			   </if>
+			  <if test="startTime != null and startTime !=''">
+			  		 and c.addTime &gt; #{startTime}
+			  </if>
+			   <if test="endTime != null and endTime !=''">
+			  		 and c.addTime &lt; #{endTime}
+			  </if>
+			  <if test="start != null and end !=''">
+			  		 limit #{start},#{end}
+			  </if>
+
+
+	</select>
+
+	<!-- 更新状态 -->
+	<select id="updStatus" parameterType="map">
+			UPDATE COMMENT SET STATUS=#{status}
+				WHERE id IN
+				<foreach collection="ids" item="item" index="index"
+		            open="(" close=")" separator=",">
+		            #{item}
+        		</foreach>
+	</select>
+	<!--  前端分页 课程，私教，门店的评价的分页查询    -->
+	<select id="selectCommentByranchID" parameterType="customer.supu.dto.CommentDto" resultType="customer.supu.dto.CommentDto">
+		select  
+			c.id,c.source,c.sourceID,c.addTime,c.auditTime,c.content,u.userName,u.EmployeeId ,u.head,u.CnName as appraiserName,c.startlevel
+		from 
+			u_employee u LEFT JOIN comment c 
+		ON 
+			c.appraiserCode=u.EmployeeId 
+		where 
+			source=#{source } and sourceID=#{sourceID } and c.status = 1 ORDER BY addTime desc
+		LIMIT 
+			#{limitstart },#{limitend }
+	</select>
+	
+	<!--  前端分页 课程，私教，门店的评价的分页查询 ,,,,,,计数   -->
+	<select id="selectCommentCountByranchID" parameterType="customer.supu.dto.CommentDto" resultType="java.lang.Integer">
+		select  
+			count(1)
+		from 
+			u_employee u LEFT JOIN comment c 
+		ON 
+			c.appraiserCode=u.EmployeeId 
+		where 
+			source=#{source } and sourceID=#{sourceID } 
+	</select>
+	
+	<!-- 查询平均分评论人数   -->
+	<select id="selectCommentgradePN" parameterType="customer.supu.dto.CommentDto" resultType="customer.supu.dto.CommentDto">
+		select 
+			count(*) as count,avg(startlevel) as number 
+		from 
+			comment 
+		where 
+			source=#{source } and sourceID=#{sourceID } 
+	</select>
+	
+	<insert id="insertComment"  parameterType="customer.supu.dto.CommentDto" useGeneratedKeys="true" keyProperty="id">
+	insert into 
+		comment 
+	SET 
+	<if test="source != null and source !=''">
+		source=#{source },
+	</if>
+	<if test="status != null and status !=''">
+		status=#{status },
+	</if>
+	<if test="startlevel != null and startlevel !=''">
+		startlevel=#{startlevel },
+	</if>
+	<if test="sourceID != null and sourceID !=''">
+		sourceID=#{sourceID },
+	</if>
+	<if test="appraisercode != null and appraisercode !=''">
+		appraiserCode=#{appraisercode },
+	</if>
+	<if test="stores != null and stores !=''">
+		stores=#{stores },
+	</if>
+	<if test="coachs != null and coachs !=''">
+		coachs=#{coachs },
+	</if>
+	<if test="content != null and content !=''">
+		content=#{content },
+	</if>
+	<if test="coursetype != null and coursetype !=''">
+		courseType=#{coursetype },
+	</if>
+	<if test="audittimes != null and audittimes !=''">
+		auditTime=#{audittimes },
+	</if>
+	<if test="addtimes != null and addtimes !=''">
+		addTime=#{addtimes }
+	</if>
+	
+	
+	
+	</insert>
+	
+</mapper>

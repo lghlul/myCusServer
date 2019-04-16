@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.EmployeeAppointCourseDao" >
+  <resultMap id="BaseResultMap" type="customer.supu.dto.EmployeeAppointCourseDto" >
+
+  </resultMap>
+
+
+<!--查询所有的-->
+	<select id="selectEmpAppCourseByList" parameterType="Map" resultMap="BaseResultMap">
+	<!-- 私教课 -->
+		SELECT * FROM
+		(SELECT ac.id,cc.coachid,ac.addtime,ac.`status`,
+		ac.courseId,ac.`userId`,ac.type,ac.appointtime,ac.starttime,ac.`endTime`,
+		(SELECT b.ecode FROM u_employee b WHERE b.employeeid=ac.`userId`) username,
+		(SELECT c.storename FROM store c WHERE c.id=ac.storeid) storename,
+		(SELECT coursename FROM course_pri_coach WHERE course_pri_coach.id=ac.courseid) coursename
+		FROM employee_appoint_course ac ,course_coach cc
+		WHERE cc.`courseId`=ac.`courseId` AND ac.type=0 AND cc.type=0
+
+		UNION ALL
+<!-- 工作室和基础团课 -->
+		SELECT ac.id,cc.coachid,ac.addtime,ac.`status`,
+		ac.courseId,ac.`userId`,ac.type,ac.appointtime,ac.starttime,ac.`endTime`,
+		(SELECT b.ecode FROM u_employee b WHERE b.employeeid=ac.`userId`) username,
+		(SELECT c.storename FROM store c WHERE c.id=ac.storeid) storename,
+		(SELECT coursename FROM course_exc_group WHERE course_exc_group.id=ac.courseid) coursename
+		FROM employee_appoint_course ac ,course_coach cc
+		WHERE cc.`courseId`=ac.`courseId` AND ac.type !=0 AND cc.type!=0
+		<if test="coachId !=null">
+			and cc.coachId=#{coachId}
+		</if>
+		GROUP BY ac.id )dt
+		where 1=1
+		<if test="username !=null and username!='' ">
+			and dt.username like CONCAT("%",#{username},"%")
+		</if>
+		<if test="coursename !=null and coursename !='' ">
+			and dt.coursename like CONCAT("%",#{coursename},"%")
+		</if>
+		<if test="coachId !=null">
+			and dt.coachId=#{coachId}
+		</if>
+		<if test="type !=null">
+			and dt.type=#{type}
+		</if>
+		<if test="status !=null">
+			and dt.status=#{status}
+		</if>
+		<if test="ids !=null">
+			and dt.id in
+			 <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+	            #{item}
+	        </foreach>
+
+		</if>
+		ORDER BY dt.addtime DESC
+		<if test="start != null and end !=null ">
+				limit #{start},#{end}
+		</if>
+	</select>
+
+
+<!--查询所有的-->
+	<select id="countByList" parameterType="Map" resultType="java.lang.Integer">
+		SELECT count(*) FROM
+		(SELECT ac.id,cc.coachid,ac.addtime,ac.`status`,
+		ac.courseId,ac.`userId`,ac.type,ac.appointtime,ac.starttime,ac.`endTime`,
+		(SELECT b.ecode FROM u_employee b WHERE b.employeeid=ac.`userId`) username,
+		(SELECT c.storename FROM store c WHERE c.id=ac.storeid) storename,
+		(SELECT coursename FROM course_pri_coach WHERE course_pri_coach.id=ac.courseid) coursename
+		FROM employee_appoint_course ac ,course_coach cc
+		WHERE cc.`courseId`=ac.`courseId` AND ac.type=0 AND cc.type=0
+
+		UNION ALL
+
+		SELECT ac.id,cc.coachid,ac.addtime,ac.`status`,
+		ac.courseId,ac.`userId`,ac.type,ac.appointtime,ac.starttime,ac.`endTime`,
+		(SELECT b.ecode FROM u_employee b WHERE b.employeeid=ac.`userId`) username,
+		(SELECT c.storename FROM store c WHERE c.id=ac.storeid) storename,
+		(SELECT coursename FROM course_exc_group WHERE course_exc_group.id=ac.courseid) coursename
+		FROM employee_appoint_course ac ,course_coach cc
+		WHERE cc.`courseId`=ac.`courseId` AND ac.type !=0 AND cc.type!=0
+		GROUP BY ac.id )dt
+		where 1=1
+		<if test="username !=null and username!='' ">
+			and dt.username like CONCAT("%",#{username},"%")
+		</if>
+		<if test="coursename !=null and coursename !='' ">
+			and dt.coursename like CONCAT("%",#{coursename},"%")
+		</if>
+		<if test="coachId !=null">
+			and dt.coachId=#{coachId}
+		</if>
+		<if test="status !=null">
+			and dt.status=#{status}
+		</if>
+		<if test="type !=null">
+			and dt.type=#{type}
+		</if>
+	</select>
+
+
+</mapper>

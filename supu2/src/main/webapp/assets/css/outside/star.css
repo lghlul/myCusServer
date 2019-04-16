@@ -1,0 +1,10 @@
+
+.stars span {
+    display: inline-block;
+    background-image: url('../images/leoao-coach-mstar.png');
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    background-size: 1.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+}

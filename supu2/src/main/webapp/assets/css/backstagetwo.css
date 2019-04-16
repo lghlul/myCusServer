@@ -1,0 +1,250 @@
+body{
+    color: #666;
+}
+.breadcrumb li a{
+    color: #FF0000;
+}
+.step{
+    background-color: #fff;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+.stepOne,.step-arrow-one,.stepTwo,.step-arrow-two,.stepThree{
+    display: inline-block;
+    height: 60px;
+}
+.stepOne{
+    color: #FF0000;
+    padding: 0px 5px;
+    margin: 0 10px;
+}
+.stepOne i{
+    font-size: 34px;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+.stepOne span{
+    font-size: 18px;
+}
+.step-arrow-one{
+    margin: 0 10px;
+    color: #FF0000;
+}
+.step-arrow-one i{
+    font-size: 20px;
+
+}
+.stepTwo{
+    color: #FF0000;
+    padding: 0px 5px;
+    margin: 0 10px;
+}
+.stepTwo i{
+    font-size: 34px;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+.stepTwo span{
+    font-size: 18px;
+}
+.step-arrow-two{
+    margin: 0 10px;
+    color: #A5B0C4;
+}
+.step-arrow-two i{
+    font-size: 20px;
+}
+.stepThree{
+    color: #A5B0C4;
+    padding: 0px 5px;
+    margin: 0 10px;
+}
+.stepThree i{
+    font-size: 34px;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+.stepThree span{
+    font-size: 18px;
+}
+.ph-backstage{
+    top: 25px;
+}
+.panel-header p{
+    display: inline-block;
+    padding-left: 5px;
+}
+.ph-reset{
+    position: absolute;
+    top: 20px;
+    left: 500px;
+}
+.reset-edit{
+    background-color: #FF9900;
+    color: #fff;
+}
+.reset-edit:hover{
+    color: #fff;
+}
+.service {
+    margin-top: 20px;
+}
+.service span {
+    color: #FD5F5E;
+}
+.service .form-control {
+    display: inline-block;
+    width: 670px;
+}
+.subtitle {
+    margin-top: 20px;
+}
+.subtitle span {
+    margin-left: 20px;
+}
+.subtitle .form-control {
+    display: inline-block;
+    width: 670px;
+}
+.primary{
+    margin-top: 20px;
+}
+.primary span {
+    margin-left: 25px;
+    color: #FD5F5E;
+}
+.primary-right{
+    display: inline-block;
+    margin-left: 5px;
+}
+.pr-upload{
+    width: 260px;
+    height: 160px;
+    text-align: center;
+    border: 1px dashed #FF0000;
+    padding-top: 20px;
+    position: relative;
+    margin-bottom: 15px;
+}
+/*.pr-upload img{*/
+    /*width: 260px;*/
+    /*height: 160px;*/
+/*}*/
+.pr-upload i.icon-img{
+    font-size: 50px;
+}
+.pr-upload i.icon-add{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: #FF0000;
+}
+.primary-right>p{
+    color: #949AA6;
+}
+.primary-left{
+    display: inline-block;
+    position: relative;
+    top: -200px;
+    left: 0px;
+}
+.service-price{
+    margin-top: 20px;
+}
+.service-price span{
+    color: #FD5F5E;
+}
+.service-price .form-control{
+    display: inline-block;
+    width: 260px;
+}
+.service-address{
+    margin-top: 20px;
+}
+.service-address>span{
+    color: #FD5F5E;
+}
+.service-detail{
+    margin-top: 20px;
+}
+.sd-left{
+    display: inline-block;
+    position: relative;
+    top: -38px;
+    left: 0px;
+}
+.sd-left span{
+    color: #FD5F5E;
+}
+.sd-right{
+    display: inline-block;
+    margin-left: 2px;
+}
+.pc{
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #D2D4E0;
+    cursor: pointer;
+}
+.mobile{
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #D2D4E0;
+    cursor: pointer;
+}
+.different{
+    background-color: #FF0000;
+    color: #ffffff;
+    border: 1px solid #FF0000;
+}
+.sdr-main textarea {
+    margin-top: 10px;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #555555;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+
+.footer-button{
+    background-color: #fff;
+    padding-bottom: 60px;
+    padding-left: 125px;
+}
+.footer-button>a{
+    border: 1px solid #D2D4E0;
+    color: #666;
+}
+.submit{
+    display: inline-block;
+    margin-top: -1px;
+    margin-left: 20px;
+}
+.submit input{
+    background-color: #FF0000;
+    color: #fff;
+}
+/*.submit a:hover{*/
+    /*color: #fff;*/
+/*}*/
+.submit input:hover{
+    color: #fff;
+}

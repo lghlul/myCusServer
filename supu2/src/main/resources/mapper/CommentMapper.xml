@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="customer.supu.po.Comment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="appraiserCode" property="appraisercode" jdbcType="VARCHAR" />
+    <result column="stores" property="stores" jdbcType="VARCHAR" />
+    <result column="coachs" property="coachs" jdbcType="VARCHAR" />
+    <result column="courseType" property="coursetype" jdbcType="VARCHAR" />
+    <result column="startlevel" property="startlevel" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="addTime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="auditTime" property="audittime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="customer.supu.po.Comment" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, appraiserCode, stores, coachs, courseType, startlevel, status, addTime, auditTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="customer.supu.po.CommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="customer.supu.po.CommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="customer.supu.po.CommentExample" >
+    delete from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="customer.supu.po.Comment" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into comment (appraiserCode, stores, coachs, 
+      courseType, startlevel, status, 
+      addTime, auditTime, content
+      )
+    values (#{appraisercode,jdbcType=VARCHAR}, #{stores,jdbcType=VARCHAR}, #{coachs,jdbcType=VARCHAR}, 
+      #{coursetype,jdbcType=VARCHAR}, #{startlevel,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{audittime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="customer.supu.po.Comment" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appraisercode != null" >
+        appraiserCode,
+      </if>
+      <if test="stores != null" >
+        stores,
+      </if>
+      <if test="coachs != null" >
+        coachs,
+      </if>
+      <if test="coursetype != null" >
+        courseType,
+      </if>
+      <if test="startlevel != null" >
+        startlevel,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="addtime != null" >
+        addTime,
+      </if>
+      <if test="audittime != null" >
+        auditTime,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appraisercode != null" >
+        #{appraisercode,jdbcType=VARCHAR},
+      </if>
+      <if test="stores != null" >
+        #{stores,jdbcType=VARCHAR},
+      </if>
+      <if test="coachs != null" >
+        #{coachs,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetype != null" >
+        #{coursetype,jdbcType=VARCHAR},
+      </if>
+      <if test="startlevel != null" >
+        #{startlevel,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audittime != null" >
+        #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="customer.supu.po.CommentExample" resultType="java.lang.Integer" >
+    select count(*) from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update comment
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.appraisercode != null" >
+        appraiserCode = #{record.appraisercode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stores != null" >
+        stores = #{record.stores,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coachs != null" >
+        coachs = #{record.coachs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursetype != null" >
+        courseType = #{record.coursetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startlevel != null" >
+        startlevel = #{record.startlevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.addtime != null" >
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.audittime != null" >
+        auditTime = #{record.audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update comment
+    set id = #{record.id,jdbcType=INTEGER},
+      appraiserCode = #{record.appraisercode,jdbcType=VARCHAR},
+      stores = #{record.stores,jdbcType=VARCHAR},
+      coachs = #{record.coachs,jdbcType=VARCHAR},
+      courseType = #{record.coursetype,jdbcType=VARCHAR},
+      startlevel = #{record.startlevel,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      auditTime = #{record.audittime,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update comment
+    set id = #{record.id,jdbcType=INTEGER},
+      appraiserCode = #{record.appraisercode,jdbcType=VARCHAR},
+      stores = #{record.stores,jdbcType=VARCHAR},
+      coachs = #{record.coachs,jdbcType=VARCHAR},
+      courseType = #{record.coursetype,jdbcType=VARCHAR},
+      startlevel = #{record.startlevel,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      auditTime = #{record.audittime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="customer.supu.po.Comment" >
+    update comment
+    <set >
+      <if test="appraisercode != null" >
+        appraiserCode = #{appraisercode,jdbcType=VARCHAR},
+      </if>
+      <if test="stores != null" >
+        stores = #{stores,jdbcType=VARCHAR},
+      </if>
+      <if test="coachs != null" >
+        coachs = #{coachs,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetype != null" >
+        courseType = #{coursetype,jdbcType=VARCHAR},
+      </if>
+      <if test="startlevel != null" >
+        startlevel = #{startlevel,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audittime != null" >
+        auditTime = #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="customer.supu.po.Comment" >
+    update comment
+    set appraiserCode = #{appraisercode,jdbcType=VARCHAR},
+      stores = #{stores,jdbcType=VARCHAR},
+      coachs = #{coachs,jdbcType=VARCHAR},
+      courseType = #{coursetype,jdbcType=VARCHAR},
+      startlevel = #{startlevel,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      auditTime = #{audittime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="customer.supu.po.Comment" >
+    update comment
+    set appraiserCode = #{appraisercode,jdbcType=VARCHAR},
+      stores = #{stores,jdbcType=VARCHAR},
+      coachs = #{coachs,jdbcType=VARCHAR},
+      courseType = #{coursetype,jdbcType=VARCHAR},
+      startlevel = #{startlevel,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      auditTime = #{audittime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+  <select id="selectCommentWithStartLevel" resultType="map">
+        SELECT
+            count(*) AS commentCount,
+            sum(startlevel) as totalStar
+        FROM
+            comment
+        WHERE
+            source = #{source}
+        AND sourceID = #{sourceID}
+  </select>
+</mapper>

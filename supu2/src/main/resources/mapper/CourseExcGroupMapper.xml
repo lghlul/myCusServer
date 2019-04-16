@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.mapper.CourseExcGroupMapper" >
+  <resultMap id="BaseResultMap" type="customer.supu.po.CourseExcGroup" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="courseName" property="coursename" jdbcType="VARCHAR" />
+    <result column="courseType" property="coursetype" jdbcType="INTEGER" />
+    <result column="people" property="people" jdbcType="INTEGER" />
+    <result column="maxPeople" property="maxpeople" jdbcType="INTEGER" />
+    <result column="courseDes" property="coursedes" jdbcType="VARCHAR" />
+    <result column="stores" property="stores" jdbcType="VARCHAR" />
+    <result column="coachs" property="coachs" jdbcType="VARCHAR" />
+    <result column="courseImg" property="courseimg" jdbcType="VARCHAR" />
+    <result column="courseTimeType" property="coursetimetype" jdbcType="INTEGER" />
+    <result column="startHour" property="starthour" jdbcType="VARCHAR" />
+    <result column="startMin" property="startmin" jdbcType="VARCHAR" />
+    <result column="endHour" property="endhour" jdbcType="VARCHAR" />
+    <result column="endMin" property="endmin" jdbcType="VARCHAR" />
+    <result column="courseExpStart" property="courseexpstart" jdbcType="DATE" />
+    <result column="startDate" property="startdate" jdbcType="DATE" />
+    <result column="endDate" property="enddate" jdbcType="DATE" />
+    <result column="week" property="week" jdbcType="VARCHAR" />
+    <result column="startMonth" property="startmonth" jdbcType="VARCHAR" />
+    <result column="endMonth" property="endmonth" jdbcType="VARCHAR" />
+    <result column="courseAmount" property="courseamount" jdbcType="DOUBLE" />
+    <result column="totalHours" property="totalhours" jdbcType="DOUBLE" />
+    <result column="courseTab" property="coursetab" jdbcType="INTEGER" />
+    <result column="courseTitle" property="coursetitle" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="realseTime" property="realsetime" jdbcType="TIMESTAMP" />
+    <result column="realsePeople" property="realsepeople" jdbcType="VARCHAR" />
+    <result column="addTime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="addPeople" property="addpeople" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="customer.supu.po.CourseExcGroupWithBLOBs" extends="BaseResultMap" >
+    <result column="courseDetail" property="coursedetail" jdbcType="LONGVARCHAR" />
+    <result column="tabDetail" property="tabdetail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, courseName, courseType, people, maxPeople, courseDes, stores, coachs, courseImg, 
+    courseTimeType, startHour, startMin, endHour, endMin, courseExpStart, startDate, 
+    endDate, week, startMonth, endMonth, courseAmount, totalHours, courseTab, courseTitle, 
+    status, realseTime, realsePeople, addTime, addPeople, type
+  </sql>
+  <sql id="Blob_Column_List" >
+    courseDetail, tabDetail
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="customer.supu.po.CourseExcGroupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from course_exc_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="customer.supu.po.CourseExcGroupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from course_exc_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from course_exc_group
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course_exc_group
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="customer.supu.po.CourseExcGroupExample" >
+    delete from course_exc_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="customer.supu.po.CourseExcGroupWithBLOBs" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course_exc_group (courseName, courseType, people, 
+      maxPeople, courseDes, stores, 
+      coachs, courseImg, courseTimeType, 
+      startHour, startMin, endHour, 
+      endMin, courseExpStart, startDate, 
+      endDate, week, startMonth, 
+      endMonth, courseAmount, totalHours, 
+      courseTab, courseTitle, status, 
+      realseTime, realsePeople, addTime, 
+      addPeople, type, courseDetail, 
+      tabDetail)
+    values (#{coursename,jdbcType=VARCHAR}, #{coursetype,jdbcType=INTEGER}, #{people,jdbcType=INTEGER}, 
+      #{maxpeople,jdbcType=INTEGER}, #{coursedes,jdbcType=VARCHAR}, #{stores,jdbcType=VARCHAR}, 
+      #{coachs,jdbcType=VARCHAR}, #{courseimg,jdbcType=VARCHAR}, #{coursetimetype,jdbcType=INTEGER}, 
+      #{starthour,jdbcType=VARCHAR}, #{startmin,jdbcType=VARCHAR}, #{endhour,jdbcType=VARCHAR}, 
+      #{endmin,jdbcType=VARCHAR}, #{courseexpstart,jdbcType=DATE}, #{startdate,jdbcType=DATE}, 
+      #{enddate,jdbcType=DATE}, #{week,jdbcType=VARCHAR}, #{startmonth,jdbcType=VARCHAR}, 
+      #{endmonth,jdbcType=VARCHAR}, #{courseamount,jdbcType=DOUBLE}, #{totalhours,jdbcType=DOUBLE}, 
+      #{coursetab,jdbcType=INTEGER}, #{coursetitle,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{realsetime,jdbcType=TIMESTAMP}, #{realsepeople,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{addpeople,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{coursedetail,jdbcType=LONGVARCHAR}, 
+      #{tabdetail,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="customer.supu.po.CourseExcGroupWithBLOBs" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course_exc_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coursename != null" >
+        courseName,
+      </if>
+      <if test="coursetype != null" >
+        courseType,
+      </if>
+      <if test="people != null" >
+        people,
+      </if>
+      <if test="maxpeople != null" >
+        maxPeople,
+      </if>
+      <if test="coursedes != null" >
+        courseDes,
+      </if>
+      <if test="stores != null" >
+        stores,
+      </if>
+      <if test="coachs != null" >
+        coachs,
+      </if>
+      <if test="courseimg != null" >
+        courseImg,
+      </if>
+      <if test="coursetimetype != null" >
+        courseTimeType,
+      </if>
+      <if test="starthour != null" >
+        startHour,
+      </if>
+      <if test="startmin != null" >
+        startMin,
+      </if>
+      <if test="endhour != null" >
+        endHour,
+      </if>
+      <if test="endmin != null" >
+        endMin,
+      </if>
+      <if test="courseexpstart != null" >
+        courseExpStart,
+      </if>
+      <if test="startdate != null" >
+        startDate,
+      </if>
+      <if test="enddate != null" >
+        endDate,
+      </if>
+      <if test="week != null" >
+        week,
+      </if>
+      <if test="startmonth != null" >
+        startMonth,
+      </if>
+      <if test="endmonth != null" >
+        endMonth,
+      </if>
+      <if test="courseamount != null" >
+        courseAmount,
+      </if>
+      <if test="totalhours != null" >
+        totalHours,
+      </if>
+      <if test="coursetab != null" >
+        courseTab,
+      </if>
+      <if test="coursetitle != null" >
+        courseTitle,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="realsetime != null" >
+        realseTime,
+      </if>
+      <if test="realsepeople != null" >
+        realsePeople,
+      </if>
+      <if test="addtime != null" >
+        addTime,
+      </if>
+      <if test="addpeople != null" >
+        addPeople,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="coursedetail != null" >
+        courseDetail,
+      </if>
+      <if test="tabdetail != null" >
+        tabDetail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coursename != null" >
+        #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetype != null" >
+        #{coursetype,jdbcType=INTEGER},
+      </if>
+      <if test="people != null" >
+        #{people,jdbcType=INTEGER},
+      </if>
+      <if test="maxpeople != null" >
+        #{maxpeople,jdbcType=INTEGER},
+      </if>
+      <if test="coursedes != null" >
+        #{coursedes,jdbcType=VARCHAR},
+      </if>
+      <if test="stores != null" >
+        #{stores,jdbcType=VARCHAR},
+      </if>
+      <if test="coachs != null" >
+        #{coachs,jdbcType=VARCHAR},
+      </if>
+      <if test="courseimg != null" >
+        #{courseimg,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetimetype != null" >
+        #{coursetimetype,jdbcType=INTEGER},
+      </if>
+      <if test="starthour != null" >
+        #{starthour,jdbcType=VARCHAR},
+      </if>
+      <if test="startmin != null" >
+        #{startmin,jdbcType=VARCHAR},
+      </if>
+      <if test="endhour != null" >
+        #{endhour,jdbcType=VARCHAR},
+      </if>
+      <if test="endmin != null" >
+        #{endmin,jdbcType=VARCHAR},
+      </if>
+      <if test="courseexpstart != null" >
+        #{courseexpstart,jdbcType=DATE},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=DATE},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=DATE},
+      </if>
+      <if test="week != null" >
+        #{week,jdbcType=VARCHAR},
+      </if>
+      <if test="startmonth != null" >
+        #{startmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="endmonth != null" >
+        #{endmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="courseamount != null" >
+        #{courseamount,jdbcType=DOUBLE},
+      </if>
+      <if test="totalhours != null" >
+        #{totalhours,jdbcType=DOUBLE},
+      </if>
+      <if test="coursetab != null" >
+        #{coursetab,jdbcType=INTEGER},
+      </if>
+      <if test="coursetitle != null" >
+        #{coursetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="realsetime != null" >
+        #{realsetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realsepeople != null" >
+        #{realsepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addpeople != null" >
+        #{addpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="coursedetail != null" >
+        #{coursedetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tabdetail != null" >
+        #{tabdetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="customer.supu.po.CourseExcGroupExample" resultType="java.lang.Integer" >
+    select count(*) from course_exc_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update course_exc_group
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursename != null" >
+        courseName = #{record.coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursetype != null" >
+        courseType = #{record.coursetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.people != null" >
+        people = #{record.people,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxpeople != null" >
+        maxPeople = #{record.maxpeople,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursedes != null" >
+        courseDes = #{record.coursedes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stores != null" >
+        stores = #{record.stores,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coachs != null" >
+        coachs = #{record.coachs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseimg != null" >
+        courseImg = #{record.courseimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursetimetype != null" >
+        courseTimeType = #{record.coursetimetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.starthour != null" >
+        startHour = #{record.starthour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startmin != null" >
+        startMin = #{record.startmin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endhour != null" >
+        endHour = #{record.endhour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endmin != null" >
+        endMin = #{record.endmin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseexpstart != null" >
+        courseExpStart = #{record.courseexpstart,jdbcType=DATE},
+      </if>
+      <if test="record.startdate != null" >
+        startDate = #{record.startdate,jdbcType=DATE},
+      </if>
+      <if test="record.enddate != null" >
+        endDate = #{record.enddate,jdbcType=DATE},
+      </if>
+      <if test="record.week != null" >
+        week = #{record.week,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startmonth != null" >
+        startMonth = #{record.startmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endmonth != null" >
+        endMonth = #{record.endmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseamount != null" >
+        courseAmount = #{record.courseamount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalhours != null" >
+        totalHours = #{record.totalhours,jdbcType=DOUBLE},
+      </if>
+      <if test="record.coursetab != null" >
+        courseTab = #{record.coursetab,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursetitle != null" >
+        courseTitle = #{record.coursetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.realsetime != null" >
+        realseTime = #{record.realsetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.realsepeople != null" >
+        realsePeople = #{record.realsepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null" >
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addpeople != null" >
+        addPeople = #{record.addpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursedetail != null" >
+        courseDetail = #{record.coursedetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.tabdetail != null" >
+        tabDetail = #{record.tabdetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update course_exc_group
+    set id = #{record.id,jdbcType=INTEGER},
+      courseName = #{record.coursename,jdbcType=VARCHAR},
+      courseType = #{record.coursetype,jdbcType=INTEGER},
+      people = #{record.people,jdbcType=INTEGER},
+      maxPeople = #{record.maxpeople,jdbcType=INTEGER},
+      courseDes = #{record.coursedes,jdbcType=VARCHAR},
+      stores = #{record.stores,jdbcType=VARCHAR},
+      coachs = #{record.coachs,jdbcType=VARCHAR},
+      courseImg = #{record.courseimg,jdbcType=VARCHAR},
+      courseTimeType = #{record.coursetimetype,jdbcType=INTEGER},
+      startHour = #{record.starthour,jdbcType=VARCHAR},
+      startMin = #{record.startmin,jdbcType=VARCHAR},
+      endHour = #{record.endhour,jdbcType=VARCHAR},
+      endMin = #{record.endmin,jdbcType=VARCHAR},
+      courseExpStart = #{record.courseexpstart,jdbcType=DATE},
+      startDate = #{record.startdate,jdbcType=DATE},
+      endDate = #{record.enddate,jdbcType=DATE},
+      week = #{record.week,jdbcType=VARCHAR},
+      startMonth = #{record.startmonth,jdbcType=VARCHAR},
+      endMonth = #{record.endmonth,jdbcType=VARCHAR},
+      courseAmount = #{record.courseamount,jdbcType=DOUBLE},
+      totalHours = #{record.totalhours,jdbcType=DOUBLE},
+      courseTab = #{record.coursetab,jdbcType=INTEGER},
+      courseTitle = #{record.coursetitle,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      realseTime = #{record.realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{record.realsepeople,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      addPeople = #{record.addpeople,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      courseDetail = #{record.coursedetail,jdbcType=LONGVARCHAR},
+      tabDetail = #{record.tabdetail,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update course_exc_group
+    set id = #{record.id,jdbcType=INTEGER},
+      courseName = #{record.coursename,jdbcType=VARCHAR},
+      courseType = #{record.coursetype,jdbcType=INTEGER},
+      people = #{record.people,jdbcType=INTEGER},
+      maxPeople = #{record.maxpeople,jdbcType=INTEGER},
+      courseDes = #{record.coursedes,jdbcType=VARCHAR},
+      stores = #{record.stores,jdbcType=VARCHAR},
+      coachs = #{record.coachs,jdbcType=VARCHAR},
+      courseImg = #{record.courseimg,jdbcType=VARCHAR},
+      courseTimeType = #{record.coursetimetype,jdbcType=INTEGER},
+      startHour = #{record.starthour,jdbcType=VARCHAR},
+      startMin = #{record.startmin,jdbcType=VARCHAR},
+      endHour = #{record.endhour,jdbcType=VARCHAR},
+      endMin = #{record.endmin,jdbcType=VARCHAR},
+      courseExpStart = #{record.courseexpstart,jdbcType=DATE},
+      startDate = #{record.startdate,jdbcType=DATE},
+      endDate = #{record.enddate,jdbcType=DATE},
+      week = #{record.week,jdbcType=VARCHAR},
+      startMonth = #{record.startmonth,jdbcType=VARCHAR},
+      endMonth = #{record.endmonth,jdbcType=VARCHAR},
+      courseAmount = #{record.courseamount,jdbcType=DOUBLE},
+      totalHours = #{record.totalhours,jdbcType=DOUBLE},
+      courseTab = #{record.coursetab,jdbcType=INTEGER},
+      courseTitle = #{record.coursetitle,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      realseTime = #{record.realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{record.realsepeople,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      addPeople = #{record.addpeople,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="customer.supu.po.CourseExcGroupWithBLOBs" >
+    update course_exc_group
+    <set >
+      <if test="coursename != null" >
+        courseName = #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetype != null" >
+        courseType = #{coursetype,jdbcType=INTEGER},
+      </if>
+      <if test="people != null" >
+        people = #{people,jdbcType=INTEGER},
+      </if>
+      <if test="maxpeople != null" >
+        maxPeople = #{maxpeople,jdbcType=INTEGER},
+      </if>
+      <if test="coursedes != null" >
+        courseDes = #{coursedes,jdbcType=VARCHAR},
+      </if>
+      <if test="stores != null" >
+        stores = #{stores,jdbcType=VARCHAR},
+      </if>
+      <if test="coachs != null" >
+        coachs = #{coachs,jdbcType=VARCHAR},
+      </if>
+      <if test="courseimg != null" >
+        courseImg = #{courseimg,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetimetype != null" >
+        courseTimeType = #{coursetimetype,jdbcType=INTEGER},
+      </if>
+      <if test="starthour != null" >
+        startHour = #{starthour,jdbcType=VARCHAR},
+      </if>
+      <if test="startmin != null" >
+        startMin = #{startmin,jdbcType=VARCHAR},
+      </if>
+      <if test="endhour != null" >
+        endHour = #{endhour,jdbcType=VARCHAR},
+      </if>
+      <if test="endmin != null" >
+        endMin = #{endmin,jdbcType=VARCHAR},
+      </if>
+      <if test="courseexpstart != null" >
+        courseExpStart = #{courseexpstart,jdbcType=DATE},
+      </if>
+      <if test="startdate != null" >
+        startDate = #{startdate,jdbcType=DATE},
+      </if>
+      <if test="enddate != null" >
+        endDate = #{enddate,jdbcType=DATE},
+      </if>
+      <if test="week != null" >
+        week = #{week,jdbcType=VARCHAR},
+      </if>
+      <if test="startmonth != null" >
+        startMonth = #{startmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="endmonth != null" >
+        endMonth = #{endmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="courseamount != null" >
+        courseAmount = #{courseamount,jdbcType=DOUBLE},
+      </if>
+      <if test="totalhours != null" >
+        totalHours = #{totalhours,jdbcType=DOUBLE},
+      </if>
+      <if test="coursetab != null" >
+        courseTab = #{coursetab,jdbcType=INTEGER},
+      </if>
+      <if test="coursetitle != null" >
+        courseTitle = #{coursetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="realsetime != null" >
+        realseTime = #{realsetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realsepeople != null" >
+        realsePeople = #{realsepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addpeople != null" >
+        addPeople = #{addpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="coursedetail != null" >
+        courseDetail = #{coursedetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tabdetail != null" >
+        tabDetail = #{tabdetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="customer.supu.po.CourseExcGroupWithBLOBs" >
+    update course_exc_group
+    set courseName = #{coursename,jdbcType=VARCHAR},
+      courseType = #{coursetype,jdbcType=INTEGER},
+      people = #{people,jdbcType=INTEGER},
+      maxPeople = #{maxpeople,jdbcType=INTEGER},
+      courseDes = #{coursedes,jdbcType=VARCHAR},
+      stores = #{stores,jdbcType=VARCHAR},
+      coachs = #{coachs,jdbcType=VARCHAR},
+      courseImg = #{courseimg,jdbcType=VARCHAR},
+      courseTimeType = #{coursetimetype,jdbcType=INTEGER},
+      startHour = #{starthour,jdbcType=VARCHAR},
+      startMin = #{startmin,jdbcType=VARCHAR},
+      endHour = #{endhour,jdbcType=VARCHAR},
+      endMin = #{endmin,jdbcType=VARCHAR},
+      courseExpStart = #{courseexpstart,jdbcType=DATE},
+      startDate = #{startdate,jdbcType=DATE},
+      endDate = #{enddate,jdbcType=DATE},
+      week = #{week,jdbcType=VARCHAR},
+      startMonth = #{startmonth,jdbcType=VARCHAR},
+      endMonth = #{endmonth,jdbcType=VARCHAR},
+      courseAmount = #{courseamount,jdbcType=DOUBLE},
+      totalHours = #{totalhours,jdbcType=DOUBLE},
+      courseTab = #{coursetab,jdbcType=INTEGER},
+      courseTitle = #{coursetitle,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      realseTime = #{realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{realsepeople,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      addPeople = #{addpeople,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      courseDetail = #{coursedetail,jdbcType=LONGVARCHAR},
+      tabDetail = #{tabdetail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="customer.supu.po.CourseExcGroup" >
+    update course_exc_group
+    set courseName = #{coursename,jdbcType=VARCHAR},
+      courseType = #{coursetype,jdbcType=INTEGER},
+      people = #{people,jdbcType=INTEGER},
+      maxPeople = #{maxpeople,jdbcType=INTEGER},
+      courseDes = #{coursedes,jdbcType=VARCHAR},
+      stores = #{stores,jdbcType=VARCHAR},
+      coachs = #{coachs,jdbcType=VARCHAR},
+      courseImg = #{courseimg,jdbcType=VARCHAR},
+      courseTimeType = #{coursetimetype,jdbcType=INTEGER},
+      startHour = #{starthour,jdbcType=VARCHAR},
+      startMin = #{startmin,jdbcType=VARCHAR},
+      endHour = #{endhour,jdbcType=VARCHAR},
+      endMin = #{endmin,jdbcType=VARCHAR},
+      courseExpStart = #{courseexpstart,jdbcType=DATE},
+      startDate = #{startdate,jdbcType=DATE},
+      endDate = #{enddate,jdbcType=DATE},
+      week = #{week,jdbcType=VARCHAR},
+      startMonth = #{startmonth,jdbcType=VARCHAR},
+      endMonth = #{endmonth,jdbcType=VARCHAR},
+      courseAmount = #{courseamount,jdbcType=DOUBLE},
+      totalHours = #{totalhours,jdbcType=DOUBLE},
+      courseTab = #{coursetab,jdbcType=INTEGER},
+      courseTitle = #{coursetitle,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      realseTime = #{realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{realsepeople,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      addPeople = #{addpeople,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

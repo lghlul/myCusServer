@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.CourseExcGroupDao" >
+  <resultMap id="CourseExcBasicMap" type="customer.supu.dto.CourseExcGroupDto" >
+
+  </resultMap>
+
+
+
+  <select id="selectCourseExcGroup" parameterType="map" resultMap="CourseExcBasicMap">
+
+
+
+
+<!-- 		select (SELECT COUNT(id) FROM employee_appoint_course WHERE courseId=a.id and appointTime=#{date})appointcount,a.* from (
+			SELECT * FROM course_exc_group WHERE STATUS=1  courseTimeType=1  指定日期
+			AND courseTimeType=1 AND startDate&lt;=#{date} AND endDate&gt;=#{date}
+			UNION
+			SELECT *  FROM course_exc_group WHERE STATUS=1 courseTimeType=2  每天
+			AND courseTimeType=2 AND courseExpStart&lt;=#{date}
+			UNION
+			SELECT * FROM course_exc_group WHERE STATUS=1 courseTimeType=3  每周
+			AND courseTimeType=3 AND WEEK LIKE
+			 CONCAT('%',#{week},'%')
+			 AND courseExpStart&lt;=#{date}
+			UNION
+			SELECT * FROM course_exc_group WHERE STATUS=1 courseTimeType=4  每月
+			AND courseTimeType=4 AND courseExpStart&lt;=#{date}
+			AND startMonth &lt;=DATE_FORMAT(#{date},'%d')
+			AND endMonth&gt;=DATE_FORMAT(#{date},'%d')
+		) a
+
+		根据门店id查询  精品课程     type=2表示基础团课
+		WHERE  a.type=2  and a.id  IN(SELECT courseid FROM course_stores WHERE STATUS=1 AND TYPE=1 AND storeId=#{storeId})
+		<if test="signType==0">  只有第一天需要区分该课程是否已经结束
+		AND (a.endhour&gt;DATE_FORMAT(NOW(),'%H')
+		OR (a.endhour=DATE_FORMAT(NOW(),'%H') AND a.endMin&gt;=DATE_FORMAT(NOW(),'%i')))
+		</if> -->
+
+		SELECT  (SELECT COUNT(id) FROM employee_appoint_course WHERE status=1 and courseId=g.id and appointTime=#{date})appointcount,
+			g.*,t.`year`,t.`month`,t.`day`,t.`startTime`,t.`endTime` FROM  course_group_time t ,
+			course_exc_group g
+			WHERE
+			g.type=2 and
+			g.id=t.`courseId` AND g.`status`=1 AND
+			CONCAT(t.`year`,'-',t.`month`,'-',t.`day`)=DATE_FORMAT(#{date},'%Y-%m-%d')
+			AND g.id  IN(SELECT courseid FROM course_stores
+			WHERE STATUS=1 AND TYPE=1 AND stores=#{storeId})
+			AND t.`startTime` !='' AND t.`endTime` !=''
+			ORDER BY t.`startTime` asc
+			<!-- 只有第一天需要区分该课程是否已经结束 -->
+	<!-- 	<if test="signType==0">
+			AND (t.endTime>DATE_FORMAT(NOW(),'%H:%i'))
+		</if> -->
+		<if test="start != null and end !=''">
+			  limit #{start},#{end}
+		</if>
+</select>
+
+   <select id="selectAllCourseGroupList" parameterType="map" resultMap="CourseExcBasicMap">
+		SELECT a.*,b.*,(SELECT storename FROM store WHERE a.`storeId`=store.id)storename,c.startdate sdate,c.enddate edate
+		FROM course_stores a , course_exc_group b
+		LEFT JOIN course_exc_time c ON b.id=c.courseid
+		WHERE a.`courseid`=b.id AND b.status=1 AND b.`coursetype`=1 AND a.type=1 AND b.type=1
+		AND c.enddate &lt;= DATE_FORMAT(NOW(),'%Y-%m-%d')
+		GROUP BY c.startdate,c.enddate
+		ORDER BY c.startdate desc
+	<if test="start != null and end !=null ">
+		limit #{start},#{end}
+	</if>
+</select>
+
+   <select id="selectExistCourseGroup" parameterType="map" resultMap="CourseExcBasicMap">
+		SELECT a.*,b.coachname,b.phonenumber FROM course_exc_group a,coach b
+		WHERE a.coachs=b.id AND a.type=3
+		<if test="courseid != null ">
+			and a.id=#{courseid}
+		</if>
+	</select>
+	<!--查询工作室课程(课程没有开始)  -->
+ 	<select id="selectFontWxStudioList" parameterType="map" resultMap="CourseExcBasicMap">
+		SELECT * FROM
+		(SELECT MAX(CONCAT(a.year,"-",a.month,"-",a.day)) endTime,MIN(CONCAT(a.year,"-",a.month,"-",a.day)) startTime,b.* ,
+		(SELECT storename FROM store WHERE b.`stores`=store.id)storename,
+		(SELECT coachname FROM coach WHERE b.`coachs`=coach.id)coachname
+		FROM course_studio_time a,course_exc_group b
+		WHERE b.id=a.courseid AND b.type=3 and status=1
+		GROUP BY b.id) td
+		WHERE td.endTime &gt;= DATE_FORMAT(NOW(),'%Y-%m-%d')
+		<if test="start != null and end !=null ">
+			limit #{start},#{end}
+		</if>
+	</select>
+	
+	 <select id="selectCourseGroupDtoByCourseId" parameterType="map" resultMap="CourseExcBasicMap">
+		SELECT * FROM course_exc_group a LEFT JOIN course_exc_time b on a.id=b.courseId
+		<if test="courseid != null ">
+			WHERE a.id=#{courseid}
+		</if>
+	</select>
+</mapper>

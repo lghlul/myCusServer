@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.CoachDao" >
+
+
+   <resultMap id="BaseResultMap" type="customer.supu.dto.CoachDto" >
+
+  </resultMap>
+
+<!--查询所有的-->
+	<select id="selectCoachByList" parameterType="Map" resultMap="BaseResultMap">
+		SELECT * FROM  coach
+	<!-- 	<if test="goodat != null" >
+				left join coach_goodat on coach.id=coach_goodat.coachid
+		</if> -->
+		<if test="store != null" >
+				LEFT JOIN coach_stores ON coach.id=coach_stores.coachid
+		</if>
+		where 1=1
+      <if test="sex != null" >
+       and coach.sex=#{sex}
+      </if>
+      <if test="status != null" >
+       and coach.status in
+	       	<foreach collection="status" item="item" index="index"
+	            open="(" close=")" separator=",">
+	            #{item}
+	        </foreach>
+      </if>
+ <!--     <if test="goodat != null" >
+       and coach_goodat.gooatid=#{goodat}
+      </if> -->
+      <if test="store != null" >
+       and coach_stores.storeid=#{store}
+      </if>
+      <if test="coachname != null" >
+       and coach.coachname like CONCAT('%',#{coachname},'%') or phonenumber like CONCAT('%',#{coachname},'%')
+      </if>
+      	GROUP BY coach.id
+		order by coach.addtime desc
+		limit #{start},#{end}
+	</select>
+
+	<select id="selectCoachChecked" parameterType="Map" resultMap="BaseResultMap">
+		SELECT IF(c.id in
+		<foreach collection="ids" item="item" index="index"
+            open="(" close=")" separator=",">
+            #{item}
+        </foreach>,
+        1,0)checked ,c.* FROM coach c WHERE STATUS=1
+
+
+	</select>
+
+<!-- 查询人气王教练 -->
+	<select id="selectCoachIsPopular"  resultMap="BaseResultMap">
+		SELECT * FROM coach WHERE isPopular=1 AND STATUS=1
+	</select>
+
+
+<!-- 前台获取所有教练   获取教练价格（根据私教课）-->
+	<select id="selectAllCoach"  parameterType="map" resultMap="BaseResultMap">
+		<!-- SELECT b.* FROM(
+		SELECT (SELECT MIN(courseAmount) FROM course_coach c1,course_pri_coach c2 WHERE c1.courseId=c2.id AND coachId=a.id)AS courseAmount,a.*
+	  FROM coach a WHERE  STATUS=1)b
+	  WHERE  b.courseAmount !='' -->
+	   	SELECT MIN(c2.courseamount)courseAmount,coach.*  FROM  course_coach c1
+	   	LEFT JOIN course_pri_coach c2 ON c1.courseId=c2.id
+ 		LEFT JOIN coach ON coach.id=c1.coachid
+ 		WHERE  c1.type=0 AND coach.`status`=1 AND c2.status=1 AND c1.status=1
+ 		GROUP BY c1.coachid
+		<if test="start != null and end !=''">
+			  limit #{start},#{end}
+		</if>
+	</select>
+
+<!-- 前台  根据教练id获取教练信息 -->
+	<select id="selectCoachById" parameterType="map" resultMap="BaseResultMap">
+			  SELECT * FROM coach where id=#{coachId} and status=1
+	</select>
+
+
+	<!-- 前台  根据团课id获取教练信息 -->
+	<select id="selectGroupCoachById" parameterType="map" resultMap="BaseResultMap">
+			  SELECT * FROM course_coach a
+			  left join coach b on b.id=a.coachid
+
+			  where a.courseid=#{courseId} and b.status=1
+			<if test="type != null">
+				AND a.`type`=#{type}
+			</if>
+	</select>
+
+
+	<select id="queryCourseCoach" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+			a.*, b.price,
+			b.orderNum
+		FROM (select * from coach where `status` = 1) a
+		LEFT JOIN (
+			SELECT
+				*
+			FROM
+				course_coach
+			WHERE
+				courseId = #{courseId}
+			AND type = #{type}
+		) b ON a.id = b.coachId
+	</select>
+
+</mapper>

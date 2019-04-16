@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.CoursePriCoachDao" >
+  <resultMap id="CoursePriCoachMap" type="customer.supu.po.CoursePriCoach" >
+
+  </resultMap>
+  <!-- 获取私教 -->
+  <select id="selectCoursePri" parameterType="map" resultMap="CoursePriCoachMap">
+		SELECT * FROM course_pri_coach
+		<if test="start != null and end !=''">
+			  limit #{start},#{end}
+		</if>
+  </select>
+  
+  <!-- 获取私教推荐课程 -->
+  <select id="selectCourseIsPopular" parameterType="map" resultMap="CoursePriCoachMap">
+		SELECT * FROM course_pri_coach
+		where isPopular=1
+		<if test="start != null and end !=''">
+			  limit #{start},#{end}
+		</if>
+  </select>
+
+<!-- 根据教练id获取该教练下的私教课或精品团课     -->
+	<select id="selectCoachPriByCoachId" parameterType="map" resultMap="CoursePriCoachMap">
+
+		<!--  SELECT cp.* FROM course_pri_coach cp , course_coach ch
+
+		  WHERE coachId=#{coachId}  AND TYPE=#{type} AND cp.`id`=ch.`coachId` -->
+
+	  SELECT cp.* FROM course_pri_coach cp , course_coach ch
+
+		  WHERE ch.coachId=#{coachId}  AND ch.TYPE=#{type} AND cp.`id`=ch.courseId
+		  AND cp.`status`=1
+		    ORDER BY cp.isExperience DESC;
+		  <if test="start != null and end !=''">
+			  limit #{start},#{end}
+		</if>
+	<!-- 	  SELECT cp.* FROM course_coach ch LEFT JOIN
+		  course_pri_coach cp ON ch.coachId=cp.id
+
+		  WHERE coachId=#{coachId}  AND TYPE=#{type} -->
+
+	</select>
+
+	<select id="queryPriCourseById" parameterType="int" resultType="coursePriCoachBean">
+		select id,fitDemand,courseName,totalHours,courseImg,courseTitle,courseDetail,coachs,stores,courseType,courseEndTime from course_pri_coach where id = #{id}
+	</select>
+
+
+</mapper>

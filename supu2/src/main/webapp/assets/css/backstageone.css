@@ -1,0 +1,128 @@
+body{
+    color: #666;
+}
+.breadcrumb li a{
+    color: #FF0000;
+}
+.step{
+    background-color: #fff;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+.stepOne,.step-arrow-one,.stepTwo,.step-arrow-two,.stepThree{
+    display: inline-block;
+    height: 60px;
+}
+.stepOne{
+    color: #FF0000;
+    padding: 0px 5px;
+    margin: 0 10px;
+}
+.stepOne i{
+    font-size: 34px;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+.stepOne span{
+    font-size: 18px;
+}
+.step-arrow-one{
+    margin: 0 10px;
+    color: #A5B0C4;
+}
+.step-arrow-one i{
+    font-size: 20px;
+
+}
+.stepTwo{
+    color: #A5B0C4;
+    padding: 0px 5px;
+    margin: 0 10px;
+}
+.stepTwo i{
+    font-size: 34px;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+.stepTwo span{
+    font-size: 18px;
+}
+.step-arrow-two{
+    margin: 0 10px;
+    color: #A5B0C4;
+}
+.step-arrow-two i{
+    font-size: 20px;
+}
+.stepThree{
+    color: #A5B0C4;
+    padding: 0px 5px;
+    margin: 0 10px;
+}
+.stepThree i{
+    font-size: 34px;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+.stepThree span{
+    font-size: 18px;
+}
+.panel-main-menu{
+    width: 670px;
+    height: 360px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.panel-main-left{
+    width: 260px;
+    height: 300px;
+    float: left;
+    border: 1px solid #D2D5DE;
+    padding: 15px;
+    border-radius: 4px;
+}
+.panel-main-right{
+    width: 260px;
+    height: 300px;
+    float: right;
+    border: 1px solid #D2D5DE;
+    padding: 15px;
+    border-radius: 4px;
+}
+.panel-main{
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 300px;
+}
+.pml-info,.pmr-info{
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    padding-left: 5px;
+    color:  #939bad;;
+    cursor: pointer;
+}
+.pml-info:hover{
+    background-color: #F5F6FA;
+    color: #FF0000;
+}
+.pmr-info:hover{
+    background-color: #F5F6FA;
+    color: #FF0000;
+}
+.next-write a{
+    background-color: #FF0000;
+    color: #fff;
+}
+.next-write a:hover{
+    color: #fff;
+}
+.active{
+    background-color: #F5F6FA;
+    color: #FF0000;;
+}
+

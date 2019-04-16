@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.CoachTimeDao" >
+  <resultMap id="coachTimeBaseMap" type="customer.supu.dto.CoachTimeDto" >
+
+  </resultMap>
+
+
+
+	<!--查询所有教练   各个月份的时间  -->
+  <select id="selectCoachTimeList" parameterType="map" resultMap="coachTimeBaseMap">
+		SELECT a.*,c.`coachName` coachname,c.id coachId FROM  coach_time a, coach c
+		WHERE a.coachId=c.id
+		<if test="coachId !='' and coachId != null">
+			and a.coachId=#{coachId}
+		</if>
+		<if test="selectYmonth !='' and selectYmonth != null">
+			and a.selectYmonth=#{selectYmonth}
+		</if>
+		GROUP BY a.coachId,a.selectYmonth ORDER BY a.selectYmonth DESC
+		<if test="start !=null and end != null">
+		limit #{start},#{end}
+		</if>
+  </select>
+
+  <select id="countList" parameterType="map" resultType="java.lang.Integer">
+			SELECT COUNT(d.id) FROM (SELECT a.id FROM  coach_time a, coach c
+			WHERE a.coachId=c.id
+			<if test="coachId !='' and coachId != null">
+				and a.coachId=#{coachId}
+			</if>
+			<if test="selectYmonth !='' and selectYmonth != null">
+				and a.selectYmonth=#{selectYmonth}
+			</if>
+			GROUP BY a.coachId,a.selectYmonth )d
+  </select>
+</mapper>

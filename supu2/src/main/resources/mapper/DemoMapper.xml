@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.DemoDao" >
+
+
+ <!-- 批量插入生成的兑换码 -->
+       <insert id ="insertCoachList" parameterType="map" >
+              <selectKey resultType ="java.lang.Integer" keyProperty= "id"
+                   order= "AFTER">
+                  SELECT LAST_INSERT_ID()
+              </selectKey >
+             insert into coach
+             (coachname, nickname)
+           	 values
+             <foreach collection ="list" item="items" index= "index" separator =",">
+                 (
+                 #{items.coachname}, #{items.coachname}
+                 )
+             </foreach >
+      </insert >
+</mapper>

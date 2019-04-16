@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.StoreDao" >
+ <!--  <resultMap id="realseServiceBaseMap" type="official.website.po.RealseService" >
+
+  </resultMap> -->
+	<resultMap id="StoreProvinceDtoMap" type="customer.supu.dto.ProvinceDto" >
+
+  </resultMap>
+	<resultMap id="StoreCityDtoMap" type="customer.supu.dto.CityDto" >
+
+  </resultMap>
+<resultMap id="StoreRegionDtoMap" type="customer.supu.dto.RegionDto" >
+
+  </resultMap>
+
+  <resultMap id="StoreBaseDtoMap" type="customer.supu.dto.StoreDto" >
+
+  </resultMap>
+
+<!--查询所有的 基础数据    根据描述分类，填充下拉框 -->
+  <select id="updateStoreByList" parameterType="map" >
+		  update  store SET STATUS=#{status},realsetime=now() WHERE id in
+		 <if test="ids != null" >
+		  		<foreach collection="ids" item="item" index="index"
+           			 open="(" close=")" separator=",">
+            		#{item}
+        		</foreach>
+        </if>
+  </select>
+
+
+<!--  查询省-->
+	<select id="selectStoreGroupByProvince"  resultMap="StoreProvinceDtoMap" >
+			SELECT province as name FROM store where  status =2 GROUP  BY  province
+	</select>
+
+<!--  查询市-->
+	<select id="selectStoreGroupByCity"  parameterType="map" resultMap="StoreCityDtoMap" >
+			SELECT city as name FROM store WHERE province=#{province} and status =2 GROUP  BY  city
+	</select>
+
+<!--  查询区-->
+	<select id="selectStoreGroupByRegion"  parameterType="map" resultMap="StoreRegionDtoMap" >
+			SELECT region as name FROM store WHERE city=#{city} and status =2 GROUP  BY  region
+	</select>
+
+
+<!-- 根据地区查询门店 -->
+	<select id="selectStoreByRegion"  parameterType="map" resultMap="StoreBaseDtoMap" >
+			SELECT   IF(s.id IN
+  		   <foreach collection="ids" item="item" index="index"
+            open="(" close=")" separator=",">
+            #{item}
+        </foreach>,1,0)checked,s.* FROM store s WHERE region=#{region} and s.status=2
+	</select>
+
+
+	<!-- 查询所有门店 -->
+	<select id="selectAllStore"  parameterType="map" resultMap="StoreBaseDtoMap" >
+			SELECT * from store  WHERE status=2
+			<if test="membercardId != null and membercardId !='' ">
+				and id in(select storeid from member_card_store where membercardId=#{membercardId})
+			</if>
+	</select>
+
+
+<!-- 查询筹备中以及开业中的门店 -->
+	<select id="selectEffectAndPreStore"  parameterType="map" resultMap="StoreBaseDtoMap" >
+			SELECT * from store  WHERE status in(1,2)
+			<if test="membercardId != null and membercardId !='' ">
+				and id in(select storeid from member_card_store where membercardId=#{membercardId})
+			</if>
+			ORDER BY STATUS DESC,ADDTIME ASC
+	</select>
+
+		<!-- 查询个数 -->
+	<select id="countByList" parameterType="Map" resultType="java.lang.Integer">
+			SELECT count(*) from store  WHERE status=2
+			<if test="membercardId != null and membercardId !='' ">
+				and id in(select storeid from member_card_store where membercardId=#{membercardId})
+			</if>
+	</select>
+	<!--根据门店id 课程id查询指定门店  -->
+   <select id="selectStoreByStIdAndCoId" parameterType="map" resultMap="StoreBaseDtoMap">
+		SELECT * FROM course_stores a , store b
+		WHERE a.`storeid`=b.id AND b.status=2 and a.status=1
+		and storeid=#{storeid} and courseid=#{courseid}
+		<if test="type != null">
+			AND a.`type`=#{type}
+		</if>
+</select>
+
+<!-- 根据会员卡id查询门店 -->
+	<select id="selectStoreByMcardId" parameterType="map"  resultType="customer.supu.po.Store">
+
+			SELECT s.* FROM store s,member_card_store ms
+			WHERE ms.`storeId`=s.`id`
+			AND s.`status`=2
+			AND ms.`memberCardId`=#{mCardId}
+	</select>
+
+	<!--根据课程id查询门店  -->
+	<select id="selectStoreByCourseId" parameterType="map"  resultMap="StoreBaseDtoMap">
+			SELECT s.* FROM store s, `course_stores` cs
+			WHERE cs.`storeId`=s.`id`
+				AND s.`status`=2
+				AND cs.courseId=#{courseId}
+				AND cs.type=#{type}
+	</select>
+
+
+
+</mapper>
+

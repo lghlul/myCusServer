@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.mapper.EmployeeBuyPriMapper" >
+  <insert id="insert" parameterType="employeeBuyPri">
+    insert into employee_buy_pri
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="courseId != null" >
+        courseId,
+      </if>
+      <if test="coachId != null" >
+        coachId,
+      </if>
+      <if test="totalClass != null" >
+        totalClass,
+      </if>
+      <if test="buyTime != null" >
+        buyTime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="courseId != null" >
+        #{courseId},
+      </if>
+      <if test="coachId != null" >
+        #{coachId},
+      </if>
+      <if test="totalClass != null" >
+        #{totalClass},
+      </if>
+      <if test="buyTime != null" >
+        #{buyTime},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateBuyPriByCourse" parameterType="employeeBuyPri">
+   update employee_buy_pri
+    <set>
+      <if test="totalClass != null" >
+        totalClass = totalClass+#{totalClass},
+      </if>
+      <if test="buyTime != null" >
+        buyTime = #{buyTime},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+    </set>
+    where userId = #{userId} and courseId = #{courseId} and coachId = #{courseId}
+  </update>
+
+
+  <select id="selectPriCoachPage" parameterType="employeeBuyPri" resultType="priCoachCourse">
+    SELECT
+      a.*, b.coachName,
+      b.sex,
+      b.phoneNumber,
+      b.headImg,
+      c.courseName,
+      c.courseTitle,
+      c.courseImg,
+      c.courseEndTime
+  FROM
+      employee_buy_pri a,
+      coach b,
+      course_pri_coach c
+  WHERE
+      a.coachId = b.id
+  AND a.courseId = c.id
+  AND a.userId = #{userId}
+  ORDER BY
+      buyTime DESC
+    limit #{pageNo},#{pageSize}
+  </select>
+
+  <select id="selectPriCoachPageCount" parameterType="employeeBuyPri" resultType="int">
+    select count(*) from employee_buy_pri
+        where userId = #{userId}
+  </select>
+
+
+  <select id="selectPageCount" parameterType="employeeBuyPri" resultType="int">
+    select count(*) from employee_buy_pri
+       <where>
+         <if test="coachId != null">
+           and coachId = #{coachId}
+         </if>
+         <if test="courseId != null">
+           and courseId = #{courseId}
+         </if>
+         <if test="userId != null">
+           and userId = #{userId}
+         </if>
+       </where>
+  </select>
+
+
+  <select id="selectById" parameterType="string" resultType="employeeBuyPri">
+    select * from employee_buy_pri where id = #{id}
+  </select>
+
+  <select id="selectAll" parameterType="employeeBuyPri" resultType="employeeBuyPri">
+    select * from employee_buy_pri
+    <where>
+      <if test="courseId != null">
+        and courseId = #{courseId}
+      </if>
+      <if test="courseId != null">
+        and coachId = #{coachId}
+      </if>
+      <if test="userId != null">
+        and userId = #{userId}
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+    </where>
+  </select>
+
+
+</mapper>

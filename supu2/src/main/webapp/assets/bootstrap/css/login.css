@@ -1,0 +1,271 @@
+/*通用样式*/
+body,html{
+    font:14px "microsoft yahei",Arial,Helvetica,sans-serif;
+    color:#666;
+    overflow-x: hidden;
+    display: block;
+}
+* { margin:0; padding:0; border:0;}
+ul,ol,li,p,h1,h2,h3,h4,h5,h6,dl,dd,form{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+.lf{float:left;}
+.rt{float:right;}
+.clear{clear:both;}
+
+a{
+    text-decoration:none;
+}
+a:hover{
+    text-decoration:none;
+}
+img{
+    border: none;
+}
+input,button,select,textarea{outline:none}
+
+
+@font-face {font-family: "iconfont";
+    src: url('iconfont/iconfont.eot?t=1491551876582');
+    src: url('iconfont/iconfont.eot?t=1491551876582#iefix') format('embedded-opentype'),
+    url('iconfont/iconfont.woff?t=1491551876582') format('woff'),
+    url('iconfont/iconfont.ttf?t=1491551876582') format('truetype'),
+    url('iconfont/iconfont.svg?t=1491551876582#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:26px;
+  font-style:normal;
+    color: #9DA4B4;
+    position: absolute;
+    top: 8px;
+    left: 13px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* checkbox box*/
+.cb{width:15px;height:15px;display:inline-block;*display:inline;zoom:1; background:url(../images/login/check_1.png);cursor:pointer;}
+.cb_active{background:url("../images/login/check_2.png")}
+
+/*具体样式*/
+.login_main_top{
+    width: 219px;
+    height: 127px;
+    margin: 40px auto 30px;
+    background: url("../images/login/logo.png");
+}
+.login_main_errortip{
+    position: relative;
+    font-size: 14px;
+    color: #f45438;
+    width: 100%;
+    height: 30px;
+    background-color: #F2DEDF;
+    line-height: 30px;
+    box-sizing: border-box;
+    padding-left: 45px;
+    border-radius: 4px;
+    display:none;
+    overflow: hidden;
+}
+.login_main_errortip #iconfont{font-size:26px;top: 0px; color: #f45438;float: left;}
+.login_main_errortip .icon-guanbi1:before{content: "\e612";}
+.login_main_errortip span{font-size:14px; line-height:33px;display:block; float:right;}
+
+.login_main_ln{
+    width: 100%;
+    margin: 10px 0 20px 0;
+    position: relative;
+}
+.login_main_ln input{
+    width: 100%;
+    text-indent: 2.2em;
+    height: 43px;
+    line-height: 43px;
+    font-size: 16px;
+    color: #333333;
+    border: 1px solid #D2D5DE;
+    border-radius: 3px;
+    outline: medium;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+*::-webkit-input-placeholder {
+    color: #D2D5Df;
+    font-family: "Microsoft YaHei", 微软雅黑, tahoma, arial, simsun, sans-serif;
+}
+*:-moz-placeholder {
+    color: #D2D5Df;
+    font-family: "Microsoft YaHei", 微软雅黑, tahoma, arial, simsun, sans-serif;
+}
+*:-ms-input-placeholder {
+    /* IE9+ */
+    color: #D2D5Df;
+    font-family: "Microsoft YaHei", 微软雅黑, tahoma, arial, simsun, sans-serif;
+}
+
+.login_main_pw{
+    width: 100%;
+    margin: 20px 0;
+    position: relative;
+}
+.login_main_pw input{
+    width: 100%;
+    text-indent: 2.2em;
+    height: 43px;
+    line-height: 43px;
+    font-size: 16px;
+    color: #333333;
+    border: 1px solid #D2D5DE;
+    border-radius: 3px;
+    outline: medium;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.login_main_yzm{
+    width: 100%;
+    margin: 20px 0;
+    overflow: hidden;
+    position: relative;
+}
+.login_main_yzm input{
+    width: 65%;
+    float: left;
+    text-indent: 2.2em;
+    height: 43px;
+    line-height: 43px;
+    font-size: 16px;
+    color: #333333;
+    border: 1px solid #D2D5DE;
+    border-radius: 3px;
+    outline: medium;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.login_main_yzm img{
+    width: 29%;
+    height: 43px;
+    float: right;
+    border-radius: 4px;
+}
+
+.login_main_submit{
+    width: 100%;
+    margin-bottom: 20px;
+    /*box-shadow: 0 2px 2px rgba(11,196,171,0.3);*/
+}
+.login_main_submit button{
+    width: 100%;
+    height: 43px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 18px;
+    font-family: "Microsoft YaHei", 微软雅黑, tahoma, arial, simsun, sans-serif;
+    background-color: #4DA9EC;
+    /*background: -webkit-linear-gradient(left,#0BD0A3,#0CBCB1);*/
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    /*box-shadow: 0 3px 6px 0 rgba(11,196,171,0.8);*/
+}
+
+.login_main_remb{
+    color: #fff;
+    height: 26px;
+    line-height: 26px;
+    vertical-align: middle;
+    position: relative;
+}
+.login_main_remb .cb{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 4px;
+    left: 2px;
+}
+.login_main_remb span{
+    font-size: 16px;
+    position: absolute;
+    color: #5C606C;
+    top: -2px;
+    left: 24px;
+}
+.login_main_remb a{
+    font-weight: normal;
+    font-size: 16px;
+    float: right;
+    color: #5C606C;
+}
+
+/**模态登录框**/
+.modal_my {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-family: "Microsoft YaHei", 微软雅黑, tahoma, arial, simsun, sans-serif;
+}
+.modal-dialog {
+    background: url("../images/login/login_bg2.png");
+    width: 646px;
+    height: 646px;
+    margin: 5% auto 0 auto;
+}
+.copy_right{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    color: #5A606C;
+    text-align: center;
+}
+.modal-content {
+    /*background: #fff;*/
+    /*border: 1px solid #aaa;*/
+    border-radius: 10px;
+    /*box-shadow: 0 0 5px #aaa;*/
+    padding: 80px 163px;
+}
+.modal-content input::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+/*ie placeholder*/
+.modal-content input:-ms-input-placeholder {
+  color: #999; line-height: 20px; height:43px;
+}
+
+.modal-content input::-webkit-input-placeholder {
+  color: #999;
+}
+
+.modal-content input {
+  display: block;
+    text-indent: 2.2em;
+    height: 43px;
+    line-height: 43px;
+    font-size: 16px;
+    color: #333333;
+    border: 1px solid #D2D5DE;
+    border-radius: 3px;
+    outline: medium;
+    padding: 10px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+/*鼠标点击后边框颜色*/
+.modal-content input:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}

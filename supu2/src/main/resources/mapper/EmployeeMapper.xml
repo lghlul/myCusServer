@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.mapper.EmployeeMapper" >
+  <resultMap id="BaseResultMap" type="customer.supu.po.Employee" >
+    <id column="EmployeeId" property="employeeid" jdbcType="INTEGER" />
+    <result column="eCode" property="ecode" jdbcType="VARCHAR" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="CnName" property="cnname" jdbcType="VARCHAR" />
+    <result column="GenderId" property="genderid" jdbcType="VARCHAR" />
+    <result column="Telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="MobilePhone" property="mobilephone" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="IsPrincipal" property="isprincipal" jdbcType="BIT" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="orgCode" property="orgcode" jdbcType="VARCHAR" />
+    <result column="orgName" property="orgname" jdbcType="VARCHAR" />
+    <result column="companyCode" property="companycode" jdbcType="VARCHAR" />
+    <result column="companyName" property="companyname" jdbcType="VARCHAR" />
+    <result column="jobCode" property="jobcode" jdbcType="VARCHAR" />
+    <result column="jobName" property="jobname" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="lastloginip" property="lastloginip" jdbcType="VARCHAR" />
+    <result column="lastLoginDate" property="lastlogindate" jdbcType="TIMESTAMP" />
+    <result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="LastModifiedDate" property="lastmodifieddate" jdbcType="TIMESTAMP" />
+    <result column="CreateBy" property="createby" jdbcType="VARCHAR" />
+    <result column="LastModifiedBy" property="lastmodifiedby" jdbcType="VARCHAR" />
+    <result column="Flag" property="flag" jdbcType="INTEGER" />
+    <result column="vorder" property="vorder" jdbcType="INTEGER" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="identity" property="identity" jdbcType="VARCHAR" />
+    <result column="sendSystem" property="sendsystem" jdbcType="VARCHAR" />
+    <result column="isback" property="isback" jdbcType="INTEGER" />
+    <result column="openId" property="openid" jdbcType="VARCHAR" />
+    <result column="head" property="head" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EmployeeId, eCode, userName, CnName, GenderId, Telephone, MobilePhone, Email, Password, 
+    IsPrincipal, Remark, orgCode, orgName, companyCode, companyName, jobCode, jobName, 
+    status, lastloginip, lastLoginDate, CreateDate, LastModifiedDate, CreateBy, LastModifiedBy, 
+    Flag, vorder, qq, address, identity, sendSystem, isback, openId,head
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="customer.supu.po.EmployeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from u_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from u_employee
+    where EmployeeId = #{employeeid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from u_employee
+    where   openId = #{openid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByMobile" resultMap="BaseResultMap" parameterType="customer.supu.po.Employee" >
+    select
+    <include refid="Base_Column_List" />
+    from u_employee
+    where MobilePhone = #{mobilephone,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from u_employee
+    where EmployeeId = #{employeeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="customer.supu.po.EmployeeExample" >
+    delete from u_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="customer.supu.po.Employee" >
+    <selectKey resultType="java.lang.Integer" keyProperty="employeeid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into u_employee (eCode, userName, CnName, 
+      GenderId, Telephone, MobilePhone, 
+      Email, Password, IsPrincipal, 
+      Remark, orgCode, orgName, 
+      companyCode, companyName, jobCode, 
+      jobName, status, lastloginip, 
+      lastLoginDate, CreateDate, LastModifiedDate, 
+      CreateBy, LastModifiedBy, Flag, 
+      vorder, qq, address, 
+      identity, sendSystem, isback, 
+      openId,head)
+    values (#{ecode,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{cnname,jdbcType=VARCHAR}, 
+      #{genderid,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{mobilephone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{isprincipal,jdbcType=BIT}, 
+      #{remark,jdbcType=VARCHAR}, #{orgcode,jdbcType=VARCHAR}, #{orgname,jdbcType=VARCHAR}, 
+      #{companycode,jdbcType=VARCHAR}, #{companyname,jdbcType=VARCHAR}, #{jobcode,jdbcType=VARCHAR}, 
+      #{jobname,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{lastloginip,jdbcType=VARCHAR}, 
+      #{lastlogindate,jdbcType=TIMESTAMP}, #{createdate,jdbcType=TIMESTAMP}, #{lastmodifieddate,jdbcType=TIMESTAMP}, 
+      #{createby,jdbcType=VARCHAR}, #{lastmodifiedby,jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER}, 
+      #{vorder,jdbcType=INTEGER}, #{qq,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{identity,jdbcType=VARCHAR}, #{sendsystem,jdbcType=VARCHAR}, #{isback,jdbcType=INTEGER}, 
+      #{openid,jdbcType=VARCHAR},#{head,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="customer.supu.po.Employee" >
+    <selectKey resultType="java.lang.Integer" keyProperty="employeeid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into u_employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ecode != null" >
+        eCode,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="cnname != null" >
+        CnName,
+      </if>
+      <if test="genderid != null" >
+        GenderId,
+      </if>
+      <if test="telephone != null" >
+        Telephone,
+      </if>
+      <if test="mobilephone != null" >
+        MobilePhone,
+      </if>
+      <if test="email != null" >
+        Email,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
+      <if test="isprincipal != null" >
+        IsPrincipal,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="orgcode != null" >
+        orgCode,
+      </if>
+      <if test="orgname != null" >
+        orgName,
+      </if>
+      <if test="companycode != null" >
+        companyCode,
+      </if>
+      <if test="companyname != null" >
+        companyName,
+      </if>
+      <if test="jobcode != null" >
+        jobCode,
+      </if>
+      <if test="jobname != null" >
+        jobName,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="lastloginip != null" >
+        lastloginip,
+      </if>
+      <if test="lastlogindate != null" >
+        lastLoginDate,
+      </if>
+      <if test="createdate != null" >
+        CreateDate,
+      </if>
+      <if test="lastmodifieddate != null" >
+        LastModifiedDate,
+      </if>
+      <if test="createby != null" >
+        CreateBy,
+      </if>
+      <if test="lastmodifiedby != null" >
+        LastModifiedBy,
+      </if>
+      <if test="flag != null" >
+        Flag,
+      </if>
+      <if test="vorder != null" >
+        vorder,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="identity != null" >
+        identity,
+      </if>
+      <if test="sendsystem != null" >
+        sendSystem,
+      </if>
+      <if test="isback != null" >
+        isback,
+      </if>
+      <if test="openid != null" >
+        openId,
+      </if>
+      <if test="head != null" >
+        head,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ecode != null" >
+        #{ecode,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="cnname != null" >
+        #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="genderid != null" >
+        #{genderid,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isprincipal != null" >
+        #{isprincipal,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orgcode != null" >
+        #{orgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgname != null" >
+        #{orgname,jdbcType=VARCHAR},
+      </if>
+      <if test="companycode != null" >
+        #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyname != null" >
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="jobcode != null" >
+        #{jobcode,jdbcType=VARCHAR},
+      </if>
+      <if test="jobname != null" >
+        #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="lastloginip != null" >
+        #{lastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogindate != null" >
+        #{lastlogindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifieddate != null" >
+        #{lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null" >
+        #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifiedby != null" >
+        #{lastmodifiedby,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="vorder != null" >
+        #{vorder,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="identity != null" >
+        #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="sendsystem != null" >
+        #{sendsystem,jdbcType=VARCHAR},
+      </if>
+      <if test="isback != null" >
+        #{isback,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        #{head,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="customer.supu.po.EmployeeExample" resultType="java.lang.Integer" >
+    select count(*) from u_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update u_employee
+    <set >
+      <if test="record.employeeid != null" >
+        EmployeeId = #{record.employeeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ecode != null" >
+        eCode = #{record.ecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cnname != null" >
+        CnName = #{record.cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.genderid != null" >
+        GenderId = #{record.genderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        Telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilephone != null" >
+        MobilePhone = #{record.mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        Password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isprincipal != null" >
+        IsPrincipal = #{record.isprincipal,jdbcType=BIT},
+      </if>
+      <if test="record.remark != null" >
+        Remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgcode != null" >
+        orgCode = #{record.orgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgname != null" >
+        orgName = #{record.orgname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companycode != null" >
+        companyCode = #{record.companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyname != null" >
+        companyName = #{record.companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobcode != null" >
+        jobCode = #{record.jobcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobname != null" >
+        jobName = #{record.jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastloginip != null" >
+        lastloginip = #{record.lastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastlogindate != null" >
+        lastLoginDate = #{record.lastlogindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdate != null" >
+        CreateDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifieddate != null" >
+        LastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createby != null" >
+        CreateBy = #{record.createby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastmodifiedby != null" >
+        LastModifiedBy = #{record.lastmodifiedby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        Flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.vorder != null" >
+        vorder = #{record.vorder,jdbcType=INTEGER},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.identity != null" >
+        identity = #{record.identity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendsystem != null" >
+        sendSystem = #{record.sendsystem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isback != null" >
+        isback = #{record.isback,jdbcType=INTEGER},
+      </if>
+      <if test="record.openid != null" >
+        openId = #{record.openid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update u_employee
+    set EmployeeId = #{record.employeeid,jdbcType=INTEGER},
+      eCode = #{record.ecode,jdbcType=VARCHAR},
+      userName = #{record.username,jdbcType=VARCHAR},
+      CnName = #{record.cnname,jdbcType=VARCHAR},
+      GenderId = #{record.genderid,jdbcType=VARCHAR},
+      Telephone = #{record.telephone,jdbcType=VARCHAR},
+      MobilePhone = #{record.mobilephone,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      Password = #{record.password,jdbcType=VARCHAR},
+      IsPrincipal = #{record.isprincipal,jdbcType=BIT},
+      Remark = #{record.remark,jdbcType=VARCHAR},
+      orgCode = #{record.orgcode,jdbcType=VARCHAR},
+      orgName = #{record.orgname,jdbcType=VARCHAR},
+      companyCode = #{record.companycode,jdbcType=VARCHAR},
+      companyName = #{record.companyname,jdbcType=VARCHAR},
+      jobCode = #{record.jobcode,jdbcType=VARCHAR},
+      jobName = #{record.jobname,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      lastloginip = #{record.lastloginip,jdbcType=VARCHAR},
+      lastLoginDate = #{record.lastlogindate,jdbcType=TIMESTAMP},
+      CreateDate = #{record.createdate,jdbcType=TIMESTAMP},
+      LastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      CreateBy = #{record.createby,jdbcType=VARCHAR},
+      LastModifiedBy = #{record.lastmodifiedby,jdbcType=VARCHAR},
+      Flag = #{record.flag,jdbcType=INTEGER},
+      vorder = #{record.vorder,jdbcType=INTEGER},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      identity = #{record.identity,jdbcType=VARCHAR},
+      sendSystem = #{record.sendsystem,jdbcType=VARCHAR},
+      isback = #{record.isback,jdbcType=INTEGER},
+      openId = #{record.openid,jdbcType=VARCHAR},
+      head = #{record.head,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="customer.supu.po.Employee" >
+    update u_employee
+    <set >
+      <if test="ecode != null" >
+        eCode = #{ecode,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="cnname != null" >
+        CnName = #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="genderid != null" >
+        GenderId = #{genderid,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        Telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        MobilePhone = #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isprincipal != null" >
+        IsPrincipal = #{isprincipal,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orgcode != null" >
+        orgCode = #{orgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgname != null" >
+        orgName = #{orgname,jdbcType=VARCHAR},
+      </if>
+      <if test="companycode != null" >
+        companyCode = #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyname != null" >
+        companyName = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="jobcode != null" >
+        jobCode = #{jobcode,jdbcType=VARCHAR},
+      </if>
+      <if test="jobname != null" >
+        jobName = #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="lastloginip != null" >
+        lastloginip = #{lastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogindate != null" >
+        lastLoginDate = #{lastlogindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifieddate != null" >
+        LastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null" >
+        CreateBy = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifiedby != null" >
+        LastModifiedBy = #{lastmodifiedby,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        Flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="vorder != null" >
+        vorder = #{vorder,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="identity != null" >
+        identity = #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="sendsystem != null" >
+        sendSystem = #{sendsystem,jdbcType=VARCHAR},
+      </if>
+      <if test="isback != null" >
+        isback = #{isback,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        openId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EmployeeId = #{employeeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="customer.supu.po.Employee" >
+    update u_employee
+    set eCode = #{ecode,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      CnName = #{cnname,jdbcType=VARCHAR},
+      GenderId = #{genderid,jdbcType=VARCHAR},
+      Telephone = #{telephone,jdbcType=VARCHAR},
+      MobilePhone = #{mobilephone,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      IsPrincipal = #{isprincipal,jdbcType=BIT},
+      Remark = #{remark,jdbcType=VARCHAR},
+      orgCode = #{orgcode,jdbcType=VARCHAR},
+      orgName = #{orgname,jdbcType=VARCHAR},
+      companyCode = #{companycode,jdbcType=VARCHAR},
+      companyName = #{companyname,jdbcType=VARCHAR},
+      jobCode = #{jobcode,jdbcType=VARCHAR},
+      jobName = #{jobname,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      lastloginip = #{lastloginip,jdbcType=VARCHAR},
+      lastLoginDate = #{lastlogindate,jdbcType=TIMESTAMP},
+      CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      LastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      CreateBy = #{createby,jdbcType=VARCHAR},
+      LastModifiedBy = #{lastmodifiedby,jdbcType=VARCHAR},
+      Flag = #{flag,jdbcType=INTEGER},
+      vorder = #{vorder,jdbcType=INTEGER},
+      qq = #{qq,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      identity = #{identity,jdbcType=VARCHAR},
+      sendSystem = #{sendsystem,jdbcType=VARCHAR},
+      isback = #{isback,jdbcType=INTEGER},
+      openId = #{openid,jdbcType=VARCHAR},
+      head = #{head,jdbcType=VARCHAR}
+    where EmployeeId = #{employeeid,jdbcType=INTEGER}
+  </update>
+
+<update id="updateByOpenid" parameterType="customer.supu.po.Employee" >
+update u_employee
+<set>
+  <if test="ecode != null">
+    eCode = #{ecode,jdbcType=VARCHAR},
+  </if>
+  <if test="mobilephone != null">
+    MobilePhone = #{mobilephone,jdbcType=VARCHAR},
+  </if>
+</set>
+where openId =#{openid,jdbcType=VARCHAR}
+</update>
+
+
+  <delete id="delete" parameterType="string">
+    delete from u_employee where EmployeeId = #{id}
+  </delete>
+
+</mapper>

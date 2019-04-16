@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.BasicDataDao" >
+  <resultMap id="basicdataBaseMap" type="customer.supu.po.BasicData" >
+
+  </resultMap>
+
+
+ <resultMap id="basicdataDtoBaseMap"  extends="basicdataBaseMap" type="customer.supu.dto.BasicDataCheckDto" >
+
+  </resultMap>
+
+<!--查询所有的 基础数据    根据描述分类，填充下拉框 -->
+<!--   <select id="selectBasicDataGroupByDes"  resultMap="basicdataBaseMap">
+		  SELECT description,basictype,title FROM basicdata where flag=1 GROUP BY description ORDER BY vorder DESC
+  </select> -->
+
+
+
+
+	<!-- 获取基础数据  和数据库value对比，并标记选中状态 -->
+  <select id="selectBasicChecked" parameterType="map"  resultMap="basicdataDtoBaseMap">
+  SELECT IF(basicvalue in
+		<foreach collection="basicvalue" item="item" index="index"
+            open="(" close=")" separator=",">
+            #{item}
+        </foreach>,
+        1,0)checked ,
+
+		b.* FROM basicdata b  WHERE  b.basictype=#{basictype} and b.flag=1
+		<!-- SELECT IF(basicvalue=#{basicvalue},1,0)checked ,b.* FROM basicdata b  WHERE  b.basictype=#{basictype} and b.flag=1 -->
+  </select>
+
+  <!-- 根据一级目录查询二级目录  并标记选中状态 -->
+  <select id="selectBasicCategoryChecked" parameterType="map"  resultMap="basicdataDtoBaseMap">
+	  	SELECT *,IF(basicvalue=#{secondValue},1,0)checked FROM basicdata WHERE basictype=#{basictype} AND flag=1 and
+	  	basicvalue LIKE #{firstValue} ORDER BY vorder desc
+  </select>
+
+
+
+  <select id="selectMaxId" parameterType="map"  resultMap="basicdataBaseMap">
+		SELECT MAX(basicvalue)basicvalue,description FROM basicdata
+		WHERE basictype=#{basictype}
+  </select>
+</mapper>

@@ -1,0 +1,42 @@
+body{
+    color: #666;
+}
+.breadcrumb li a{
+    color: #FF0000;
+}
+.control-label span {
+    color: #FD5F5E;
+}
+.tax,.commercial,.problem{
+    border: 1px solid #D2D4E0;
+}
+.different{
+    background-color: #FF0000;
+    color: #ffffff;
+    border: 1px solid #FF0000;
+}
+.ifm-right>div.different:hover{
+    color: #fff;
+}
+.pc,.mobile {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #D2D4E0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.changes {
+    background-color: #FF0000;
+    color: #ffffff;
+    border: 1px solid #FF0000;
+}
+.tr-main textarea{
+    margin-top: 10px;
+}
+
+.component{
+    margin-top: 60px;
+}

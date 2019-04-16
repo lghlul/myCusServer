@@ -1,0 +1,77 @@
+$(function(){
+/*	  $('#form').validate({
+		  onsubmit:true,// 是否在提交是验证
+		  ignore: "",
+		  submitHandler: function(form) {  //通过之后回调
+
+		      	 $.ajax({
+		   	      type:"POST",
+		   	      url:baseUrl+'/user/course/editSaveTime',
+		   	      data:$('#form').serialize(),
+		   	      success:function(data){
+		   	    		console.log(data);
+		   	    	  if (data.resultCode==200) {
+
+		   	    		  $('#success_course').modal('show');
+		   	    	  }else{
+		   	    		  $('#failure_course').modal('show');
+		   	    	  }
+
+		   	      }
+		   	    });
+	      }
+	  });*/
+
+		 $('#form').validate({
+			  onsubmit:true,// 是否在提交是验证
+			  ignore: "",
+			  submitHandler: function(form) {  //通过之后回调
+				  var result =true;
+				  var msg="请填写数据";
+				  $('.startDate').each(function(){
+
+					  var startDate=$(this).val();
+					  	var endDate=$(this).next().val();
+					  	//开始时间有，结束时间没有的情况
+					  	if(startDate !=null && startDate!='' && (endDate ==null || endDate =='')){
+					  		msg="请将数据填写完整";
+					  		result=false;
+					  		return false;
+					  	}
+					  //结束时间有，开始时间没有的情况
+					  	if(endDate !=null && endDate!='' && (startDate ==null || startDate =='')){
+					  		msg="请将数据填写完整";
+					  		result=false;
+					  		return false;
+					  	}
+
+				  });
+
+				  if(result){
+					  $.ajax({
+				   	      type:"POST",
+				   	      url:baseUrl+'/user/course/editSaveTime',
+				   	      data:$('#form').serialize(),
+				   	      async: false,
+				   	      success:function(data){
+				   	    	  if(data.resultCode="200"){
+				   	    		  $('#success').modal('show');
+				   	    	  }else{
+				   	    		  $('#fail').modal('show');
+							      $('#span_msg').text(msg);
+				   	    	  }
+
+
+				   	      }
+				   	 });
+				  }
+			      else{
+			    	  $('#fail').modal('show');
+				      $('#span_msg').text(msg);
+			    	  return false;
+
+
+				  }
+
+			  }});
+});

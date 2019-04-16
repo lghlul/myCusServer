@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customer.supu.mapper.ActivityMapper">
+    <resultMap id="baseResultMap" type="Activity">
+        <id column="activityId" property="activityId"/>
+        <result column="title" property="title"/>
+        <result column="startDate" property="startDate"/>
+        <result column="endDate" property="endDate"/>
+        <result column="createDate" property="createDate"/>
+        <result column="lastModifiedDate" property="lastModifiedDate"/>
+        <result column="lastModifiedBy" property="lastModifiedBy"/>
+        <result column="introduce" property="introduce"/>
+        <result column="description" property="description"/>
+        <result column="contact" property="contact"/>
+        <result column="status" property="status"/>
+        <collection property="prizeStores" ofType="PrizeStore">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="path" property="path"/>
+            <result column="stock" property="stock"/>
+            <result column="probability" property="probability"/>
+            <result column="activityId" property="activityId"/>
+            <result column="max" property="max"/>
+            <result column="status" property="status"/>
+        </collection>
+    </resultMap>
+    <select id="selectById" parameterType="string" resultMap="baseResultMap">
+        select * from activity where activityId = #{id}
+    </select>
+    <select id="selectPage" parameterType="Activity" resultMap="baseResultMap">
+        select * from activity
+        <where>
+            <if test="activityId != null">
+                and activityId = #{activityId}
+            </if>
+            <if test="title != null">
+                and title like CONCAT("%",  #{title}, "%")
+            </if>
+            <if test="startDate != null">
+                and startDate = #{startDate}
+            </if>
+            <if test="endDate != null">
+                and endDate = #{endDate}
+            </if>
+            <if test="createDate != null">
+                and createDate = #{createDate}
+            </if>
+            <if test="lastModifiedDate != null">
+                and lastModifiedDate = #{lastModifiedDate}
+            </if>
+            <if test="lastModifiedBy != null">
+                and lastModifiedBy = #{lastModifiedBy}
+            </if>
+            <if test="introduce != null">
+                and introduce like CONCAT("%",  #{introduce}, "%")
+            </if>
+            <if test="description != null">
+                and description = #{description}
+            </if>
+            <if test="contact != null">
+                and contact = #{contact}
+            </if>
+            <if test="status != null and status != 0">
+                and status = #{status}
+            </if>
+        </where>
+        <if test="offset != null and limit != null">
+            limit #{offset},#{limit}
+        </if>
+    </select>
+    <select id="selectPageCount" parameterType="Activity" resultType="int">
+        select count(*) from activity
+        <where>
+            <if test="activityId != null">
+                and activityId = #{activityId}
+            </if>
+            <if test="title != null">
+                and title like CONCAT("%",  #{title}, "%")
+            </if>
+            <if test="startDate != null">
+                and startDate = #{startDate}
+            </if>
+            <if test="endDate != null">
+                and endDate = #{endDate}
+            </if>
+            <if test="createDate != null">
+                and createDate = #{createDate}
+            </if>
+            <if test="lastModifiedDate != null">
+                and lastModifiedDate = #{lastModifiedDate}
+            </if>
+            <if test="lastModifiedBy != null">
+                and lastModifiedBy = #{lastModifiedBy}
+            </if>
+            <if test="introduce != null">
+                and introduce like CONCAT("%",  #{introduce}, "%")
+            </if>
+            <if test="description != null">
+                and description = #{description}
+            </if>
+            <if test="contact != null">
+                and contact = #{contact}
+            </if>
+            <if test="status != null and status != 0">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" parameterType="Activity">
+        insert into activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="activityId != null">
+                activityId,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="startDate != null">
+                startDate,
+            </if>
+            <if test="endDate != null">
+                endDate,
+            </if>
+            <if test="createDate != null">
+                createDate,
+            </if>
+            <if test="lastModifiedDate != null">
+                lastModifiedDate,
+            </if>
+            <if test="lastModifiedBy != null">
+                lastModifiedBy,
+            </if>
+            <if test="introduce != null">
+                introduce,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="contact != null">
+                contact,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="activityId != null">
+                #{activityId},
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="startDate != null">
+                #{startDate},
+            </if>
+            <if test="endDate != null">
+                #{endDate},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="lastModifiedDate != null">
+                #{lastModifiedDate},
+            </if>
+            <if test="lastModifiedBy != null">
+                #{lastModifiedBy},
+            </if>
+            <if test="introduce != null">
+                #{introduce},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="contact != null">
+                #{contact},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteById" parameterType="string">
+        delete from activity where activityId = #{id}
+    </delete>
+    <delete id="delete" parameterType="Activity">
+        delete from activity
+        <where>
+            <if test="activityId != null">
+                and activityId = #{activityId}
+            </if>
+            <if test="title != null">
+                and title = #{title}
+            </if>
+            <if test="startDate != null">
+                and startDate = #{startDate}
+            </if>
+            <if test="endDate != null">
+                and endDate = #{endDate}
+            </if>
+            <if test="createDate != null">
+                and createDate = #{createDate}
+            </if>
+            <if test="lastModifiedDate != null">
+                and lastModifiedDate = #{lastModifiedDate}
+            </if>
+            <if test="lastModifiedBy != null">
+                and lastModifiedBy = #{lastModifiedBy}
+            </if>
+            <if test="introduce != null">
+                and introduce = #{introduce}
+            </if>
+            <if test="description != null">
+                and description = #{description}
+            </if>
+            <if test="contact != null">
+                and contact = #{contact}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="selectWithPrize" parameterType="string" resultMap="baseResultMap">
+        select a.activityId,a.title,a.introduce,a.contact,b.id,b.name,b.path,a.description,a.startDate,a.endDate from activity a join prize_store b on a.activityId = #{id} and a.activityId = b.activityId
+    </select>
+
+</mapper>

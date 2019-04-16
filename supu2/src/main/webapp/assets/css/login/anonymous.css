@@ -1,0 +1,141 @@
+body{
+ background: #fff;
+    height: 100%;
+}
+
+.frontimage{
+
+    padding-top: 0px;
+    position: relative;
+
+    margin: 0px auto ;
+
+
+}
+.alert{
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.login_form{
+
+    padding: 50px 0px 10px;
+    margin: 0px auto ;
+    position: relative;
+}
+.login_form form{
+    z-index: 5;
+    position: relative;
+}/*
+.bg{
+    width: 380px;
+    height: 100%;
+    position: absolute;
+    left:0;
+    top:0;
+    z-index: 1;
+    background: #000;
+    opacity: 0.6;
+}*/
+.slogan{
+    margin: 150px auto 20px;
+    width:234px;
+    height:132px;
+    background: url(../img/logo.png) no-repeat;
+    z-index: 3;
+    position: relative;
+}
+
+.form-group{
+    margin:10px auto;
+    width: 280px;
+}
+.form-group .btn{width: 100%}
+
+.form-group .checkbox{
+    display: inline;
+    margin-top: 10px;
+    float: left;
+    font-size: 12px;
+    color: white;
+}
+
+.form-group small{
+
+    display: inline;
+    color: white;
+    font-size: 12px;
+    line-height: 12px;
+}
+.form-group small input{
+    margin: 0;
+    display: inline;
+    color: white;
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.form-group a{
+    margin-top: 14px;
+    float:right;
+    color: white;
+}
+
+p.declare{
+    margin: 10px auto 10px;
+    width: 240px;
+    line-height: 14px;
+    font-size: 12px;
+    color: #eee;
+}
+
+
+canvas {
+    display: block;
+    vertical-align: bottom;
+}
+
+/* ---- particles.js container ---- */
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    background-color: #222;
+    background-image: url("../../images/login/logo_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio:1.5){
+    .slogan{
+        background-image: url("../img/reglogo@2x.png");
+        background-size:contain;
+    }
+}
+.form-group input,.form-group button{
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.oauth a{
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-image: url("../img/sj.png");
+}
+.oauth .weibo a{
+    background-position: 0 0;
+}
+.oauth .qq a{
+    background-position: -40px 0;
+    opacity: 0.3;
+}
+.oauth .wechat a{
+    background-position: -80px 0;
+
+}
+.oauth{margin: 60px auto;text-align: center}
+.oauth div{display: inline-block}

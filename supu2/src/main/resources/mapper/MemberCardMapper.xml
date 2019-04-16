@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.mapper.MemberCardMapper" >
+  <resultMap id="BaseResultMap" type="customer.supu.po.MemberCard" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="memberName" property="membername" jdbcType="VARCHAR" />
+    <result column="proInfo" property="proinfo" jdbcType="VARCHAR" />
+    <result column="mCardImg" property="mcardimg" jdbcType="VARCHAR" />
+    <result column="cardType" property="cardtype" jdbcType="INTEGER" />
+    <result column="timeLong" property="timelong" jdbcType="INTEGER" />
+    <result column="amountMoney" property="amountmoney" jdbcType="DOUBLE" />
+    <result column="isuse" property="isuse" jdbcType="INTEGER" />
+    <result column="stores" property="stores" jdbcType="VARCHAR" />
+    <result column="addTime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="addPeople" property="addpeople" jdbcType="VARCHAR" />
+    <result column="realseTime" property="realsetime" jdbcType="TIMESTAMP" />
+    <result column="realsePeople" property="realsepeople" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="customer.supu.po.MemberCard" extends="BaseResultMap" >
+    <result column="memberRights" property="memberrights" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, memberName, proInfo, mCardImg, cardType, timeLong, amountMoney, isuse, stores, 
+    addTime, addPeople, realseTime, realsePeople
+  </sql>
+  <sql id="Blob_Column_List" >
+    memberRights
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="customer.supu.po.MemberCardExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from member_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="customer.supu.po.MemberCardExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from member_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from member_card
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_card
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="customer.supu.po.MemberCardExample" >
+    delete from member_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="customer.supu.po.MemberCard" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into member_card (memberName, proInfo, mCardImg, 
+      cardType, timeLong, amountMoney, 
+      isuse, stores, addTime, 
+      addPeople, realseTime, realsePeople, 
+      memberRights)
+    values (#{membername,jdbcType=VARCHAR}, #{proinfo,jdbcType=VARCHAR}, #{mcardimg,jdbcType=VARCHAR}, 
+      #{cardtype,jdbcType=INTEGER}, #{timelong,jdbcType=INTEGER}, #{amountmoney,jdbcType=DOUBLE}, 
+      #{isuse,jdbcType=INTEGER}, #{stores,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{addpeople,jdbcType=VARCHAR}, #{realsetime,jdbcType=TIMESTAMP}, #{realsepeople,jdbcType=VARCHAR}, 
+      #{memberrights,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="customer.supu.po.MemberCard" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into member_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="membername != null" >
+        memberName,
+      </if>
+      <if test="proinfo != null" >
+        proInfo,
+      </if>
+      <if test="mcardimg != null" >
+        mCardImg,
+      </if>
+      <if test="cardtype != null" >
+        cardType,
+      </if>
+      <if test="timelong != null" >
+        timeLong,
+      </if>
+      <if test="amountmoney != null" >
+        amountMoney,
+      </if>
+      <if test="isuse != null" >
+        isuse,
+      </if>
+      <if test="stores != null" >
+        stores,
+      </if>
+      <if test="addtime != null" >
+        addTime,
+      </if>
+      <if test="addpeople != null" >
+        addPeople,
+      </if>
+      <if test="realsetime != null" >
+        realseTime,
+      </if>
+      <if test="realsepeople != null" >
+        realsePeople,
+      </if>
+      <if test="memberrights != null" >
+        memberRights,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="membername != null" >
+        #{membername,jdbcType=VARCHAR},
+      </if>
+      <if test="proinfo != null" >
+        #{proinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="mcardimg != null" >
+        #{mcardimg,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        #{cardtype,jdbcType=INTEGER},
+      </if>
+      <if test="timelong != null" >
+        #{timelong,jdbcType=INTEGER},
+      </if>
+      <if test="amountmoney != null" >
+        #{amountmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="isuse != null" >
+        #{isuse,jdbcType=INTEGER},
+      </if>
+      <if test="stores != null" >
+        #{stores,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addpeople != null" >
+        #{addpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="realsetime != null" >
+        #{realsetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realsepeople != null" >
+        #{realsepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="memberrights != null" >
+        #{memberrights,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="customer.supu.po.MemberCardExample" resultType="java.lang.Integer" >
+    select count(*) from member_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update member_card
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.membername != null" >
+        memberName = #{record.membername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proinfo != null" >
+        proInfo = #{record.proinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mcardimg != null" >
+        mCardImg = #{record.mcardimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardtype != null" >
+        cardType = #{record.cardtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.timelong != null" >
+        timeLong = #{record.timelong,jdbcType=INTEGER},
+      </if>
+      <if test="record.amountmoney != null" >
+        amountMoney = #{record.amountmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isuse != null" >
+        isuse = #{record.isuse,jdbcType=INTEGER},
+      </if>
+      <if test="record.stores != null" >
+        stores = #{record.stores,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null" >
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addpeople != null" >
+        addPeople = #{record.addpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realsetime != null" >
+        realseTime = #{record.realsetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.realsepeople != null" >
+        realsePeople = #{record.realsepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberrights != null" >
+        memberRights = #{record.memberrights,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update member_card
+    set id = #{record.id,jdbcType=INTEGER},
+      memberName = #{record.membername,jdbcType=VARCHAR},
+      proInfo = #{record.proinfo,jdbcType=VARCHAR},
+      mCardImg = #{record.mcardimg,jdbcType=VARCHAR},
+      cardType = #{record.cardtype,jdbcType=INTEGER},
+      timeLong = #{record.timelong,jdbcType=INTEGER},
+      amountMoney = #{record.amountmoney,jdbcType=DOUBLE},
+      isuse = #{record.isuse,jdbcType=INTEGER},
+      stores = #{record.stores,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      addPeople = #{record.addpeople,jdbcType=VARCHAR},
+      realseTime = #{record.realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{record.realsepeople,jdbcType=VARCHAR},
+      memberRights = #{record.memberrights,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update member_card
+    set id = #{record.id,jdbcType=INTEGER},
+      memberName = #{record.membername,jdbcType=VARCHAR},
+      proInfo = #{record.proinfo,jdbcType=VARCHAR},
+      mCardImg = #{record.mcardimg,jdbcType=VARCHAR},
+      cardType = #{record.cardtype,jdbcType=INTEGER},
+      timeLong = #{record.timelong,jdbcType=INTEGER},
+      amountMoney = #{record.amountmoney,jdbcType=DOUBLE},
+      isuse = #{record.isuse,jdbcType=INTEGER},
+      stores = #{record.stores,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      addPeople = #{record.addpeople,jdbcType=VARCHAR},
+      realseTime = #{record.realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{record.realsepeople,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="customer.supu.po.MemberCard" >
+    update member_card
+    <set >
+      <if test="membername != null" >
+        memberName = #{membername,jdbcType=VARCHAR},
+      </if>
+      <if test="proinfo != null" >
+        proInfo = #{proinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="mcardimg != null" >
+        mCardImg = #{mcardimg,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        cardType = #{cardtype,jdbcType=INTEGER},
+      </if>
+      <if test="timelong != null" >
+        timeLong = #{timelong,jdbcType=INTEGER},
+      </if>
+      <if test="amountmoney != null" >
+        amountMoney = #{amountmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="isuse != null" >
+        isuse = #{isuse,jdbcType=INTEGER},
+      </if>
+      <if test="stores != null" >
+        stores = #{stores,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addpeople != null" >
+        addPeople = #{addpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="realsetime != null" >
+        realseTime = #{realsetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realsepeople != null" >
+        realsePeople = #{realsepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="memberrights != null" >
+        memberRights = #{memberrights,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="customer.supu.po.MemberCard" >
+    update member_card
+    set memberName = #{membername,jdbcType=VARCHAR},
+      proInfo = #{proinfo,jdbcType=VARCHAR},
+      mCardImg = #{mcardimg,jdbcType=VARCHAR},
+      cardType = #{cardtype,jdbcType=INTEGER},
+      timeLong = #{timelong,jdbcType=INTEGER},
+      amountMoney = #{amountmoney,jdbcType=DOUBLE},
+      isuse = #{isuse,jdbcType=INTEGER},
+      stores = #{stores,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      addPeople = #{addpeople,jdbcType=VARCHAR},
+      realseTime = #{realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{realsepeople,jdbcType=VARCHAR},
+      memberRights = #{memberrights,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="customer.supu.po.MemberCard" >
+    update member_card
+    set memberName = #{membername,jdbcType=VARCHAR},
+      proInfo = #{proinfo,jdbcType=VARCHAR},
+      mCardImg = #{mcardimg,jdbcType=VARCHAR},
+      cardType = #{cardtype,jdbcType=INTEGER},
+      timeLong = #{timelong,jdbcType=INTEGER},
+      amountMoney = #{amountmoney,jdbcType=DOUBLE},
+      isuse = #{isuse,jdbcType=INTEGER},
+      stores = #{stores,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      addPeople = #{addpeople,jdbcType=VARCHAR},
+      realseTime = #{realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{realsepeople,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,127 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+
+    <!-- 可以扫描controller、service、...
+    这里让扫描controller，指定controller的包
+     -->
+    <context:component-scan base-package="customer.supu.controller"></context:component-scan>
+
+    <!-- 静态资源解析
+    包括 ：js、css、img、..
+     -->
+    <mvc:resources mapping="/*.txt" location="/"/>
+    <mvc:resources mapping="/assets/**" location="/assets/"/>
+    <mvc:resources mapping="/theme/**" location="/theme/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <!-- mvc:resources location="/img/" mapping="/img/**"/> -->
+
+
+    <!--注解映射器 -->
+    <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
+    <!--注解适配器 -->
+    <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
+
+    <!-- 使用 mvc:annotation-driven代替上边注解映射器和注解适配器配置
+    mvc:annotation-driven默认加载很多的参数绑定方法，
+    比如json转换解析器就默认加载了，如果使用mvc:annotation-driven不用配置上边的RequestMappingHandlerMapping和RequestMappingHandlerAdapter
+    实际开发时使用mvc:annotation-driven
+     -->
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+
+    <!-- 自定义参数绑定 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <!-- 转换器 -->
+        <property name="converters">
+            <list>
+                <!-- 日期类型转换 -->
+                <bean class="customer.supu.converter.CustomDateConverter"/>
+            </list>
+        </property>
+
+
+    </bean>
+
+
+    <!-- springmvc mobile -->
+    <bean class="org.springframework.mobile.device.view.LiteDeviceDelegatingViewResolver">
+        <constructor-arg>
+            <!-- 视图解析器
+              解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包
+               -->
+            <bean
+                    class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                <!-- 配置jsp路径的前缀 -->
+                <property name="prefix" value="/WEB-INF/view/"/>
+                <!-- 配置jsp路径的后缀 -->
+                <property name="suffix" value=".jsp"/>
+
+            </bean>
+        </constructor-arg>
+
+        <!-- springmvc mobile -->
+        <property name="enableFallback" value="true"/>
+        <property name="mobilePrefix" value="mobile/"/>
+        <property name="tabletPrefix" value="tablet/"/>
+    </bean>
+
+
+    <!-- 配置springMVC处理上传文件的信息 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="10485760000"/>
+        <property name="maxInMemorySize" value="40960"/>
+    </bean>
+
+    <!-- 启用shrio授权注解拦截方式 -->
+    <aop:config proxy-target-class="true"></aop:config>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <bean
+            class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+
+    <!-- 	<bean id="conversionServi"
+            class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        </bean> -->
+
+
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/plain;charset=UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.mobile.device.DeviceWebArgumentResolver"/>
+            <bean class="org.springframework.mobile.device.site.SitePreferenceWebArgumentResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+
+    <!--springmvc mobile  拦截器-->
+    <mvc:interceptors>
+
+        <bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor"/>
+        <bean class="org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor"/>
+
+        <!--      <mvc:interceptor>
+                 <mvc:mapping path="/*"/>
+                 <bean class="official.website.Interceptor.IsMobileInterceptor"></bean>
+             </mvc:interceptor> -->
+    </mvc:interceptors>
+
+</beans>

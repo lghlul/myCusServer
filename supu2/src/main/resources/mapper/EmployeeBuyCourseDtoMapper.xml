@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.dao.EmployeeBuyCourseDao" >
+  <resultMap id="BaseResultMap" type="customer.supu.dto.EmployeeBuyCourseDto" >
+
+  </resultMap>
+
+
+<!--查询所有的-->
+	<select id="selectEmpByCourseByList" parameterType="Map" resultMap="BaseResultMap">
+		SELECT *,c.coachname,c.coachimg1,c.coachimg2,c.coachimg3,c.coachimg4,c.coachimg5,c.phonenumber,b.coursename,c.nickname
+		FROM employee_buy_course a
+		LEFT JOIN course_pri_coach b ON a.`courseId`=b.`id`
+		LEFT JOIN coach c ON c.id=b.coachs
+		WHERE  a.status=1
+		<if test="type !=null and type!='' ">
+			and a.coursetype=#{type}
+		</if>
+		<if test="courseId !=null and courseId!='' ">
+			and a.courseid=#{courseId}
+		</if>
+		<if test="userId !=null and userId !='' ">
+			and a.userid=#{userId}
+		</if>
+	</select>
+<!--查询会员购买的所有工作室课程-->
+	<select id="selectAllStudioCourseBuy" parameterType="Map" resultMap="BaseResultMap">
+		SELECT a.*,c.coachname,c.coachimg1,c.coachimg2,c.coachimg3,c.coachimg4,c.coachimg5,c.phonenumber,b.coursename,c.nickname
+		FROM employee_buy_course a
+		LEFT JOIN course_exc_group b ON a.`courseId`=b.`id`
+		LEFT JOIN coach c ON c.id=b.coachs
+		WHERE a.coursetype=2 AND a.status=1
+		<if test="courseId !=null and courseId!='' ">
+			and a.courseid=#{courseId}
+		</if>
+		<if test="userId !=null and userId !='' ">
+			and a.userid=#{userId}
+		</if>
+	</select>
+	
+	
+	<!--查询会员购买的所有训练营课程-->
+	<select id="selectAllGroupCourseBuy" parameterType="Map" resultMap="BaseResultMap">
+		SELECT a.*,c.coachname,c.coachimg1,c.coachimg2,c.coachimg3,c.coachimg4,c.coachimg5,c.phonenumber,b.coursename,c.nickname
+		FROM employee_buy_course a
+		LEFT JOIN course_exc_group b ON a.`courseId`=b.`id`
+		LEFT JOIN coach c ON c.id=b.coachs
+		WHERE a.coursetype=1 AND a.status=1
+		<if test="courseId !=null and courseId!='' ">
+			and a.courseid=#{courseId}
+		</if>
+		<if test="userId !=null and userId !='' ">
+			and a.userid=#{userId}
+		</if>
+	</select>
+
+
+</mapper>

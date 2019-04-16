@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer.supu.mapper.CoachMapper" >
+  <resultMap id="BaseResultMap" type="customer.supu.po.Coach" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="nickName" property="nickname" jdbcType="VARCHAR" />
+    <result column="coachName" property="coachname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phoneNumber" property="phonenumber" jdbcType="VARCHAR" />
+    <result column="idNumber" property="idnumber" jdbcType="VARCHAR" />
+    <result column="frontIdNumber" property="frontidnumber" jdbcType="VARCHAR" />
+    <result column="reverseIdNumber" property="reverseidnumber" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="serviceArea" property="servicearea" jdbcType="VARCHAR" />
+    <result column="graduateColleges" property="graduatecolleges" jdbcType="VARCHAR" />
+    <result column="everWorked" property="everworked" jdbcType="VARCHAR" />
+    <result column="coachLevel" property="coachlevel" jdbcType="INTEGER" />
+    <result column="teachYears" property="teachyears" jdbcType="DOUBLE" />
+    <result column="headImg" property="headimg" jdbcType="VARCHAR" />
+    <result column="coachImg1" property="coachimg1" jdbcType="VARCHAR" />
+    <result column="coachImg2" property="coachimg2" jdbcType="VARCHAR" />
+    <result column="coachImg3" property="coachimg3" jdbcType="VARCHAR" />
+    <result column="coachImg4" property="coachimg4" jdbcType="VARCHAR" />
+    <result column="coachImg5" property="coachimg5" jdbcType="VARCHAR" />
+    <result column="isPopular" property="ispopular" jdbcType="INTEGER" />
+    <result column="stores" property="stores" jdbcType="VARCHAR" />
+    <result column="addTime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="addPeople" property="addpeople" jdbcType="VARCHAR" />
+    <result column="realseTime" property="realsetime" jdbcType="TIMESTAMP" />
+    <result column="realsePeople" property="realsepeople" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="customer.supu.po.Coach" extends="BaseResultMap" >
+    <result column="goodat" property="goodat" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, nickName, coachName, sex, birthday, email, phoneNumber, idNumber, frontIdNumber, 
+    reverseIdNumber, location, serviceArea, graduateColleges, everWorked, coachLevel, 
+    teachYears, headImg, coachImg1, coachImg2, coachImg3, coachImg4, coachImg5, isPopular, 
+    stores, addTime, addPeople, realseTime, realsePeople, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    goodat
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="customer.supu.po.CoachExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from coach
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="customer.supu.po.CoachExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from coach
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from coach
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from coach
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="customer.supu.po.CoachExample" >
+    delete from coach
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="customer.supu.po.Coach" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into coach (nickName, coachName, sex, 
+      birthday, email, phoneNumber, 
+      idNumber, frontIdNumber, reverseIdNumber, 
+      location, serviceArea, graduateColleges, 
+      everWorked, coachLevel, teachYears, 
+      headImg, coachImg1, coachImg2, 
+      coachImg3, coachImg4, coachImg5, 
+      isPopular, stores, addTime, 
+      addPeople, realseTime, realsePeople, 
+      status, goodat)
+    values (#{nickname,jdbcType=VARCHAR}, #{coachname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{birthday,jdbcType=DATE}, #{email,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, 
+      #{idnumber,jdbcType=VARCHAR}, #{frontidnumber,jdbcType=VARCHAR}, #{reverseidnumber,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{servicearea,jdbcType=VARCHAR}, #{graduatecolleges,jdbcType=VARCHAR}, 
+      #{everworked,jdbcType=VARCHAR}, #{coachlevel,jdbcType=INTEGER}, #{teachyears,jdbcType=DOUBLE}, 
+      #{headimg,jdbcType=VARCHAR}, #{coachimg1,jdbcType=VARCHAR}, #{coachimg2,jdbcType=VARCHAR}, 
+      #{coachimg3,jdbcType=VARCHAR}, #{coachimg4,jdbcType=VARCHAR}, #{coachimg5,jdbcType=VARCHAR}, 
+      #{ispopular,jdbcType=INTEGER}, #{stores,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{addpeople,jdbcType=VARCHAR}, #{realsetime,jdbcType=TIMESTAMP}, #{realsepeople,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{goodat,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="customer.supu.po.Coach" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into coach
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nickname != null" >
+        nickName,
+      </if>
+      <if test="coachname != null" >
+        coachName,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phonenumber != null" >
+        phoneNumber,
+      </if>
+      <if test="idnumber != null" >
+        idNumber,
+      </if>
+      <if test="frontidnumber != null" >
+        frontIdNumber,
+      </if>
+      <if test="reverseidnumber != null" >
+        reverseIdNumber,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="servicearea != null" >
+        serviceArea,
+      </if>
+      <if test="graduatecolleges != null" >
+        graduateColleges,
+      </if>
+      <if test="everworked != null" >
+        everWorked,
+      </if>
+      <if test="coachlevel != null" >
+        coachLevel,
+      </if>
+      <if test="teachyears != null" >
+        teachYears,
+      </if>
+      <if test="headimg != null" >
+        headImg,
+      </if>
+      <if test="coachimg1 != null" >
+        coachImg1,
+      </if>
+      <if test="coachimg2 != null" >
+        coachImg2,
+      </if>
+      <if test="coachimg3 != null" >
+        coachImg3,
+      </if>
+      <if test="coachimg4 != null" >
+        coachImg4,
+      </if>
+      <if test="coachimg5 != null" >
+        coachImg5,
+      </if>
+      <if test="ispopular != null" >
+        isPopular,
+      </if>
+      <if test="stores != null" >
+        stores,
+      </if>
+      <if test="addtime != null" >
+        addTime,
+      </if>
+      <if test="addpeople != null" >
+        addPeople,
+      </if>
+      <if test="realsetime != null" >
+        realseTime,
+      </if>
+      <if test="realsepeople != null" >
+        realsePeople,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="goodat != null" >
+        goodat,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="coachname != null" >
+        #{coachname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null" >
+        #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="idnumber != null" >
+        #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="frontidnumber != null" >
+        #{frontidnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="reverseidnumber != null" >
+        #{reverseidnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="servicearea != null" >
+        #{servicearea,jdbcType=VARCHAR},
+      </if>
+      <if test="graduatecolleges != null" >
+        #{graduatecolleges,jdbcType=VARCHAR},
+      </if>
+      <if test="everworked != null" >
+        #{everworked,jdbcType=VARCHAR},
+      </if>
+      <if test="coachlevel != null" >
+        #{coachlevel,jdbcType=INTEGER},
+      </if>
+      <if test="teachyears != null" >
+        #{teachyears,jdbcType=DOUBLE},
+      </if>
+      <if test="headimg != null" >
+        #{headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="coachimg1 != null" >
+        #{coachimg1,jdbcType=VARCHAR},
+      </if>
+      <if test="coachimg2 != null" >
+        #{coachimg2,jdbcType=VARCHAR},
+      </if>
+      <if test="coachimg3 != null" >
+        #{coachimg3,jdbcType=VARCHAR},
+      </if>
+      <if test="coachimg4 != null" >
+        #{coachimg4,jdbcType=VARCHAR},
+      </if>
+      <if test="coachimg5 != null" >
+        #{coachimg5,jdbcType=VARCHAR},
+      </if>
+      <if test="ispopular != null" >
+        #{ispopular,jdbcType=INTEGER},
+      </if>
+      <if test="stores != null" >
+        #{stores,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addpeople != null" >
+        #{addpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="realsetime != null" >
+        #{realsetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realsepeople != null" >
+        #{realsepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="goodat != null" >
+        #{goodat,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="customer.supu.po.CoachExample" resultType="java.lang.Integer" >
+    select count(*) from coach
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update coach
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickname != null" >
+        nickName = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coachname != null" >
+        coachName = #{record.coachname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=DATE},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonenumber != null" >
+        phoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idnumber != null" >
+        idNumber = #{record.idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frontidnumber != null" >
+        frontIdNumber = #{record.frontidnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reverseidnumber != null" >
+        reverseIdNumber = #{record.reverseidnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicearea != null" >
+        serviceArea = #{record.servicearea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduatecolleges != null" >
+        graduateColleges = #{record.graduatecolleges,jdbcType=VARCHAR},
+      </if>
+      <if test="record.everworked != null" >
+        everWorked = #{record.everworked,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coachlevel != null" >
+        coachLevel = #{record.coachlevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.teachyears != null" >
+        teachYears = #{record.teachyears,jdbcType=DOUBLE},
+      </if>
+      <if test="record.headimg != null" >
+        headImg = #{record.headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coachimg1 != null" >
+        coachImg1 = #{record.coachimg1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coachimg2 != null" >
+        coachImg2 = #{record.coachimg2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coachimg3 != null" >
+        coachImg3 = #{record.coachimg3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coachimg4 != null" >
+        coachImg4 = #{record.coachimg4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coachimg5 != null" >
+        coachImg5 = #{record.coachimg5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispopular != null" >
+        isPopular = #{record.ispopular,jdbcType=INTEGER},
+      </if>
+      <if test="record.stores != null" >
+        stores = #{record.stores,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null" >
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addpeople != null" >
+        addPeople = #{record.addpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realsetime != null" >
+        realseTime = #{record.realsetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.realsepeople != null" >
+        realsePeople = #{record.realsepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodat != null" >
+        goodat = #{record.goodat,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update coach
+    set id = #{record.id,jdbcType=INTEGER},
+      nickName = #{record.nickname,jdbcType=VARCHAR},
+      coachName = #{record.coachname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      birthday = #{record.birthday,jdbcType=DATE},
+      email = #{record.email,jdbcType=VARCHAR},
+      phoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      idNumber = #{record.idnumber,jdbcType=VARCHAR},
+      frontIdNumber = #{record.frontidnumber,jdbcType=VARCHAR},
+      reverseIdNumber = #{record.reverseidnumber,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      serviceArea = #{record.servicearea,jdbcType=VARCHAR},
+      graduateColleges = #{record.graduatecolleges,jdbcType=VARCHAR},
+      everWorked = #{record.everworked,jdbcType=VARCHAR},
+      coachLevel = #{record.coachlevel,jdbcType=INTEGER},
+      teachYears = #{record.teachyears,jdbcType=DOUBLE},
+      headImg = #{record.headimg,jdbcType=VARCHAR},
+      coachImg1 = #{record.coachimg1,jdbcType=VARCHAR},
+      coachImg2 = #{record.coachimg2,jdbcType=VARCHAR},
+      coachImg3 = #{record.coachimg3,jdbcType=VARCHAR},
+      coachImg4 = #{record.coachimg4,jdbcType=VARCHAR},
+      coachImg5 = #{record.coachimg5,jdbcType=VARCHAR},
+      isPopular = #{record.ispopular,jdbcType=INTEGER},
+      stores = #{record.stores,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      addPeople = #{record.addpeople,jdbcType=VARCHAR},
+      realseTime = #{record.realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{record.realsepeople,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      goodat = #{record.goodat,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update coach
+    set id = #{record.id,jdbcType=INTEGER},
+      nickName = #{record.nickname,jdbcType=VARCHAR},
+      coachName = #{record.coachname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      birthday = #{record.birthday,jdbcType=DATE},
+      email = #{record.email,jdbcType=VARCHAR},
+      phoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      idNumber = #{record.idnumber,jdbcType=VARCHAR},
+      frontIdNumber = #{record.frontidnumber,jdbcType=VARCHAR},
+      reverseIdNumber = #{record.reverseidnumber,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      serviceArea = #{record.servicearea,jdbcType=VARCHAR},
+      graduateColleges = #{record.graduatecolleges,jdbcType=VARCHAR},
+      everWorked = #{record.everworked,jdbcType=VARCHAR},
+      coachLevel = #{record.coachlevel,jdbcType=INTEGER},
+      teachYears = #{record.teachyears,jdbcType=DOUBLE},
+      headImg = #{record.headimg,jdbcType=VARCHAR},
+      coachImg1 = #{record.coachimg1,jdbcType=VARCHAR},
+      coachImg2 = #{record.coachimg2,jdbcType=VARCHAR},
+      coachImg3 = #{record.coachimg3,jdbcType=VARCHAR},
+      coachImg4 = #{record.coachimg4,jdbcType=VARCHAR},
+      coachImg5 = #{record.coachimg5,jdbcType=VARCHAR},
+      isPopular = #{record.ispopular,jdbcType=INTEGER},
+      stores = #{record.stores,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      addPeople = #{record.addpeople,jdbcType=VARCHAR},
+      realseTime = #{record.realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{record.realsepeople,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="customer.supu.po.Coach" >
+    update coach
+    <set >
+      <if test="nickname != null" >
+        nickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="coachname != null" >
+        coachName = #{coachname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null" >
+        phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="idnumber != null" >
+        idNumber = #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="frontidnumber != null" >
+        frontIdNumber = #{frontidnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="reverseidnumber != null" >
+        reverseIdNumber = #{reverseidnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="servicearea != null" >
+        serviceArea = #{servicearea,jdbcType=VARCHAR},
+      </if>
+      <if test="graduatecolleges != null" >
+        graduateColleges = #{graduatecolleges,jdbcType=VARCHAR},
+      </if>
+      <if test="everworked != null" >
+        everWorked = #{everworked,jdbcType=VARCHAR},
+      </if>
+      <if test="coachlevel != null" >
+        coachLevel = #{coachlevel,jdbcType=INTEGER},
+      </if>
+      <if test="teachyears != null" >
+        teachYears = #{teachyears,jdbcType=DOUBLE},
+      </if>
+      <if test="headimg != null" >
+        headImg = #{headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="coachimg1 != null" >
+        coachImg1 = #{coachimg1,jdbcType=VARCHAR},
+      </if>
+      <if test="coachimg2 != null" >
+        coachImg2 = #{coachimg2,jdbcType=VARCHAR},
+      </if>
+      <if test="coachimg3 != null" >
+        coachImg3 = #{coachimg3,jdbcType=VARCHAR},
+      </if>
+      <if test="coachimg4 != null" >
+        coachImg4 = #{coachimg4,jdbcType=VARCHAR},
+      </if>
+      <if test="coachimg5 != null" >
+        coachImg5 = #{coachimg5,jdbcType=VARCHAR},
+      </if>
+      <if test="ispopular != null" >
+        isPopular = #{ispopular,jdbcType=INTEGER},
+      </if>
+      <if test="stores != null" >
+        stores = #{stores,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addpeople != null" >
+        addPeople = #{addpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="realsetime != null" >
+        realseTime = #{realsetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realsepeople != null" >
+        realsePeople = #{realsepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="goodat != null" >
+        goodat = #{goodat,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="customer.supu.po.Coach" >
+    update coach
+    set nickName = #{nickname,jdbcType=VARCHAR},
+      coachName = #{coachname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=DATE},
+      email = #{email,jdbcType=VARCHAR},
+      phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      idNumber = #{idnumber,jdbcType=VARCHAR},
+      frontIdNumber = #{frontidnumber,jdbcType=VARCHAR},
+      reverseIdNumber = #{reverseidnumber,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      serviceArea = #{servicearea,jdbcType=VARCHAR},
+      graduateColleges = #{graduatecolleges,jdbcType=VARCHAR},
+      everWorked = #{everworked,jdbcType=VARCHAR},
+      coachLevel = #{coachlevel,jdbcType=INTEGER},
+      teachYears = #{teachyears,jdbcType=DOUBLE},
+      headImg = #{headimg,jdbcType=VARCHAR},
+      coachImg1 = #{coachimg1,jdbcType=VARCHAR},
+      coachImg2 = #{coachimg2,jdbcType=VARCHAR},
+      coachImg3 = #{coachimg3,jdbcType=VARCHAR},
+      coachImg4 = #{coachimg4,jdbcType=VARCHAR},
+      coachImg5 = #{coachimg5,jdbcType=VARCHAR},
+      isPopular = #{ispopular,jdbcType=INTEGER},
+      stores = #{stores,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      addPeople = #{addpeople,jdbcType=VARCHAR},
+      realseTime = #{realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{realsepeople,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      goodat = #{goodat,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="customer.supu.po.Coach" >
+    update coach
+    set nickName = #{nickname,jdbcType=VARCHAR},
+      coachName = #{coachname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=DATE},
+      email = #{email,jdbcType=VARCHAR},
+      phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      idNumber = #{idnumber,jdbcType=VARCHAR},
+      frontIdNumber = #{frontidnumber,jdbcType=VARCHAR},
+      reverseIdNumber = #{reverseidnumber,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      serviceArea = #{servicearea,jdbcType=VARCHAR},
+      graduateColleges = #{graduatecolleges,jdbcType=VARCHAR},
+      everWorked = #{everworked,jdbcType=VARCHAR},
+      coachLevel = #{coachlevel,jdbcType=INTEGER},
+      teachYears = #{teachyears,jdbcType=DOUBLE},
+      headImg = #{headimg,jdbcType=VARCHAR},
+      coachImg1 = #{coachimg1,jdbcType=VARCHAR},
+      coachImg2 = #{coachimg2,jdbcType=VARCHAR},
+      coachImg3 = #{coachimg3,jdbcType=VARCHAR},
+      coachImg4 = #{coachimg4,jdbcType=VARCHAR},
+      coachImg5 = #{coachimg5,jdbcType=VARCHAR},
+      isPopular = #{ispopular,jdbcType=INTEGER},
+      stores = #{stores,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      addPeople = #{addpeople,jdbcType=VARCHAR},
+      realseTime = #{realsetime,jdbcType=TIMESTAMP},
+      realsePeople = #{realsepeople,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
