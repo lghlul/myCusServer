@@ -12,7 +12,8 @@ public enum ResultCodeEnum {
     NAME_ERROR(1001, "账号错误"),
     NOT_LOGIN(1002, "尚未登录"),
     ACTIVITY_START(1003,"活动已经开始,不能修改"),
-    FILE_FORMAT_ERROR(1004,"文件格式错误");
+    FILE_FORMAT_ERROR(1004,"文件格式错误"),
+    QUES_NUM_ZERO(1005,"题数为0不能开始");
 
     /**
      * 编号
