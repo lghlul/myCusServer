@@ -1,0 +1,42 @@
+<!--logs.wxml-->
+<view class="container">
+  <!--logs.wxml-->
+  <view class="exam-content">
+
+        <view class='reply' bindtap='toReply' >我来回复</view>
+
+    <view class='practice-container'>
+      <view class='practice-content'>
+      <div class='practice-userinfo-avatar-box'>
+              <open-data type="userAvatarUrl" class="practice-userinfo-avatar"></open-data>
+          </div>
+        <view class='practice-info-box'>
+          <view class='practice-text' >{{bbsInfo.title}}</view>
+        </view>
+          <view class='practice-text tright' ><text>{{bbsInfo.time}}</text> </view>
+        <view class='practice-questions-box' >
+          <view class='practice-questions'>{{bbsInfo.content}}</view>
+
+          
+          
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad">
+    <view class='ranking-content'>
+      <view class='ranking-list-content'>
+        <view wx:for="{{replyList}}" data-id="{{item.replyID}}"  class="ranking-list-box"  wx:key='index'>
+            <text class='serial-number'>{{item.content}}</text>
+            <view class=''>
+              <view class='ranking-points'>{{item.time}}</view>
+            </view>
+          <view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='null-data' wx:if='{{replyList.length==0}}'>暂无记录</view>
+  </scroll-view>
+</view>

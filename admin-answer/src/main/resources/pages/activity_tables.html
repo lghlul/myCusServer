@@ -246,13 +246,13 @@
                 }
                 if(data==2){
                     buttons += '<a type="button"  href="#" openID="'+row.activityID+'" data-id="'+row.activityID+'" class="button-end" >结束</a>';
-                    //buttons += ' <a type="button"  href="#" openID="'+row.activityID+'" data-id="'+row.activityID+'" class="button-users" >参与成员</a>';
+                    buttons += ' <a type="button"  href="#" openID="'+row.activityID+'" data-id="'+row.activityID+'" class="button-users" >参与成员</a>';
                 }
                 if(data==3){
                     buttons += '<a type="button"  href="#" openID="'+row.activityID+'" data-id="'+row.activityID+'" class="button-users" >参与成员</a>';
                 }
-
-                buttons += ' <a type="button"  href="#" openID="'+row.activityID+'" data-id="'+row.activityID+'" class="button-export" >导出题目</a>';
+                if(row.quesNum>0)
+                    buttons += ' <a type="button"  href="#" openID="'+row.activityID+'" data-id="'+row.activityID+'" class="button-export" >导出题目</a>';
 
                 return buttons;
             }
@@ -305,6 +305,7 @@
             .appendTo('body').submit().remove();
         })
         $("body").on("click",".button-down",function(){
+
             var url  ="static/template/template.xls"
             jQuery('<form action="'+url+'" method="get">' +  // action请求路径及推送方法
                     '</form>')

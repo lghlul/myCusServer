@@ -17,7 +17,13 @@
     "pages/war/war",
     "pages/examover/examover",
     "pages/warInfo/warinfo",
-    "pages/warHistory/warHistory"
+    "pages/warHistory/warHistory",
+    "pages/bbs/bbs",
+    "pages/bbsInfo/bbsInfo",
+    "pages/bbsRelpy/bbsRelpy",
+    "pages/bbsNew/bbsNew",
+    "pages/bbsMy/bbsMy",
+    "pages/bbsMyReply/bbsMyReply"
   ],
   "window": {
     "backgroundTextStyle": "dark",

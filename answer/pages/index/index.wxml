@@ -37,6 +37,10 @@
           <text>谁与争峰</text>
           <image src='../../images/warIcon.png'></image>
         </navigator>
+        <navigator url='../bbs/bbs' class='answer-module-box' id='bbs'>
+          <text>论坛</text>
+          <image src='../../images/luntan.png'></image>
+        </navigator>
       </view>
       <view class='answer-module-content'>
         <navigator url='../classify/classify?type=2' class='answer-module-box' id='friends'>

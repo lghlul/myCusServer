@@ -96,7 +96,30 @@ var config = {
 
 
   //活动提交
-  submitWarQueation: `${host}/activity/finish`
+  submitWarQueation: `${host}/activity/finish`,
+
+
+  //主题列表
+  bbsList: `${host}//bbs/list`,
+
+
+  //回复列表
+  bbsReplyList: `${host}/bbs/listReply`,
+
+
+  //回复主题
+  bbsReply: `${host}/bbs/saveReply`,
+
+
+  //发布主题 
+  bbsSave: `${host}/bbs/save`,
+
+
+  //我的回复
+  myBbsReply: `${host}/bbs/listMyReply`,
+
+  //我的主题
+  myBbs: `${host}/bbs/listMy`
 };
 
 module.exports = config
