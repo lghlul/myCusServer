@@ -11,11 +11,14 @@
 
 
     <select id="list" parameterType="ActivityUser" resultType="ActivityUser">
-      select * from t_activity_user
-      <where>
-        <if test="openID != null">
-          and openID = #{openID}
-        </if>
-      </where>
+        select * from t_activity_user
+        <where>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="activityID != null">
+                and activityID = #{activityID}
+            </if>
+        </where>
     </select>
 </mapper>

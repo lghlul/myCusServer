@@ -118,6 +118,8 @@ public class ActivityServiceImpl implements IActivityService {
 	@Override
 	public Result finish(List<ActivityUserAnswer> activityUserAnswers , String wxSession , Long activityID) {
 		Result result = new Result();
+		WXSessionCache session = this.cacheHelper.getSession(wxSession);
+
 		Activity activity = activityMapper.selectByID(activityID + "");
 		if(activity.getActivityStatus() == Constant.ACTIVITY_UN_START){
 			//活动尚未开始
@@ -128,8 +130,19 @@ public class ActivityServiceImpl implements IActivityService {
 			result.setResultCode(Constant.returnCode.ACTIVITY_FINISH);
 			return result;
 		}
+
+		//校验是否已经参加过该活动
+		ActivityUser au = new ActivityUser();
+		au.setOpenID(session.getOpenID());
+		au.setActivityID(activityID);
+		List<ActivityUser> list = activityUserMapper.list(au);
+		if(list != null && list.size() > 0){
+			result.setResultCode(Constant.returnCode.REPEAT_JOIN_ACTIVITY);
+			return result;
+		}
+
+
 		int rightNum = 0;
-		WXSessionCache session = this.cacheHelper.getSession(wxSession);
 		if(activityUserAnswers != null){
 			for(ActivityUserAnswer activityUserAnswer : activityUserAnswers){
 				ActivityQuestion activityQuestion = activityQuestionMapper.readByQuesID(activityUserAnswer.getQuesID() + "");
@@ -153,6 +166,12 @@ public class ActivityServiceImpl implements IActivityService {
 		activityUser.setCreateTime(System.currentTimeMillis());
 		activityUser.setRightNum(rightNum);
 		activityUserMapper.insert(activityUser);
+
+		Map<String , Object> map = new HashMap<>();
+		map.put("quesNum" , activity.getQuesNum());
+		map.put("rightNum" , rightNum);
+		result.setResultData(map);
+
 		return result;
 	}
 

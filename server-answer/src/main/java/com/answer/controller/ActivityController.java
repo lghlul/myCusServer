@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/activity" )
@@ -39,16 +41,15 @@ public class ActivityController {
 	@GetMapping("listByActivityID")
 	public String listByActivityID(Long activityID, String wxSession) {
 		Result result = new Result();
+		Map<String , Object> map = new HashMap<>();
 		Activity activity = activityService.read(activityID + "");
-		if(activity.getActivityStatus() == Constant.ACTIVITY_UN_START){
-			//活动尚未开始
-			result.setResultCode(Constant.returnCode.ACTIVITY_UN_START);
-			return JSON.toJSONString(result);
+		map.put("activity" , activity);
+		if(activity.getActivityStatus() != Constant.ACTIVITY_UN_START){
+			//活动已经开始或者结束   能够查看具体详情
+			List<ActivityQuestion> activityQuestions = activityService.listByActivityID(activityID ,wxSession);
+			map.put("activityQuestions" , activityQuestions);
 		}
-
-
-		List<ActivityQuestion> activityQuestions = activityService.listByActivityID(activityID ,wxSession);
-		result.setResultData(activityQuestions);
+		result.setResultData(map);
 		return JSON.toJSONString(result);
 	}
 

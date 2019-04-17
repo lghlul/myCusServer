@@ -67,7 +67,22 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- <property name="configLocation" value="classpath:datasource/sqlMapConfig.xml"></property> -->
 		<property name="typeAliasesPackage" value="com.answer.domain" />
-		<property name="mapperLocations" value="classpath:datasource/sql/*.xml"></property> 
+		<property name="mapperLocations" value="classpath:datasource/sql/*.xml"></property>
+
+
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!-- config params as the following -->
+                        <value>
+                            helperDialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.answer.mapper,com.answer.mapper.*" />

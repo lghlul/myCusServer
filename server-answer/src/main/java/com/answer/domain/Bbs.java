@@ -24,6 +24,16 @@ public class Bbs extends PageQuery {
 
     private String keyWord;
 
+    private Integer replyNum;
+
+    public Integer getReplyNum() {
+        return replyNum;
+    }
+
+    public void setReplyNum(Integer replyNum) {
+        this.replyNum = replyNum;
+    }
+
     public String getKeyWord() {
         return keyWord;
     }

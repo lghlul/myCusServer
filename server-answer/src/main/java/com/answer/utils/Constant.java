@@ -125,10 +125,19 @@ public interface Constant {
          */
         int TRAIN_FINISHED = 9993;
 
-
+        /**
+         * 活动尚未开始
+         */
         int ACTIVITY_UN_START = 9992;
-
+        /**
+         * 活动已经结束
+         */
         int ACTIVITY_FINISH = 9991;
+
+        /**
+         * 重复参加活动
+         */
+        int REPEAT_JOIN_ACTIVITY = 9990;
 
     }
 
