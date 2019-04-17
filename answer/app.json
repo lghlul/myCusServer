@@ -23,7 +23,8 @@
     "pages/bbsRelpy/bbsRelpy",
     "pages/bbsNew/bbsNew",
     "pages/bbsMy/bbsMy",
-    "pages/bbsMyReply/bbsMyReply"
+    "pages/bbsMyReply/bbsMyReply",
+    "pages/warover/warover"
   ],
   "window": {
     "backgroundTextStyle": "dark",

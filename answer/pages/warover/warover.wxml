@@ -1,0 +1,12 @@
+<!--logs.wxml-->
+<view class="exam-content">
+  <view  class='exam-info'>
+    <view class='exam-info-title'>活动结束</view>
+    <view class='logoview'><image src='../../images/success.png'> </image></view>
+    <view class='exam-info-txt'>答题总数：{{warover.quesNum}}题</view>
+    <view class='exam-info-txt'>正确题数：{{warover.rightNum}}题</view>
+  </view>
+  <view  class='exam-btn' bindtap='backhome'>
+      <view class="exam-btn-txt">确定</view>
+  </view>
+</view>

@@ -192,8 +192,8 @@ Page({
           let questonData = new Object();
           questonData.answerNum = 0;
           questonData.currentNum = 0;
-          questonData.allNum = result.data.resultData.length;
-          questonData.questions = result.data.resultData;
+          questonData.allNum = result.data.resultData.activityQuestions.length;
+          questonData.questions = result.data.resultData.activityQuestions;
           questonData.question = questonData.questions[0];
           questonData.answerNum = 0;
           that.setData({
@@ -256,13 +256,31 @@ Page({
       success: function (result) {
         
         if (result.data.resultCode == 0) {
-         wx.showToast({
-           title: '提交成功',
-           success: function () {
-             wx.navigateBack();
-          }
-         })
+        //  wx.showToast({
+        //    title: '提交成功',
+        //    success: function () {
+        //      wx.navigateBack();
+        //   }
+        //  })
+          wx.setStorage({
+            key: 'warover',
+            data: result.data.resultData,
+          })
+          wx.redirectTo({
+            url: "../warover/warover"
+          })
           
+        } else if (result.data.resultCode == 9990) {
+          wx.showModal({
+            title: '提示',
+            content: '请勿重复提交',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.navigateBack({})
+              }
+            }
+          })
         } else if (result.data.resultCode == 9991) {
           wx.showModal({
             title: '提示',

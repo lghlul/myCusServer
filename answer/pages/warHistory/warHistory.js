@@ -179,7 +179,7 @@ Page({
       success: function (result) {
         // console.log(result.data)
         if (result.data.resultCode == 0) {
-          result.data.resultData.question.answerList.forEach(function (item, index) {
+          result.data.resultData.activityQuestions.answerList.forEach(function (item, index) {
             item.choose = '';
           })
           that.setData({
@@ -242,7 +242,7 @@ Page({
       success: function (result) {
         // console.log(result.data)
         if (result.data.resultCode == 0) {
-          result.data.resultData.forEach(function (question, index) {
+          result.data.resultData.activityQuestions.forEach(function (question, index) {
             question.answerList.forEach(function (item, index) {
               if (question.answerID) {
                 question.answerID = question.answerID + "";
@@ -260,8 +260,8 @@ Page({
           let questonData = new Object();
           questonData.answerNum = 0;
           questonData.currentNum = 0;
-          questonData.allNum = result.data.resultData.length;
-          questonData.questions = result.data.resultData;
+          questonData.allNum = result.data.resultData.activityQuestions.length;
+          questonData.questions = result.data.resultData.activityQuestions;
           questonData.question = questonData.questions[0];
           questonData.answerNum = 0;
           that.setData({

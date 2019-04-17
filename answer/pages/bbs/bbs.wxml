@@ -8,7 +8,7 @@
         <view wx:for="{{bbsList}}" data-id="{{item.bbsID}}" bindtap='toInfo' class="ranking-list-box "  wx:key='index'>
             <text class='serial-number'>{{item.title}}\n{{item.time}}</text>
             <view class='ranking-points-box'>
-              <view class='ranking-points'>XX回复</view>
+              <view class='ranking-points'>{{item.replyNum}}\t回复</view>
             </view>
           <view>
           </view>
