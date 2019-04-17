@@ -60,7 +60,7 @@ public class ActivityController {
     public Object update(Activity activity) {
         if (activity.getActivityStatus() != null) {
             if (activity.getActivityStatus() == CommonConstant.Common.ACTIVITY_STATUS_START) {
-                Activity act = activityService.queryById(activity.getActivityName() + "");
+                Activity act = activityService.queryById(activity.getActivityID() + "");
                 if(act.getQuesNum() == 0){
                     return ResultCodeEnum.QUES_NUM_ZERO.getResponse();
                 }
