@@ -63,7 +63,7 @@ Page({
         limit: that.data.pageSize,
         sortField: "createTime",
         sortDir: "desc",
-        bbsId: that.data.bbsId
+        bbsID: that.data.bbsId
       },
       success: function (result) {
         // console.log(result.data)

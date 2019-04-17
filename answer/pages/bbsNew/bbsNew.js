@@ -57,7 +57,7 @@ Page({
     }
     let SinopecSession = wx.getStorageSync('SinopecSession');
     wx.request({
-      url: url.bbsReply,
+      url: url.bbsSave,
       method: "POST",
       data: {
         wxSession: SinopecSession,

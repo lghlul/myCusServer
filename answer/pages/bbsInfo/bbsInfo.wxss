@@ -99,3 +99,6 @@ z-index:9999999;
 .reply text{
   color:#fff;
 }
+.null-data {
+  color:#ddd;
+}
