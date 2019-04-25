@@ -8,7 +8,7 @@ package com.cad.domain;
  **/
 public class CodeManage {
     private Integer codeType;
-    private Integer codeName;
+    private String codeName;
     private Long createTime;
     private String codeValue;
 
@@ -21,13 +21,6 @@ public class CodeManage {
         this.codeType = codeType;
     }
 
-    public Integer getCodeName() {
-        return codeName;
-    }
-
-    public void setCodeName(Integer codeName) {
-        this.codeName = codeName;
-    }
 
     public Long getCreateTime() {
         return createTime;
@@ -43,5 +36,13 @@ public class CodeManage {
 
     public void setCodeValue(String codeValue) {
         this.codeValue = codeValue;
+    }
+
+    public String getCodeName() {
+        return codeName;
+    }
+
+    public void setCodeName(String codeName) {
+        this.codeName = codeName;
     }
 }

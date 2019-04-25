@@ -26,6 +26,7 @@
         </c:if>
     </div>
     <div class="login">
+        <c:if test="${user == null}"> <a href="user/toLogin.do?flag=true">注册</a></c:if>
         <c:if test="${user == null}"> <a href="user/toLogin.do">登录</a></c:if>
         <c:if test="${user != null}"> 你好,<a href="user/toResetPwd.do"><span class="accountStyle">${user.userAccount}</span></a>
             <a href="user/logout.do">退出</a></c:if>

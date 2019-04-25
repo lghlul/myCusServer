@@ -19,6 +19,9 @@
 			<if test="codeName != null">
 				and codeName = #{codeName}
 			</if>
+			<if test="keyWord != null">
+				and (codeName = #{keyWord} or codeValue = #{keyWord})
+			</if>
 		</where>
  	</select>
 </mapper>

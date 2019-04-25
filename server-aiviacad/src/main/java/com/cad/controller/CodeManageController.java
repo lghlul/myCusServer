@@ -79,11 +79,10 @@ public class CodeManageController extends BaseController{
 
 	@ResponseBody
 	@RequestMapping("/codeList.do")
-	public String codeList(CodeManage codeManage) {
+	public String codeList(String keyWord) {
 		Result result = new Result();
 		Map<String ,Object> map = new HashMap<String, Object>();
-		map.put("codeType" , codeManage.getCodeType());
-		map.put("codeName" , codeManage.getCodeName());
+		map.put("keyWord" , keyWord);
 		result.setCode(ResultCode.SUCCESS);
 		result.setResultData(codeManageService.query(map));
 		return JSON.toJSONString(result);

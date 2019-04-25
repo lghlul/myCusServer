@@ -13,6 +13,7 @@ import com.cad.utils.LogUtil;
 import com.cad.utils.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,7 +39,8 @@ public class UserController extends BaseController{
 
 
     @RequestMapping("/toLogin")
-    public String toLogin(){
+    public String toLogin(String flag , Model model){
+        model.addAttribute("flag" , flag);
         return ConstantUtil.Page.LOGIN;
     }
 

@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="${basePath}/css/gccx.css">
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script src="${basePath}/layer/layer.js"></script>
 <style type="text/css">
 	.form-group{
 		text-align: center;
@@ -25,9 +26,18 @@
 
 
         $("#submitBtn").click(function(){
-			var codeType = $("#codeType").val();
+			//var codeType = $("#codeType").val();
             var codeName = $("#codeName").val();
             var codeValue = $("#codeValue").val();
+
+			if(!codeName){
+				$("#msg").show();
+				$("#msg").removeClass("alert-success");
+				$("#msg").addClass("alert-danger");
+				$("#msg").html("请输入编码名称");
+				return false;
+			}
+
             if(!codeValue || codeValue.length < 9){
                 $("#msg").show();
                 $("#msg").removeClass("alert-success");
@@ -37,7 +47,8 @@
 			}
 
 
-            var data = {"codeType":codeType , "codeName" : codeName , "codeValue" : codeValue };
+            //var data = {"codeType":codeType , "codeName" : codeName , "codeValue" : codeValue };
+			var data = {"codeName" : codeName , "codeValue" : codeValue };
             var url = "addCode.do";
 
             $.post(url,data,function(data){
@@ -64,17 +75,30 @@
 
 
         $("#searchBtn").click(function(){
-            var codeType = $("#searchCodeType").val();
-            var codeName = $("#searchCodeName").val();
-			var args = {"codeType":codeType , "codeName":codeName};
+            var keyWord = $("#keyWord").val();
+			var args = {"keyWord":keyWord};
 			var url = "../codeManage/codeList.do";
             $.getJSON(url,args,function(data){
                 if(data.code == 0){
-                    $("#codeList").html("");
                     var codeList = data.resultData;
-                    for(var i= 0 ; i< codeList.length ; i++){
-                        $("#codeList").append("<div>" + codeList[i].codeValue + "</div>");
+                    if(codeList.length == 0){
+						layer.open({
+							type: 1,
+							skin: 'layui-layer-rim', //加上边框
+							area: ['350px', '200px'], //宽高
+							content: '<div style="width: 100%;text-align: center;margin-top: 10px;">系统中没有所查询的编码</div>'
+						});
 					}
+                    //for(var i= 0 ; i< codeList.length ; i++){
+						layer.open({
+							type: 1,
+							skin: 'layui-layer-rim', //加上边框
+							area: ['350px', '200px'], //宽高
+							content: '<div style="width: 100%;text-align: center;margin-top: 10px;">'
+									+ "编码名称&nbsp;:&nbsp;" + codeList[0].codeName +  '</div><div style="width: 100%;text-align: center;margin-top: 10px;">'
+									+ "编码序号&nbsp;:&nbsp;" + codeList[0].codeValue +'</div>'
+						});
+					//}
                 }
             });
             return false;
@@ -82,12 +106,6 @@
 
     })
 
-    var changeForm = function(index){
-        $("#codeList").html("");
-        $("form").eq(index).show();
-        $("form:gt(" + index + ")").hide();
-        $("form:lt(" + index + ")").hide();
-    }
 </script>
 
 </head>
@@ -115,82 +133,37 @@
 		<form class="form-horizontal">
 			<div class="alert msg" style="width: 60%;margin-left: 20%;display: none!important;" id="msg">
 			</div>
+
 			<div class="form-group" >
-				<label class="col-sm-4 control-label">编码类别</label>
-				<div class="col-sm-5">
-					<select class="form-control" id="codeType">
-						<option value="1">项目编码</option>
-						<option value="2">文件编码</option>
-						<option value="3">用户编码</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
 				<label class="col-sm-4 control-label">编码名称</label>
 				<div class="col-sm-5">
-					<select class="form-control" id="codeName">
-						<option value="1">公差查询</option>
-						<option value="2">气缸压力</option>
-						<option value="3">压力转换</option>
-						<option value="4">工程材料</option>
-						<option value="5">编码管理</option>
-						<option value="6">注册登录</option>
-					</select>
+					<input type="text" class="form-control" value="" id="codeName" placeholder="请输入编码名称"/>
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">编码生成</label>
-				<div class="col-sm-3">
-					<input type="text" class="form-control" maxlength="9" name="codeValue" id="codeValue" oninput="value=value.replace(/[^\d]/g,'')"/>
+
+			<div class="form-group" >
+				<label class="col-sm-4 control-label">编码序号</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="codeValue" value="" placeholder="请自编9位数字或者随机产生" maxlength="9"/>
 				</div>
-				<div class="col-sm-1">
+				<div class="col-sm-1" style="padding-left:0px;">
 					<button type="button" class="btn btn-info" id="createCodeBtn">随机</button>
 				</div>
+				<div class="col-sm-1" style="padding-left:0px;">
+					<button type="button" class="btn btn-success" id="submitBtn">创建</button>
+				</div>
 			</div>
-			<div class="form-group">
-				<a href="javascript:void(0)" style="color: #337ab7!important;font-size: 15px;" onclick="changeForm(1)">编码查询</a>
-			</div>
-			<div class="form-group">
-				<button type="button" class="btn btn-success " style="width: 20%;" id="submitBtn">确定</button>
-			</div>
-		</form>
-
-
-		<form class="form-horizontal" style="display: none;">
 			<div class="form-group" >
-				<label class="col-sm-4 control-label">编码类别</label>
+				<label class="col-sm-4 control-label">编码查询</label>
 				<div class="col-sm-5">
-					<select class="form-control" id="searchCodeType">
-						<option value="1">项目编码</option>
-						<option value="2">文件编码</option>
-						<option value="3">用户编码</option>
-					</select>
+					<input type="text" class="form-control" id="keyWord" value="" placeholder="请输入编码名称或者编码序号"/>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">编码名称</label>
-				<div class="col-sm-5">
-					<select class="form-control" id="searchCodeName">
-						<option value="1">公差查询</option>
-						<option value="2">气缸压力</option>
-						<option value="3">压力转换</option>
-						<option value="4">工程材料</option>
-						<option value="5">编码管理</option>
-						<option value="6">注册登录</option>
-					</select>
+				<div class="col-sm-1" style="padding-left:0px;">
+					<button type="button" class="btn btn-success" id="searchBtn">查询</button>
 				</div>
-			</div>
-			<div class="form-group">
-				<a href="javascript:void(0)" style="color: #337ab7!important;font-size: 15px;" onclick="changeForm(0)">编码创建</a>
-			</div>
-			<div class="form-group">
-				<button type="button" class="btn btn-success " style="width: 20%;" id="searchBtn">查询</button>
-			</div>
-			<div class="form-group" style="text-align: center;" id="codeList">
-				<div>1111</div>
-				<div>1111</div>
 			</div>
 		</form>
+
 
 	</div>
 	

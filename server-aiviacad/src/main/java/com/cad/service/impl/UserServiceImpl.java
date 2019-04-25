@@ -36,7 +36,7 @@ public class UserServiceImpl implements IUserService {
         CodeManage codeManage = new CodeManage();
         codeManage.setCreateTime(System.currentTimeMillis());
         codeManage.setCodeValue(user.getUserCode());
-        codeManage.setCodeName(CommenConstant.CODE_TYPE_USER);
+        codeManage.setCodeName(user.getUserAccount());
         codeManage.setCodeType(CommenConstant.CODE_NAME_ZCDL);
         codeManageMapper.insertCodeManage(codeManage);
         return count;

@@ -1,5 +1,8 @@
 $(function(){
 
+    if($("#flag").val()){
+        changeForm(1);
+    }
 
     $("#registerForm input[name='userAccount']").blur(function(){
         var userAccount = $("#registerForm input[name='userAccount']").val();

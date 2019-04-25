@@ -12,7 +12,6 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="${basePath}/layer/layer.js"></script>
-    <script src="${basePath}/js/login.js"></script>
     <style type="text/css">
         .layui-layer-btn {
             text-align: center;
@@ -39,6 +38,7 @@
 </div>
 
 <div class="gccx" style="margin-top: 100px;">
+    <input type="hidden" value="${flag}" id="flag">
     <form class="form-inline" id="loginForm" action="${basePath}/user/login.do">
         <div class="alert alert-danger msg" style="display: none!important;">
         </div>
@@ -77,7 +77,7 @@
             <span></span><input type="text" class="form-control input-lg" name="phone" value="" placeholder="请输入手机号码">
         </div>
         <div class="form-group  has-feedback">
-            <span>*</span><input type="text" class="form-control input-lg" name="email" value="" placeholder="请输入邮箱">
+            <span>*</span><input type="text" class="form-control input-lg" name="email" value="" placeholder="请输入邮箱(可用于找回密码)">
         </div>
         <div class="form-group  has-feedback">
             <span>*</span><input type="text" class="form-control input-lg" maxlength="9" name="userCode" id="userCode"
@@ -137,3 +137,4 @@
 </div>
 </body>
 </html>
+<script src="${basePath}/js/login.js"></script>
