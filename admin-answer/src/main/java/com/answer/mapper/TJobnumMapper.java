@@ -4,4 +4,6 @@ import com.answer.domain.TJobnum;
 
 public interface TJobnumMapper extends BaseMapper<TJobnum>{
 
+    TJobnum selectByJobNum(String jobNum);
+
 }

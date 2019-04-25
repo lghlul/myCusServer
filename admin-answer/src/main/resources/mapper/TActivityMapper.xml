@@ -65,4 +65,21 @@
             and c.realName like CONCAT("%" ,#{realName} , "%")
         </if>
     </select>
+
+
+    <select id="listOrgReport" parameterType="java.lang.Long" resultType="orgReport">
+        SELECT
+        a.activityID, c.orgID,sum(a.rightNum)
+        FROM
+        t_activity_user a
+        JOIN t_user b
+        JOIN t_jobnum c ON a.openID = b.openID
+        AND b.jobnum = c.jobnum
+        <where>
+          <if test="orgID != null">
+          and c.orgID = #{orgID}
+          </if>
+        </where>
+        group by a.activityID , c.orgID
+    </select>
 </mapper>

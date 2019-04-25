@@ -9,4 +9,6 @@ public interface TUserMapper extends BaseMapper<TUser>{
 
     List<TUser> selectAnswerCount(Map<String , Object> map);
 
+    TUser selectByOpenID(String openID);
+
 }

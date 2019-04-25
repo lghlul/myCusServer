@@ -1,5 +1,6 @@
 package com.answer.service.impl;
 
+import com.answer.CacheHelper;
 import com.answer.common.CommonConfig;
 import com.answer.domain.*;
 import com.answer.domain.query.ActivityUserQuery;
@@ -34,6 +35,10 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
 
     @Autowired
     TActivityQuestionMapper activityQuestionMapper;
+
+
+    @Autowired
+    private CacheHelper cacheHelper;
 
     @Override
     public PageInfo<Activity> page(Activity activity) {
@@ -142,7 +147,8 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
             }
 
 
-            String fileName = System.currentTimeMillis() + "." + file.getOriginalFilename().split("\\.")[1];;
+            String fileName = System.currentTimeMillis() + "." + file.getOriginalFilename().split("\\.")[1];
+            ;
             //保存文件
             String filePath = CommonConfig.FILE_SAVE_PATH + fileName;
             File desFile = new File(filePath);
@@ -181,5 +187,27 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
         //得到分页的结果对象
         PageInfo<ActivityUser> pageInfo = new PageInfo<>(activityUserList);
         return pageInfo;
+    }
+
+
+    @Override
+    public List<OrgReport> listOrgReport(Long orgID) {
+        List<OrgReport> orgReports = this.activityMapper.listOrgReport(orgID );
+        if (orgReports != null) {
+            List<Activity> activityList = this.activityMapper.selectPage(null);
+            Map<Long, Activity> activityMap = new HashMap<>();
+            if (activityList != null) {
+                for(Activity activity : activityList){
+                    activityMap.put(activity.getActivityID() , activity);
+                }
+            }
+            for(OrgReport orgReport : orgReports){
+                Activity activity = activityMap.get(orgReport.getActivityID());
+                orgReport.setActivityName(activity.getActivityName());
+                TOrganization org = cacheHelper.getOrg(orgReport.getOrgID());
+                orgReport.setOrgName(org.getOrgName());
+            }
+        }
+        return orgReports;
     }
 }

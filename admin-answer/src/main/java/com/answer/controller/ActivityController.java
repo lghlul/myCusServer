@@ -5,6 +5,7 @@ import com.answer.common.PageResult;
 import com.answer.common.ResultCodeEnum;
 import com.answer.domain.Activity;
 import com.answer.domain.ActivityUser;
+import com.answer.domain.OrgReport;
 import com.answer.domain.TActivityQuestion;
 import com.answer.domain.query.ActivityUserQuery;
 import com.answer.service.IActivityAnswerService;
@@ -110,5 +111,11 @@ public class ActivityController {
         return ResultCodeEnum.SUCCESS.getResponse(pageResult);
     }
 
+
+    @GetMapping("listOrgReport")
+    public Object listOrgReport(Long orgID) {
+        List<OrgReport> orgReports = activityService.listOrgReport(orgID);
+        return ResultCodeEnum.SUCCESS.getResponse(orgReports);
+    }
 
 }

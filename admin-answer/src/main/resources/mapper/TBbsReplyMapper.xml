@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TBbsReplyMapper">
+    <select id="selectPage" parameterType="bbsReply" resultType="bbsReply">
+        select * from t_bbs_reply
+        <where>
+            and delStatus = 1
+            <if test="bbsID != null">
+                and bbsID = #{bbsID}
+            </if>
+            <if test="creator != null">
+                and creator = #{creator}
+            </if>
+            <if test="content != null">
+                and content like concat("%" , #{content} , "%")
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="bbsReply">
+        update t_bbs_reply
+        <set>
+            <if test="delStatus != null">
+                delStatus = #{delStatus},
+            </if>
+        </set>
+        <where>
+          <if test="bbsID != null">
+            and bbsID = #{bbsID}
+          </if>
+          <if test="replyID != null">
+            and replyID = #{replyID}
+          </if>
+        </where>
+    </update>
+
+
+</mapper>

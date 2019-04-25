@@ -13,6 +13,11 @@
     <select id="selectById" parameterType="string" resultMap="baseResultMap">
         select * from t_jobnum where id = #{id}
     </select>
+
+    <select id="selectByJobNum" parameterType="string" resultMap="baseResultMap">
+        select * from t_jobnum where jobNum = #{jobNum}
+    </select>
+
     <select id="selectPage" parameterType="TJobnum" resultMap="baseResultMap">
         select * from t_jobnum
         <where>

@@ -12,8 +12,12 @@ spring:
     livereload:
       enabled: true
   thymeleaf:
-      prefix: classpath:/pages/
-      mode: LEGACYHTML5
+    prefix: classpath:/pages/
+    mode: LEGACYHTML5
+  redis:
+    host: 47.100.229.122
+    port: 7379
+    password: lgh_lul@163.com
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   configuration:

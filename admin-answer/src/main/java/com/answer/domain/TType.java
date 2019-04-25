@@ -1,5 +1,7 @@
 package com.answer.domain;
 
+import java.util.List;
+
 public class TType extends BaseDomain {
 
     private Long typeID;
@@ -19,6 +21,17 @@ public class TType extends BaseDomain {
      * 类型图片
      */
     private String typeImg;
+
+    private List<TType> sonType;
+
+
+    public List<TType> getSonType() {
+        return sonType;
+    }
+
+    public void setSonType(List<TType> sonType) {
+        this.sonType = sonType;
+    }
 
     public Long getTypeID(){
         return this.typeID;

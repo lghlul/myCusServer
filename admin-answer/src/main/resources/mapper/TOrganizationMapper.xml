@@ -5,4 +5,8 @@
     <select id="select" parameterType="TOrganization" resultType="TOrganization">
             select * from t_organization
     </select>
+
+    <select id="selectById" parameterType="string" resultType="TOrganization">
+            select * from t_organization where orgID = #{orgID}
+    </select>
 </mapper>

@@ -29,6 +29,17 @@ public class TJobnum extends BaseDomain {
      */
     private String orgName;
 
+
+    private Long orgID;
+
+    public Long getOrgID() {
+        return orgID;
+    }
+
+    public void setOrgID(Long orgID) {
+        this.orgID = orgID;
+    }
+
     public Long getId(){
         return this.id;
     }

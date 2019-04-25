@@ -20,5 +20,15 @@ public abstract class CommonConstant {
 		Byte ACTIVITY_STATUS_UN_START = 1;
 		Byte ACTIVITY_STATUS_START = 2;
 		Byte ACTIVITY_STATUS_END = 3;
+
+		/**
+		 * 删除状态
+		 */
+		Byte DEL_STATUS = 2;
+
+		/**
+		 * 正常状态
+		 */
+		Byte NORMAL_STATUS = 1;
 	}
 }

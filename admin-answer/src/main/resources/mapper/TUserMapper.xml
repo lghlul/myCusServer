@@ -15,6 +15,13 @@
     <select id="selectById" parameterType="string" resultMap="baseResultMap">
         select * from t_user where userID = #{id}
     </select>
+
+
+    <select id="selectByOpenID" parameterType="string" resultMap="baseResultMap">
+        select * from t_user where openID = #{openID}
+    </select>
+
+
     <select id="selectPage" parameterType="TUser" resultMap="baseResultMap">
         select * from t_user
         <where>
