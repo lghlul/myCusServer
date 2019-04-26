@@ -118,8 +118,8 @@
                 //封装请求参数
                 var param = {};
                 
-                param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
-                param.pageNo = (data.start / data.length)+1;//当前页码
+                param.limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+                param.offset = (data.start / data.length)+1;//当前页码
                 var stime = $("#start").val();
                 var etime = $("#end").val();
                 if(stime&&etime){
@@ -139,7 +139,7 @@
                 //ajax请求数据
                 $.ajax({
                     type: "GET",
-                    url: "/user/list",
+                    url: "/user/listReport",
                     cache: false,  //禁用缓存
                     data: param,  //传入组装的参数
                     dataType: "json",
@@ -149,9 +149,9 @@
                             //封装返回数据
                             var returnData = {};
                             returnData.draw = data.draw;//这里直接自行返回了draw计数器,应该由后台返回
-                            returnData.recordsTotal = result.data.pageCount;//返回数据全部记录
-                            returnData.recordsFiltered = result.data.pageCount;//后台不实现过滤功能，每次查询均视作全部结果
-                            returnData.data = result.data.items;//返回的数据列表
+                            returnData.recordsTotal = result.data.totalCount;//返回数据全部记录
+                            returnData.recordsFiltered = result.data.totalCount;//后台不实现过滤功能，每次查询均视作全部结果
+                            returnData.data = result.data.list;//返回的数据列表
                             console.log(returnData);
                             //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
                             //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕

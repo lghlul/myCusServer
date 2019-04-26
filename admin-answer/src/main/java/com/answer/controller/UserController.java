@@ -2,13 +2,17 @@ package com.answer.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.answer.CacheHelper;
+import com.answer.common.PageResult;
 import com.answer.common.ResultCodeEnum;
 import com.answer.domain.AnswerDetailParam;
 import com.answer.domain.TOrganization;
 import com.answer.domain.TUser;
+import com.answer.domain.query.UserQuery;
 import com.answer.service.ITOrganizationService;
 import com.answer.service.ITUserAnswerService;
 import com.answer.service.ITUserService;
+import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +44,9 @@ public class UserController {
     @Autowired
     private ITOrganizationService organizationService;
 
+    @Autowired
+    private CacheHelper cacheHelper;
+
     @GetMapping("/list")
     public Object list(TUser user , Long startTime , Long endTime){
         logger.info("list start...user=" + JSON.toJSONString(user));
@@ -63,6 +70,14 @@ public class UserController {
         map.put("offSet" , user.getOffSet());
         map.put("limit" , user.getLimit());
         List<TUser> users = userService.answerCount(map);
+        if(users != null && users.size() > 0){
+            for(TUser u : users){
+                TOrganization org = cacheHelper.getOrg(u.getOrgID());
+                if(org != null){
+                    u.setOrgName(org.getOrgName());
+                }
+            }
+        }
         int pageCount = userService.queryPageCounteByMap(map);
         int totalPage = pageCount % user.getLimit() == 0?pageCount / user.getLimit() : pageCount / user.getLimit() + 1;
         JSONObject jsonObject = new JSONObject();
@@ -86,5 +101,18 @@ public class UserController {
         answerDetailParam.pageHandler();
         Map<String, Object> answerDetailPage = userAnswerService.getAnswerDetailPage(answerDetailParam);
         return ResultCodeEnum.SUCCESS.getResponse(answerDetailPage);
+    }
+
+
+
+
+    @GetMapping("/listReport")
+    public Object listReport(UserQuery userQuery){
+        PageInfo<TUser> page = userService.listReport(userQuery);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotalCount(page.getTotal());
+        pageResult.setTotalPage(page.getPages());
+        pageResult.setList(page.getList());
+        return ResultCodeEnum.SUCCESS.getResponse(pageResult);
     }
 }

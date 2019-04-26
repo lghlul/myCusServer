@@ -277,15 +277,15 @@
         FROM
             (
                 SELECT
-                    e.*, r.orgName,
-                    p.realName
+                    e.*,
+                    p.realName,
+                    p.orgID
                 FROM
                     t_user e,
-                    t_organization r,
                     t_jobnum p
                 <where>
                     and e.jobNum = p.jobNum
-                    AND p.orgID = r.orgID
+
                     <if test="jobNum != null">
                         and e.jobNum = #{jobNum}
                     </if>
@@ -353,6 +353,55 @@
                 and b.realName like CONCAT('%', #{realName},'%')
             </if>
         </where>
+    </select>
+
+
+    <select id="list" parameterType="userQuery" resultType="TUser">
+        SELECT
+        e.*,
+        p.realName,
+        p.orgID
+        FROM
+        t_user e,
+        t_jobnum p
+        <where>
+            and e.jobNum = p.jobNum
+            <if test="jobNum != null">
+                and e.jobNum = #{jobNum}
+            </if>
+            <if test="orgID != null">
+                and p.orgID = #{orgID}
+            </if>
+            <if test="realName != null">
+                and p.realName like CONCAT('%', #{realName},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="listAnswerCount" resultType="TUser">
+        SELECT
+        openID,
+        count(openID) countNum,
+        sum(isRight = 1) rightNum
+        FROM
+        t_user_answer
+        <where>
+            <if test="endTime != null">
+                and createTime &lt;= #{endTime}
+            </if>
+            <if test="startTime != null">
+                and createTime &gt;= #{startTime}
+            </if>
+            <if test="users != null and users.size > 0 ">
+                and openID in (
+                <foreach collection="users" item="user" separator=",">
+                    #{user.openID}
+                </foreach>
+                )
+            </if>
+        </where>
+        GROUP BY
+        openID
     </select>
 
 </mapper>
