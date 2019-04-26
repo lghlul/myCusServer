@@ -282,4 +282,22 @@
             where goodsID = #{goodsID}
         </if>
     </update>
+
+
+
+
+    <select id="list" parameterType="GoodsQuery" resultMap="baseResultMap">
+        select * from t_goods
+        <where>
+            <if test="goodsDesc != null">
+                and goodsDesc = #{goodsDesc}
+            </if>
+            <if test="goodsStatus != null">
+                and goodsStatus = #{goodsStatus}
+            </if>
+            <if test="goodsName != null">
+                and goodsName = #{goodsName}
+            </if>
+        </where>
+    </select>
 </mapper>

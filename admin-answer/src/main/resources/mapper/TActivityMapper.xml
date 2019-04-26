@@ -67,18 +67,21 @@
     </select>
 
 
-    <select id="listOrgReport" parameterType="java.lang.Long" resultType="orgReport">
+    <select id="listOrgReport" parameterType="orgReportQuery" resultType="orgReport">
         SELECT
-        a.activityID, c.orgID,sum(a.rightNum)
+        a.activityID, c.orgID,sum(a.rightNum),d.activityName,d.quesNum,count(a.openID) as joinNum
         FROM
         t_activity_user a
         JOIN t_user b
-        JOIN t_jobnum c ON a.openID = b.openID
-        AND b.jobnum = c.jobnum
+        JOIN t_jobnum c join t_activity d ON a.openID = b.openID
+        AND b.jobnum = c.jobnum  and a.activityID = d.activityID
         <where>
           <if test="orgID != null">
           and c.orgID = #{orgID}
           </if>
+        <if test="activityName != null">
+            and d.activityName like concat("%" ,#{activityName} ,"%")
+        </if>
         </where>
         group by a.activityID , c.orgID
     </select>

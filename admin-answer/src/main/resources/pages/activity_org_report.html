@@ -30,37 +30,29 @@
                                 <select id="orgId" class="form-control">
                                     <option value="">全部</option>
                                 </select>
-                                <input type="text" id="realName" placeholder="用户名称" class="form-control">
+                                <input type="text" id="activityName" placeholder="活动名称" class="form-control">
                                 <button class="btn btn-info " id="search" type="button"><i class="fa fa-search"></i> 搜索</button>
                             </div>
 
             </div>
-            <!-- <label></label>
-                <div class="form-group">
-                        <label class="col-sm-2 control-label">日期：</label>
-                        <div class="col-sm-10">
-                            <input placeholder="开始日期" class="form-control layer-date" id="start">
-                            <input placeholder="结束日期" class="form-control layer-date" id="end">
-                            <button class="btn btn-info " id="search" type="button"><i class="fa fa-search"></i> 搜索</button>
-                        </div>
-                    </div> -->
             </div>
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>活动参与人员列表</h5>
+                        <h5>统计列表</h5>
                     </div>
 
                     <div class="ibox-content">
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
-                                    <th>人员姓名</th>
-                                    <th>机构名称</th>
-                                    <th>参与时间</th>
-                                    <th>正确题数</th>
+                                    <th>单位名称</th>
+                                    <th>活动名称</th>
+                                    <th>答对总题数</th>
+                                    <th>参与人数</th>
+                                    <th>活动题数</th>
                                 </tr>
                             </thead>
                             
@@ -118,9 +110,9 @@
                 
                 param.limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
                 param.offset = (data.start / data.length)+1;//当前页码
-                param.sortField = "createTime";
-                param.sortDir = "desc"; 
-                param.activityID =  activityID;
+                //param.sortField = "createTime";
+                //param.sortDir = "desc";
+                //param.activityID =  activityID;
                 // var stime = $("#start").val();
                 // var etime = $("#end").val();
                 // if(stime&&etime){
@@ -129,18 +121,16 @@
                 // }
                 var orgId = $("#orgId").val().trim();
                 // var jobNum = $("#jobNum").val().trim();
-                var realName = $("#realName").val().trim();
+                var activityName = $("#activityName").val().trim();
                 if(orgId)
                     param.orgID = orgId;
-                // if(jobNum)
-                //     param.jobNum = jobNum;
-                if(realName)
-                    param.realName = realName;
+                if(activityName)
+                    param.activityName = activityName;
                 //console.log(param);
                 //ajax请求数据
                 $.ajax({
                     type: "GET",
-                    url: "/activity/listUser",
+                    url: "/activity/listOrgReport",
                     cache: false,  //禁用缓存
                     data: param,  //传入组装的参数
                     dataType: "json",
@@ -161,19 +151,13 @@
                     }
                 });
             },columns: [
-                { "data": "realName" },
-                //{ "data": "orgID" },
                 { "data": "orgName" },
-                { "data": "createTime" },
-                { "data": "rightNum" }
+                { "data": "activityName" },
+                { "data": "rightNum" },
+                { "data": "joinNum" },
+                { "data": "quesNum" }
                 
-            ],
-            columnDefs: [
-            {
-            targets: 3,
-            render: function(data, type, row, meta) {
-                return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(data));
-            }}]
+            ]
  
         }).api();
         

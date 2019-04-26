@@ -26,6 +26,48 @@ public class TOrder extends BaseDomain {
      */
     private Byte orderStatus;
 
+
+    private String realName;
+
+
+    private String orgName;
+
+    private Long orgID;
+
+    private String goodsName;
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public Long getOrgID() {
+        return orgID;
+    }
+
+    public void setOrgID(Long orgID) {
+        this.orgID = orgID;
+    }
+
     public Long getOrderID(){
         return this.orderID;
     }

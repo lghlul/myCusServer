@@ -43,6 +43,24 @@
             limit #{offSet},#{limit}
         </if>
     </select>
+
+
+    <select id="list" parameterType="questionQuery" resultMap="baseResultMap">
+        select * from t_question
+        <where>
+            <if test="quesDesc != null">
+                and quesDesc like CONCAT ("%" ,#{quesDesc} ,"%")
+            </if>
+            <if test="typeID != null">
+                and typeID = #{typeID}
+            </if>
+            <if test="quesType != null">
+                and quesType = #{quesType}
+            </if>
+        </where>
+    </select>
+
+
     <select id="selectPageCount" parameterType="TQuestion" resultType="int">
         select count(*) from t_question
         <where>

@@ -4,6 +4,7 @@ import com.answer.domain.Activity;
 import com.answer.domain.ActivityUser;
 import com.answer.domain.OrgReport;
 import com.answer.domain.query.ActivityUserQuery;
+import com.answer.domain.query.OrgReportQuery;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,5 +17,5 @@ public interface IActivityService extends IBaseService<Activity>{
 
     PageInfo<ActivityUser> listActivityUser(ActivityUserQuery activityUserQuery);
 
-    List<OrgReport> listOrgReport(Long orgID);
+    PageInfo<OrgReport> listOrgReport(OrgReportQuery orgReportQuery);
 }

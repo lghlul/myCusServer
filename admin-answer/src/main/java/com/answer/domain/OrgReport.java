@@ -19,6 +19,30 @@ public class OrgReport {
 
     private Integer rightNum;
 
+
+    private Integer quesNum;
+
+    private Integer joinNum;
+
+    public Integer getJoinNum() {
+        return joinNum;
+    }
+
+    public void setJoinNum(Integer joinNum) {
+        this.joinNum = joinNum;
+    }
+
+    public Integer getQuesNum() {
+        if(quesNum == null){
+            return 0;
+        }
+        return quesNum;
+    }
+
+    public void setQuesNum(Integer quesNum) {
+        this.quesNum = quesNum;
+    }
+
     public Long getActivityID() {
         return activityID;
     }
@@ -52,6 +76,9 @@ public class OrgReport {
     }
 
     public Integer getRightNum() {
+        if(rightNum == null){
+            return 0;
+        }
         return rightNum;
     }
 

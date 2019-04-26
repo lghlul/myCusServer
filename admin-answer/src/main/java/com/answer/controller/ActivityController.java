@@ -8,6 +8,7 @@ import com.answer.domain.ActivityUser;
 import com.answer.domain.OrgReport;
 import com.answer.domain.TActivityQuestion;
 import com.answer.domain.query.ActivityUserQuery;
+import com.answer.domain.query.OrgReportQuery;
 import com.answer.service.IActivityAnswerService;
 import com.answer.service.IActivityQuestionService;
 import com.answer.service.IActivityService;
@@ -113,9 +114,13 @@ public class ActivityController {
 
 
     @GetMapping("listOrgReport")
-    public Object listOrgReport(Long orgID) {
-        List<OrgReport> orgReports = activityService.listOrgReport(orgID);
-        return ResultCodeEnum.SUCCESS.getResponse(orgReports);
+    public Object listOrgReport(OrgReportQuery orgReportQuery) {
+        PageInfo<OrgReport> orgReports = activityService.listOrgReport(orgReportQuery);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotalCount(orgReports.getTotal());
+        pageResult.setTotalPage(orgReports.getPages());
+        pageResult.setList(orgReports.getList());
+        return ResultCodeEnum.SUCCESS.getResponse(pageResult);
     }
 
 }

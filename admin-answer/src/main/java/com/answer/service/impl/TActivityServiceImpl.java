@@ -4,6 +4,7 @@ import com.answer.CacheHelper;
 import com.answer.common.CommonConfig;
 import com.answer.domain.*;
 import com.answer.domain.query.ActivityUserQuery;
+import com.answer.domain.query.OrgReportQuery;
 import com.answer.mapper.TActivityAnswerMapper;
 import com.answer.mapper.TActivityMapper;
 import com.answer.mapper.TActivityQuestionMapper;
@@ -191,23 +192,19 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
 
 
     @Override
-    public List<OrgReport> listOrgReport(Long orgID) {
-        List<OrgReport> orgReports = this.activityMapper.listOrgReport(orgID );
+    public PageInfo<OrgReport> listOrgReport(OrgReportQuery orgReportQuery) {
+        PageHelper.startPage(orgReportQuery.getOffset(), orgReportQuery.getLimit());
+        if (orgReportQuery.getSortField() != null) {
+            PageHelper.orderBy(orgReportQuery.getSortField() + " " + orgReportQuery.getSortDir());
+        }
+        List<OrgReport> orgReports = this.activityMapper.listOrgReport(orgReportQuery );
+        PageInfo<OrgReport> pageInfo = new PageInfo<>(orgReports);
         if (orgReports != null) {
-            List<Activity> activityList = this.activityMapper.selectPage(null);
-            Map<Long, Activity> activityMap = new HashMap<>();
-            if (activityList != null) {
-                for(Activity activity : activityList){
-                    activityMap.put(activity.getActivityID() , activity);
-                }
-            }
             for(OrgReport orgReport : orgReports){
-                Activity activity = activityMap.get(orgReport.getActivityID());
-                orgReport.setActivityName(activity.getActivityName());
                 TOrganization org = cacheHelper.getOrg(orgReport.getOrgID());
                 orgReport.setOrgName(org.getOrgName());
             }
         }
-        return orgReports;
+        return pageInfo;
     }
 }

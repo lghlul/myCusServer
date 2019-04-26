@@ -226,4 +226,34 @@
             where orderID = #{orderID}
         </if>
     </update>
+
+
+
+    <select id="list" parameterType="OrderQuery" resultType="tOrder">
+        SELECT
+        a.*,
+        c.realName,
+        c.orgID,
+        d.goodsName
+        FROM
+        t_order a
+        JOIN t_user b
+        JOIN t_jobnum c join t_goods d ON a.openID = b.openID
+        AND b.jobNum = c.jobNum and a.goodsID = d.goodsID
+        <where>
+            <if test="orderNo != null">
+                and a.orderNo = #{orderNo}
+            </if>
+            <if test="orderStatus != null">
+                and a.orderStatus = #{orderStatus}
+            </if>
+            <if test="realName != null">
+                and c.realName like concat("%" , #{orderStatus} , "%")
+            </if>
+            <if test="goodsName != null">
+                and d.goodsName like concat("%" , #{goodsName} , "%")
+            </if>
+        </where>
+    </select>
+
 </mapper>
