@@ -30,5 +30,15 @@ public abstract class CommonConstant {
 		 * 正常状态
 		 */
 		Byte NORMAL_STATUS = 1;
+
+		/**
+		 * 工号 未绑定状态
+		 */
+		Byte JOBNUM_UN_BIND = 1;
+
+		/**
+		 * 工号 绑定状态
+		 */
+		Byte JOBNUM_BIND = 2;
 	}
 }

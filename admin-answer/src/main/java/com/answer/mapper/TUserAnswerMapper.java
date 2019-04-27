@@ -13,4 +13,6 @@ public interface TUserAnswerMapper extends BaseMapper<TUserAnswer>{
     List<TUserAnswer> answerDetailPage(AnswerDetailParam answerDetailParam);
     int answerDetailCount(AnswerDetailParam answerDetailParam);
 
+    int updateOrgID(Map<String , Object> map);
+
 }

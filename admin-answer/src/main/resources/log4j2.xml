@@ -19,9 +19,9 @@
 
     <loggers>
         <root level="info">
-            <!-- <appender-ref ref="RollingFile" />
-            <appender-ref ref="log" />-->
-         <appender-ref ref="Console" />
+             <appender-ref ref="RollingFile" />
+            <!-- <appender-ref ref="log" />
+            <appender-ref ref="Console" />-->
         </root>
     </loggers>
 </configuration>

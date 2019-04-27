@@ -199,10 +199,12 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
         }
         List<OrgReport> orgReports = this.activityMapper.listOrgReport(orgReportQuery );
         PageInfo<OrgReport> pageInfo = new PageInfo<>(orgReports);
-        if (orgReports != null) {
-            for(OrgReport orgReport : orgReports){
+        if (pageInfo.getList() != null) {
+            for(OrgReport orgReport : pageInfo.getList()){
                 TOrganization org = cacheHelper.getOrg(orgReport.getOrgID());
-                orgReport.setOrgName(org.getOrgName());
+                if(org != null){
+                    orgReport.setOrgName(org.getOrgName());
+                }
             }
         }
         return pageInfo;

@@ -10,7 +10,7 @@ public class TJobnum extends BaseDomain {
     private String jobNum;
 
     /**
-     * 状态1整除2已使用
+     * 状态1待绑定2已使用
      */
     private Byte status;
 
@@ -29,8 +29,8 @@ public class TJobnum extends BaseDomain {
      */
     private String orgName;
 
-
     private Long orgID;
+
 
     public Long getOrgID() {
         return orgID;

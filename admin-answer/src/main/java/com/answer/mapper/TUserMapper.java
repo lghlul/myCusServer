@@ -17,4 +17,6 @@ public interface TUserMapper extends BaseMapper<TUser>{
 
     List<TUser> listAnswerCount(@Param("users") List<TUser> users ,@Param("startTime") Long startTime ,@Param("endTime") Long endTime);
 
+    TUser readByJobNum(String jobNum);
+
 }

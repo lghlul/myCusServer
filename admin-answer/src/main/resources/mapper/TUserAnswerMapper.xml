@@ -387,4 +387,10 @@
             </if>
     </select>
 
+
+
+    <update id="updateOrgID" parameterType="map">
+        update t_user_answer set orgID = #{orgID} where openID = #{openID}
+    </update>
+
 </mapper>

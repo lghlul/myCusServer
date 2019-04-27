@@ -17,6 +17,11 @@
     </select>
 
 
+    <select id="readByJobNum" parameterType="string" resultMap="baseResultMap">
+        select * from t_user where jobNum = #{jobNum}
+    </select>
+
+
     <select id="selectByOpenID" parameterType="string" resultMap="baseResultMap">
         select * from t_user where openID = #{openID}
     </select>

@@ -8,7 +8,7 @@
         <result column="status" property="status"/>
         <result column="sex" property="sex"/>
         <result column="realName" property="realName"/>
-        <result column="orgName" property="orgName"/>
+        <result column="orgID" property="orgID"/>
     </resultMap>
     <select id="selectById" parameterType="string" resultMap="baseResultMap">
         select * from t_jobnum where id = #{id}
@@ -18,104 +18,24 @@
         select * from t_jobnum where jobNum = #{jobNum}
     </select>
 
-    <select id="selectPage" parameterType="TJobnum" resultMap="baseResultMap">
+    <select id="list" parameterType="jobNumQuery" resultType="TJobnum">
         select * from t_jobnum
         <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
             <if test="jobNum != null">
                 and jobNum = #{jobNum}
             </if>
             <if test="status != null">
                 and status = #{status}
             </if>
-            <if test="sex != null">
-                and sex = #{sex}
-            </if>
             <if test="realName != null">
-                and realName = #{realName}
+                and realName like concat ("%" , #{realName},"%")
             </if>
-            <if test="orgName != null">
-                and orgName = #{orgName}
-            </if>
-        </where>
-        <if test="offSet != null and limit != null">
-            limit #{offSet},#{limit}
-        </if>
-    </select>
-    <select id="selectPageCount" parameterType="TJobnum" resultType="int">
-        select count(*) from t_jobnum
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="jobNum != null">
-                and jobNum = #{jobNum}
-            </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="sex != null">
-                and sex = #{sex}
-            </if>
-            <if test="realName != null">
-                and realName = #{realName}
-            </if>
-            <if test="orgName != null">
-                and orgName = #{orgName}
+            <if test="orgID != null">
+                and orgID = #{orgID}
             </if>
         </where>
     </select>
-    <select id="selectPageByMap" parameterType="map" resultMap="baseResultMap">
-        select * from t_jobnum
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="jobNum != null">
-                and jobNum = #{jobNum}
-            </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="sex != null">
-                and sex = #{sex}
-            </if>
-            <if test="realName != null">
-                and realName = #{realName}
-            </if>
-            <if test="orgName != null">
-                and orgName = #{orgName}
-            </if>
-        </where>
-        <if test="offSet != null and limit != null">
-            limit #{offSet},#{limit}
-        </if>
-    </select>
-    <select id="selectPageCountByMap" parameterType="map" resultType="int">
-        select count(*) from t_jobnum
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="jobNum != null">
-                and jobNum = #{jobNum}
-            </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="sex != null">
-                and sex = #{sex}
-            </if>
-            <if test="realName != null">
-                and realName = #{realName}
-            </if>
-            <if test="orgName != null">
-                and orgName = #{orgName}
-            </if>
-        </where>
-    </select>
+
     <insert id="insert" keyProperty="id" parameterType="TJobnum" useGeneratedKeys="true">
         insert into t_jobnum
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -134,8 +54,8 @@
             <if test="realName != null">
                 realName,
             </if>
-            <if test="orgName != null">
-                orgName,
+            <if test="orgID != null">
+                orgID,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -154,59 +74,13 @@
             <if test="realName != null">
                 #{realName},
             </if>
-            <if test="orgName != null">
-                #{orgName},
+            <if test="orgID != null">
+                #{orgID},
             </if>
         </trim>
     </insert>
     <delete id="deleteById" parameterType="string">
         delete from t_jobnum where id = #{id}
-    </delete>
-    <delete id="delete" parameterType="TJobnum">
-        delete from t_jobnum
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="jobNum != null">
-                and jobNum = #{jobNum}
-            </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="sex != null">
-                and sex = #{sex}
-            </if>
-            <if test="realName != null">
-                and realName = #{realName}
-            </if>
-            <if test="orgName != null">
-                and orgName = #{orgName}
-            </if>
-        </where>
-    </delete>
-    <delete id="deleteByMap" parameterType="map">
-        delete from t_jobnum
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="jobNum != null">
-                and jobNum = #{jobNum}
-            </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="sex != null">
-                and sex = #{sex}
-            </if>
-            <if test="realName != null">
-                and realName = #{realName}
-            </if>
-            <if test="orgName != null">
-                and orgName = #{orgName}
-            </if>
-        </where>
     </delete>
     <update id="update" parameterType="TJobnum">
         update t_jobnum
