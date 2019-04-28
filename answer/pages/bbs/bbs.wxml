@@ -6,15 +6,20 @@
     <view class='ranking-content'>
       <view class='ranking-list-content'>
         <view wx:for="{{bbsList}}" data-id="{{item.bbsID}}" bindtap='toInfo' class="ranking-list-box "  wx:key='index'>
-            <text class='serial-number'>{{item.title}}\n{{item.time}}</text>
+            <text class='serial-number'>{{item.title}}</text>
+
+            
+            
             <view class='ranking-points-box'>
-              <view class='ranking-points'>{{item.replyNum}}\t回复</view>
+              <view class='ranking-points'>回复数：{{item.replyNum}}</view>
+              <text class='serial-time'>{{item.time}}</text>
             </view>
+            
           <view>
           </view>
         </view>
       </view>
     </view>
-    <view class='null-data' wx:if='{{bbsList.length==0}}'>暂无记录</view>
+    <!-- <view class='null-data' wx:if='{{bbsList.length==0}}'>暂无记录</view> -->
   </scroll-view>
 </view>

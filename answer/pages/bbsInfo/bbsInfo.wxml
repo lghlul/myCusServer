@@ -25,9 +25,11 @@
   </view>
 
   <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad">
-    <view class='ranking-content'>
-      <view class='ranking-list-content'>
         <view class='null-data' wx:if='{{replyList.length==0}}'>暂无回复</view>
+
+    <view class='ranking-content' wx:if='{{replyList.length>0}}'>
+      <view class='ranking-list-content' >
+        
         <view wx:for="{{replyList}}" data-id="{{item.replyID}}"  class="ranking-list-box"  wx:key='index'>
             <text class='serial-number'>{{item.content}}</text>
             <view class=''>

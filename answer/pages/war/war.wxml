@@ -4,15 +4,19 @@
     <view class='ranking-content'>
       <view class='ranking-list-content'>
         <view wx:for="{{warList}}" data-id="{{item.activityID}}" bindtap='toInfo' class="ranking-list-box {{(index+1)==myRank?'ranking-my':''}}"  wx:key='index'>
-            <text class='serial-number'>{{item.activityName}}\n{{item.time}}</text>
+            <text class='serial-number'>{{item.activityName}}</text>
+
+            
+            
             <view class='ranking-points-box'>
               <view class='ranking-points'>{{item.statusTxt}}</view>
+              <text class='serial-time'>{{item.time}}</text>
             </view>
           <view>
           </view>
         </view>
       </view>
     </view>
-    <view class='null-data' wx:if='{{warList.length==0}}'>暂无记录</view>
+    <!-- <view class='null-data' wx:if='{{warList.length==0}}'>暂无记录</view> -->
   </scroll-view>
 </view>

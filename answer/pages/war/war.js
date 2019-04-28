@@ -77,34 +77,44 @@ Page({
   },
   toInfo:function(e){
     var id = e.currentTarget.dataset.id;
-    console.log(id);
-    for (var i in this.data.warList) {
-      let war = this.data.warList[i];
-      if(war.activityID==id){
-        if(war.isJoin == 1){
-          wx.navigateTo({
-            url: '../warHistory/warHistory?id='+id,
-          })
-        }else
-        if(war.activityStatus==2){
-          wx.navigateTo({
-            url: '../warInfo/warinfo?warId='+id,
-          })
-        }else
-        if(war.activityStatus==3){
-          wx.showToast({
-            title: '活动已结束',
-          })
+    let SinopecSession = wx.getStorageSync('SinopecSession');
+    wx.request({
+      url: url.getWarQueation,
+      method: "GET",
+      data: {
+        wxSession: SinopecSession,
+        activityID: id
+      },
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
+      success: function (result) {
+        if (result.data.resultCode == 0) {
+          var war = result.data.resultData.activity;
+          if (war.isJoin == 1) {
+            wx.navigateTo({
+              url: '../warHistory/warHistory?id=' + id,
+            })
+          } else
+            if (war.activityStatus == 2) {
+              wx.navigateTo({
+                url: '../warInfo/warinfo?warId=' + id,
+              })
+            } else 
+  
 
-        }else if (war.activityStatus ==1){
-          wx.showToast({
-            title: '活动未开始',
-          })
-        }
+              if (war.activityStatus == 3) {
+                wx.showToast({
+                  title: '活动已结束',
+                })
 
+              } else if (war.activityStatus == 1) {
+                wx.showToast({
+                  title: '活动未开始',
+                })
+              }
+            }
+        
       }
-     
-    }
+    });
   },
   bindDownLoad: function () {
     var that = this;

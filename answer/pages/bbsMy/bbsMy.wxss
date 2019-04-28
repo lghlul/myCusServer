@@ -2,14 +2,14 @@
 .ranking-icon-box{width:710rpx;height:136rpx;padding:30rpx 0;margin-bottom: 10rpx;}
 .ranking-icon{width: 123rpx;height:136rpx;vertical-align: top;display: block;margin:auto;}
 .ranking-list-content{width:710rpx;}
-.ranking-list-box{width: 710rpx;height:165rpx;background: linear-gradient(#4a90e2, #80c3f2);border-radius: 6rpx;margin-bottom: 20rpx;padding:20rpx 45rpx 20rpx 30rpx;box-sizing: border-box;}
+.ranking-list-box{width: 710rpx;height:140rpx;position: relative; background: linear-gradient(#4a90e2, #80c3f2);border-radius: 6rpx;margin-bottom: 20rpx;padding:20rpx 45rpx 20rpx 30rpx;box-sizing: border-box;}
 .ranking-my{border:4rpx solid #F8CA1E;padding-top:16rpx;padding-bottom:16rpx;position: relative;}
 .serial-number{font-size: 37rpx;widranking-usernameth:28rpx;line-height: 71rpx;text-align: left;color: #ffffff;float: left;}
 .ranking-usericon-box{position: relative;width: 125rpx;height:125rpx;border:10rpx solid rgba(255,255,255,0);border-radius: 50%;float: left;margin:0 14rpx 0 20rpx;}
 .ranking-usericon{width:100%;height:100%;border-radius: 50%;vertical-align: top;}
 .ranking-username{margin-left:10rpx;line-height: 145rpx;font-size: 30rpx;color: #ffffff;float: left;width:200rpx;height:145rpx;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 .ranking-points-box{float: right;margin: 46rpx 0;}
-.ranking-points{text-align: right;font-size: 32rpx;line-height: 45rpx;color: #ffffff;}
+.ranking-points{text-align: right;font-size: 28rpx;line-height: 45rpx;color: #ffffff;}
 .ranking-points image{width:32rpx;height:32rpx;display: inline-block;margin-right:10rpx;}
 .use-points{font-size: 28rpx;text-align: right;line-height: 40rpx;color: #ffffff;}
 .ranking-my .ranking-usericon-box{border-color:#ffffff;}
@@ -19,15 +19,23 @@
 .now-ranking{width:750rpx;line-height:67rpx;background-color: #ECF5FF;box-shadow: 0px -2px 12px 0px rgba(131,131,131,0.5);text-align: center;font-size: 28rpx;color: #4A90E2;position: fixed;left: 0;right: 0;bottom: 0;}
 .reply{ 
 
- width:710rpx;
-line-height:100rpx;
+line-height:140rpx;
 text-align:center;
 font-size:34rpx;
 color:#ffffff;
 margin:43rpx 20rpx;
 background-color:#F5A623;
-border-radius:10rpx;
+border-radius:50%;
 position:fixed;
 bottom:0rpx;
 z-index:9999999;
+right:0rpx;
+width:140rpx;
+height: 140rpx;
+}
+.time-view{
+  text-align:right;
+  position:absolute;
+  bottom:10rpx;
+  right:10rpx;
 }

@@ -38,7 +38,7 @@
           <image src='../../images/warIcon.png'></image>
         </navigator>
         <navigator url='../bbs/bbs' class='answer-module-box' id='bbs'>
-          <text>论坛</text>
+          <text>你问我答</text>
           <image src='../../images/luntan.png'></image>
         </navigator>
       </view>
@@ -57,7 +57,7 @@
         </navigator>
       </view>
     </view>
-    <image class='logo' src='../../images/logo.png'></image>
+    <!-- <image class='logo' src='../../images/logo.png'></image> -->
   </view>
   <view class='answer-login-box' wx:if='{{!hasUserInfo}}'>
     <view class='get-user-content'>

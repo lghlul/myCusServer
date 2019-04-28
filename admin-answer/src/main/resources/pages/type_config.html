@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 考试配置</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/pages/hAdmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/pages/hAdmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/static/pages/hAdmin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/static/pages/hAdmin/css/animate.css" rel="stylesheet">
+    <link href="/static/pages/hAdmin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div id="tree">  
+        
+    </div>  
+
+    <!-- 全局js -->
+    <script src="/static/pages/hAdmin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/pages/hAdmin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/static/pages/hAdmin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/static/pages/hAdmin/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/pages/hAdmin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/pages/hAdmin/js/content.js?v=1.0.0"></script>
+
+    <!-- layer javascript -->
+    <script src="/static/pages/hAdmin/js/plugins/layer/layer.min.js"></script>
+    <!-- Page-Level Scripts -->
+
+    <!-- layerDate plugin javascript -->
+    <script src="/static/pages/hAdmin/js/plugins/layer/laydate/laydate.js"></script>
+    <script src="/static/pages/hAdmin/js/demo/timeutil.js"></script>
+    <script src="/static/pages/hAdmin/js/plugins/treeview/bootstrap-treeview.js"></script>
+
+    <script>
+        var tree = [];
+        function getText(text,pid,id){
+            
+            if(pid==0){
+                text += '<a data-id="'+id+'" class="tree-add">添加</a>'
+            }
+            text += '<a data-id="'+id+'" data-pid="'+pid+'"  class="tree-add">删除</a>'
+            return text;
+        }
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/type/list",
+                cache: false,  //禁用缓存
+                data: {replyID: $(this).attr("data-id")},
+                dataType: "json",
+                success: function (result) {
+                    result.data.forEach(element => {
+                        var treeItem = {text:getText(element.typeName,element.parentID,element.typeID)};
+                        
+                        treeItem.nodes = [];
+                        element.sonType.forEach( chlien => {
+                            var chlienItem = {text:getText(chlien.typeName,chlien.parentID,chlien.typeID)};
+                            
+                            treeItem.nodes.push(chlienItem);
+                            
+                        });
+                        tree.push(treeItem);
+                    });
+                    console.log(tree);
+                    $('#tree').treeview({data: tree});                  
+
+                }
+        });
+        
+ 
+
+        });
+
+    </script>
+    <style>
+        .form-control{
+            width: 240px!important;
+        }
+    </style>
+    
+    
+
+</body>
+
+</html>

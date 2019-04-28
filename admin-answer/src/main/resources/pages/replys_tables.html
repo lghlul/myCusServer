@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>回复 - 数据表格</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/static/pages/hAdmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/pages/hAdmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/static/pages/hAdmin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/static/pages/hAdmin/css/animate.css" rel="stylesheet">
+    <link href="/static/pages/hAdmin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="row  border-bottom white-bg dashboard-header">
+         <!-- <div class="form-inline">
+                 <label class="col-sm-2 control-label">条件：</label>
+                 <div class="col-sm-10">
+                         <input type="text" id="keyWord" placeholder="关键词" class="form-control">
+
+                     <button class="btn btn-info " id="search" type="button"><i class="fa fa-search"></i> 搜索</button>
+                     </div>
+     </div> -->
+     <!-- <label></label>
+         <div class="form-group">
+                 <label class="col-sm-2 control-label">日期：</label>
+                 <div class="col-sm-10">
+                     <input placeholder="开始日期" class="form-control layer-date" id="start">
+                     <input placeholder="结束日期" class="form-control layer-date" id="end">
+                 </div>
+             </div> -->
+     </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>回复列表</h5>
+                </div>
+                
+                <div class="ibox-content">
+                    <!--<button type="button" class="btn btn-w-m button-add btn-success">添加</button>-->
+                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                        <tr>
+                            <th>回复内容</th>
+                            <th>回复人</th>
+                            <th>回复人机构</th>
+                            <th>回复时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="/static/pages/hAdmin/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/pages/hAdmin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+<script src="/static/pages/hAdmin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+<!-- Data Tables -->
+<script src="/static/pages/hAdmin/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/pages/hAdmin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+<!-- 自定义js -->
+<script src="/static/pages/hAdmin/js/content.js?v=1.0.0"></script>
+
+
+<!-- layer javascript -->
+<script src="/static/pages/hAdmin/js/plugins/layer/layer.min.js"></script>
+<!-- Page-Level Scripts -->
+
+<!-- layerDate plugin javascript -->
+<script src="/static/pages/hAdmin/js/plugins/layer/laydate/laydate.js"></script>
+<script src="/static/pages/hAdmin/js/demo/timeutil.js"></script>
+
+<script>
+    var table;
+    var bbsID = localStorage.getItem("bbsID");
+
+    $(document).ready(function () {
+
+        table = $('.dataTables-example').dataTable({
+            stripeClasses: ["odd", "even"],  //为奇偶行加上样式，兼容不支持CSS伪类的场合
+            serverSide: true,  //启用服务器端分
+            searching: false,  //禁用原生搜索   
+            "bSort": false,
+            ajax: function (data, callback, settings) {
+
+                console.log(data);
+                //封装请求参数
+                var param = {};
+                param.bbsID = bbsID;
+                param.limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+                param.offset = (data.start / data.length) + 1;//当前页码
+                param.sortField = "createTime";
+                param.sortDir = "desc";
+                $.ajax({
+                    type: "GET",
+                    url: "/bbs/listReply",
+                    cache: false,  //禁用缓存
+                    data: param,  //传入组装的参数
+                    dataType: "json",
+                    success: function (result) {
+                        //console.log(result);
+                        //setTimeout仅为测试延迟效果
+                        //封装返回数据
+                        var returnData = {};
+                        returnData.draw = data.draw;//这里直接自行返回了draw计数器,应该由后台返回
+                        returnData.recordsTotal = result.data.totalCount;//返回数据全部记录
+                        returnData.recordsFiltered = result.data.totalCount;//后台不实现过滤功能，每次查询均视作全部结果
+                        returnData.data = result.data.list;//返回的数据列表
+                        console.log(returnData);
+                        //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+                        //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+
+                        callback(returnData);
+                    }
+                });
+            }, columns: [
+                {"data": "content"},
+                {"data": "realName"},
+                {"data": "orgName"},
+                {"data": "createTime"},
+                {"data": "delStatus"},
+                {"data": "delStatus"}
+
+
+            ],
+            columnDefs: [
+                {
+                targets: 3,
+                render: function(data, type, row, meta) {
+                    if(data)
+                    return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(data));
+                    else
+                    return "-";
+                }},
+                {
+                    targets: 4,
+                    render: function (data, type, row, meta) {
+                        if (data == 1) {
+                            return "<span style='color: #23ad44;'>正常</span>"
+                        }
+                        if (data == 2) {
+                            return "<span style='color: #FF0000;'>已删除</span>"
+                        }
+                    }
+                }, {
+                    //   指定第最后一列
+                    targets: 5,
+                    render: function (data, type, row, meta) {
+                        var buttons = "";
+                        if (data == 1) {
+                            buttons += ' <a type="button"  href="#" replyID="' + row.replyID + '" data-id="' + row.replyID + '" class="button-del" >删除</a>';
+                        }
+
+                        return buttons;
+                    }
+                }]
+
+        }).api();
+
+        $("#search").click(function () {
+            table.ajax.reload();
+        })
+        
+        $("body").on("click", ".button-del", function () {
+            $.ajax({
+                type: "POST",
+                url: "/bbs/deleteReply",
+                cache: false,  //禁用缓存
+                data: {replyID: $(this).attr("data-id")},
+                dataType: "json",
+                success: function (result) {
+                    table.ajax.reload();
+                }
+            });
+        })
+
+        
+
+    });
+   
+
+    
+    // laydate(start);
+    // laydate(end);
+    function dateFtt(fmt, date) { //author: meizz
+        var o = {
+            "M+": date.getMonth() + 1,                 //月份
+            "d+": date.getDate(),                    //日
+            "h+": date.getHours(),                   //小时
+            "m+": date.getMinutes(),                 //分
+            "s+": date.getSeconds(),                 //秒
+            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+            "S": date.getMilliseconds()             //毫秒
+        };
+        if (/(y+)/.test(fmt))
+            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt))
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    
+    
+</script>
+<style>
+    .form-control {
+        width: 240px !important;
+    }
+</style>
+
+
+</body>
+
+</html>

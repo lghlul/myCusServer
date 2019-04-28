@@ -12,7 +12,7 @@
       </view>
       <view class="exchange-status {{item.orderStatus==2?'exchangeed':''}}">{{item.orderStatus==2?'已兑换':'未兑换'}}</view>
     </view>
-    <view class='null-data' wx:if='{{exchangeList.length==0}}'>暂无记录</view>
+    <!-- <view class='null-data' wx:if='{{exchangeList.length==0}}'>暂无记录</view> -->
     </scroll-view>
   </view>
 </view>

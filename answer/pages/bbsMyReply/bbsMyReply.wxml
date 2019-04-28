@@ -5,7 +5,7 @@
   <scroll-view  scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad">
     <view class='replys' class='ranking-content'>
       <view class='ranking-list-content'>
-        <view wx:for="{{replyList}}" class="ranking-list-box "  wx:key='index'>
+        <view wx:for="{{replyList}}" class="ranking-list-box " data-id="{{item.bbsID}}" bindtap='toInfo' wx:key='index'>
             <text class='serial-number'>{{item.content}}</text>
             <view class='ranking-points-box'>
               <view class='ranking-points'>{{item.time}}</view>
@@ -15,6 +15,6 @@
         </view>
       </view>
     </view>
-    <view class='null-data' wx:if='{{bbsList.length==0}}'>暂无记录</view>
+    <!-- <view class='null-data' wx:if='{{bbsList.length==0}}'>暂无记录</view> -->
   </scroll-view>
 </view>
