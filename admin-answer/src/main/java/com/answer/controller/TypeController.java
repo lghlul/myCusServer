@@ -44,6 +44,13 @@ public class TypeController {
     }
 
 
+    @GetMapping("listByPid")
+    public Object listByPid(Long pid) {
+        List<TType> types = typeService.selectByPId(pid);
+        return ResultCodeEnum.SUCCESS.getResponse(types);
+    }
+
+
     @PostMapping("save")
     public Object save(TType type) {
         if(type.getParentID() == null || type.getParentID() == 0){

@@ -16,7 +16,7 @@
         select * from t_type where typeID = #{id} and typeStatus = 1
     </select>
 
-    <select id="selectByPId" parameterType="long" resultMap="baseResultMap">
+    <select id="selectByPId" parameterType="long" resultType="TType">
         select * from t_type where parentID = #{id} and typeStatus = 1
     </select>
 

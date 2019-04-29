@@ -52,7 +52,7 @@
 
                     <div class="ibox-content">
                         <button type="button" class="btn btn-w-m button-add btn-success" >添加</button>
-                        <button type="button" class="btn btn-w-m button-down btn-info" >下载题库模板</button>
+                        <button type="button" class="btn btn-w-m button-down btn-info" >下载导入模板</button>
 
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
@@ -293,7 +293,7 @@
         })
         $("body").on("click",".button-down",function(){
 
-            var url  ="static/template/template.xls"
+            var url  ="static/template/template_act.xls"
             jQuery('<form action="'+url+'" method="get">' +  // action请求路径及推送方法
                     '</form>')
             .appendTo('body').submit().remove();

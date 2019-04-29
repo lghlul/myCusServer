@@ -1,5 +1,6 @@
 package com.answer.controller;
 
+import com.answer.common.CommonConstant;
 import com.answer.common.PageResult;
 import com.answer.common.ResultCodeEnum;
 import com.answer.domain.Activity;
@@ -10,9 +11,8 @@ import com.answer.service.ITAnswerService;
 import com.answer.service.ITQuestionService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -50,6 +50,32 @@ public class QuestionController {
     public Object listAnswer(Long quesID) {
         List<TAnswer> tAnswers = answerService.listByQuesID(quesID);
         return ResultCodeEnum.SUCCESS.getResponse(tAnswers);
+    }
+
+
+    @PostMapping(value = "update" , consumes = "application/json")
+    public Object update(@RequestBody TQuestion question) {
+        questionService.edit(question);
+        if(question.getAnswerList() != null){
+            for(TAnswer answer : question.getAnswerList()){
+                answerService.edit(answer);
+            }
+        }
+        return ResultCodeEnum.SUCCESS.getResponse();
+    }
+
+
+    @PostMapping("importQues")
+    public Object importQues(MultipartFile file, Long typeID) {
+
+        String originalFilename = file.getOriginalFilename();
+        if(originalFilename.contains("xls") || originalFilename.contains("xlsx")){
+            //判断活动状态
+            questionService.insertQues(file, typeID);
+            return ResultCodeEnum.SUCCESS.getResponse();
+        }else{
+            return ResultCodeEnum.FILE_FORMAT_ERROR.getResponse();
+        }
     }
 
 
