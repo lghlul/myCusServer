@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.answer.mapper.TBbsMapper">
     <select id="selectPage" parameterType="bbs" resultType="bbs">
-      select *,(select count(1) from t_bbs_reply where bbsID = a.bbsID)as replyNum from t_bbs a
+      select *,(select count(1) from t_bbs_reply where bbsID = a.bbsID and delStatus = 1)as replyNum from t_bbs a
       <where>
       and delStatus = 1
           <if test="keyWord != null">

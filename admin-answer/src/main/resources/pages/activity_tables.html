@@ -20,7 +20,11 @@
     <link href="/static/pages/hAdmin/css/animate.css" rel="stylesheet">
     <link href="/static/pages/hAdmin/css/style.css?v=4.1.0" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/pages/hAdmin/css/plugins/webuploader/webuploader.css">
-
+    <style type="text/css">
+        .form-control{
+            padding:3px 12px!important;
+        }
+    </style>
 </head>
 
 <body class="gray-bg">
@@ -207,13 +211,13 @@
             targets: 6,
             render: function(data, type, row, meta) {
                 if(data==1){
-                    return "<p class='text-success'>未开始</p>"
+                    return "<span class='text-success'>未开始</span>"
                 }
                 if(data==2){
-                    return "<p class='text-info'>活动中</p>"
+                    return "<span class='text-info'>活动中</span>"
                 }
                 if(data==3){
-                    return "<p class='text-warning'>已结束</p>"
+                    return "<span class='text-warning'>已结束</span>"
                 }
             }},{
             //   指定第最后一列

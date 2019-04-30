@@ -1,21 +1,19 @@
 package com.answer.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.answer.domain.AnswerDetailParam;
 import com.answer.domain.OrgCount;
-import com.answer.domain.TUser;
 import com.answer.domain.TUserAnswer;
 import com.answer.mapper.TUserAnswerMapper;
 import com.answer.service.ITUserAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
-
+@Transactional
 @Service
 public class TUserAnswerServiceImpl extends BaseServiceImpl<TUserAnswer> implements ITUserAnswerService{
 

@@ -168,6 +168,9 @@
             <if test="quesType != null">
                 quesType,
             </if>
+            <if test="quesExplain != null">
+                quesExplain,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="quesID != null">
@@ -190,6 +193,9 @@
             </if>
             <if test="quesType != null">
                 #{quesType},
+            </if>
+            <if test="quesExplain != null">
+                #{quesExplain},
             </if>
         </trim>
     </insert>

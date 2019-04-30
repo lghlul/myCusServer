@@ -59,7 +59,6 @@
                             <th>回复人</th>
                             <th>回复人机构</th>
                             <th>回复时间</th>
-                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -142,7 +141,6 @@
                 {"data": "realName"},
                 {"data": "orgName"},
                 {"data": "createTime"},
-                {"data": "delStatus"},
                 {"data": "delStatus"}
 
 
@@ -156,19 +154,9 @@
                     else
                     return "-";
                 }},
-                {
-                    targets: 4,
-                    render: function (data, type, row, meta) {
-                        if (data == 1) {
-                            return "<span style='color: #23ad44;'>正常</span>"
-                        }
-                        if (data == 2) {
-                            return "<span style='color: #FF0000;'>已删除</span>"
-                        }
-                    }
-                }, {
+               {
                     //   指定第最后一列
-                    targets: 5,
+                    targets: 4,
                     render: function (data, type, row, meta) {
                         var buttons = "";
                         if (data == 1) {

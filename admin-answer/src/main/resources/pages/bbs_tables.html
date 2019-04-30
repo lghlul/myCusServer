@@ -61,7 +61,6 @@
                             <th>发布人机构</th>
                             <th>发布时间</th>
                             <th>回复数</th>
-                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -98,7 +97,6 @@
 
 <script>
     var table;
-    var activityID;
     $(document).ready(function () {
 
         table = $('.dataTables-example').dataTable({
@@ -147,7 +145,6 @@
                 {"data": "orgName"},
                 {"data": "createTime"},
                 {"data": "replyNum"},
-                {"data": "delStatus"},
                 {"data": "delStatus"}
 
 
@@ -162,18 +159,8 @@
                     return "-";
                 }},
                 {
-                    targets: 6,
-                    render: function (data, type, row, meta) {
-                        if (data == 1) {
-                            return "<span style='color: #23ad44;'>正常</span>"
-                        }
-                        if (data == 2) {
-                            return "<span style='color: #FF0000;'>已删除</span>"
-                        }
-                    }
-                }, {
                     //   指定第最后一列
-                    targets: 7,
+                    targets: 6,
                     render: function (data, type, row, meta) {
                         var buttons = "";
                         
@@ -221,10 +208,12 @@
                 btn: ['关闭']
                 , yes: function (index, layero) {
                     layer.closeAll();
+                    table.ajax.reload();
                 }
                 , cancel: function () {
                     //右上角关闭回调
                     layer.closeAll();
+                    table.ajax.reload();
                     //return false 开启该代码可禁止点击该按钮关闭
                 }, success: function (layero, index) {
                 }

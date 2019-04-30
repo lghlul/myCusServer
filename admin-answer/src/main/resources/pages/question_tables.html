@@ -21,7 +21,11 @@
     <link href="/static/pages/hAdmin/css/animate.css" rel="stylesheet">
     <link href="/static/pages/hAdmin/css/style.css?v=4.1.0" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/pages/hAdmin/css/plugins/webuploader/webuploader.css">
-
+    <style type="text/css">
+        .form-control{
+            padding:3px 12px!important;
+        }
+    </style>
 </head>
 
 <body class="gray-bg">
@@ -90,6 +94,7 @@
         <div id="answer">
         </div>
     </div>
+
 </div>
 <div id="import" style="padding:20px;display: none;">
     <div id="uploader" class="wu-example">
@@ -276,14 +281,26 @@
                 $.each(res.data, function (index, obj) {
                     var index = $.inArray(obj.ansID.toString(), rightAnswerIDs);
                     var inputType = "radio";
+                    $("#answer").removeClass();
                     if (quesType == 2) {
                         inputType = "checkbox";
+                        $("#answer").addClass("checkbox");
+                    }else{
+                        $("#answer").addClass("radio");
                     }
+
                     if (index >= 0) {
+                        $("#answer").append(' <label style="width: 100%;margin-top: 10px;"><input type="' + inputType + '" name="answerID" value="' + obj.ansID + '" checked><input type="text" class="form-control" value="' + obj.ansDesc + '"></label>');
+                    } else {
+                        $("#answer").append(' <label style="width: 100%;margin-top: 10px;"><input type="' + inputType + '" name="answerID" value="' + obj.ansID + '"><input type="text" class="form-control" value="' + obj.ansDesc + '"></label>');
+                    }
+
+
+                    /*if (index >= 0) {
                         $("#answer").append('<input type="' + inputType + '" name="answerID" value="' + obj.ansID + '" checked><input type="text" class="form-control" value="' + obj.ansDesc + '"><br/>');
                     } else {
                         $("#answer").append('<input type="' + inputType + '" name="answerID" value="' + obj.ansID + '"><input type="text" class="form-control" value="' + obj.ansDesc + '"><br/>');
-                    }
+                    }*/
 
                 })
             }, "json");
