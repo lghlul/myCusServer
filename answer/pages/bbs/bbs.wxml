@@ -12,7 +12,9 @@
             
             <view class='ranking-points-box'>
               <view class='ranking-points'>回复数：{{item.replyNum}}</view>
-              <text class='serial-time'>{{item.time}}</text>
+
+              <text class='serial-time fleft'>{{item.realName}}.{{item.orgName}}</text>
+               <text class='serial-time fright'>{{item.time}}</text>
             </view>
             
           <view>

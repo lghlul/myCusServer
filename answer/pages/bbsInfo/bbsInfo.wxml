@@ -13,7 +13,7 @@
         <view class='practice-info-box'>
           <view class='practice-text' >{{bbsInfo.title}}</view>
         </view>
-          <view class='practice-text tright' ><text>{{bbsInfo.time}}</text> </view>
+          <view class=' tright' > {{bbsInfo.realName}}.{{bbsInfo.orgName}}<text>{{bbsInfo.time}}</text> </view>
         <view class='practice-questions-box' >
           <view class='practice-questions'>{{bbsInfo.content}}</view>
 
@@ -33,6 +33,8 @@
         <view wx:for="{{replyList}}" data-id="{{item.replyID}}"  class="ranking-list-box"  wx:key='index'>
             <text class='serial-number'>{{item.content}}</text>
             <view class=''>
+              <view class='ranking-points'>{{item.realName}},{{item.orgName}}</view>
+
               <view class='ranking-points'>{{item.time}}</view>
             </view>
           <view>

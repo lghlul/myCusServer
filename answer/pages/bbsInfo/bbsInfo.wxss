@@ -81,7 +81,8 @@ text-align: center;
 .next-error-questions{width:710rpx;line-height: 100rpx;text-align: center;font-size: 34rpx;color: #ffffff;margin: 43rpx 0;background-color: #F5A623;border-radius: 10rpx;}
 .choose{position: relative;}
 .choose .practice-button{background-color:#80bbff;color: #ffffff;}
-.tright {text-align: right;}
+.tright {font-size: 28rpx;color:#89898b;padding-top: 8rpx;}
+.tright text{float: right;}
 .reply{
 line-height:140rpx;
 text-align:center;

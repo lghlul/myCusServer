@@ -70,20 +70,23 @@ Page({
       success: function (result) {
         // console.log(result.data)
         if (result.data.resultCode == 0) {
-
-          wx.showToast({
-            title: '发布成功',
-            duration: 2000,
-            success: function () {
-              setTimeout(function () {
-                //要延时执行的代码
-                wx.navigateBack({
-
-                })
-              }, 2000) //延迟时间
-            }
+          wx.setStorage({
+            key: 'newBBS',
+            data: 'true'
           })
+          
+              wx.showToast({
+                title: '发布成功',
+                duration: 2000,
+                success: function () {
+                  setTimeout(function () {
+                    //要延时执行的代码
+                    wx.navigateBack({
 
+                    })
+                  }, 2000) //延迟时间
+                }
+              })
         }
       },
       fail: function ({ errMsg }) {

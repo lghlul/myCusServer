@@ -19,26 +19,49 @@ Page({
     that.setData({
       userInfo: app.globalData.userInfo,
       bbsId: options.id ? options.id : ''
-    })
-  },
-  onShow: function () {
-
-    var that = this;
+    });
     wx.getStorage({
       key: 'bbsInfo',
-      success: function(res) {
-        wx.getSystemInfo({
-          success: function (res) {
-            that.setData({
-              scrollHeight: res.windowHeight
-            });
-          }
-        });
+      success: function (res) {
         that.setData({
           replyList: [],
-          bbsInfo:res.data
+          bbsInfo: res.data
         })
-        if (that.data.pageNo <= that.data.pageCount) {
+        that.getRanking('');
+        
+      },
+    })
+
+  },
+  onShow: function () {
+    
+    let that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        var query = wx.createSelectorQuery();
+        //选择id
+        query.select('.exam-content').boundingClientRect(function (rect) {
+          // console.log(rect.width)
+          var h = res.windowHeight - rect.height;
+          that.setData({
+            scrollHeight: h
+          });
+        }).exec();
+
+      }
+    });
+    wx.getStorage({
+      key: 'newREPLY',
+      success: function (res) {
+        if (res.data == "true") {
+          wx.removeStorage({
+            key: 'newREPLY',
+            success: function (res) { },
+          })
+          that.setData({
+            replyList: [],
+            pageNo: 1
+          })
           that.getRanking('');
         }
       },
@@ -46,8 +69,8 @@ Page({
     
   },
   toReply: function () {
-    let that = this;
 
+    var that = this;
     wx.navigateTo({
       url: '../bbsRelpy/bbsRelpy?id=' + that.data.bbsId,
     })

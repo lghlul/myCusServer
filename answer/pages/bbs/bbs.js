@@ -13,9 +13,6 @@ Page({
     scrollHeight: 0
   },
   onLoad: function () {
-
-  },
-  onShow: function () {
     this.setData({
       bbsList: []
     })
@@ -30,6 +27,32 @@ Page({
     if (that.data.pageNo <= that.data.pageCount) {
       that.getRanking('');
     }
+  },
+  onShow: function () {
+    var that = this;
+    wx.getStorage({
+      key: 'newBBS',
+      success: function (res) {
+        if (res.data=="true"){
+          wx.removeStorage({
+            key: 'newBBS',
+            success: function(res) {},
+          })
+          that.setData({
+            bbsList: [],
+            pageNo:1
+          })
+          wx.getSystemInfo({
+            success: function (res) {
+              that.setData({
+                scrollHeight: res.windowHeight
+              });
+            }
+          });
+            that.getRanking('');
+        }
+      },
+    })
   },
   getRanking: function (callback) {
     let that = this;

@@ -34,3 +34,9 @@ height: 140rpx;
 
 }
 .serial-time{font-size:28rpx;color:#fff;}
+.fleft{
+  float: left;
+}
+.fright{
+  float: right;
+}

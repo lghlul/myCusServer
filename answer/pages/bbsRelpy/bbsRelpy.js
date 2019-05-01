@@ -57,7 +57,10 @@ Page({
       success: function (result) {
         // console.log(result.data)
         if (result.data.resultCode == 0) {
-         
+          wx.setStorage({
+            key: 'newREPLY',
+            data: 'true'
+          })
           wx.showToast({
             title: '回复成功',
             duration: 2000,

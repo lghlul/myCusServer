@@ -24,13 +24,18 @@
 </head>
 
 <body class="gray-bg">
-<button type="button" class="btn btn-w-m button-add btn-success">添加</button>
-<div id="tree">
+<button type="button" data-id="-1" onclick="addItem(this)" style="    margin-left: 20px;" class="btn btn-w-m button-add btn-info">添加跟节点</button>
+<div id="tree" style="margin:0px 20px;background-color:#fff">
 
 </div>
 
 <div id="add" style="padding:20px;display: none;">
     <input type="hidden" id="form-id"/>
+    <input type="hidden" id="parent-id"/>
+    <div id="parent-label" class="form-group">
+            <label>上级类型</label>
+            <input type="text" id="parent-name" readonly="true" class="form-control">
+        </div>
     <div class="form-group">
         <label>类型名称</label>
         <input type="text" id="form-name" placeholder="请输入名称" class="form-control">
@@ -62,19 +67,167 @@
 
 <script>
     var tree = [];
-
+    var itemMap = {};
     function getText(text, pid, id) {
 
         if (pid == 0) {
-            text += '&nbsp;<a data-id="' + id + '" class="tree-add">添加</a>'
+            text += '&nbsp;<a href="#"  onclick="addItem(this)" data-id="' + id + '" class="tree-add">添加</a>'
         }
-        text += '&nbsp;<a data-id="' + id + '" data-pid="' + pid + '"  class="tree-delete">删除</a>'
 
-        text += '&nbsp;<a data-id="' + id + '" data-pid="' + pid + '"  class="tree-edit">修改</a>'
+        text += '&nbsp;<a data-id="' + id + '" onclick="editItem(this)" data-p1id="' + pid + '" href="#" class="tree-edit">修改</a>';
+        text += '&nbsp;<a data-id="' + id + '" onclick="delItem(this)" data-pid="' + pid + '" href="#" class="tree-delete">删除</a>';
+
         return text;
     }
 
-    $(document).ready(function () {
+    function addItem(item){
+        $("#form-id").val("");
+        $("#form-name").val("");
+        var dataId = $(item).attr("data-id");
+        if(dataId == -1){
+            $("#parent-id").val(0);
+            $("#parent-label").hide();
+        }else{
+            var itemObject = itemMap[dataId];
+
+            $("#parent-id").val(itemObject.typeID);
+            $("#parent-name").val(itemObject.typeName);
+            $("#parent-label").show();
+        }
+        
+        layer.open({
+                type: 1,
+                title:"类型新增",
+                skin: 'layui-layer-rim', //加上边框
+                area: ['420px', '280px'], //宽高
+                content: $('#add'),
+                btn: ['保存', '取消']
+                    ,yes: function(index, layero){
+                         save();
+                    }
+                    ,btn2: function(index, layero){
+                        layer.closeAll();
+                    }
+                    ,cancel: function(){ 
+                        //右上角关闭回调
+                        layer.closeAll();
+                        //return false 开启该代码可禁止点击该按钮关闭
+                    }
+        });
+    }
+    function editItem(item){
+
+        var dataId = $(item).attr("data-id");
+        var itemObject = itemMap[dataId];
+        $("#form-id").val(itemObject.typeID);
+        $("#form-name").val(itemObject.typeName);
+        if(itemObject.parentID == 0){
+            $("#parent-id").val(0);
+            $("#parent-label").hide();
+        }else{
+            $("#parent-id").val(itemObject.parentID);
+            $("#parent-name").val(itemMap[itemObject.parentID].typeName);
+            $("#parent-label").show();
+        }
+        
+        layer.open({
+                type: 1,
+                title:"类型编辑",
+                skin: 'layui-layer-rim', //加上边框
+                area: ['420px', '280px'], //宽高
+                content: $('#add'),
+                btn: ['保存', '取消']
+                    ,yes: function(index, layero){
+                         save();
+                    }
+                    ,btn2: function(index, layero){
+                        layer.closeAll();
+                    }
+                    ,cancel: function(){ 
+                        //右上角关闭回调
+                        layer.closeAll();
+                        //return false 开启该代码可禁止点击该按钮关闭
+                    }
+        });
+    }
+    function delItem(item){
+
+        var dataId = $(item).attr("data-id");
+        var itemObject = itemMap[dataId];
+        var msg = "是否确定删除此节点？";
+        if(itemObject.parentID==0)
+            msg = "是否确定删除此节点以及下级节点？";
+        layer.open({
+                type: 1,
+                title:"删除类型",
+                skin: 'layui-layer-rim', //加上边框
+                area: ['420px', '280px'], //宽高
+                content: msg,
+                btn: ['确定', '取消']
+                    ,yes: function(index, layero){
+                         del(dataId);
+                    }
+                    ,btn2: function(index, layero){
+                        layer.closeAll();
+                    }
+                    ,cancel: function(){ 
+                        //右上角关闭回调
+                        layer.closeAll();
+                        //return false 开启该代码可禁止点击该按钮关闭
+                    }
+        }
+        );
+    }
+    function del(typeID){
+        var url = "/type/delete";
+        var param = {typeID:typeID};
+        $.ajax({
+
+        type: "POST",
+        url: url,
+        cache: false,  //禁用缓存
+        data: param,
+        dataType: "json",
+        success: function (result) {
+            document.location.reload();
+            layer.closeAll();
+        }
+        });
+    }
+    function save(){
+            if(!$("#form-name").val()){
+                layer.msg('请输入类型名称')
+                return; 
+            }
+            var param = {typeName:$("#form-name").val()};
+
+            var url = "/type/save";
+            var typeID = $("#form-id").val();
+            if(typeID){
+                param.typeID = typeID;
+                url ="/type/update";
+            }else{
+                param.parentID = $("#parent-id").val();;
+            }
+            $.ajax({
+
+                type: "POST",
+                url: url,
+                cache: false,  //禁用缓存
+                data: param,
+                dataType: "json",
+                success: function (result) {
+                    $("#form-id").val("");
+                    $("#form-name").val("");
+                    $("#parent-id").val("");
+                    $("#parent-name").val("");
+                    document.location.reload();
+                    layer.closeAll();
+                }
+            });
+        }
+
+    function load(){
         $.ajax({
             type: "GET",
             url: "/type/list",
@@ -90,36 +243,21 @@
                         var chlienItem = {text: getText(chlien.typeName, chlien.parentID, chlien.typeID)};
 
                         treeItem.nodes.push(chlienItem);
-
+                        itemMap[chlien.typeID] = chlien;
                     });
                     tree.push(treeItem);
+
+                    itemMap[element.typeID] = element;
                 });
                 console.log(tree);
                 $('#tree').treeview({data: tree});
 
             }
         });
-
-
-        $("body").on("click", ".tree-add", function () {
-            layer.open({
-                type: 1,
-                title: "工号新增",
-                skin: 'layui-layer-rim', //加上边框
-                area: ['500px', '450px'], //宽高
-                content: $('#add'),
-                btn: ['保存', '取消']
-                , yes: function (index, layero) {
-                    saveOrUpdate();
-                }
-                , btn2: function (index, layero) {
-                    layer.closeAll();
-                }
-                , cancel: function () {
-                    layer.closeAll();
-                }
-            });
-        })
+    }
+    $(document).ready(function () {
+        
+        load();
 
 
     });
