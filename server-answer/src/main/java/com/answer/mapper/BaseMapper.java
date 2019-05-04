@@ -13,4 +13,5 @@ public interface BaseMapper<T> {
     int insert(T t);
     List<T> list(T t);
     List<T> selectPage(T t);
+    T read(String id);
 }

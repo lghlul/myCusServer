@@ -1,8 +1,7 @@
 package com.answer.service.impl;
 
 import com.answer.cache.CacheHelper;
-import com.answer.domain.BbsReply;
-import com.answer.domain.WXSessionCache;
+import com.answer.domain.*;
 import com.answer.mapper.BbsReplyMapper;
 import com.answer.service.IBbsReplyService;
 import com.github.pagehelper.PageHelper;
@@ -35,6 +34,18 @@ public class BbsReplyServiceImpl implements IBbsReplyService {
         List<BbsReply> bbsUserList = bbsUserMapper.selectPage(bbsUser);
         //得到分页的结果对象
         PageInfo<BbsReply> pageInfo = new PageInfo<>(bbsUserList);
+        List<BbsReply> list = pageInfo.getList();
+        if(list != null){
+            for(BbsReply obj : list){
+                User user = cacheHelper.getUser(obj.getCreator());
+                JobNumBean jobNum = cacheHelper.getJobNum(user.getJobNum());
+                Organization org = cacheHelper.getOrg(jobNum.getOrgID());
+                obj.setRealName(jobNum.getRealName());
+                obj.setOrgName(org.getOrgName());
+                obj.setUserImg(user.getUserImg());
+            }
+        }
+
         return pageInfo;
     }
 

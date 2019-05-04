@@ -21,6 +21,37 @@ public class BbsReply extends PageQuery {
 
     private Long bbsID;
 
+    private String realName;
+
+    private String orgName;
+
+    private String userImg;
+
+
+    public String getUserImg() {
+        return userImg;
+    }
+
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
     public Long getBbsID() {
         return bbsID;
     }

@@ -35,7 +35,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		userMapper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(UserMapper.class);
 		//this.task();
 	}
-	
+
 	private void task(){
 		Runnable r = new Runnable() {
 			@Override

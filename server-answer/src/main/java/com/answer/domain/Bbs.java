@@ -26,6 +26,37 @@ public class Bbs extends PageQuery {
 
     private Integer replyNum;
 
+    private String realName;
+
+    private String userImg;
+
+    private String orgName;
+
+
+    public String getUserImg() {
+        return userImg;
+    }
+
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
     public Integer getReplyNum() {
         return replyNum;
     }

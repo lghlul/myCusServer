@@ -180,4 +180,21 @@ public class ActivityServiceImpl implements IActivityService {
 	public Activity read(String activityID) {
 		return activityMapper.selectByID(activityID);
 	}
+
+
+	@Override
+	public Activity read(Long activityID, String wxSession) {
+		Activity activity = activityMapper.selectByID(activityID + "");
+		WXSessionCache session = this.cacheHelper.getSession(wxSession);
+		ActivityUser activityUser = new ActivityUser();
+		activityUser.setActivityID(activityID);
+		activityUser.setOpenID(session.getOpenID());
+		List<ActivityUser> list = activityUserMapper.list(activityUser);
+		if(list != null && list.size() > 0){
+			activity.setIsJoin(Constant.JOIN_ACTIVITY);
+		}else{
+			activity.setIsJoin(Constant.UN_JOIN_ACTIVITY);
+		}
+		return activity;
+	}
 }

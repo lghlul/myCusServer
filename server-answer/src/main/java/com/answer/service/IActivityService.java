@@ -21,5 +21,8 @@ public interface IActivityService {
 
 
 	Activity read(String activityID);
+
+
+	Activity read(Long activityID, String wxSession);
 }
 

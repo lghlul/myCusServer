@@ -4,13 +4,16 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
+import com.answer.domain.*;
+import com.answer.mapper.JobNumMapper;
+import com.answer.mapper.OrganizationMapper;
+import com.answer.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
-import com.answer.domain.Room;
-import com.answer.domain.WXSessionCache;
 
 @Component
 public class CacheHelper {
@@ -54,5 +57,52 @@ public class CacheHelper {
 			return room;
 		}
 		return null;
+	}
+
+
+	/******************************组织  用户   工号*****************************************/
+	@Autowired
+	private UserMapper userMapper;
+
+	@Autowired
+	private JobNumMapper jobNumMapper;
+
+	@Autowired
+	private OrganizationMapper organizationMapper;
+
+	public User getUser(String openID){
+		User user = null;
+		String userStr = redisCacheValue.get(openID);
+		if(userStr == null){
+			user = userMapper.queryUserByOpenID(openID);
+			redisCacheValue.set(openID , JSON.toJSONString(user));
+		}else{
+			user = JSON.parseObject(userStr , User.class);
+		}
+		return user;
+	}
+
+	public Organization getOrg(Long orgID){
+		Organization org = null;
+		String orgStr = redisCacheValue.get(orgID + "");
+		if(orgStr == null){
+			org = organizationMapper.read(orgID + "");
+			redisCacheValue.set(orgID + "" , JSON.toJSONString(org));
+		}else{
+			org = JSON.parseObject(orgStr , Organization.class);
+		}
+		return org;
+	}
+
+	public JobNumBean getJobNum(String jobNum){
+		JobNumBean jobnum = null;
+		String jobnumStr = redisCacheValue.get(jobNum);
+		if(jobnumStr == null){
+			jobnum = jobNumMapper.queryJobNumByID(jobNum);
+			redisCacheValue.set(jobNum , JSON.toJSONString(jobnum));
+		}else{
+			jobnum = JSON.parseObject(jobnumStr , JobNumBean.class);
+		}
+		return jobnum;
 	}
 }

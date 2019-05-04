@@ -20,46 +20,46 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/activity" )
+@RequestMapping("/activity")
 public class ActivityController {
-	@Autowired
-	private IActivityService activityService;
+    @Autowired
+    private IActivityService activityService;
 
 
-	@GetMapping("list")
-	public String list(Activity activity , String wxSession) {
-		Result result = new Result();
-		PageInfo<Activity> page = activityService.page(activity,wxSession);
-		PageResult pageResult = new PageResult();
-		pageResult.setTotalCount(page.getTotal());
-		pageResult.setTotalPage(page.getPages());
-		pageResult.setList(page.getList());
-		result.setResultData(pageResult);
-		return JSON.toJSONString(result);
-	}
+    @GetMapping("list")
+    public String list(Activity activity, String wxSession) {
+        Result result = new Result();
+        PageInfo<Activity> page = activityService.page(activity, wxSession);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotalCount(page.getTotal());
+        pageResult.setTotalPage(page.getPages());
+        pageResult.setList(page.getList());
+        result.setResultData(pageResult);
+        return JSON.toJSONString(result);
+    }
 
-	@GetMapping("listByActivityID")
-	public String listByActivityID(Long activityID, String wxSession) {
-		Result result = new Result();
-		Map<String , Object> map = new HashMap<>();
-		Activity activity = activityService.read(activityID + "");
-		map.put("activity" , activity);
-		if(activity.getActivityStatus() != Constant.ACTIVITY_UN_START){
-			//活动已经开始或者结束   能够查看具体详情
-			List<ActivityQuestion> activityQuestions = activityService.listByActivityID(activityID ,wxSession);
-			map.put("activityQuestions" , activityQuestions);
-		}
-		result.setResultData(map);
-		return JSON.toJSONString(result);
-	}
+    @GetMapping("listByActivityID")
+    public String listByActivityID(Long activityID, String wxSession) {
+        Result result = new Result();
+        Map<String, Object> map = new HashMap<>();
+        Activity activity = activityService.read(activityID, wxSession);
+        map.put("activity", activity);
+        if (activity.getActivityStatus() != Constant.ACTIVITY_UN_START) {
+            //活动已经开始或者结束   能够查看具体详情
+            List<ActivityQuestion> activityQuestions = activityService.listByActivityID(activityID, wxSession);
+            map.put("activityQuestions", activityQuestions);
+        }
+        result.setResultData(map);
+        return JSON.toJSONString(result);
+    }
 
-	@PostMapping("finish")
-	public String finish(Long activityID , String strList , String wxSession) {
-		if(strList != null){
-			List<ActivityUserAnswer> activityUserAnswers = JSON.parseArray(strList, ActivityUserAnswer.class);
-			Result result = activityService.finish(activityUserAnswers, wxSession, activityID);
-			return JSON.toJSONString(result);
-		}
-		return JSON.toJSONString(new Result());
-	}
+    @PostMapping("finish")
+    public String finish(Long activityID, String strList, String wxSession) {
+        if (strList != null) {
+            List<ActivityUserAnswer> activityUserAnswers = JSON.parseArray(strList, ActivityUserAnswer.class);
+            Result result = activityService.finish(activityUserAnswers, wxSession, activityID);
+            return JSON.toJSONString(result);
+        }
+        return JSON.toJSONString(new Result());
+    }
 }

@@ -10,6 +10,18 @@ public class Question {
 	private byte quesType;
 	private Byte isRight;
 	private String answerID;
+	private String quesExplain;
+
+	public String getQuesExplain() {
+		if(quesExplain == null){
+			return "";
+		}
+		return quesExplain;
+	}
+
+	public void setQuesExplain(String quesExplain) {
+		this.quesExplain = quesExplain;
+	}
 
 	public Byte getIsRight() {
 		if(isRight == null){
