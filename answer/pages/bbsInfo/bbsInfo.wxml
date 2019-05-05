@@ -8,7 +8,7 @@
     <view class='practice-container'>
       <view class='practice-content'>
       <div class='practice-userinfo-avatar-box'>
-              <open-data type="userAvatarUrl" class="practice-userinfo-avatar"></open-data>
+      <image class="head" src='{{bbsInfo.userImg}}' ></image>
           </div>
         <view class='practice-info-box'>
           <view class='practice-text' >{{bbsInfo.title}}</view>

@@ -24,7 +24,7 @@
 </head>
 
 <body class="gray-bg">
-<button type="button" data-id="-1" onclick="addItem(this)" style="    margin-left: 20px;" class="btn btn-w-m button-add btn-info">添加跟节点</button>
+<button type="button" data-id="-1" onclick="addItem(this)" style="    margin:10px 0px 10px 20px;" class="btn btn-w-m button-add btn-info">添加跟节点</button>
 <div id="tree" style="margin:0px 20px;background-color:#fff">
 
 </div>
@@ -236,13 +236,13 @@
             dataType: "json",
             success: function (result) {
                 result.data.forEach(element => {
-                    var treeItem = {text: getText(element.typeName, element.parentID, element.typeID)};
+                    var treeItem = {text: getText(element.typeName, element.parentID, element.typeID),state:{expanded:true}};
 
-                    treeItem.nodes = [];
+                    treeItem._nodes = [];
                     element.sonType.forEach(chlien => {
                         var chlienItem = {text: getText(chlien.typeName, chlien.parentID, chlien.typeID)};
 
-                        treeItem.nodes.push(chlienItem);
+                        treeItem._nodes.push(chlienItem);
                         itemMap[chlien.typeID] = chlien;
                     });
                     tree.push(treeItem);
