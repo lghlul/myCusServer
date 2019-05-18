@@ -19,7 +19,7 @@ public interface ResultCode {
     /**
      * 编码重复
      */
-    int CODE_REPEAT = 996;
+    int CODE_VALUE_REPEAT = 996;
     /**
      * 当前密码错误
      */
@@ -34,4 +34,8 @@ public interface ResultCode {
      * 验证码无效
      */
     int CODE_NOT_EFFECT = 993;
+    /**
+     * 编码名称重复
+     */
+    int CODE_NAME_REPEAT = 992;
 }

@@ -125,7 +125,7 @@ public class UserController extends BaseController{
             map.put("userCode",user.getEmail());
             count = this.userService.searchCount(map);
             if(count > 0){
-                result.setCode(ResultCode.CODE_REPEAT);
+                result.setCode(ResultCode.CODE_VALUE_REPEAT);
                 return result;
             }
         }

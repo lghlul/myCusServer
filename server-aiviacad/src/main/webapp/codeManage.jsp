@@ -24,6 +24,10 @@
             return false;
         });
 
+		$("#exportBtn").click(function(){
+			window.location.href = "../codeManage/export.do";
+		});
+
 
         $("#submitBtn").click(function(){
 			//var codeType = $("#codeType").val();
@@ -46,23 +50,33 @@
                 return false;
 			}
 
-
             //var data = {"codeType":codeType , "codeName" : codeName , "codeValue" : codeValue };
 			var data = {"codeName" : codeName , "codeValue" : codeValue };
             var url = "addCode.do";
 
             $.post(url,data,function(data){
                 if(data.code == 0){
-					$("#msg").show();
-					$("#msg").removeClass("alert-danger");
-                    $("#msg").addClass("alert-success");
-                    $("#msg").html("创建成功");
+					$("#msg").hide();
+					layer.alert("创建成功",{closeBtn:0},function(){
+						$("#codeName").val("");
+						$("#codeValue").val("");
+						layer.closeAll()
+					});
+
+					//$("#msg").removeClass("alert-danger");
+                    //$("#msg").addClass("alert-success");
+                    //$("#msg").html("创建成功");
                 }else if(data.code == 996){
                     $("#msg").show();
                     $("#msg").removeClass("alert-success");
                     $("#msg").addClass("alert-danger");
-                    $("#msg").html("编码重复");
-				}else{
+                    $("#msg").html("编码序号重复");
+				}else if(data.code == 992){
+                    $("#msg").show();
+                    $("#msg").removeClass("alert-success");
+                    $("#msg").addClass("alert-danger");
+                    $("#msg").html("编码名称重复");
+                }else{
                     $("#msg").show();
                     $("#msg").removeClass("alert-success");
                     $("#msg").addClass("alert-danger");
@@ -155,18 +169,21 @@
 			</div>
 			<div class="form-group" >
 				<label class="col-sm-4 control-label">编码查询</label>
-				<div class="col-sm-5">
+				<div class="col-sm-4">
 					<input type="text" class="form-control" id="keyWord" value="" placeholder="请输入编码名称或者编码序号"/>
 				</div>
 				<div class="col-sm-1" style="padding-left:0px;">
 					<button type="button" class="btn btn-success" id="searchBtn">查询</button>
+				</div>
+				<div class="col-sm-1" style="padding-left:0px;">
+					<button type="button" class="btn btn-success" id="exportBtn">导出</button>
 				</div>
 			</div>
 		</form>
 
 
 	</div>
-	
+
 	<div class="bottom">
 		<div class="email">
 			<img src="../images/email.png"/><span id="email" style="font-family: Microsoft YaHei;">&nbsp;站长邮箱:<a href="mailto:matlacdom@163.com">matlacdom@163.com</a></span>
