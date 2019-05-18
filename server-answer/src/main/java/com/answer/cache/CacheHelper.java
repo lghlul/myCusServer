@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 
 import com.answer.domain.*;
+import com.answer.mapper.ConfigMapper;
 import com.answer.mapper.JobNumMapper;
 import com.answer.mapper.OrganizationMapper;
 import com.answer.mapper.UserMapper;
@@ -21,11 +22,23 @@ public class CacheHelper {
 	private ValueOperations<String, String> redisCacheValue;
 	@Resource(name = "redisTemplate")
 	public RedisTemplate<String, String> template;
+
+	@Autowired
+	private ConfigMapper configMapper;
+
+	private final Integer EXPIRE_TIME = 10;
+
+	private final Integer SESSION_EXPIRE_TIME = 10;
+
+
+	public void delete(String key){
+		template.delete(key);
+	}
 	/*******************************用户session******************************************/
 	public void setSession(WXSessionCache wx) {
 		this.redisCacheValue.set(wx.getWxSession(), JSON.toJSONString(wx));
 		//30天session失效
-		this.template.expire(wx.getWxSession(), 30, TimeUnit.DAYS);
+		this.template.expire(wx.getWxSession(), SESSION_EXPIRE_TIME, TimeUnit.DAYS);
 		//测试1天失效
 		//this.template.expire(wx.getWxSession(), 1, TimeUnit.DAYS);
 	}
@@ -75,7 +88,7 @@ public class CacheHelper {
 		String userStr = redisCacheValue.get(openID);
 		if(userStr == null){
 			user = userMapper.queryUserByOpenID(openID);
-			redisCacheValue.set(openID , JSON.toJSONString(user));
+			redisCacheValue.set(openID , JSON.toJSONString(user) , EXPIRE_TIME, TimeUnit.DAYS);
 		}else{
 			user = JSON.parseObject(userStr , User.class);
 		}
@@ -87,7 +100,7 @@ public class CacheHelper {
 		String orgStr = redisCacheValue.get(orgID + "");
 		if(orgStr == null){
 			org = organizationMapper.read(orgID + "");
-			redisCacheValue.set(orgID + "" , JSON.toJSONString(org));
+			redisCacheValue.set(orgID + "" , JSON.toJSONString(org) , EXPIRE_TIME, TimeUnit.DAYS);
 		}else{
 			org = JSON.parseObject(orgStr , Organization.class);
 		}
@@ -99,10 +112,24 @@ public class CacheHelper {
 		String jobnumStr = redisCacheValue.get(jobNum);
 		if(jobnumStr == null){
 			jobnum = jobNumMapper.queryJobNumByID(jobNum);
-			redisCacheValue.set(jobNum , JSON.toJSONString(jobnum));
+			redisCacheValue.set(jobNum , JSON.toJSONString(jobnum) , EXPIRE_TIME, TimeUnit.DAYS);
 		}else{
 			jobnum = JSON.parseObject(jobnumStr , JobNumBean.class);
 		}
 		return jobnum;
+	}
+
+
+
+	public Config getConfig(String key){
+		Config config = null;
+		String configStr = redisCacheValue.get(key);
+		if(configStr == null){
+			config = configMapper.readByKey(key);
+			redisCacheValue.set(key , JSON.toJSONString(config) , EXPIRE_TIME , TimeUnit.DAYS);
+		}else{
+			config = JSON.parseObject(configStr , Config.class);
+		}
+		return config;
 	}
 }

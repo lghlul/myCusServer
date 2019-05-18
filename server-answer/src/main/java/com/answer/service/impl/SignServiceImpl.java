@@ -4,15 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.alibaba.fastjson.JSON;
+import com.answer.domain.*;
+import com.answer.mapper.ConfigMapper;
 import com.answer.utils.Log4jUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.answer.cache.CacheHelper;
-import com.answer.domain.Result;
-import com.answer.domain.Sign;
-import com.answer.domain.User;
-import com.answer.domain.WXSessionCache;
 import com.answer.mapper.SignMapper;
 import com.answer.mapper.UserMapper;
 import com.answer.service.ISignService;
@@ -37,10 +35,14 @@ public class SignServiceImpl implements ISignService {
 			newSign.setSignTime(System.currentTimeMillis());
 			//签到
 			this.signMapper.addSign(newSign);
+
+			//获取签到配置
+			Config config = cacheHelper.getConfig(Constant.ConfigKey.SIGN_CONFIG);
+			SignConfig signConfig = JSON.parseObject(config.getConfigValue() , SignConfig.class);
 			//签到加分
 			User user = new User();
 			user.setOpenID(session.getOpenID());
-			user.setScore(Constant.score.SIGN_SCORE);
+			user.setScore(signConfig.getScore());
 			Log4jUtil.info("userSign...user=" + JSON.toJSONString(user));
 			userMapper.updateUser(user);
 		} else {

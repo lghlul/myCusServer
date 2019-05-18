@@ -3,6 +3,7 @@ package com.answer.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.answer.cache.CacheHelper;
 import com.answer.domain.*;
+import com.answer.mapper.ConfigMapper;
 import com.answer.mapper.QuestionMapper;
 import com.answer.mapper.TrainMapper;
 import com.answer.mapper.UserMapper;
@@ -37,13 +38,16 @@ public class TrainServiceImpl implements ITrainService {
 	private UserMapper userMapper;
 
 
+
 	@Override
 	public Result createTrain(Train train) {
 		train.setCreateTime(System.currentTimeMillis());
 		WXSessionCache session = this.cacheHelper.getSession(train.getCreater());
 
+
 		//获取考试配置
-		TrainConfig trainConfig = trainMapper.queryConfigByType(train.getTypeID());
+		Config config = cacheHelper.getConfig(Constant.ConfigKey.TRAIN_CONFIG);
+		TrainConfig trainConfig = JSON.parseObject(config.getConfigValue() , TrainConfig.class);
 
 		train.setCreater(session.getOpenID());
 		train.setQuesNum(trainConfig.getQuesNum());
@@ -85,7 +89,7 @@ public class TrainServiceImpl implements ITrainService {
 		Result result = new Result();
 		Map<String , Object> dataMap = new HashMap<>();
 		if(list != null){
-			float score = 0;
+			double score = 0;
 			//对线程进行关闭
 			TrainThread thread = ThreadCache.get(trainID);
 			if(thread != null){
@@ -100,14 +104,16 @@ public class TrainServiceImpl implements ITrainService {
 			}
 
 			//获取考试配置信息
-			TrainConfig trainConfig = trainMapper.queryConfigByType(trainDO.getTypeID());
+			//获取考试配置
+			Config config = cacheHelper.getConfig(Constant.ConfigKey.TRAIN_CONFIG);
+			TrainConfig trainConfig = JSON.parseObject(config.getConfigValue() , TrainConfig.class);
 			for(TrainQuestion tq : list){
 				tq.setTrainID(trainID);
 				Question question = this.questionMapper.queryQuestionByID(tq.getQuesID());
 				if(CommonUtil.isRight(question.getRightAnswerID(), tq.getAnswerID())){
 					tq.setIsRight(Constant.ANSWER_RIGHT);
 					rightNum++;
-					score += trainConfig.getScore();
+					//score += trainConfig.getScore();
 				}else{
 					tq.setIsRight(Constant.ANSWER_WRONG);
 				}
@@ -120,10 +126,13 @@ public class TrainServiceImpl implements ITrainService {
 			train.setRightNum(rightNum);
 			trainMapper.update(train);
 
+			if(rightNum >= trainConfig.getRightNum()){
+				score = trainConfig.getScore();
+			}
 			//更新用户积分
 			User user = new User();
 			user.setOpenID(trainDO.getCreater());
-			user.setScore(score);
+			user.setScore(Float.parseFloat(score + ""));
 			Log4jUtil.info("finishTrain userAnswer...考试结束计分user=" + JSON.toJSONString(user));
 			userMapper.updateUser(user);
 			//得分

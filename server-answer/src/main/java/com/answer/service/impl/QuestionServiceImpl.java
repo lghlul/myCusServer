@@ -9,28 +9,14 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import com.answer.domain.*;
+import com.answer.mapper.*;
 import com.answer.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.answer.cache.CacheHelper;
-import com.answer.domain.QuesType;
-import com.answer.domain.Question;
-import com.answer.domain.Result;
-import com.answer.domain.Room;
-import com.answer.domain.RoomQuestion;
-import com.answer.domain.User;
-import com.answer.domain.UserAnswer;
-import com.answer.domain.WXSessionCache;
-import com.answer.domain.WrongRecord;
-import com.answer.mapper.QuesTypeMapper;
-import com.answer.mapper.QuestionMapper;
-import com.answer.mapper.RoomMapper;
-import com.answer.mapper.RoomQuestionMapper;
-import com.answer.mapper.UserAnswerMapper;
-import com.answer.mapper.UserMapper;
-import com.answer.mapper.WrongRecordMapper;
 import com.answer.service.IQuestionService;
 import com.answer.utils.Constant;
 import com.answer.utils.DateUtil;
@@ -52,6 +38,7 @@ public class QuestionServiceImpl implements IQuestionService {
 	
 	@Autowired
 	private QuesTypeMapper quesTypeMapper;
+
 	
 
 	public Result getQuestionByOne(String wxSession, long typeID) {
@@ -111,19 +98,21 @@ public class QuestionServiceImpl implements IQuestionService {
 			userAnswer.setTypeID(question.getTypeID());
 			userAnswer.setAnswerID(answerID);
 			userAnswer.setQuestionID(questionID);
+
+			//获取练习模式配置
+			Config config = cacheHelper.getConfig(Constant.ConfigKey.PRACTISE_CONFIG);
+			PractiseConfig practiseConfig = JSON.parseObject(config.getConfigValue() , PractiseConfig.class);
+
 			if(CommonUtil.isRight(question.getRightAnswerID(), answerID)){
 				//答对
 				userAnswer.setIsRight(Constant.ANSWER_RIGHT);
 				int rightCount = this.userAnswerMapper.queryAnswerRightCount(session.getOpenID());
-				if(rightCount == 100){
-					//累计100题加十分
+				if(rightCount == practiseConfig.getQuesNum()){
 					User user = new User();
 					user.setOpenID(session.getOpenID());
-					user.setScore(Constant.score.TEN);
-                    Log4jUtil.info("userAnswer...取消计分  20190218");
-					//取消计分  20190218
-					//userMapper.updateUser(user);
-					//this.userAnswerMapper.updateUserAnswer(session.getOpenID());
+					user.setScore(practiseConfig.getScore());
+					userMapper.updateUser(user);
+					this.userAnswerMapper.updateUserAnswer(session.getOpenID());
 				}
 			}else{
 				//答错

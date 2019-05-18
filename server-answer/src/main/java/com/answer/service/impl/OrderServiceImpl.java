@@ -4,16 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.answer.domain.*;
+import com.answer.mapper.ConfigMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.answer.cache.CacheHelper;
-import com.answer.domain.Goods;
-import com.answer.domain.Order;
-import com.answer.domain.Result;
-import com.answer.domain.User;
-import com.answer.domain.WXSessionCache;
 import com.answer.mapper.GoodsMapper;
 import com.answer.mapper.OrderMapper;
 import com.answer.mapper.UserMapper;
@@ -40,6 +37,16 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public Result addOrder(String wxSession, long goodsID) {
 		Result result = new Result();
+
+		//获取兑奖配置
+		Config config = cacheHelper.getConfig(Constant.ConfigKey.GOODS_CONFIG);
+		GoodsConfig goodsConfig = JSON.parseObject(config.getConfigValue() , GoodsConfig.class);
+		if(goodsConfig.getExchangeEnable() == 0){
+			result.setResultCode(Constant.returnCode.FORBID_EXCHANGE);
+			return result;
+		}
+
+
 		WXSessionCache session = this.cacheHelper.getSession(wxSession);
 		float score = userMapper.queryScore(session.getOpenID());
 		Goods goods = goodsMapper.queryGoodsByID(goodsID);

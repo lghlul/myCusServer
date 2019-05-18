@@ -139,6 +139,11 @@ public interface Constant {
          */
         int REPEAT_JOIN_ACTIVITY = 9990;
 
+        /**
+         * 禁止兑换
+         */
+        int FORBID_EXCHANGE = 9989;
+
     }
 
     interface url {
@@ -155,5 +160,19 @@ public interface Constant {
 
         float SIGN_SCORE = 1;
         //  float SIGN_SCORE = 0.1f;
+    }
+
+    interface ConfigKey{
+        String TRAIN_CONFIG = "考试配置";
+
+        String PRACTISE_CONFIG = "练习配置";
+
+
+        String SIGN_CONFIG = "签到配置";
+
+        String BATTLE_CONFIG = "对战配置";
+
+
+        String GOODS_CONFIG = "奖品配置";
     }
 }
