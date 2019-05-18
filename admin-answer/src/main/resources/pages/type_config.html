@@ -156,12 +156,12 @@
         var itemObject = itemMap[dataId];
         var msg = "是否确定删除此节点？";
         if(itemObject.parentID==0)
-            msg = "<div style='width: 100%;text-align: center;margin-top: 10px;'>是否确定删除此节点？</div>";
+            msg = "是否确定删除此节点以及下级节点？";
         layer.open({
                 type: 1,
                 title:"删除类型",
                 skin: 'layui-layer-rim', //加上边框
-                area: ['220px', '150px'], //宽高
+                area: ['420px', '280px'], //宽高
                 content: msg,
                 btn: ['确定', '取消']
                     ,yes: function(index, layero){

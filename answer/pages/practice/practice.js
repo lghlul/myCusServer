@@ -9,7 +9,8 @@ Page({
     mistakeId:0,
     questionData:{},
     answerList:[],
-    isDisabled:false
+    isDisabled:false,
+    over:false
   },
   onLoad: function (options) {
     var that = this;
@@ -229,9 +230,12 @@ Page({
               duration: 1000
             })
           }
-          setTimeout(function () {
-            that.getQuestion('')
-          }, 1000)
+          that.setData({
+            over: true
+          });
+          // setTimeout(function () {
+            // that.getQuestion('')
+          // }, 1000)
         } else if (result.data.resultCode == 10000) {
           wx.clearStorage();
           app.getUserInfo(that.putAnswer(e));
@@ -243,7 +247,13 @@ Page({
       }
     });
   },
-
+  nextQuestion: function () {
+    let that = this;
+    that.setData({
+      over: false
+    });
+    that.getQuestion('')
+  },
 
   getQuestion: function (callback) {
     let that = this;

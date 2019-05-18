@@ -22,6 +22,9 @@
       </view>
     </view>
     <button class='next-error-questions' disabled='{{isDisabled}}' wx:if="{{type=='practice' && questionData.question.quesType==2}}" bindtap="putAnswer">确定</button>
+    <view class='next-error-questions' wx:if="{{type!='mistakes'&&over==true}}"  bindtap="nextQuestion">下一题</view>
+    <view style="background-color:#fff;border-radius:10rpx;padding:10rpx" wx:if="{{type!='mistakes'&&over==true&&questionData.question.quesExplain}}"  >{{questionData.question.quesExplain}}</view>
     <view class='next-error-questions' wx:if="{{type=='mistakes'}}" data-nextid='{{questionData.nextID}}' bindtap="nextMistake">下一题</view>
+<view style="background-color:#fff;border-radius:10rpx;padding:10rpx" wx:if="{{type=='mistakes'&&questionData.question.quesExplain}}"  >{{questionData.question.quesExplain}}</view>
   </view>
 </view>
