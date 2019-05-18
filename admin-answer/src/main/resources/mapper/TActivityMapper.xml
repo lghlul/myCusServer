@@ -6,8 +6,16 @@
       select * from t_activity where activityID = #{activityID}
     </select>
 
-    <select id="selectPage" parameterType="ActivityQuery" resultType="activity">
-      select * from t_activity
+    <select id="list" parameterType="ActivityQuery" resultType="activity">
+        select * from t_activity
+        <where>
+            <if test="activityName != null">
+                and activityName like concat('%' ,#{activityName} , '%')
+            </if>
+            <if test="activityStatus != null">
+                and activityStatus = #{activityStatus}
+            </if>
+        </where>
     </select>
 
     <update id="update" parameterType="activity">
@@ -74,14 +82,14 @@
         t_activity_user a
         JOIN t_user b
         JOIN t_jobnum c join t_activity d ON a.openID = b.openID
-        AND b.jobnum = c.jobnum  and a.activityID = d.activityID
+        AND b.jobnum = c.jobnum and a.activityID = d.activityID
         <where>
-          <if test="orgID != null">
-          and c.orgID = #{orgID}
-          </if>
-        <if test="activityName != null">
-            and d.activityName like concat("%" ,#{activityName} ,"%")
-        </if>
+            <if test="orgID != null">
+                and c.orgID = #{orgID}
+            </if>
+            <if test="activityName != null">
+                and d.activityName like concat("%" ,#{activityName} ,"%")
+            </if>
         </where>
         group by a.activityID , c.orgID
     </select>

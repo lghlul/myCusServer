@@ -29,7 +29,7 @@
 <body class="gray-bg">
        <div class="row  border-bottom white-bg dashboard-header"> 
                 <div class="form-inline">
-                        <label class="col-sm-2 control-label">条件：</label>
+                        <label class="col-sm-1 control-label">条件：</label>
                         <div class="col-sm-10">
                                 <select id="orgId" class="form-control">
                                     <option value="">全部</option>
@@ -93,8 +93,8 @@
     <script src="/static/pages/hAdmin/js/demo/timeutil.js"></script>
 
     <script>
-        var table;
-        var activityID = localStorage.getItem("activityID");
+        let table;
+        let activityID = localStorage.getItem("activityID");
         $(document).ready(function () {
             $.get("/user/orgList",function(res){
                 $.each(res.data,function(index,obj){

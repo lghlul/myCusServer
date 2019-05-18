@@ -409,4 +409,8 @@
         openID
     </select>
 
+    <update id="updateJobNum" parameterType="TUser" >
+        update t_user set score = 0 ,usedScore = 0,jobNum = null where openID = #{openID}
+    </update>
+
 </mapper>

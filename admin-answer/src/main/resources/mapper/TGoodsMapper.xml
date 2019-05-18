@@ -40,7 +40,7 @@
                 and goodsStatus = #{goodsStatus}
             </if>
             <if test="goodsName != null">
-                and goodsName = #{goodsName}
+                and goodsName like concat('%' ,  #{goodsName} ,'%')
             </if>
         </where>
         <if test="offSet != null and limit != null">
@@ -72,7 +72,7 @@
                 and goodsStatus = #{goodsStatus}
             </if>
             <if test="goodsName != null">
-                and goodsName = #{goodsName}
+                and goodsName like concat('%' ,  #{goodsName} ,'%')
             </if>
         </where>
     </select>
@@ -296,7 +296,7 @@
                 and goodsStatus = #{goodsStatus}
             </if>
             <if test="goodsName != null">
-                and goodsName = #{goodsName}
+                and goodsName like concat('%' ,  #{goodsName} ,'%')
             </if>
         </where>
     </select>

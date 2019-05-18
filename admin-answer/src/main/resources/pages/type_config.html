@@ -24,7 +24,7 @@
 </head>
 
 <body class="gray-bg">
-<button type="button" data-id="-1" onclick="addItem(this)" style="    margin-left: 20px;" class="btn btn-w-m button-add btn-info">添加跟节点</button>
+<button type="button" data-id="-1" onclick="addItem(this)" style="    margin-left: 20px;" class="btn btn-w-m button-add btn-info">添加一级类型</button>
 <div id="tree" style="margin:0px 20px;background-color:#fff">
 
 </div>
@@ -156,12 +156,12 @@
         var itemObject = itemMap[dataId];
         var msg = "是否确定删除此节点？";
         if(itemObject.parentID==0)
-            msg = "是否确定删除此节点以及下级节点？";
+            msg = "<div style='width: 100%;text-align: center;margin-top: 10px;'>是否确定删除此节点？</div>";
         layer.open({
                 type: 1,
                 title:"删除类型",
                 skin: 'layui-layer-rim', //加上边框
-                area: ['420px', '280px'], //宽高
+                area: ['220px', '150px'], //宽高
                 content: msg,
                 btn: ['确定', '取消']
                     ,yes: function(index, layero){

@@ -59,7 +59,7 @@ public class TQuestionServiceImpl extends BaseServiceImpl<TQuestion> implements 
                 // 每个页签创建一个Sheet对象
                 Sheet sheet = wb.getSheet(index);
                 // sheet.getRows()返回该页的总行数
-                for (int i = 0; i < sheet.getRows(); i++) {
+                for (int i = 1; i < sheet.getRows(); i++) {
                     // sheet.getColumns()返回该页的总列数
                     //读取第一列
                     String cellinfo = sheet.getCell(0, i).getContents().trim();

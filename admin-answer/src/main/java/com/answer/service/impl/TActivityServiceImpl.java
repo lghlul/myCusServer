@@ -3,6 +3,7 @@ package com.answer.service.impl;
 import com.answer.CacheHelper;
 import com.answer.common.CommonConfig;
 import com.answer.domain.*;
+import com.answer.domain.query.ActivityQuery;
 import com.answer.domain.query.ActivityUserQuery;
 import com.answer.domain.query.OrgReportQuery;
 import com.answer.mapper.TActivityAnswerMapper;
@@ -43,12 +44,12 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
     private CacheHelper cacheHelper;
 
     @Override
-    public PageInfo<Activity> page(Activity activity) {
-        PageHelper.startPage(activity.getOffset(), activity.getLimit());
-        if (activity.getSortField() != null) {
-            PageHelper.orderBy(activity.getSortField() + " " + activity.getSortDir());
+    public PageInfo<Activity> page(ActivityQuery activityQuery) {
+        PageHelper.startPage(activityQuery.getOffset(), activityQuery.getLimit());
+        if (activityQuery.getSortField() != null) {
+            PageHelper.orderBy(activityQuery.getSortField() + " " + activityQuery.getSortDir());
         }
-        List<Activity> studentList = activityMapper.selectPage(activity);
+        List<Activity> studentList = activityMapper.list(activityQuery);
         //得到分页的结果对象
         PageInfo<Activity> pageInfo = new PageInfo<>(studentList);
         return pageInfo;
@@ -76,7 +77,7 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
                 // 每个页签创建一个Sheet对象
                 Sheet sheet = wb.getSheet(index);
                 // sheet.getRows()返回该页的总行数
-                for (int i = 0; i < sheet.getRows(); i++) {
+                for (int i = 1; i < sheet.getRows(); i++) {
                     // sheet.getColumns()返回该页的总列数
                     //读取第一列
                     String cellinfo = sheet.getCell(0, i).getContents().trim();

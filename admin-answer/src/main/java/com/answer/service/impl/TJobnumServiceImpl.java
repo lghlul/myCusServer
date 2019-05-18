@@ -79,4 +79,24 @@ public class TJobnumServiceImpl extends BaseServiceImpl<TJobnum> implements ITJo
         }
         return jobnumMapper.update(jobNum);
     }
+
+
+    @Override
+    public int deleteById(String id) {
+        TJobnum tJobnum = jobnumMapper.selectById(id);
+        //查询用户
+        TUser tUser = userMapper.readByJobNum(tJobnum.getJobNum());
+        if(tUser != null){
+            //删除答题
+            Map<String , Object> map = new HashMap<>();
+            map.put("openID" , tUser.getOpenID());
+            userAnswerMapper.deleteByMap(map);
+
+            //用户工号解绑  已经积分清空
+            userMapper.updateJobNum(tUser.getOpenID());
+        }
+        jobnumMapper.deleteById(id);
+
+        return super.deleteById(id);
+    }
 }

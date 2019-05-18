@@ -7,6 +7,7 @@ import com.answer.domain.Activity;
 import com.answer.domain.ActivityUser;
 import com.answer.domain.OrgReport;
 import com.answer.domain.TActivityQuestion;
+import com.answer.domain.query.ActivityQuery;
 import com.answer.domain.query.ActivityUserQuery;
 import com.answer.domain.query.OrgReportQuery;
 import com.answer.service.IActivityAnswerService;
@@ -42,8 +43,8 @@ public class ActivityController {
 
 
     @GetMapping("list")
-    public Object list(Activity activity) {
-        PageInfo<Activity> page = activityService.page(activity);
+    public Object list(ActivityQuery activityQuery) {
+        PageInfo<Activity> page = activityService.page(activityQuery);
         PageResult pageResult = new PageResult();
         pageResult.setTotalCount(page.getTotal());
         pageResult.setTotalPage(page.getPages());

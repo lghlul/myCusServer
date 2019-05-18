@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 积分配置</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/pages/hAdmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/pages/hAdmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/static/pages/hAdmin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/static/pages/hAdmin/css/animate.css" rel="stylesheet">
+    <link href="/static/pages/hAdmin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div id="practiseConfig" class="col-sm-12">
+            <div  class="ibox float-e-margins">
+                <div class="ibox-title">
+                </div>
+                <div class="ibox-content">
+                    <form  class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-8 control-label" style="text-align: center;color: #0C0C0C;font-weight: bold;">练习模式积分获取配置</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">累计答对题数：</label>
+
+                            <div class="col-sm-8">
+                                <input type="number" id="quesNum" placeholder="累计答对题数" value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">获得积分：</label>
+                            <div class="col-sm-8">
+                                <input type="number" id="practiseScore" placeholder="获得积分" value=""  class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-8">
+                                <button class="btn btn-sm btn-info" onclick="savePractise()" type="button">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="battleConfig" class="col-sm-12">
+            <div  class="ibox float-e-margins">
+                <div class="ibox-title">
+                </div>
+                <div class="ibox-content">
+                    <form  class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-8 control-label" style="text-align: center;color: #0C0C0C;font-weight: bold;">对战模式积分获取配置</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">获得积分(胜者获得/败者扣减)：</label>
+                            <div class="col-sm-8">
+                                <input type="number" id="battleScore" placeholder="获得积分" value=""  class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-8">
+                                <button class="btn btn-sm btn-info" onclick="saveBattle()" type="button">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="signConfig" class="col-sm-12">
+            <div  class="ibox float-e-margins">
+                <div class="ibox-title">
+                </div>
+                <div class="ibox-content">
+                    <form  class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-8 control-label" style="text-align: center;color: #0C0C0C;font-weight: bold;">签到积分获取配置</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">签到积分：</label>
+                            <div class="col-sm-8">
+                                <input type="number" id="signScore" placeholder="签到积分" value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-8">
+                                <button class="btn btn-sm btn-info" onclick="saveSign()" type="button">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script src="/static/pages/hAdmin/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/pages/hAdmin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+<script src="/static/pages/hAdmin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+<!-- Data Tables -->
+<script src="/static/pages/hAdmin/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/pages/hAdmin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+<!-- 自定义js -->
+<script src="/static/pages/hAdmin/js/content.js?v=1.0.0"></script>
+
+<!-- layer javascript -->
+<script src="/static/pages/hAdmin/js/plugins/layer/layer.min.js"></script>
+<!-- Page-Level Scripts -->
+
+<!-- layerDate plugin javascript -->
+<script src="/static/pages/hAdmin/js/plugins/layer/laydate/laydate.js"></script>
+<script src="/static/pages/hAdmin/js/demo/timeutil.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/config/readPractiseConfig",
+            cache: false,  //禁用缓存
+            dataType: "json",
+            success: function (result) {
+                $(`#quesNum`).val(result.data.quesNum);
+                $(`#practiseScore`).val(result.data.score);
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "/config/readBattleConfig",
+            cache: false,  //禁用缓存
+            dataType: "json",
+            success: function (result) {
+                $(`#battleScore`).val(result.data.score);
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "/config/readSignConfig",
+            cache: false,  //禁用缓存
+            dataType: "json",
+            success: function (result) {
+                $(`#signScore`).val(result.data.score);
+            }
+        });
+
+    })
+    function savePractise(){
+        let quesNum = $(`#quesNum`).val();
+        let score = $(`#practiseScore`).val();
+
+        if(!quesNum){
+            layer.msg('请输入累计答对题数');
+            return;
+        }
+        if(!score){
+            layer.msg('请输入获得积分');
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/config/updatePractiseConfig",
+            data:{quesNum:quesNum,score:score},
+            cache: false,  //禁用缓存
+            dataType: "json",
+            success: function (result) {
+                if(result.resultCode == 1){
+                    layer.alert('保存成功');
+                }else{
+                    layer.alert('保存失败');
+                }
+            }
+        });
+    }
+
+    function saveBattle() {
+        let score = $(`#battleScore`).val();
+
+        if (!score) {
+            layer.msg('请输入获得积分');
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/config/updateBattleConfig",
+            data: {score: score},
+            cache: false,  //禁用缓存
+            dataType: "json",
+            success: function (result) {
+                if (result.resultCode == 1) {
+                    layer.alert('保存成功');
+                } else {
+                    layer.alert('保存失败');
+                }
+            }
+        });
+    }
+
+    function saveSign(){
+        let score = $(`#signScore`).val();
+
+        if(!score){
+            layer.msg('请输入获得积分');
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/config/updateSignConfig",
+            data:{score:score},
+            cache: false,  //禁用缓存
+            dataType: "json",
+            success: function (result) {
+                if(result.resultCode == 1){
+                    layer.alert('保存成功');
+                }else{
+                    layer.alert('保存失败');
+                }
+            }
+        });
+    }
+</script>
+<style>
+    .form-control{
+        width: 240px!important;
+    }
+</style>
+
+
+
+</body>
+
+</html>

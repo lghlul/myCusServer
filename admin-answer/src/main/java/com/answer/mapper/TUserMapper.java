@@ -19,4 +19,6 @@ public interface TUserMapper extends BaseMapper<TUser>{
 
     TUser readByJobNum(String jobNum);
 
+    int updateJobNum(String openID);
+
 }

@@ -30,7 +30,7 @@
 <body class="gray-bg">
 <div class="row  border-bottom white-bg dashboard-header">
     <div class="form-inline">
-        <label class="col-sm-2 control-label">条件：</label>
+        <label class="col-sm-1 control-label">条件：</label>
         <div class="col-sm-10">
             <select id="orgId" class="form-control">
                 <option value="">全部</option>
@@ -213,7 +213,9 @@
                     //   指定第最后一列
                     targets: 5,
                     render: function (data, type, row, meta) {
-                        var buttons = '<a type="button"  href="#" data-id="' + row.id + '" data-jobNum="' + row.jobNum + '" data-realName="' + row.realName + '" data-orgID="' + row.orgID + '" data-sex="' + row.sex + '" class="button-edit" >编辑</a>';
+
+                        let buttons = '<a type="button"  href="#" data-id="' + row.id + '" data-jobNum="' + row.jobNum + '" data-realName="' + row.realName + '" data-orgID="' + row.orgID + '" data-sex="' + row.sex + '" class="button-edit" >编辑</a>';
+                        buttons += '&nbsp;<a type="button"  href="#" data-id="' + row.id + '"  class="button-delete" >删除</a>';
                         return buttons;
                     }
                 }]
@@ -260,6 +262,28 @@
         })
 
 
+        $("body").on("click",".button-delete",function(){
+            let id = $(this).attr("data-id");
+            let param = {"id":id};
+            let url = "/jobNum/delete";
+            layer.confirm('确定删除吗？', function(index) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    cache: false,  //禁用缓存
+                    data: param,
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.resultCode == 1) {
+                            layer.msg('操作成功');
+                            table.ajax.reload();
+                        }
+                    }
+                })
+            })
+        })
+
+
         $("body").on("click", ".button-add", function () {
             $.get("/user/orgList", function (res) {
                 $.each(res.data, function (index, obj) {
@@ -300,15 +324,15 @@
             layer.msg('请输入姓名');
             return;
         }
-        var param = {
+        let param = {
             jobNum: $("#form-jobNum").val(),
             sex: $("#form-sex").val(),
             realName: $("#form-realName").val(),
             orgID: $("#form-orgID").val()
         };
 
-        var url = "/jobNum/save";
-        var id = $("#form-id").val();
+        let url = "/jobNum/save";
+        let id = $("#form-id").val();
         if(id){
             param.id = id;
             url ="/jobNum/update";

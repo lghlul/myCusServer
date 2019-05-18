@@ -1,5 +1,6 @@
 package com.answer.controller;
 
+import com.answer.CacheHelper;
 import com.answer.common.CommonConstant;
 import com.answer.common.PageResult;
 import com.answer.common.ResultCodeEnum;
@@ -25,6 +26,9 @@ public class JobNumController {
 
     @Autowired
     private ITJobnumService jobNumService;
+
+    @Autowired
+    private CacheHelper cacheHelper;
 
     @GetMapping("list")
     public Object list(JobNumQuery jobNumQuery) {
@@ -52,6 +56,12 @@ public class JobNumController {
     @PostMapping("update")
     public Object update(TJobnum jobNum) {
         jobNumService.edit(jobNum);
+        cacheHelper.delete(jobNum.getJobNum());
+        return ResultCodeEnum.SUCCESS.getResponse();
+    }
+    @PostMapping("delete")
+    public Object delete(Long id) {
+        jobNumService.deleteById(id + "");
         return ResultCodeEnum.SUCCESS.getResponse();
     }
 }

@@ -12,6 +12,15 @@ public class ActivityQuery extends PageQuery {
 
     private String activityName;
 
+    private Byte activityStatus;
+
+    public Byte getActivityStatus() {
+        return activityStatus;
+    }
+
+    public void setActivityStatus(Byte activityStatus) {
+        this.activityStatus = activityStatus;
+    }
 
     public String getActivityName() {
         return activityName;

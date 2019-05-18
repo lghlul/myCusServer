@@ -11,7 +11,16 @@ public class TrainConfig {
     private String typeName;
     private Integer quesNum;
     private Long trainTime;
-    private Double score;
+    private Float score;
+    private Integer rightNum;
+
+    public Integer getRightNum() {
+        return rightNum;
+    }
+
+    public void setRightNum(Integer rightNum) {
+        this.rightNum = rightNum;
+    }
 
     public String getTypeName() {
         return typeName;
@@ -45,11 +54,11 @@ public class TrainConfig {
         this.trainTime = trainTime;
     }
 
-    public Double getScore() {
+    public Float getScore() {
         return score;
     }
 
-    public void setScore(Double score) {
+    public void setScore(Float score) {
         this.score = score;
     }
 }

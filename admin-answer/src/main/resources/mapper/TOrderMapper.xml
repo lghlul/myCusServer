@@ -242,13 +242,13 @@
         AND b.jobNum = c.jobNum and a.goodsID = d.goodsID
         <where>
             <if test="orderNo != null">
-                and a.orderNo = #{orderNo}
+                and a.orderNo like concat("%" , #{orderNo} , "%")
             </if>
             <if test="orderStatus != null">
                 and a.orderStatus = #{orderStatus}
             </if>
             <if test="realName != null">
-                and c.realName like concat("%" , #{orderStatus} , "%")
+                and c.realName like concat("%" , #{realName} , "%")
             </if>
             <if test="goodsName != null">
                 and d.goodsName like concat("%" , #{goodsName} , "%")

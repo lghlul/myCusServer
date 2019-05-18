@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TConfigMapper">
+    <select id="readByKey" parameterType="string" resultType="config">
+      select * from t_config where configKey = #{configKey}
+    </select>
+
+
+    <insert id="insert" parameterType="config">
+      insert into t_config(configValue ,configKey ) values(#{configValue},#{configKey})
+    </insert>
+
+    <insert id="update" parameterType="config">
+      update t_config
+      set configValue = #{configValue} where id = #{id}
+    </insert>
+
+</mapper>
