@@ -47,6 +47,12 @@ public class GoodsController {
         return ResultCodeEnum.SUCCESS.getResponse();
     }
 
+    @PostMapping("save")
+    public Object save(TGoods goods) {
+        goodsService.add(goods);
+        return ResultCodeEnum.SUCCESS.getResponse();
+    }
+
     @PostMapping("updateOrder")
     public Object updateOrder(TOrder order) {
         orderService.edit(order);

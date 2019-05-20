@@ -278,9 +278,7 @@
                 goodsName = #{goodsName},
             </if>
         </set>
-        <if test="goodsID != null">
-            where goodsID = #{goodsID}
-        </if>
+        where goodsID = #{goodsID}
     </update>
 
 
