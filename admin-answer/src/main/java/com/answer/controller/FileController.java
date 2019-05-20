@@ -35,7 +35,7 @@ public class FileController {
             String filePath = CommonConfig.FILE_SAVE_PATH;
             File dest = new File(filePath + fileName);
             try {
-                //file.transferTo(dest);
+                file.transferTo(dest);
                 return ResultCodeEnum.SUCCESS.getResponse(CommonConfig.SERVER_HOST + fileName);
             } catch (Exception e) {
                 logger.error(e.getMessage());
