@@ -37,6 +37,7 @@ public class FileController {
             try {
                 file.transferTo(dest);
                 return ResultCodeEnum.SUCCESS.getResponse(CommonConfig.SERVER_HOST + fileName);
+                //return ResultCodeEnum.SUCCESS.getResponse("https://www.zgshnj.com/file/bxcdx_min.jpg");
             } catch (Exception e) {
                 logger.error(e.getMessage());
             }

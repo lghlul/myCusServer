@@ -75,17 +75,22 @@
     </div>
 </div>
 <div id="add" style="padding:20px;display: none;">
+    <input type="hidden" id="form-id">
     <div class="form-group">
         <label>奖品名称</label>
         <input type="text" id="form-name" placeholder="请输入奖品名称" class="form-control">
     </div>
     <div class="form-group">
         <label>奖品描述</label>
-        <textarea id="form-desc" class="form-control" rows="4"/>
+        <textarea id="form-desc" class="form-control" rows="4" value=""/>
     </div>
     <div class="form-group">
         <label>积分</label>
         <input type="number" id="form-score" placeholder="请输入积分" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>排序</label>
+        <input type="number" id="form-sort" placeholder="请输入排序" class="form-control">
     </div>
     <div class="form-group">
         <label>状态</label>
@@ -95,14 +100,19 @@
         </select>
     </div>
     <div class="btns">
-        <div id="pickerIcon">选择文件</div>
-        <label style="display:block" id="file-icon"></label>
+        <label>缩略图</label><br/>
+        <img src="https://www.zgshnj.com/file/bxcdx_min.jpg" width="50px" height="50px" id="form-icon" style="margin-bottom: 5px;display: none;"><br/>
+        <button id="pickerIcon" class="btn btn-info">选择文件</button>
         <button id="iconBtn" class="btn btn-default">开始上传</button>
+        <input type="file" id="file-icon" style="display:none;"/>
     </div>
+
     <div class="btns">
-        <div id="pickerImg">选择文件</div>
-        <label style="display:block" id="file-img"></label>
+        <label>展示图</label><br/>
+        <img src="https://www.zgshnj.com/file/bxcdx_min.jpg" width="150px" height="150px" id="form-img" style="margin-bottom: 5px;display: none;"><br/>
+        <button id="pickerImg" class="btn btn-info">选择文件</button>
         <button id="imgBtn" class="btn btn-default">开始上传</button>
+        <input type="file" id="file-img" style="display:none;"/>
     </div>
 </div>
 <!-- 全局js -->
@@ -128,7 +138,7 @@
 <!-- layerDate plugin javascript -->
 <script src="/static/pages/hAdmin/js/plugins/layer/laydate/laydate.js"></script>
 <script src="/static/pages/hAdmin/js/demo/timeutil.js"></script>
-
+<script src="/static/ajaxfileupload.js"></script>
 <script>
     let table;
     $(document).ready(function () {
@@ -224,7 +234,7 @@
                     //   指定第最后一列
                     targets: 6,
                     render: function (data, type, row, meta) {
-                        var buttons = "";
+                        let buttons = "";
                         if (data == 1) {
                             buttons += '<a type="button"  href="#" goodsID="' + row.goodsID + '" data-id="' + row.goodsID + '" status="2" class="button-update" >下架</a>';
 
@@ -232,12 +242,28 @@
                         if (data == 2) {
                             buttons += ' <a type="button"  href="#" goodsID="' + row.goodsID + '" data-id="' + row.goodsID + '" status="1" class="button-update" >上架</a>';
                         }
-
+                        buttons += ' <a type="button"  href="#" goodsID="' + row.goodsID + '" goodsName="' + row.goodsName + '" goodsDesc="' + row.goodsDesc + '"'  +
+                             'goodsIcon="' + row.goodsIcon + '" goodsImg="' + row.goodsImg + '" goodsSort="' + row.goodsSort + '"  goodsScore="' + row.goodsScore + '"' +
+                            'goodsStatus="' + row.goodsStatus + '" class="button-edit" >编辑</a>';
                         return buttons;
                     }
                 }]
 
         }).api();
+
+        $("body").on("click", ".button-update", function () {
+            $.ajax({
+
+                type: "POST",
+                url: "/goods/update",
+                cache: false,  //禁用缓存
+                data: {goodsID: $(this).attr("data-id"), goodsStatus: $(this).attr("status")},
+                dataType: "json",
+                success: function (result) {
+                    table.ajax.reload();
+                }
+            });
+        })
 
         $("#search").click(function () {
             table.ajax.reload();
@@ -268,6 +294,7 @@
         });
 
         $("body").on("click", ".button-add", function () {
+            clear();
             layer.open({
                 type: 1,
                 title: "奖品新增",
@@ -289,43 +316,23 @@
             });
         });
 
-        $("body").on("click", ".button-update", function () {
-            $.ajax({
-
-                type: "POST",
-                url: "/goods/update",
-                cache: false,  //禁用缓存
-                data: {goodsID: $(this).attr("data-id"), goodsStatus: $(this).attr("status")},
-                dataType: "json",
-                success: function (result) {
-                    table.ajax.reload();
-                }
-            });
-        })
-        $("body").on("click", ".button-export", function () {
-            var file = $(this).attr("data-fileName");
-            var url = "https://www.zgshnj.com/file/" + file;
-            jQuery('<form action="' + url + '" method="get">' +  // action请求路径及推送方法
-                '</form>')
-                .appendTo('body').submit().remove();
-        })
-        $("body").on("click", ".button-down", function () {
-
-            var url = "static/template/template.xls"
-            jQuery('<form action="' + url + '" method="get">' +  // action请求路径及推送方法
-                '</form>')
-                .appendTo('body').submit().remove();
-        })
-
         $("body").on("click", ".button-edit", function () {
-            $("#form-activityID").val($(this).attr("data-id"));
-            $("#form-name").val($(this).attr("data-name"));
-            $("#form-status").val($(this).attr("data-status"));
+            clear();
+            $("#form-id").val($(this).attr("goodsId"));
+            $("#form-name").val($(this).attr("goodsName"));
+            $("#form-desc").val($(this).attr("goodsDesc"));
+            $("#form-score").val($(this).attr("goodsScore"));
+            $("#form-sort").val($(this).attr("goodsSort"));
+            $("#form-status").val($(this).attr("goodsStatus"));
+            $("#form-icon").attr("src" , $(this).attr("goodsIcon"));
+            $("#form-icon").show();
+            $("#form-img").attr("src" , $(this).attr("goodsImg"));
+            $("#form-img").show();
             layer.open({
                 type: 1,
-                title: "活动编辑",
+                title: "奖品编辑",
                 skin: 'layui-layer-rim', //加上边框
-                area: ['420px', '280px'], //宽高
+                area: ['600px', '400px'], //宽高
                 content: $('#add'),
                 btn: ['保存', '取消']
                 , yes: function (index, layero) {
@@ -341,208 +348,133 @@
                 }
             });
         })
-        $("body").on("click", ".button-end", function () {
-            $.ajax({
-                type: "POST",
-                url: "/activity/update",
-                cache: false,  //禁用缓存
-                data: {activityID: $(this).attr("data-id"), activityStatus: 3},
-                dataType: "json",
-                success: function (result) {
-                    table.ajax.reload();
-                }
-            });
-        })
-        $("body").on("click", ".button-import", function () {
-
-            activityID = $(this).attr("data-id");
-            layer.open({
-                type: 1,
-                title: "导入题目",
-                skin: 'layui-layer-rim', //加上边框
-                area: ['420px', '280px'], //宽高
-                content: $('#import'),
-                btn: ['关闭']
-                , yes: function (index, layero) {
-                    layer.closeAll();
-                }
-                , cancel: function () {
-                    //右上角关闭回调
-                    layer.closeAll();
-                    //return false 开启该代码可禁止点击该按钮关闭
-                }, success: function (layero, index) {
-                    uploader.refresh();
-                }
-            });
-        })
-
-        $("body").on("click", ".button-users", function () {
-
-            activityID = $(this).attr("data-id");
-            localStorage.setItem("activityID", activityID);
-            layer.open({
-                type: 2,
-                title: "活动参与人员列表",
-                skin: 'layui-layer-rim', //加上边框
-                area: ['900px', '580px'], //宽高
-                content: ['toPage?page=activity_users', 'yes'], //iframe的url，no代表不显示滚动条
-                btn: ['关闭']
-                , yes: function (index, layero) {
-                    layer.closeAll();
-                }
-                , cancel: function () {
-                    //右上角关闭回调
-                    layer.closeAll();
-                    //return false 开启该代码可禁止点击该按钮关闭
-                }, success: function (layero, index) {
-                    uploader.refresh();
-                }
-            });
-        })
 
 
-    });
-    var load;
-    $("body").on("click", "#ctlBtn", function () {
-        if (uploader.getFiles().length > 0) {
-            load = layer.load(1, {shade: [0.6, '#fff']});
-            uploader.upload();
-        } else {
-            layer.msg("请选择文件");
-        }
-    })
-    var uploader = WebUploader.create({
-        // swf文件路径
-        swf: '/static/pages/hAdmin/js/plugins/webuploader/Uploader.swf',
-        // 文件接收服务端。
-        server: 'activity/importQues',
-        // 选择文件的按钮。可选。
-        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-        pick: {
-            id: '#pickerIcon', // 按钮元素
-            multiple: false // 是否支持文件多选，false表示只能选一个
-        },
-        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-        resize: false
-    });
 
-    uploader.on('uploadBeforeSend', function (obj, data) {
-        //传入表单参数
-        data = $.extend(data, {
-            "activityID": activityID
+        $("#pickerIcon").click(function(){
+            $("#file-icon").click();
         });
-    });
 
-    // 当有文件被添加进队列的时候
-    uploader.on('fileQueued', function (file) {
-        $("#file-name").text(file.name);
-    });
+        $("#iconBtn").on("click",function(){
+            let formData = new FormData();
+            formData.append("file", $("#file-icon")[0].files[0]);    //生成一对表单属性
+            $.ajax({
+                url : '/file/uploadImg',//后台请求地址
+                type: 'post',//请求方式  当要提交自定义参数时，这个参数要设置成post
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success : function (response) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                    response = $.parseJSON(response);
+                    if (response.resultCode == 1) {
+                        $("#form-icon").attr("src" , response.data);
+                        $("#form-icon").show();
+                    }
+                },
+                error : function (json, status, e) {//提交失败自动执行的处理函数。
 
-
-    uploader.on('uploadSuccess', function (file, response) {
-        layer.close(load);
-        if (response.resultCode == 1) {
-            layer.msg('导入成功', function () {
-                //do something
-
-                table.ajax.reload();
-                layer.closeAll()
+                }
             });
-        } else if (response.resultCode == 1004) {
-            layer.msg("文件格式错误");
+        });
 
 
-        }
-        $("#file-name").text("");
-        uploader.reset();
+        $("#pickerImg").click(function(){
+            $("#file-img").click();
+        });
+
+        $("#imgBtn").on("click",function(){
+            let formData = new FormData();
+            formData.append("file", $("#file-img")[0].files[0]);    //生成一对表单属性
+            $.ajax({
+                url : '/file/uploadImg',//后台请求地址
+                type: 'post',//请求方式  当要提交自定义参数时，这个参数要设置成post
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success : function (response) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                    response = $.parseJSON(response);
+                    if (response.resultCode == 1) {
+                        $("#form-img").attr("src" , response.data);
+                        $("#form-img").show();
+                    }
+                },
+                error : function (json, status, e) {//提交失败自动执行的处理函数。
+
+                }
+            });
+        });
+
     });
-
-    uploader.on('uploadError', function (file) {
-        layer.close(load);
-        layer.msg("上传出错");
-        $("#file-name").text("");
-        uploader.reset();
-    });
-
-    // uploader.on( 'uploadComplete', function( file ) {
-    //     $( '#'+file.id ).find('.progress').fadeOut();
-    // });
-    //日期范围限制
-    var start = {
-        elem: '#start',
-        format: 'YYYY/MM/DD',
-        max: laydate.now(),
-        istime: false,
-        istoday: false,
-        choose: function (datas) {
-            end.min = datas; //开始日选好后，重置结束日的最小日期
-            end.start = datas //将结束日的初始值设定为开始日
-        }
-    };
-    var end = {
-        elem: '#end',
-        format: 'YYYY/MM/DD',
-        max: laydate.now(),
-        istime: false,
-        istoday: false,
-        choose: function (datas) {
-            start.max = datas; //结束日选好后，重置开始日的最大日期
-        }
-    };
-    // laydate(start);
-    // laydate(end);
-    function dateFtt(fmt, date) { //author: meizz
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
 
     function save() {
         if (!$("#form-name").val()) {
-            layer.msg('请输入活动名称')
+            layer.msg('请输入商品名称')
             return;
         }
-        if (!$("#form-status").val()) {
-            layer.msg('请选择活动状态');
+        if (!$("#form-desc").val().trim()) {
+            layer.msg('请输入描述');
             return;
         }
-        var param = {activityName: $("#form-name").val()};
-        // var param = {activityName:$("#form-name").val(),activityStatus:$("#form-status").val()};
 
-        var url = "/activity/save";
-        var activityID = $("#form-activityID").val();
-        if (activityID) {
-            param.activityID = activityID;
-            url = "/activity/update";
+        if (!$("#form-score").val()) {
+            layer.msg('请输入积分');
+            return;
         }
+
+        if (!$("#form-sort").val()) {
+            layer.msg('请输入排序');
+            return;
+        }
+
+        if (!$("#form-icon").attr('src')) {
+            layer.msg('请上传缩略图');
+            return;
+        }
+
+        if (!$("#form-img").attr('src')) {
+            layer.msg('请上传展示图');
+            return;
+        }
+
+        let param = {goodsName: $("#form-name").val() , goodsDesc :$("#form-desc").val().trim() ,goodsSort :$("#form-sort").val() , goodsScore : $("#form-score").val() , goodsIcon :$("#form-icon").attr('src') , goodsImg : $("#form-img").attr('src')   };
+
+        let url = "/goods/save";
+
+        let goodsID = $("#form-id").val();
+        if (goodsID) {
+            param.goodsID = goodsID;
+            url = "/goods/update";
+        }
+
         $.ajax({
-
             type: "POST",
             url: url,
             cache: false,  //禁用缓存
             data: param,
             dataType: "json",
-            success: function () {
-                $("#form-activityID").val("");
-                $("#form-name").val("");
-                $("#form-status").val("");
+            success: function (result) {
                 table.ajax.reload();
                 layer.closeAll();
             }
         });
     }
+
+
+    function clear(){
+        $("#form-id").val("");
+        $("#form-name").val("");
+        $("#form-desc").val("");
+        $("#form-score").val("");
+        $("#form-status").val("1");
+        $("#form-sort").val("");
+        $("#form-icon").hide();
+        $("#form-icon").attr("src" , "");
+        $("#form-img").hide();
+        $("#form-img").attr("src" , "");
+    }
+
 </script>
 <style>
     .form-control {
@@ -552,6 +484,7 @@
     #add .form-control {
         width: 100% !important;
     }
+
 </style>
 
 
