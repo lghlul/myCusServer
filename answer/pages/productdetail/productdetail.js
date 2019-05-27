@@ -84,6 +84,13 @@ Page({
                   showCancel:false,
                   confirmText: '确定'
                   })
+              }else if (result.data.resultCode == 9989) {
+                wx.showModal({
+                  title: '抱歉，兑奖通道已经关闭',
+                  content: '请等待下次开启',
+                  showCancel:false,
+                  confirmText: '确定'
+                })
               } else if (result.data.resultCode == 10000) {
                 wx.clearStorage();
                 app.getUserInfo(that.exchange());
