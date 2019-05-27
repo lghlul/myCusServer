@@ -88,7 +88,7 @@ public class QuestionServiceImpl implements IQuestionService {
 		map.put("questionId", questionID);
 		map.put("openID", session.getOpenID());
 		List<UserAnswer> userAnswerList = this.userAnswerMapper.queryUserAnswerByMap(map);
-		Log4jUtil.info("queryUserAnswerByMap...userAnswerList=" + JSON.toJSONString(userAnswerList));
+		Log4jUtil.info("userAnswer...userAnswerList=" + JSON.toJSONString(userAnswerList));
 		if(userAnswerList == null || userAnswerList.size() < 1){
 			//将题从数据库查出
 			Question question = this.questionMapper.queryQuestionByID(questionID);
@@ -99,21 +99,9 @@ public class QuestionServiceImpl implements IQuestionService {
 			userAnswer.setAnswerID(answerID);
 			userAnswer.setQuestionID(questionID);
 
-			//获取练习模式配置
-			Config config = cacheHelper.getConfig(Constant.ConfigKey.PRACTISE_CONFIG);
-			PractiseConfig practiseConfig = JSON.parseObject(config.getConfigValue() , PractiseConfig.class);
-
 			if(CommonUtil.isRight(question.getRightAnswerID(), answerID)){
 				//答对
 				userAnswer.setIsRight(Constant.ANSWER_RIGHT);
-				int rightCount = this.userAnswerMapper.queryAnswerRightCount(session.getOpenID());
-				if(rightCount == practiseConfig.getQuesNum()){
-					User user = new User();
-					user.setOpenID(session.getOpenID());
-					user.setScore(practiseConfig.getScore());
-					userMapper.updateUser(user);
-					this.userAnswerMapper.updateUserAnswer(session.getOpenID());
-				}
 			}else{
 				//答错
 				userAnswer.setIsRight(Constant.ANSWER_WRONG);
@@ -128,6 +116,20 @@ public class QuestionServiceImpl implements IQuestionService {
 			userAnswer.setCreateTime(System.currentTimeMillis());
 			Log4jUtil.info("addUserAnswer...userAnswer=" + JSON.toJSONString(userAnswer));
 			this.userAnswerMapper.addUserAnswer(userAnswer);
+			//统计得分
+			//获取练习模式配置
+			Config config = cacheHelper.getConfig(Constant.ConfigKey.PRACTISE_CONFIG);
+			PractiseConfig practiseConfig = JSON.parseObject(config.getConfigValue() , PractiseConfig.class);
+			Log4jUtil.info("userAnswer...practiseConfig=" + JSON.toJSONString(practiseConfig));
+			int rightCount = this.userAnswerMapper.queryAnswerRightCount(session.getOpenID());
+			Log4jUtil.info("userAnswer...rightCount=" + rightCount);
+			if(rightCount >= practiseConfig.getQuesNum()){
+				User user = new User();
+				user.setOpenID(session.getOpenID());
+				user.setScore(practiseConfig.getScore());
+				userMapper.updateUser(user);
+				this.userAnswerMapper.updateUserAnswer(session.getOpenID());
+			}
 		}
 		return new Result();
 	}

@@ -5,13 +5,13 @@ import java.util.List;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import com.answer.cache.CacheHelper;
+import com.answer.domain.*;
+import com.answer.mapper.ConfigMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.answer.domain.Room;
-import com.answer.domain.RoomQuestion;
-import com.answer.domain.User;
 import com.answer.mapper.RoomMapper;
 import com.answer.mapper.RoomQuestionMapper;
 import com.answer.mapper.UserMapper;
@@ -23,17 +23,19 @@ public class ContextLoaderListener implements ServletContextListener{
 	private RoomMapper roomMapper;
 	private RoomQuestionMapper roomQuestionMapper;
 	private UserMapper userMapper;
+	private CacheHelper cacheHelper;
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		
 		roomMapper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(RoomMapper.class);
 		roomQuestionMapper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(RoomQuestionMapper.class);
 		userMapper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(UserMapper.class);
-		//this.task();
+		cacheHelper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(CacheHelper.class);
+		this.task();
+
 	}
 
 	private void task(){
@@ -41,6 +43,10 @@ public class ContextLoaderListener implements ServletContextListener{
 			@Override
 			public void run() {
 				while(true){
+
+					Config config = cacheHelper.getConfig(Constant.ConfigKey.BATTLE_CONFIG);
+					BattleConfig battleConfig = JSON.parseObject(config.getConfigValue() , BattleConfig.class);
+
 					//获取所有还未计分的房间
 					List<Room> roomList = roomMapper.queryRoomByStatus(Constant.ROOM_STATUS_NOT_COUNT);
 					if(roomList != null){
@@ -78,21 +84,21 @@ public class ContextLoaderListener implements ServletContextListener{
 									if(createRightNum > rightNum){
 										//创建人获胜
 										//胜者加10分  
-										user.setScore(Constant.score.TEN);
+										user.setScore(battleConfig.getScore());
 										user.setOpenID(room.getCreateOpenID());
 										userMapper.updateUser(user);
 										//败者减10分
-										user.setScore(-Constant.score.TEN);
+										user.setScore(-battleConfig.getScore());
 										user.setOpenID(room.getOpenID());
 										userMapper.updateUser(user);
 									}else if(createRightNum < rightNum){
 										//被邀请人获胜
 										//胜者加10分  
-										user.setScore(Constant.score.TEN);
+										user.setScore(battleConfig.getScore());
 										user.setOpenID(room.getOpenID());
 										userMapper.updateUser(user);
 										//败者减10分
-										user.setScore(-Constant.score.TEN);
+										user.setScore(-battleConfig.getScore());
 										user.setOpenID(room.getCreateOpenID());
 										userMapper.updateUser(user);
 									}
