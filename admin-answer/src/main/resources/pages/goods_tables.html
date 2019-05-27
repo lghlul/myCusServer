@@ -59,6 +59,7 @@
                         <tr>
                             <th>奖品名称</th>
                             <th>奖品缩略图</th>
+                            <th>奖品展示图</th>
                             <th width="50%">奖品描述</th>
                             <th>奖品积分</th>
                             <th>奖品排序</th>
@@ -205,6 +206,7 @@
             }, columns: [
                 {"data": "goodsName"},
                 {"data": "goodsIcon"},
+                {"data": "goodsImg"},
                 {"data": "goodsDesc"},
                 {"data": "goodsScore"},
                 {"data": "goodsSort"},
@@ -221,7 +223,13 @@
                     }
                 },
                 {
-                    targets: 5,
+                    targets: 2,
+                    render: function (data, type, row, meta) {
+                        return "<img src=' " + data + " ' width='60px'/>"
+                    }
+                },
+                {
+                    targets: 6,
                     render: function (data, type, row, meta) {
                         if (data == 1) {
                             return "<span style='color: #23ad44;'>上架</span>"
@@ -232,7 +240,7 @@
                     }
                 }, {
                     //   指定第最后一列
-                    targets: 6,
+                    targets: 7,
                     render: function (data, type, row, meta) {
                         let buttons = "";
                         if (data == 1) {
