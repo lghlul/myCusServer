@@ -11,6 +11,7 @@ Page({
       userName: ''
     },
     step:1,
+    fightingScore:10,
     countDownMinute: '05',
     countDownSecond: '00', 
     countDown:null,
@@ -33,6 +34,19 @@ Page({
   },
   onLoad: function (options) {
     var that = this;
+    wx.request({
+      url: url.fscroe,
+      method: "GET",
+      success: function (result) {
+        // console.log(result.data)
+        if (result.data.resultCode == 0) {
+          that.setData({
+            fightingScore: result.data.resultData.score
+          })
+          console.log(result.data.resultData.score)
+        }
+      }
+    });
     that.setData({
       typeId: options.typeId ? options.typeId : '',
       acceptRoomID: options.roomID ? options.roomID : ''

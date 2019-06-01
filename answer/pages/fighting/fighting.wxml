@@ -27,8 +27,8 @@
       </view>
     </view>
     <view class='award-container' wx:if='{{step==5}}'>
-      <view class='award-points' wx:if='{{myScroe < rivalScroe}}'><image src='../../images/pointsBigIcon.png'></image>-10</view>
-      <view class='award-points' wx:if='{{myScroe > rivalScroe}}'><image src='../../images/pointsBigIcon.png'></image>+10</view>
+      <view class='award-points' wx:if='{{myScroe < rivalScroe}}'><image src='../../images/pointsBigIcon.png'></image>-{{fightingScore}}</view>
+      <view class='award-points' wx:if='{{myScroe > rivalScroe}}'><image src='../../images/pointsBigIcon.png'></image>+{{fightingScore}}</view>
       <view class='award-points' wx:if='{{myScroe == rivalScroe}}'><image src='../../images/pointsBigIcon.png'></image>+0</view>
       <text class='award-classify'>初级管工</text>
     </view>

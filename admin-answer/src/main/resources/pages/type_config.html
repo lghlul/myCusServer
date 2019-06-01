@@ -238,11 +238,11 @@
                 result.data.forEach(element => {
                     var treeItem = {text: getText(element.typeName, element.parentID, element.typeID)};
 
-                    treeItem.nodes = [];
+                    treeItem._nodes = [];
                     element.sonType.forEach(chlien => {
                         var chlienItem = {text: getText(chlien.typeName, chlien.parentID, chlien.typeID)};
 
-                        treeItem.nodes.push(chlienItem);
+                        treeItem._nodes.push(chlienItem);
                         itemMap[chlien.typeID] = chlien;
                     });
                     tree.push(treeItem);

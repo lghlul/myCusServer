@@ -119,7 +119,10 @@ var config = {
   myBbsReply: `${host}/bbs/listMyReply`,
 
   //我的主题
-  myBbs: `${host}/bbs/listMy`
+  myBbs: `${host}/bbs/listMy`,
+  
+  //好友对战积分
+  fscroe: `${host}/config/readBattleConfig`
 };
 
 module.exports = config
