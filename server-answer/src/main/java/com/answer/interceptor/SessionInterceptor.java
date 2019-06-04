@@ -40,7 +40,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=utf-8");
 		//校验是否有凭证
-		if (session.getOpenID() == null) {
+		if (session == null || session.getOpenID() == null) {
 			res.setResultCode(Constant.returnCode.SESSOIN_TIMEOUT);
 			Log4jUtil.info("preHandle...res=" + JSON.toJSONString(res));
 			PrintWriter writer = response.getWriter();
