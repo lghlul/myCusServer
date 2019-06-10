@@ -1,5 +1,7 @@
 package com.answer.mapper;
 
+import com.answer.common.PageQuery;
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,5 +28,7 @@ public interface BaseMapper<T> {
     int deleteByMap(Map<String, Object> map);
 
     List<T> select(T t);
+
+    List<T> list(PageQuery pageQuery);
 
 }

@@ -5,8 +5,10 @@ import com.answer.common.CommonConstant;
 import com.answer.common.ResultCodeEnum;
 import com.answer.domain.TAdmin;
 import com.answer.domain.TMenu;
+import com.answer.domain.TRole;
 import com.answer.service.ITAdminService;
 import com.answer.service.ITMenuService;
+import com.answer.service.ITRoleService;
 import com.answer.utils.CommonUtil;
 import com.answer.utils.MD5Util;
 import org.apache.log4j.Logger;
@@ -35,6 +37,9 @@ public class LoginController {
     @Autowired
     private ITMenuService menuService;
 
+    @Autowired
+    private ITRoleService roleService;
+
 
     @PostMapping("login")
     public Object login(HttpServletRequest request, TAdmin admin) throws Exception{
@@ -49,6 +54,12 @@ public class LoginController {
             // todo 判断角色是否被禁用
 
             if(tAdmin.getAdminPwd().equals(MD5Util.md5Password(admin.getAdminPwd()))){
+
+                TRole tRole = roleService.queryById(admin.getRoleId() + "");
+                if(tRole.getRoleStatus() == CommonConstant.Common.DEL_STATUS){
+                    return ResultCodeEnum.ROLE_STATUS_FORBIDDEN.getResponse(tAdmin);
+                }
+
                 //查询出角色菜单
                 //List<TMenu> menuList = menuService.queryAdminMenu(tAdmin.getRoleId());
                 CommonUtil.setSession(request ,CommonConstant.Str.ADMIN ,admins.get(0));

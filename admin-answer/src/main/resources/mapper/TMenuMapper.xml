@@ -367,4 +367,10 @@
         </if>
 	) d ON c.menuId = d.menuId ORDER BY menuOrder
     </select>
+
+
+    <select id="list" resultMap="baseResultMap">
+        select * from t_menu
+    </select>
+
 </mapper>

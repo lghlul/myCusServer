@@ -200,4 +200,15 @@
             where roleId = #{roleId}
         </if>
     </update>
+    <select id="list" parameterType="roleQuery" resultMap="baseResultMap">
+        select * from t_role
+        <where>
+            <if test="roleName != null">
+              and roleName like concat('%' , #{roleName} , '%')
+            </if>
+            <if test="roleStatus != null">
+                and roleStatus = #{roleStatus}
+            </if>
+        </where>
+    </select>
 </mapper>

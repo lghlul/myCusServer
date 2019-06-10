@@ -7,8 +7,8 @@ package com.answer.common;
  * @Modified By：
  */
 public class PageQuery {
-    private Integer offset;         //分页偏移量
-    private Integer limit;          //每页大小
+    private Integer offset = 0;         //分页偏移量
+    private Integer limit = 10;          //每页大小
 
     private String sortField;       //排序字段
     private String sortDir;         //排序顺序

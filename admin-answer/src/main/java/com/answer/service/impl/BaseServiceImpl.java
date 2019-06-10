@@ -2,6 +2,8 @@ package com.answer.service.impl;
 
 import java.util.List;
 import java.util.Map;
+
+import com.answer.common.PageQuery;
 import com.answer.mapper.BaseMapper;
 import com.answer.service.IBaseService;
 import com.github.pagehelper.PageInfo;
@@ -63,6 +65,11 @@ public class BaseServiceImpl<T> implements IBaseService<T>{
 
     @Override
     public PageInfo<T> page(T t) {
+        return null;
+    }
+
+    @Override
+    public PageInfo<T> list(PageQuery pageQuery) {
         return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.answer.service;
 
+import com.answer.common.PageQuery;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public interface IBaseService<T> {
 
     int deleteByMap(Map<String, Object> map);
 
+    PageInfo<T> list(PageQuery pageQuery);
 
     List<T> query(T t);
 

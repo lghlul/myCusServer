@@ -50,6 +50,19 @@ public class TMenu extends BaseDomain {
     private Long createTime;
 
     private String creater;
+    /**
+     * 是否选中
+     */
+    private Boolean checkIs = false;
+
+
+    public Boolean getCheckIs() {
+        return checkIs;
+    }
+
+    public void setCheckIs(Boolean checkIs) {
+        this.checkIs = checkIs;
+    }
 
     private List<TMenu> children;
 
