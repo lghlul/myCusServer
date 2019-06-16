@@ -14,9 +14,9 @@
       </view>
     </view>
   </view>
-  <view class='my-tap-list-box'>
-    <navigator url='../bbsMy/bbsMy' class='my-tab my-mistakes'ss>我的主题</navigator>
-    <navigator url='../bbsMyReply/bbsMyReply' class='my-tab my-mistakes'ss>我的回复</navigator>
+  <view  class='my-tap-list-box'>
+    <navigator wx:if='{{showMenu.showBBs}}' url='../bbsMy/bbsMy' class='my-tab my-mistakes'ss>我的主题</navigator>
+    <navigator wx:if='{{showMenu.showBBs}}' url='../bbsMyReply/bbsMyReply' class='my-tab my-mistakes'ss>我的回复</navigator>
 
     <navigator url='../myexam/myexam' class='my-tab my-mistakes'ss>历史考试</navigator>
     <navigator url='../mymistakes/mymistakes' class='my-tab my-mistakes'>我的错题</navigator>

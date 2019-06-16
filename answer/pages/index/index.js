@@ -11,6 +11,10 @@ Page({
     hasJobNum:true,
     keyHeight:0,
     isSign:true,
+    showMenu:{
+      showWar:true,
+      showBBs:true
+    },
     signText:'签到',
     loading:true
   },
@@ -18,6 +22,36 @@ Page({
   
   onLoad: function () {
     let that = this;
+    //加载模块
+    wx.request({
+      url: url.menuConfig,
+      data: {
+        wxSession: "ceshiWxSession"
+      },
+      success: function (result) {
+        // console.log(result)
+        if (result.data.resultCode == 0) {
+          wx.setStorage({
+            key: 'showMenu',
+            data: '',
+          })
+          if (result.data.resultData["谁与争锋"] && result.data.resultData["谁与争锋"]==1){
+            that.setData({
+              "showMenu.showWar":true
+            })
+        }
+          if (result.data.resultData["你问我答"] && result.data.resultData["你问我答"] == 1) {
+            that.setData({
+              "showMenu.showBBs": true
+            })
+          }
+          wx.setStorage({
+            key: 'showMenu',
+            data: that.data.showMenu,
+          })
+        }
+      }
+    })
     //转发
     wx.showShareMenu({
       withShareTicket: true,

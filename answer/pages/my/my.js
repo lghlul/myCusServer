@@ -2,12 +2,16 @@
 const app = getApp()
 Page({
   data: {
-    userInfo: {}
+    userInfo: {},
+    showMenu:{showBBs:false}
   },
   onLoad: function () {
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      showMenu: wx.getStorageSync("showMenu")
+
     });
+
   },
   onPullDownRefresh: function () {
     //wx.showNavigationBarLoading() //在标题栏中显示加载

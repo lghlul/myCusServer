@@ -244,16 +244,23 @@ Page({
         if (result.data.resultCode == 0) {
           result.data.resultData.activityQuestions.forEach(function (question, index) {
             question.answerList.forEach(function (item, index) {
+              let wrongaIndex  = -1;
               if (question.answerID) {
                 question.answerID = question.answerID + "";
-                let wrongaIndex = question.answerID.split(',').findIndex(ele => ele == item.ansID);
+                wrongaIndex = question.answerID.split(',').findIndex(ele => ele == item.ansID);
                 if (wrongaIndex > -1) {
                   item.choose = 'wrong';
+
                 }
               }
               let correctIndex = question.rightAnswerID.split(',').findIndex(ele => ele == item.ansID);
               if (correctIndex > -1) {
-                item.choose = 'correct';
+                item.choose = 'correct_q';
+              }
+
+
+              if (correctIndex > -1 && wrongaIndex > -1) {
+                item.choose2 = 'correct';
               }
             })
           })

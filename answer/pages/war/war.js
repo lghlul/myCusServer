@@ -23,7 +23,8 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
-          scrollHeight: res.windowHeight
+          scrollHeight: res.windowHeight,
+          pageNo:1
         });
       }
     });
@@ -90,9 +91,15 @@ Page({
         if (result.data.resultCode == 0) {
           var war = result.data.resultData.activity;
           if (war.isJoin == 1) {
-            wx.navigateTo({
-              url: '../warHistory/warHistory?id=' + id,
-            })
+            if (war.activityStatus != 3){
+              wx.showToast({
+                title: '活动尚未结束',
+              })
+            }else{
+              wx.navigateTo({
+                url: '../warHistory/warHistory?id=' + id,
+              })
+            }
           } else
             if (war.activityStatus == 2) {
               wx.navigateTo({
