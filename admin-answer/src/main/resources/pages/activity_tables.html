@@ -254,7 +254,8 @@
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-users" >参与成员</a>';
                         }
                         if (data == 3) {
-                            buttons += '<a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-users" >参与成员</a>';
+                            buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-users" >参与成员</a>';
+                            buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-export-result" >导出结果</a>';
                         }
                         if (row.quesNum > 0)
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-fileName="' + row.fileName + '" data-id="' + row.activityID + '" class="button-export" >导出题目</a>';
@@ -307,6 +308,30 @@
                 }
             });
         })
+
+
+        $("body").on("click", ".button-export-result", function () {
+            $.ajax({
+                type: "get",
+                url: "/activity/exportResult",
+                cache: false,  //禁用缓存
+                data: {activityID: $(this).attr("data-id")},
+                dataType: "json",
+                success: function (result) {
+                    if (result.resultCode == 1) {
+                        let file = result.data;
+                        let url = "https://www.zgshnj.com/file/" + file;
+                        jQuery('<form action="' + url + '" method="get">' +  // action请求路径及推送方法
+                            '</form>')
+                            .appendTo('body').submit().remove();
+                    } else {
+                        layer.msg("导出异常");
+                    }
+                }
+            });
+        })
+
+
         $("body").on("click", ".button-export", function () {
             var file = $(this).attr("data-fileName");
             var url = "https://www.zgshnj.com/file/" + file;

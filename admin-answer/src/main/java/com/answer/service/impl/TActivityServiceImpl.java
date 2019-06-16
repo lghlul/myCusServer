@@ -151,7 +151,6 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
 
 
             String fileName = System.currentTimeMillis() + "." + file.getOriginalFilename().split("\\.")[1];
-            ;
             //保存文件
             String filePath = CommonConfig.FILE_SAVE_PATH + fileName;
             File desFile = new File(filePath);

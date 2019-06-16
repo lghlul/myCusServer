@@ -21,15 +21,16 @@ public class ActivityJob {
         List<Activity> activities = activityMapper.listUnFinish();
         if(activities != null && activities.size() > 0){
             for (Activity activity : activities) {
-                if(activity.getStartTime() <= System.currentTimeMillis()){
-                    activity.setActivityStatus(CommonConstant.Common.ACTIVITY_STATUS_START);
-                    activityMapper.update(activity);
+                if(activity.getQuesNum() != null && activity.getQuesNum() > 0){
+                    if(activity.getStartTime() <= System.currentTimeMillis()){
+                        activity.setActivityStatus(CommonConstant.Common.ACTIVITY_STATUS_START);
+                        activityMapper.update(activity);
+                    }
+                    if(activity.getEndTime() <= System.currentTimeMillis()){
+                        activity.setActivityStatus(CommonConstant.Common.ACTIVITY_STATUS_END);
+                        activityMapper.update(activity);
+                    }
                 }
-                if(activity.getEndTime() <= System.currentTimeMillis()){
-                    activity.setActivityStatus(CommonConstant.Common.ACTIVITY_STATUS_END);
-                    activityMapper.update(activity);
-                }
-
             }
         }
     }
