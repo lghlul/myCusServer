@@ -25,9 +25,6 @@ Page({
     //加载模块
     wx.request({
       url: url.menuConfig,
-      data: {
-        wxSession: "ceshiWxSession"
-      },
       success: function (result) {
         // console.log(result)
         if (result.data.resultCode == 0) {
