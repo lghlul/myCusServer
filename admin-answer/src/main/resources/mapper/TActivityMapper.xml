@@ -77,7 +77,7 @@
 
     <select id="listOrgReport" parameterType="orgReportQuery" resultType="orgReport">
         SELECT
-        a.activityID, c.orgID,sum(a.rightNum),d.activityName,d.quesNum,count(a.openID) as joinNum
+        a.activityID, c.orgID,sum(a.rightNum) as rightNum,d.activityName,d.quesNum,count(a.openID) as joinNum
         FROM
         t_activity_user a
         JOIN t_user b

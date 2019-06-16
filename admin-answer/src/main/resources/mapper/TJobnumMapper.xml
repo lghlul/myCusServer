@@ -97,8 +97,8 @@
             <if test="realName != null">
                 realName = #{realName},
             </if>
-            <if test="orgName != null">
-                orgName = #{orgName},
+            <if test="orgID != null">
+                orgID = #{orgID},
             </if>
         </set>
         <if test="id != null">

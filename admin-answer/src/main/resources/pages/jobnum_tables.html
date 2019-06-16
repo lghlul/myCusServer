@@ -129,6 +129,7 @@
         $.get("/user/orgList", function (res) {
             $.each(res.data, function (index, obj) {
                 $("#orgId").append('<option value=" ' + obj.orgID + '">' + obj.orgName + '</option>');
+                $("#form-orgID").append('<option value="' + obj.orgID + '">' + obj.orgName + '</option>');
             })
         }, "json");
         table = $('.dataTables-example').dataTable({
@@ -227,12 +228,11 @@
         })
 
         $("body").on("click",".button-edit",function(){
-            $.get("/user/orgList", function (res) {
+           /* $.get("/user/orgList", function (res) {
                 $.each(res.data, function (index, obj) {
-                    $("#form-orgID").append('<option value=" ' + obj.orgID + '">' + obj.orgName + '</option>');
+                    $("#form-orgID").append('<option value="' + obj.orgID + '">' + obj.orgName + '</option>');
                 })
-            }, "json");
-
+            }, "json");*/
             $("#form-jobNum").val($(this).attr("data-jobNum"));
             $("#form-jobNum").attr("readonly","readonly");
             $("#form-realName").val($(this).attr("data-realName"));
@@ -285,11 +285,12 @@
 
 
         $("body").on("click", ".button-add", function () {
-            $.get("/user/orgList", function (res) {
+            /*$.get("/user/orgList", function (res) {
                 $.each(res.data, function (index, obj) {
-                    $("#form-orgID").append('<option value=" ' + obj.orgID + '">' + obj.orgName + '</option>');
+                    $("#form-orgID").append('<option value="' + obj.orgID + '">' + obj.orgName + '</option>');
                 })
-            }, "json");
+            }, "json");*/
+            $("#form-orgID").val($("#form-orgID option").val());
             layer.open({
                 type: 1,
                 title: "工号新增",
@@ -348,7 +349,7 @@
                     $("#form-jobNum").val("");
                     $("#form-sex").val("");
                     $("#form-realName").val("");
-                    $("#form-orgID").html("");
+                    //$("#form-orgID").html("");
                     $("#form-id").val("");
                     $("#form-jobNum").removeAttr("readonly");
                     table.ajax.reload();

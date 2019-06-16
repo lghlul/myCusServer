@@ -55,7 +55,7 @@ public class LoginController {
 
             if(tAdmin.getAdminPwd().equals(MD5Util.md5Password(admin.getAdminPwd()))){
 
-                TRole tRole = roleService.queryById(admin.getRoleId() + "");
+                TRole tRole = roleService.queryById(tAdmin.getRoleId() + "");
                 if(tRole.getRoleStatus() == CommonConstant.Common.DEL_STATUS){
                     return ResultCodeEnum.ROLE_STATUS_FORBIDDEN.getResponse(tAdmin);
                 }
