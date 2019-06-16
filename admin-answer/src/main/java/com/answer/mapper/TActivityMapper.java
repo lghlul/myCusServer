@@ -18,4 +18,6 @@ public interface TActivityMapper extends BaseMapper<Activity>{
 
     List<Activity> list(ActivityQuery activityQuery);
 
+    List<Activity> listUnFinish();
+
 }

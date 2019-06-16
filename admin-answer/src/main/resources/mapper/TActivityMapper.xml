@@ -44,7 +44,8 @@
     </update>
 
     <insert id="insert" parameterType="activity">
-        insert into t_activity(activityName,activityStatus,creater,createTime) values(#{activityName},#{activityStatus},#{creater},#{createTime})
+        insert into t_activity(activityName,activityStatus,creater,createTime,startTime , endTime)
+        values(#{activityName},#{activityStatus},#{creater},#{createTime} , #{startTime} , #{endTime})
     </insert>
 
 
@@ -92,5 +93,11 @@
             </if>
         </where>
         group by a.activityID , c.orgID
+    </select>
+
+
+    <select id="listUnFinish"  resultType="activity">
+        select * from t_activity
+                where activityStatus != 3 and startTime is not null and endTime is not null
     </select>
 </mapper>
