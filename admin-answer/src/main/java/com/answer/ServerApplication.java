@@ -1,21 +1,16 @@
 package com.answer;
 
-import com.alibaba.fastjson.JSON;
 import com.answer.Interceptor.SessionInterceptor;
-import com.answer.domain.Config;
-import com.answer.domain.TrainConfig;
-import com.answer.mapper.TConfigMapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -23,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableTransactionManagement
 @MapperScan(basePackages = "com.answer.mapper")
 @SpringBootApplication
+@EnableScheduling
 public class ServerApplication extends WebMvcConfigurerAdapter {
 
     @Bean

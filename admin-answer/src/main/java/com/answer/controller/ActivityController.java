@@ -67,9 +67,9 @@ public class ActivityController {
                 if(act.getQuesNum() == 0){
                     return ResultCodeEnum.QUES_NUM_ZERO.getResponse();
                 }
-                activity.setStartTime(System.currentTimeMillis());
+                //activity.setStartTime(System.currentTimeMillis());
             } else if (activity.getActivityStatus() == CommonConstant.Common.ACTIVITY_STATUS_END) {
-                activity.setEndTime(System.currentTimeMillis());
+                //activity.setEndTime(System.currentTimeMillis());
             }
         }
         activityService.edit(activity);
