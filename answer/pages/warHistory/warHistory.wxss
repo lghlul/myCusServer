@@ -9,10 +9,17 @@
 .practice-questions-box{margin: 68rpx 34rpx 0;}
 .practice-questions{line-height:48rpx;font-size: 34rpx;color:#333333;}
 .practice-option{margin-top: 20rpx;}
-.practice-button{padding:0;height: 100rpx;line-height: 100rpx;width:100%;border-radius: 10rpx;text-align: center;background-color: #ECF5FF;font-size: 28rpx;color: #333333;}
+.practice-button{padding:25rpx 55rpx;min-height: 100rpx;line-height: 50rpx;width:100%;border-radius: 10rpx;text-align: center;background-color: #ECF5FF;font-size: 28rpx;color: #333333;}
 .correct{position: relative;}
+
+.correct_q{position: relative;}
 .correct .practice-button,.correct .practice-button[disabled]{background-color:#78B236;color: #ffffff;}
+
+.correct_q .practice-button,.correct .practice-button[disabled]{background-color:#78B236;color: #ffffff;}
 .correct::after{content: " ";display: inline-block;height: 12rpx;width: 26rpx;border-width: 6rpx 6rpx 0 0;border-color: #ffffff;border-style: solid; -webkit-transform: matrix(-0.71, 0.71, -0.71, -0.71, 0, 0);transform: matrix(-0.71, 0.71, -0.71, -0.71, 0, 0);position: absolute;top:36rpx;right: 28rpx;}
+
+.correct_q::before{content: " ";display: inline-block;height: 12rpx;width: 26rpx;border-width: 6rpx 6rpx 0 0;border-color:#ffffff;border-style: solid; -webkit-transform: matrix(-0.71, 0.71, -0.71, -0.71, 0, 0);transform: matrix(-0.71, 0.71, -0.71, -0.71, 0, 0);position: absolute;top:36rpx;left: 28rpx;z-index:9999}
+
 .wrong{position: relative;}
 .wrong .practice-button,.wrong .practice-button[disabled]{background-color:#F16F7F;color: #ffffff;}
 .wrong::before{content: "";width:8rpx;height:42rpx;background-color: #ffffff;-webkit-transform: matrix(-0.71, 0.71, -0.71, -0.71, 0, 0);transform: matrix(-0.71, 0.71, -0.71, -0.71, 0, 0);position: absolute;top:28rpx;right: 40rpx;z-index: 10;}
@@ -20,3 +27,6 @@
 .next-error-questions{width:710rpx;line-height: 100rpx;text-align: center;font-size: 34rpx;color: #ffffff;margin: 43rpx 0;background-color: #F5A623;border-radius: 10rpx;}
 .choose{position: relative;}
 .choose .practice-button{background-color:#80bbff;color: #ffffff;}
+.fright{
+  float: right;
+}

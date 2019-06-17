@@ -122,7 +122,10 @@ var config = {
   myBbs: `${host}/bbs/listMy`,
   
   //好友对战积分
-  fscroe: `${host}/config/readBattleConfig`
+  fscroe: `${host}/config/readBattleConfig`,
+  //菜单配置
+  menuConfig: `${host}/config/readModuleConfig`,
+  
 };
 
 module.exports = config

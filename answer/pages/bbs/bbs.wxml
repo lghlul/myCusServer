@@ -22,6 +22,6 @@
         </view>
       </view>
     </view>
-    <!-- <view class='null-data' wx:if='{{bbsList.length==0}}'>暂无记录</view> -->
+    <view class='null-data' wx:if='{{bbsList.length==0}}'>暂无记录</view>
   </scroll-view>
 </view>

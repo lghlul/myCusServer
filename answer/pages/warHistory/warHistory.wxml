@@ -10,17 +10,24 @@
         <view class='practice-text' wx:if="{{type=='mistakes'}}">考试回顾 <text>{{questionData.currentNum+1}}</text> /{{questionData.allNum}}题</view>
         <view class='practice-text' wx:if="{{type=='practice' && questionData.percent}}">正确率{{questionData.percent}}</view>
       </view>
+
       <view class='practice-questions-box' wx:if='{{questionData.question}}'>
         <view class='practice-questions'>{{questionData.question.quesType==2?'（多选）':''}}{{questionData.question.quesDesc}}</view>
+        
+        
+        <view class='practice-text' wx:if="{{type=='mistakes'}}">正确答案
+        <span class='fright' >用户答案</span>
+        </view>
         <view wx:if="{{type=='practice'}}" class="practice-option {{item.choose}}" wx:for='{{questionData.question.answerList}}'  wx:key='item.ansID'><button disabled='{{isDisabled}}' class='practice-button' id='{{item.ansID}}' data-index='{{index}}' bindtap="chooseAnswer">{{item.ansDesc}}</button></view>
 
-        <view wx:if="{{type=='mistakes'}}" class="practice-option {{item.choose}}" wx:for='{{questionData.question.answerList}}' wx:key='item.ansID'><button class='practice-button'>{{item.ansDesc}}</button></view>
+        <view wx:if="{{type=='mistakes'}}" class="practice-option {{item.choose}}  {{item.choose2}}" wx:for='{{questionData.question.answerList}}' wx:key='item.ansID'><button class='practice-button'>{{item.ansDesc}}</button></view>
         
          <!-- <view class='practice-option correct'>《醉翁亭记》</view>
         <view class='practice-option wrong'>《岳阳楼记》</view>
         <view class='practice-option'>《核舟记》</view>  -->
       </view>
     </view>
+    
     <button class='next-error-questions' disabled='{{isDisabled}}' wx:if="{{type=='practice' && questionData.question.quesType==2}}" bindtap="putAnswer">确定</button>
 
     <view class='next-error-questions'  data-nextid='-1' bindtap="nextMistake">上一题</view>
