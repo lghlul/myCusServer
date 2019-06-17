@@ -36,9 +36,7 @@ public class ActivityServiceImpl implements IActivityService {
 	@Override
 	public PageInfo<Activity> page(Activity activity, String wxSession) {
 		PageHelper.startPage(activity.getOffset(), activity.getLimit());
-		if (activity.getSortField() != null) {
-			PageHelper.orderBy(activity.getSortField() + " " + activity.getSortDir());
-		}
+		PageHelper.orderBy("createTime" + " " + "desc");
 		List<Activity> studentList = activityMapper.selectPage(activity);
 		//得到分页的结果对象
 		PageInfo<Activity> pageInfo = new PageInfo<>(studentList);

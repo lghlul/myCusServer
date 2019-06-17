@@ -13,7 +13,7 @@ Page({
     isSign:true,
     showMenu:{
       showWar:true,
-      showBBs:true
+      showBBs:false
     },
     signText:'签到',
     loading:true

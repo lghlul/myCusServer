@@ -3,7 +3,8 @@
  */
 
 // var host = "https://www.lghll.com/server-answer"
-var host = "https://www.zgshnj.com/test/server-answer"
+// var host = "https://www.zgshnj.com/test/server-answer"
+var host = "https://www.zgshnj.com/server-answer"
 var SinopecSession = wx.getStorageSync('SinopecSession') || '';
 var config = {
   SinopecSession,

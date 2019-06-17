@@ -172,6 +172,7 @@ public interface Constant {
 
         String BATTLE_CONFIG = "对战配置";
 
+        String MODULE_CONFIG = "模块配置";
 
         String GOODS_CONFIG = "奖品配置";
     }

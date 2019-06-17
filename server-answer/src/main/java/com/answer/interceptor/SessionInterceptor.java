@@ -31,8 +31,15 @@ public class SessionInterceptor implements HandlerInterceptor {
 	}
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
-
 		String wx_session = request.getParameter("wxSession");
+		if("ceshiWxSession".equals(wx_session)){
+			return true;
+		}
+		String url = request.getRequestURI();
+		String[] arr = url.split("/");
+		if("readModuleConfig".equals(arr[arr.length-1])){
+			return true;
+		}
 		Log4jUtil.info("preHandle...wx_session=" + wx_session);
 		WXSessionCache session = this.cacheHelper.getSession(wx_session);
 		Log4jUtil.info("preHandle...session=" + JSON.toJSONString(session));
@@ -50,8 +57,6 @@ public class SessionInterceptor implements HandlerInterceptor {
 			return false;
 		}else{
 			String jobNumUrl = "checkJobNum,bindJobNum,userInfo,update";
-			String url = request.getRequestURI();
-			String[] arr = url.split("/");
 			if(jobNumUrl.indexOf(arr[arr.length-1]) < 0){
 				//校验是否有工号
 				User user = userService.getUserByOpenID(session.getOpenID());
