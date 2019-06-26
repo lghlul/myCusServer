@@ -276,7 +276,7 @@
                     success: function (result) {
                         if (result.resultCode == 1) {
                             layer.msg('操作成功');
-                            table.ajax.reload();
+                            table.draw(false);
                         }
                     }
                 })
@@ -352,7 +352,7 @@
                     //$("#form-orgID").html("");
                     $("#form-id").val("");
                     $("#form-jobNum").removeAttr("readonly");
-                    table.ajax.reload();
+                    table.draw(false);
                     layer.closeAll();
                     layer.msg('操作成功');
                 }else if(result.resultCode == 1006){
