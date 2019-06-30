@@ -240,7 +240,8 @@
                     type: "POST",
                     url: "/role/update",
                     cache: false,  //禁用缓存
-                    data: {roleId:userId,roleStatus:2},  //传入组装的参数
+                    contentType : 'application/json',//添加这句话
+                    data: JSON.stringify({roleId:userId,roleStatus:2}),  //传入组装的参数
                     dataType: "json",
                     success: function (result) {
                         table.ajax.reload();
@@ -251,9 +252,11 @@
             var userId = $(this).attr("openID");
             $.ajax({
                     type: "POST",
-                    url: "/role/update",
+                    url: "/role/update",   
+                    contentType : 'application/json',//添加这句话
+
                     cache: false,  //禁用缓存
-                    data: {roleId:userId,roleStatus:1},  //传入组装的参数
+                    data: JSON.stringify({roleId:userId,roleStatus:1}),  //传入组装的参数
                     dataType: "json",
                     success: function (result) {
                         table.ajax.reload();
@@ -379,9 +382,13 @@
             layer.msg('请选择角色状态');
             return;
         }
-
+        var data = [];
+        var nodes = zTreeObj.getCheckedNodes(true);
         let param = {roleName: $("#form-name").val() ,roleStatus: $("#form-status").val()};
-
+        for(var i in nodes){
+                    data.push({menuId:nodes[i].menuId})
+        }
+        param.roleMenus = data;
         let url = "/role/save";
         let roleId = $("#form-id").val();
         if (roleId) {
@@ -392,27 +399,16 @@
             type: "POST",
             url: url,
             cache: false,  //禁用缓存
-            data: param,
+            data: JSON.stringify(param),
+            contentType : 'application/json',//添加这句话
+
             dataType: "json",
             
             success: function (result) {
-                var data = [];
-                var nodes = zTreeObj.getCheckedNodes(true);
-                for(var i in nodes){
-                    data.push({menuId:nodes[i].menuId,roleId:roleId})
-                }
-                $.ajax({
-                    type: "POST",
-                    url: 'roleMenu/update',
-                    cache: false,  //禁用缓存
-                    data: JSON.stringify(data),
-                    contentType:"application/json",
-                    success: function (result) {
-                        
+                
                         table.ajax.reload();
                         layer.closeAll();
-                    }
-                });
+                   
             }
         });
     }

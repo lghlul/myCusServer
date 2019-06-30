@@ -359,8 +359,10 @@
             return;
         }
 
-        let param = {adminName: $("#form-name").val() ,adminPwd:$("#form-pwd").val(),adminStatus: $("#form-status").val(),roleId: $("#form-role").val()};
-
+        let param = {adminName: $("#form-name").val() ,adminStatus: $("#form-status").val(),roleId: $("#form-role").val()};
+        if ($("#form-pwd").val()) {
+            param.adminPwd = $("#form-pwd").val();
+        }
         let url = "/admin/save";
         
         if (adminId) {
