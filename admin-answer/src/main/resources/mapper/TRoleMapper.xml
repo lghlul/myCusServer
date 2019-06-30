@@ -211,4 +211,8 @@
             </if>
         </where>
     </select>
+
+    <select id="readByName" parameterType="string" resultMap="baseResultMap">
+        select * from t_role where roleName = #{roleName}
+    </select>
 </mapper>

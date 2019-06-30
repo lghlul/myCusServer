@@ -10,6 +10,7 @@ import com.answer.service.ITAdminService;
 import com.answer.utils.CommonUtil;
 import com.answer.utils.MD5Util;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,8 +48,8 @@ public class AdminController {
         }
 
         admin.setAdminPwd(MD5Util.md5Password(admin.getAdminPwd()));
-        adminService.add(admin);
         admin.setCreateTime(System.currentTimeMillis());
+        adminService.add(admin);
         return ResultCodeEnum.SUCCESS.getResponse();
     }
 
@@ -67,14 +68,19 @@ public class AdminController {
     @PostMapping("update")
     public Object update(TAdmin admin , HttpServletRequest request) {
         AdminQuery adminQuery = new AdminQuery();
-        adminQuery.setAdminName(admin.getAdminName());
-        PageInfo<TAdmin> list = adminService.list(adminQuery);
-        if(list.getList() != null && list.getSize() > 0 ){
-            if(list.getList().get(0).getAdminId() != admin.getAdminId()){
-                return ResultCodeEnum.ADMIN_NAME_REPEAT.getResponse();
+        if(StringUtils.isNotEmpty(admin.getAdminName())){
+            adminQuery.setAdminName(admin.getAdminName());
+            PageInfo<TAdmin> list = adminService.list(adminQuery);
+            if(list.getList() != null && list.getSize() > 0 ){
+                if(list.getList().get(0).getAdminId() != admin.getAdminId()){
+                    return ResultCodeEnum.ADMIN_NAME_REPEAT.getResponse();
+                }
             }
         }
-        admin.setAdminPwd(MD5Util.md5Password(admin.getAdminPwd()));
+
+        if(StringUtils.isNotEmpty(admin.getAdminPwd())){
+            admin.setAdminPwd(MD5Util.md5Password(admin.getAdminPwd()));
+        }
         adminService.edit(admin);
         admin.setCreateTime(System.currentTimeMillis());
         return ResultCodeEnum.SUCCESS.getResponse();

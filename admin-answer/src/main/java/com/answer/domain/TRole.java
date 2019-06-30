@@ -1,5 +1,7 @@
 package com.answer.domain;
 
+import java.util.List;
+
 public class TRole extends BaseDomain {
 
     private Long roleId;
@@ -13,6 +15,16 @@ public class TRole extends BaseDomain {
     private Long createTime;
 
     private String adminName;
+
+    private List<TRoleMenu> roleMenus;
+
+    public List<TRoleMenu> getRoleMenus() {
+        return roleMenus;
+    }
+
+    public void setRoleMenus(List<TRoleMenu> roleMenus) {
+        this.roleMenus = roleMenus;
+    }
 
     public String getAdminName() {
         return adminName;

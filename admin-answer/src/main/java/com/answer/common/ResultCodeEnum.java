@@ -16,7 +16,8 @@ public enum ResultCodeEnum {
     QUES_NUM_ZERO(1005,"题数为0不能开始"),
     JOBNUM_REPEAT(1006,"工号重复"),
     ROLE_STATUS_FORBIDDEN(1007,"角色已被禁用"),
-    ADMIN_NAME_REPEAT(1008,"账号重复");
+    ADMIN_NAME_REPEAT(1008,"账号重复"),
+    ROLE_NAME_REPEAT(1009,"角色重复");
 
     /**
      * 编号

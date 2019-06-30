@@ -12,13 +12,11 @@ import com.answer.domain.query.RoleQuery;
 import com.answer.service.ITMenuService;
 import com.answer.service.ITRoleService;
 import com.answer.utils.CommonUtil;
+import com.answer.utils.MD5Util;
 import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -30,7 +28,7 @@ public class RoleController  {
     private Logger logger = Logger.getLogger(RoleController.class);
 
     @Autowired
-    private ITRoleService rolesService;
+    private ITRoleService roleService;
     @Autowired
     private ITMenuService menuService;
 
@@ -38,7 +36,7 @@ public class RoleController  {
     @GetMapping("/list")
     public Object list(RoleQuery roleQuery){
         logger.info("list start...role=" + JSON.toJSONString(roleQuery));
-        PageInfo<TRole> page = rolesService.list(roleQuery);
+        PageInfo<TRole> page = roleService.list(roleQuery);
         PageResult pageResult = new PageResult();
         pageResult.setTotalCount(page.getTotal());
         pageResult.setTotalPage(page.getPages());
@@ -62,9 +60,31 @@ public class RoleController  {
     }
 
     @PostMapping("/update")
-    public Object update(TRole role){
+    public Object update(@RequestBody  TRole role){
         logger.info("updateStatus start...role=" + JSON.toJSONString(role));
-        int i = rolesService.edit(role);
+        int i = 0;
+        if(role.getRoleId() > 0){
+            i = roleService.edit(role);
+        }
+        logger.debug("updateStatus end...pages=" + i);
+        return ResultCodeEnum.SUCCESS.getResponse();
+    }
+
+    @PostMapping("/save")
+    public Object save(@RequestBody TRole role , HttpServletRequest request){
+        logger.info("updateStatus start...role=" + JSON.toJSONString(role));
+        TRole tRole = roleService.readByName(role.getRoleName());
+        if(tRole != null){
+            return ResultCodeEnum.ROLE_NAME_REPEAT.getResponse();
+        }
+        TAdmin currentAdmin = (TAdmin) CommonUtil.getSessionObj(request,
+                CommonConstant.Str.ADMIN);
+        if(currentAdmin != null){
+            role.setCreater(currentAdmin.getAdminId());
+        }
+
+        role.setCreateTime(System.currentTimeMillis());
+        int i = roleService.add(role);
         logger.debug("updateStatus end...pages=" + i);
         return ResultCodeEnum.SUCCESS.getResponse();
     }
