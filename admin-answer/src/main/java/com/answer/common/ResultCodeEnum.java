@@ -17,7 +17,8 @@ public enum ResultCodeEnum {
     JOBNUM_REPEAT(1006,"工号重复"),
     ROLE_STATUS_FORBIDDEN(1007,"角色已被禁用"),
     ADMIN_NAME_REPEAT(1008,"账号重复"),
-    ROLE_NAME_REPEAT(1009,"角色重复");
+    ROLE_NAME_REPEAT(1009,"角色重复"),
+    ADMIN_STATUS_FORBIDDEN(1010,"账号已被禁用"),;
 
     /**
      * 编号
