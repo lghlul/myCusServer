@@ -60,7 +60,7 @@ public class TRoleServiceImpl extends BaseServiceImpl<TRole> implements ITRoleSe
     }
 
     private void updateRoleMenu(TRole tRole) {
-        if(tRole.getRoleMenus().size() > 0){
+        if(tRole.getRoleMenus() != null && tRole.getRoleMenus().size() > 0){
             Long roleId = tRole.getRoleId();
             if(tRole.getRoleMenus() != null && tRole.getRoleMenus().size() > 0) {
                 for (TRoleMenu roleMenu : tRole.getRoleMenus()) {
