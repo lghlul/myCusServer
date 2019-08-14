@@ -20,7 +20,7 @@ public class TAdmin extends BaseDomain {
     /**
      * 用户状态
      */
-    private String adminStatus;
+    private Byte adminStatus;
 
     /**
      * 角色ID
@@ -61,11 +61,11 @@ public class TAdmin extends BaseDomain {
         this.adminPwd = adminPwd;
     }
 
-    public String getAdminStatus(){
-        return this.adminStatus;
+    public Byte getAdminStatus() {
+        return adminStatus;
     }
 
-    public void setAdminStatus(String adminStatus){
+    public void setAdminStatus(Byte adminStatus) {
         this.adminStatus = adminStatus;
     }
 

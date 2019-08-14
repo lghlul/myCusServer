@@ -34,8 +34,6 @@ public class LoginController {
     @Autowired
     private ITAdminService adminService;
 
-    @Autowired
-    private ITMenuService menuService;
 
     @Autowired
     private ITRoleService roleService;
@@ -51,7 +49,9 @@ public class LoginController {
         List<TAdmin> admins = adminService.query(a);
         if(admins.size() > 0){
             TAdmin tAdmin = admins.get(0);
-            // todo 判断角色是否被禁用
+            if(tAdmin.getAdminStatus().equals(CommonConstant.Common.DEL_STATUS)){
+                return ResultCodeEnum.ADMIN_STATUS_FORBIDDEN.getResponse(tAdmin);
+            }
 
             if(tAdmin.getAdminPwd().equals(MD5Util.md5Password(admin.getAdminPwd()))){
 
