@@ -204,15 +204,16 @@ Page({
   getData:function(){
     let that =this;
     let SinopecSession = wx.getStorageSync('SinopecSession');
-    // console.log('建立连接', SinopecSession)
+    console.log('建立连接', SinopecSession)
     //建立连接
     wx.connectSocket({
-      url: "wss://www.zgshnj.com/server-answer/websocket/socketServer?wxSession=" + SinopecSession,
+      //url: "wss://www.zgshnj.com/server-answer/websocket/socketServer?wxSession=" + SinopecSession,
+      url: "wss://www.zgshnj.com/server-answer/websocket/socketServer2/{" + SinopecSession + "}",
       success: function (res) {
-        // console.log('成功了', res);
+        console.log('成功了', res);
       },
       fail: function () {
-        // console.log('失败了');
+        console.lonng('失败了');
       }
     })
   
@@ -398,12 +399,21 @@ Page({
   },
   //邀请答题
   onShareAppMessage: function () {
+    console.log('onShareAppMessage');
+    
     var that = this;
+    that.setData({
+      step: 2
+    });
+    if (that.data.step == 2) {
+      that.countDownInviteTap();
+    }
     return {
       title: '邀请答题',
       path: '/pages/fighting/fighting?typeId=' + that.data.typeId + '&roomID=' + that.data.createRoomID,
+      imageUrl:'',
       success: function (res) {
-        // console.log('onShareAppMessage',res)
+        console.log('onShareAppMessage',res)
         that.setData({
           step: 2
         });
@@ -422,7 +432,7 @@ Page({
       },
       fail: function (res) {
         // 分享失败
-        // console.log(res)
+        console.log(res)
       }
     }
   },
