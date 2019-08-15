@@ -34,8 +34,12 @@ Page({
   },
   onLoad: function (options) {
     var that = this;
+    let SinopecSession = wx.getStorageSync('SinopecSession');
     wx.request({
       url: url.fscroe,
+      data: {
+        wxSession: SinopecSession
+      },
       method: "GET",
       success: function (result) {
         // console.log(result.data)
