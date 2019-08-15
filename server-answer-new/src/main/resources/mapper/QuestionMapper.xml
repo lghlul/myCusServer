@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.QuestionMapper">
+	<resultMap type="question" id="questionMap">
+		<result column="quesID" property="quesID"/> 
+		<result column="quesDesc" property="quesDesc"/> 
+		<result column="rightAnswerID" property="rightAnswerID"/> 
+		<result column="quesType" property="quesType"/>
+		<result column="quesExplain" property="quesExplain"/>
+		<collection property="answerList" ofType="answer">
+			<result column="ansID" property="ansID"/> 
+			<result column="ansDesc" property="ansDesc"/> 
+		</collection>
+	</resultMap>
+	<select id="queryQuestionByOne" parameterType="map" resultMap="questionMap">
+		SELECT
+			a.quesID,
+			a.quesDesc,
+			a.rightAnswerID,
+			b.ansID,
+			b.ansDesc,
+			a.quesType,
+			a.quesExplain
+		FROM
+			(select * from t_question where quesID &gt; #{questionID} and typeID = #{typeID}  limit 0,1 ) a
+		JOIN t_answer b ON a.quesID = b.quesID 
+	</select>
+	
+	<select id="queryQuestionNumByType" parameterType="long" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			t_question where typeID = #{typeID}
+	</select>
+	
+	
+	<select id="queryQuestionByID" parameterType="long" resultType="question">
+		SELECT
+			*
+		FROM
+			t_question where quesID = #{questionID}
+	</select>
+	
+	<select id="queryQuestionByResultMap" parameterType="long" resultMap="questionMap">
+		SELECT
+			a.quesID,
+			a.quesDesc,
+			a.rightAnswerID,
+			a.typeID,
+			b.ansID,
+			b.ansDesc,
+			a.quesType,
+			a.quesExplain
+		FROM
+			t_question a
+		JOIN t_answer b ON a.quesID = b.quesID  and a.quesID = #{questionID}
+	</select>
+	
+	
+	<select id="queryQuestionByIndex" parameterType="map" resultMap="questionMap">
+		SELECT
+			a.quesID,
+			a.quesDesc,
+			a.rightAnswerID,
+			a.typeID,
+			b.ansID,
+			b.ansDesc,
+			a.quesType
+		FROM
+			(select * from t_question  where typeID = #{typeID} limit #{start},1) a
+		JOIN t_answer b ON a.quesID = b.quesID  
+       
+	</select>
+	
+	
+	<select id="queryQuestionAll" parameterType="long" resultMap="questionMap">
+		SELECT
+			a.quesID,
+			a.quesDesc,
+			a.rightAnswerID,
+			a.typeID,
+			b.ansID,
+			b.ansDesc,
+			a.quesType
+		FROM
+			t_question a
+		JOIN t_answer b ON a.quesID = b.quesID  and a.typeID = #{typeID} 
+	</select>
+</mapper>

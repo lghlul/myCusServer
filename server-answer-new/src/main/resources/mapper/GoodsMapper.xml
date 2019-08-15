@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.GoodsMapper">
+	<select id="queryGoodsPage" parameterType="map" resultType="goods">
+		SELECT
+			goodsID,goodsIcon,goodsImg,goodsDesc,goodsName,goodsScore
+		FROM
+			t_goods 
+		where goodsStatus = 1 order by goodsSort limit #{start},#{pageSize}
+	</select>
+	
+	<select id="queryGoodsCount" parameterType="map" resultType="int">
+		SELECT
+			count(goodsID)
+		FROM
+			t_goods 
+		where goodsStatus = 1
+	</select>
+	
+	
+	<select id="queryGoodsByID" parameterType="long" resultType="goods">
+		SELECT
+			goodsID,goodsIcon,goodsImg,goodsDesc,goodsName,goodsScore
+		FROM
+			t_goods where goodsID = #{goodsID}
+	</select>
+	
+</mapper>

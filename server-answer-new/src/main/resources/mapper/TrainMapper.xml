@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.TrainMapper">
+    <resultMap type="question" id="questionMap">
+        <result column="quesID" property="quesID"/>
+        <result column="quesDesc" property="quesDesc"/>
+        <result column="rightAnswerID" property="rightAnswerID"/>
+        <result column="quesType" property="quesType"/>
+        <result column="isRight" property="isRight"/>
+        <result column="answerID" property="answerID"/>
+        <collection property="answerList" ofType="answer">
+            <result column="ansID" property="ansID"/>
+            <result column="ansDesc" property="ansDesc"/>
+        </collection>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="train" keyProperty="trainID" useGeneratedKeys="true">
+		insert into t_train(creater,createTime,typeID,quesNum) values(#{creater},#{createTime},#{typeID},#{quesNum})
+	</insert>
+
+    <update id="update" parameterType="train">
+        update t_train
+        <set>
+            <if test="trainStatus != null">
+                trainStatus = #{trainStatus},
+            </if>
+            <if test="finishTime != null">
+                finishTime = #{finishTime},
+            </if>
+            <if test="rightNum != null">
+                rightNum = #{rightNum},
+            </if>
+        </set>
+        where trainID = #{trainID}
+    </update>
+
+    <insert id="insertTrainQuestion" parameterType="java.util.List">
+        insert into t_train_question(trainID,quesID) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.trainID},#{item.quesID})
+        </foreach>
+    </insert>
+
+    <update id="updateTrainQuestion" parameterType="trainQuestion">
+		update t_train_question set answerID = #{answerID},isRight = #{isRight} where quesID = #{quesID} and trainID = #{trainID}
+	</update>
+
+    <select id="queryTrainQues" parameterType="map" resultMap="questionMap">
+        SELECT
+        a.quesID,a.quesDesc,b.ansID,b.ansDesc
+        FROM
+        (
+        SELECT
+        *
+        FROM
+        t_question
+        <where>
+            <if test="typeId != null and typeId != 0">
+                typeId = #{typeId}
+            </if>
+        </where>
+
+        ORDER BY
+        rand()
+        LIMIT #{size}
+        ) a
+        JOIN t_answer b ON a.quesId = b.quesId
+    </select>
+
+    <select id="queryTrainList" parameterType="map" resultType="train">
+        SELECT
+        *
+        FROM
+        t_train
+        <where>
+            <if test="creater != null">
+                creater = #{creater}
+            </if>
+        </where>
+        ORDER BY createTime desc
+        LIMIT #{offSet},#{size}
+    </select>
+
+    <select id="queryTrainListCount" parameterType="map" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        t_train
+        <where>
+            <if test="creater != null">
+                creater = #{creater}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="queryTrainDetail" parameterType="long" resultMap="questionMap">
+		SELECT
+			m.*,n.ansID,n.ansDesc
+		FROM
+			(
+				SELECT
+					b.*, a.isRight,
+					a.answerID
+				FROM
+					t_train_question a
+				JOIN t_question b ON a.quesID = b.quesID
+				WHERE
+					trainID = #{trainID}
+			) m
+		JOIN t_answer n ON m.quesID = n.quesID
+	</select>
+
+
+    <select id="queryConfigByType" parameterType="long" resultType="trainConfig">
+		select * from t_train_config where typeID = #{typeID}
+	</select>
+
+    <select id="queryById" parameterType="long" resultType="train">
+		select * from t_train where trainID = #{trainID}
+	</select>
+
+</mapper>

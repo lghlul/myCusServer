@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.RoomQuestionMapper">
+	
+	<resultMap type="question" id="questionMap">
+		<result column="quesID" property="quesID"/> 
+		<result column="quesDesc" property="quesDesc"/> 
+		<result column="rightAnswerID" property="rightAnswerID"/> 
+		<result column="quesType" property="quesType"/> 
+		<collection property="answerList" ofType="answer">
+			<result column="ansID" property="ansID"/> 
+			<result column="ansDesc" property="ansDesc"/> 
+		</collection>
+	</resultMap>
+	
+	
+	<insert id="addRoomQuestion" parameterType="roomQuestion" >
+		insert into t_room_question(roomID,quesID,rightAnswer) values(#{roomID},#{quesID},#{rightAnswer})
+	</insert>
+	
+	<select id="selectQuestionByRoom" parameterType="long" resultMap="questionMap">
+		SELECT
+			a.quesID,
+			a.quesDesc,
+			a.rightAnswerID,
+			b.ansID,
+			b.ansDesc,
+			a.quesType
+		FROM
+			t_question a
+		, t_answer b
+		, t_room_question c
+		where a.quesID = b.quesID
+		AND b.quesID = c.quesID and c.roomID = #{roomID}
+	</select>
+	
+	<update id="updateQuestionByRoom" parameterType="roomQuestion">
+		update t_room_question
+		<set>
+			<if test="createAnswer != null and createAnswer != ''">
+				createAnswer = #{createAnswer},
+			</if>
+			<if test="answer != null and answer != ''">
+				answer = #{answer},
+			</if>
+		</set>
+		where roomID = #{roomID} and quesID = #{quesID}
+	</update>
+	
+	<select id="selectAnswerByRoomID" parameterType="long" resultType="roomQuestion">
+		SELECT
+			*
+		FROM
+			t_room_question
+		WHERE
+		 roomID = #{roomID}
+	</select>
+	
+</mapper>

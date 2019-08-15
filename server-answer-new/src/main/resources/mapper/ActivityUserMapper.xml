@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.ActivityUserMapper">
+    <insert id="insert" parameterType="ActivityUser">
+      insert into t_activity_user(openID,activityID,createTime,rightNum) values(#{openID},#{activityID},#{createTime},#{rightNum})
+    </insert>
+
+    <select id="read" parameterType="String" resultType="ActivityUser">
+      select * from t_activity_user where ID = #{id}
+    </select>
+
+
+    <select id="list" parameterType="ActivityUser" resultType="ActivityUser">
+        select * from t_activity_user
+        <where>
+            <if test="openID != null">
+                and openID = #{openID}
+            </if>
+            <if test="activityID != null">
+                and activityID = #{activityID}
+            </if>
+        </where>
+    </select>
+</mapper>

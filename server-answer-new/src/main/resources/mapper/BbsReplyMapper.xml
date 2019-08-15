@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.BbsReplyMapper">
+    <select id="selectPage" parameterType="bbsReply" resultType="bbsReply">
+        select * from t_bbs_reply
+        <where>
+            and delStatus = 1
+            <if test="bbsID != null">
+                and bbsID = #{bbsID}
+            </if>
+            <if test="creator != null">
+                and creator = #{creator}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" parameterType="bbsReply">
+      insert into t_bbs_reply(creator,content,delStatus,createTime,bbsID) values(#{creator},#{content},1,#{createTime},#{bbsID})
+    </insert>
+</mapper>

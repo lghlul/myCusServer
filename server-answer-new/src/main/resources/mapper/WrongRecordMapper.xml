@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.WrongRecordMapper">
+	<insert id="addRecord" parameterType="wrongRecord">
+		insert into t_wrong_record(questionID,openID,answerID,createTime,typeID,status)
+		 values(#{questionID},#{openID},#{answerID},#{createTime},#{typeID},1)
+	</insert>
+	
+	<update id="updateRecord" parameterType="wrongRecord">
+		update t_wrong_record
+		<set>
+			<if test="status != 0">
+				status = #{status}	
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="queryRecordById" parameterType="long" resultType="wrongRecord">
+		select id,openID,answerID,questionID from t_wrong_record where id = #{id}
+	</select>
+	
+	<select id="queryRecordPage" parameterType="map" resultType="wrongRecord">
+		select id,questionID,typeID,createTime from t_wrong_record where openID = #{openID} and status = 1 order by createTime desc limit #{start},#{pageSize}
+	</select>
+	<select id="queryRecordCount" parameterType="string" resultType="int">
+		select count(id) from t_wrong_record where openID = #{openID} and status = 1 
+	</select>
+	<select id="queryRecordCurrent" parameterType="map" resultType="int">
+		select count(id) from t_wrong_record where openID = #{openID} and status = 1 and id &gt;= #{id}
+	</select>
+	
+	<select id="queryRecordNextId" parameterType="map" resultType="Integer">
+		select id from t_wrong_record where openID = #{openID} and status = 1 and id &lt; #{id} order by id desc limit 0 ,1
+	</select>
+	
+</mapper>

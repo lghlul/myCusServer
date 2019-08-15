@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.UserMapper">
+	<select id="queryUserByOpenID" parameterType="string" resultType="user">
+		select * from t_user where openID = #{openID}
+	</select>
+
+	
+	<insert id="addUser" parameterType="user">
+		insert into t_user(openID,createTime) values(#{openID},#{createTime})
+	</insert>
+	
+	<update id="updateUser" parameterType="user">
+		update t_user  
+			<set>
+				<if test="score != null and score != 0">
+					score = score + #{score} ,
+				</if>
+				<if test="jobNum != null and jobNum != ''">
+					jobNum = #{jobNum}
+				</if>
+				<if test="userName != null and userName != ''">
+					userName = #{userName} ,
+				</if>
+				<if test="userImg != null and userImg != ''">
+					userImg = #{userImg}
+				</if>
+				<if test="usedScore != null and usedScore != ''">
+					usedScore = usedScore + #{usedScore}
+				</if>
+			</set>
+		where openID = #{openID}
+	</update>
+	
+	
+	
+	<select id="queryScore" parameterType="string" resultType="float">
+		select score from t_user where openID = #{openID}
+	</select>
+	
+	<select id="queryRank" parameterType="map" resultType="user">
+		SELECT
+			openID,
+			(score + usedScore) AS score,
+			usedScore,
+			b.realName as userName,
+			userImg
+		FROM
+			t_user a join t_jobnum b on a.jobNum = b.jobNum
+		ORDER BY
+			(score + usedScore) DESC ,createTime
+		LIMIT #{start}, #{pageSize}
+	</select>
+	
+	<select id="queryUserCount" resultType="int">
+		SELECT
+			count(userID)
+		FROM
+			t_user
+	</select>
+	
+	<select id="queryMyRank" parameterType="float" resultType="int">
+		SELECT
+			count(userID)
+		FROM
+			t_user
+		where (score + usedScore) &gt; #{score}
+	</select>
+
+	<select id="queryUserByScore" parameterType="float" resultType="user">
+		SELECT
+			*,
+			(score + usedScore) AS score
+
+		FROM
+			t_user where (score + usedScore) = #{score} ORDER BY createTime
+	</select>
+</mapper>

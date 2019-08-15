@@ -1,0 +1,40 @@
+server:
+  port: 8082
+  context-path: /server-answer-new
+spring:
+  datasource:
+    #url: jdbc:mysql://127.0.0.1:3306/wc_answer?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://47.100.229.122:3306/wc_answer?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+    prefix: classpath:/pages/
+    mode: LEGACYHTML5
+  redis:
+    #host: 127.0.0.1
+    host: 47.100.229.122
+    port: 7379
+    password: lgh_lul@163.com
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.answer.domain
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+wechat:
+  appID: wxd34778f9c3111dd9
+  appSecret: 99061a78ab67698d52f119db4d748dd2
+  grant_type: authorization_code
+
+
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.RoomMapper">
+	
+	
+	<insert id="addRoom" parameterType="room" keyProperty="roomID" useGeneratedKeys="true">
+		insert into t_room(createOpenID,typeID,createTime) values(#{createOpenID},#{typeID},#{createTime})
+	</insert>
+	<select id="queryRoomById" parameterType="long" resultType="room">
+		select * from t_room where roomID = #{roomID}
+	</select>
+	
+	<update id="updateRoom" parameterType="room">
+		update t_room 
+		<set>
+			<if test="openID != null and openID != ''">
+				openID = #{openID},
+			</if>
+			<if test="joinTime != null and joinTime != 0">
+				joinTime = #{joinTime},
+			</if>
+			<if test="status != null and status != 0">
+				status = #{status},
+			</if>
+		</set>
+		where roomID = #{roomID}
+	</update>
+	
+	<select id="queryRoomByStatus" parameterType="byte" resultType="room">
+		select * from t_room where status = #{status}
+	</select>
+	
+</mapper>

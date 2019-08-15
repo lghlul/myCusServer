@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.ActivityMapper">
+    <select id="selectPage" parameterType="trainConfig" resultType="activity">
+      select * from t_activity
+    </select>
+
+    <select id="selectByID" parameterType="String" resultType="activity">
+      select * from t_activity where activityID = #{activityID}
+    </select>
+</mapper>
