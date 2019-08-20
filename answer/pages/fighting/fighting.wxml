@@ -9,7 +9,7 @@
         </div>
         </view>
         <view class='fighting-userself-name'><open-data type="userNickName" lang="zh_CN"></open-data></view>
-        <view class='self-result-scros' wx:if='{{step==5}}'>{{myScroe}}</view>
+        <view class='self-result-scros' wx:if='{{step==5}}'>{{myScore}}</view>
       </view>
       <view class='fighting-info-box'>
         <view class='fighting-tip-title' wx:if='{{step==1}}'>邀请好友</view>
@@ -23,16 +23,16 @@
       <view class='fighting-userrival-box'>
         <view class='fighting-userrival-icon'><image src='{{rivalInfo.userImg}}'></image></view>
         <view class='fighting-userrival-name'>{{rivalInfo.userName}}</view>
-        <view class='rival-result-scros' wx:if='{{step==5}}'>{{rivalScroe}}</view>
+        <view class='rival-result-scros' wx:if='{{step==5}}'>{{rivalScore}}</view>
       </view>
     </view>
     <view class='award-container' wx:if='{{step==5}}'>
-      <view class='award-points' wx:if='{{myScroe < rivalScroe}}'><image src='../../images/pointsBigIcon.png'></image>-{{fightingScore}}</view>
-      <view class='award-points' wx:if='{{myScroe > rivalScroe}}'><image src='../../images/pointsBigIcon.png'></image>+{{fightingScore}}</view>
-      <view class='award-points' wx:if='{{myScroe == rivalScroe}}'><image src='../../images/pointsBigIcon.png'></image>+0</view>
+      <view class='award-points' wx:if='{{myScore < rivalScore}}'><image src='../../images/pointsBigIcon.png'></image>-{{fightingScore}}</view>
+      <view class='award-points' wx:if='{{myScore > rivalScore}}'><image src='../../images/pointsBigIcon.png'></image>+{{fightingScore}}</view>
+      <view class='award-points' wx:if='{{myScore == rivalScore}}'><image src='../../images/pointsBigIcon.png'></image>+0</view>
       <text class='award-classify'>初级管工</text>
     </view>
-      <button wx:if='{{step==1}}' type='' class='abandon-btn' style='color:#F5A623;' open-type="share" hover-class="abandon-btn-hover">邀请</button>
+      <button wx:if='{{step==1 && showShareBtn}}' type='' class='abandon-btn' style='color:#F5A623;' open-type="share" hover-class="abandon-btn-hover">邀请</button>
       <button wx:if='{{step==2}}' type='' class='abandon-btn' bindtap='abandon' hover-class="abandon-btn-hover">放弃</button>
       <button wx:if='{{step==5}}' type='' class='abandon-btn' style='margin-top:105rpx;' hover-class="abandon-btn-hover" bindtap='backIndex'>返回首页</button>
       <view wx:if='{{step==3}}' class='count-down-box'>
@@ -44,18 +44,18 @@
         <view class='fighting-qusetion-content'>{{roomQuestionData[nowQuestionIndex].quesType==2?'（多选）':''}}{{roomQuestionData[nowQuestionIndex].quesDesc}}</view>
         <view class='fighting-option-content'>
           <view class='self-scores-content'>
-            <text class='self-scores-text'>{{myScroe}}</text>
+            <text class='self-scores-text'>{{myScore}}</text>
             <view class='self-scores-box'>
-              <view class='self-scores' style='height:{{myScroe*10}}%'></view>
+              <view class='self-scores' style='height:{{myScore*10}}%'></view>
             </view>
           </view>
           <view class='fighting-option-box'>
             <view class="fighting-option {{item.choose}}" wx:for='{{roomQuestionData[nowQuestionIndex].answerList}}'  wx:key='item.ansID'><button disabled='{{isDisabled}}' class='fighting-button' id='{{item.ansID}}' data-index='{{index}}' bindtap="chooseAnswer">{{item.ansDesc}}</button></view>
           </view>
           <view class='self-scores-content'>
-            <text class='self-scores-text'>{{rivalScroe}}</text>
+            <text class='self-scores-text'>{{rivalScore}}</text>
             <view class='self-scores-box'>
-              <view class='self-scores' style='height:{{rivalScroe*10}}%'></view>
+              <view class='self-scores' style='height:{{rivalScore*10}}%'></view>
             </view>
           </view>
         </view>

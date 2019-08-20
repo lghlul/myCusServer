@@ -3,8 +3,8 @@
  */
 
 // var host = "https://www.lghll.com/server-answer"
-// var host = "https://www.zgshnj.com/test/server-answer"
-var host = "https://www.zgshnj.com/server-answer"
+var host = "https://www.zgshnj.com/server-answer-new"
+//var host = "https://www.zgshnj.com/server-answer"
 var SinopecSession = wx.getStorageSync('SinopecSession') || '';
 var config = {
   SinopecSession,
@@ -123,7 +123,7 @@ var config = {
   myBbs: `${host}/bbs/listMy`,
   
   //好友对战积分
-  fscroe: `${host}/config/readBattleConfig`,
+  fScore: `${host}/config/readBattleConfig`,
   //菜单配置
   menuConfig: `${host}/config/readModuleConfig`,
   

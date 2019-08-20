@@ -20,8 +20,8 @@ Page({
     roomQuestionData:null,
     nowQuestionIndex:0,
     answerList: [],
-    myScroe:0,
-    rivalScroe:0,
+    myScore:0,
+    rivalScore:0,
     fightResult:'',
     hasUserInfo: true,
     showPage: true,
@@ -30,24 +30,23 @@ Page({
     isDisabled: false,
     resultIcon:'',
     resultTitle:'',
-    acceptData:null
+    acceptData:null,
+    showShareBtn:false
   },
   onLoad: function (options) {
-    var that = this;
+    let that = this;
     let SinopecSession = wx.getStorageSync('SinopecSession');
     wx.request({
-      url: url.fscroe,
+      url: url.fScore,
       data: {
         wxSession: SinopecSession
       },
       method: "GET",
       success: function (result) {
-        // console.log(result.data)
         if (result.data.resultCode == 0) {
           that.setData({
             fightingScore: result.data.resultData.score
           })
-          console.log(result.data.resultData.score)
         }
       }
     });
@@ -57,18 +56,11 @@ Page({
     });
     if (that.data.createRoomID == '' && that.data.acceptRoomID == ''){
       that.createRoom();
-      that.getData();
-      // console.log('showfighting3333333333333333333')
       wx.showShareMenu({
         withShareTicket: true,
         success: function (res) {
-          // 分享成功
-          // console.log('shareMenu share success')
-          // console.log('分享' + res)
         },
         fail: function (res) {
-          // 分享失败
-          // console.log(res)
         }
       })
     }
@@ -83,10 +75,7 @@ Page({
           showPage: app.globalData.isAuth
         })
         if (that.data.hasUserInfo) {
-          console.log('showfighting1111111111111111111')
-          // that.getData();
           that.checkJobNum();
-          // that.acceptFighting();
 
         }
       } else {
@@ -96,24 +85,16 @@ Page({
             hasUserInfo: app.globalData.isAuth,
             showPage: app.globalData.isAuth
           })
-          console.log('hasUserInfo',that.data.hasUserInfo)
           if (that.data.hasUserInfo) {
-            console.log('showfighting22222222222')
-            // that.getData();
             that.checkJobNum();
-            // that.acceptFighting();
           }
         }
       }
     }
-    //that.beforeFighting();
-    //that.getQuestion();
   },
   onHide:function(){
   },
   getUserInfo: function (e) {
-    // console.log('userInfo',e.detail.userInfo);
-    let that = this;
     app.getServiceUserInfo('');
   },
   onUnload:function(){
@@ -133,11 +114,12 @@ Page({
       },
       method: "POST",
       success: function (result) {
-        // console.log('createRoom',result.data)
         if (result.data.resultCode == 0) {
             that.setData({
-              createRoomID: result.data.resultData.roomID
+              createRoomID: result.data.resultData.roomID,
+              showShareBtn: true
             })
+          that.getData();
         } else if (result.data.resultCode == 9996) {
           wx.showToast({
             title: '积分不足，练习模式赢取积分',
@@ -148,13 +130,10 @@ Page({
                 wx.reLaunch({
                   url: '../index/index',
                   success: function (res) {
-                    // console.log(res)// success
                   },
                   fail: function () {
-                    // console.log('跳转到news页面失败') // fail
                   },
                   complete: function () {
-                    // console.log('跳转到news页面完成') // complete
                   }
                 })
               }, 3000)
@@ -173,23 +152,18 @@ Page({
                 wx.navigateTo({
                   url: '../index/index',
                   success: function (res) {
-                    // console.log(res)// success
                   },
                   fail: function () {
-                    // console.log('跳转到news页面失败') // fail
                   },
                   complete: function () {
-                    // console.log('跳转到news页面完成') // complete
                   }
                 })
               }, 3000)
             }
           })
         }
-        // console.log('getuser', that.globalData.userInfo)
       },
       fail: function ({ errMsg }) {
-        // console.log('request fail', errMsg)
       }
     });
   },
@@ -206,18 +180,21 @@ Page({
   },
   //链接websocket，接收数据
   getData:function(){
+    console.log('链接websocket');
     let that =this;
     let SinopecSession = wx.getStorageSync('SinopecSession');
-    console.log('建立连接', SinopecSession)
+    console.log('建立连接', SinopecSession);
+    wx.closeSocket();
     //建立连接
     wx.connectSocket({
-      //url: "wss://www.zgshnj.com/server-answer/websocket/socketServer?wxSession=" + SinopecSession,
-      url: "wss://www.zgshnj.com/server-answer/websocket/socketServer2/{" + SinopecSession + "}",
+      //url: "wss://www.zgshnj.com/server-answer-new/websocket/socketServer2/{" + SinopecSession + "}",
+      //url: "wss://www.zgshnj.com/server-answer/websocket/socketServer2/{" + SinopecSession + "}",
+      url: "wss://www.zgshnj.com/server-answer-new/websocket/socketServer?wxSession=" + SinopecSession ,
       success: function (res) {
         console.log('成功了', res);
       },
       fail: function () {
-        console.lonng('失败了');
+        console.log('失败了');
       }
     })
   
@@ -230,11 +207,6 @@ Page({
             that.setData({
               acceptData: result.resultData
             })
-            console.log('1', result)
-            // if (that.data.isDisabled){
-            //   that.handleAnswer(that.data.acceptData)
-            // }
-
           } else if (result.resultData.msgType == 1){
             that.setData({
               rivalInfo: result.resultData,
@@ -255,13 +227,10 @@ Page({
                 wx.reLaunch({
                   url: '../index/index',
                   success: function (res) {
-                    // console.log('success'+res)// success
                   },
                   fail: function () {
-                    // console.log('跳转到news页面失败') // fail
                   },
                   complete: function () {
-                    // console.log('跳转到news页面完成') // complete
                   }
                 })
               }, 3000)
@@ -280,13 +249,10 @@ Page({
                 wx.reLaunch({
                   url: '../index/index',
                   success: function (res) {
-                    // console.log(res)// success
                   },
                   fail: function () {
-                    // console.log('跳转到news页面失败') // fail
                   },
                   complete: function () {
-                    // console.log('跳转到news页面完成') // complete
                   }
                 })
               }, 3000)
@@ -297,7 +263,6 @@ Page({
 
     //连接失败
     wx.onSocketError(function () {
-      // console.log('websocket连接失败！');
     })
   },
   //检查是否绑定了工号
@@ -310,7 +275,6 @@ Page({
         wxSession: SinopecSession
       },
       success: function (result) {
-        // console.log('checkJobNum',result)
         if (result.data.resultCode == 0) {
           that.setData({
             hasJobNum: true
@@ -330,7 +294,6 @@ Page({
   },
   //工号获取焦点
   onFocus: function (e) {
-    //console.log(e)
     this.setData({
       keyHeight: e.detail.height
     })
@@ -403,9 +366,7 @@ Page({
   },
   //邀请答题
   onShareAppMessage: function () {
-    console.log('onShareAppMessage');
-    
-    var that = this;
+    let that = this;
     that.setData({
       step: 2
     });
@@ -424,15 +385,6 @@ Page({
         if(that.data.step==2){
           that.countDownInviteTap();
         }
-        // console.log
-        // wx.getShareInfo({
-        //   shareTicket: res.shareTickets[0],
-        //   success: function (res) { 
-        //     console.log('success',res)
-        //    },
-        //   fail: function (res) { console.log(res) },
-        //   complete: function (res) { console.log('complete',res)}
-        // })
       },
       fail: function (res) {
         // 分享失败
@@ -442,19 +394,19 @@ Page({
   },
   //邀请倒计时
   countDownInviteTap: function () {
-    var that = this;
-    var totalSecond = 299
-    var interval = setInterval(function () {
+    let that = this;
+    let totalSecond = 299
+    let interval = setInterval(function () {
       // 秒数  
-      var second = totalSecond;
+      let second = totalSecond;
       // 分钟位  
-      var min = Math.floor((second) / 60);
-      var minStr = min.toString();
+      let min = Math.floor((second) / 60);
+      let minStr = min.toString();
       if (minStr.length == 1) minStr = '0' + minStr;
 
       // 秒位  
-      var sec = second - min * 60;
-      var secStr = sec.toString();
+      let sec = second - min * 60;
+      let secStr = sec.toString();
       if (secStr.length == 1) secStr = '0' + secStr;
       that.setData({
         countDownMinute: minStr,
@@ -497,9 +449,9 @@ Page({
   beforeFighting:function(){
     let that = this;
     clearInterval(that.data.countDown);
-    var interval = setInterval(function () {
+    let interval = setInterval(function () {
       // 秒数  
-      var second = that.data.countDownStart;
+      let second = that.data.countDownStart;
       second--;
       that.setData({
         countDownStart: second
@@ -528,7 +480,6 @@ Page({
         roomID: that.data.createRoomID != '' ? that.data.createRoomID : that.data.acceptRoomID
       },
       success: function (result) {
-        console.log('getQuestion',result.data)
         if (result.data.resultCode == 0) {
           result.data.resultData.forEach(function (questionItem, questionIndex){
             questionItem.answerList.forEach(function (item, index) {
@@ -539,12 +490,10 @@ Page({
             roomQuestionData: result.data.resultData
           })
           that.answerCount();
-          console.log(that.data.questionData)
         } else if (result.data.resultCode == 10000) {
           wx.clearStorage();
           app.getUserInfo(that.getQuestion(''));
         }
-        console.log('getuser', that.globalData.userInfo)
       },
       fail: function ({ errMsg }) {
         // console.log('request fail', errMsg)
@@ -555,9 +504,9 @@ Page({
   answerCount:function(){
     let that = this;
     clearInterval(that.data.countDown);
-    var interval = setInterval(function () {
+    let interval = setInterval(function () {
       // 秒数  
-      var second = that.data.answerTime;
+      let second = that.data.answerTime;
       second--;
       that.setData({
         answerTime: second
@@ -581,10 +530,7 @@ Page({
   },
   //选择答案
   chooseAnswer: function (e) {
-    //console.log(e)
     let that = this;
-    // clearInterval(that.data.countDown);
-    let SinopecSession = wx.getStorageSync('SinopecSession');
     let index = e.currentTarget.dataset.index;
     let id = e.target.id;
     let answers = that.data.answerList;
@@ -608,30 +554,9 @@ Page({
     that.setData({
       answerList: answers
     })
-    // console.log('chooseAnswer',that.data.answerList)
     if (that.data.roomQuestionData[that.data.nowQuestionIndex].quesType !=2) {
       that.putAnswer();
     }
-
-
-
-
-
-    // that.setData({
-    //   isDisabled: true
-    // })
-    // let choose = "roomQuestionData[" + that.data.nowQuestionIndex+"].answerList[" + index + "].choose";
-    // if (that.data.roomQuestionData[that.data.nowQuestionIndex].rightAnswerID == id) {
-    //   that.setData({
-    //     [choose]: 'correct',
-    //     myScroe: that.data.myScroe+1
-    //   })
-    // } else {
-    //   that.setData({
-    //     [choose]: 'wrong'
-    //   })
-    // }
-    // that.sendAnswer(id);
   },
 
 
@@ -646,8 +571,8 @@ Page({
         let answerIndex = that.data.roomQuestionData[that.data.nowQuestionIndex].answerList.findIndex(ele => ele.ansID == chooseItem);
         if (answerIndex > -1) {
           let choose = "roomQuestionData["+that.data.nowQuestionIndex+"].answerList[" + answerIndex + "].choose";
-          let chooseaRightIndex = that.data.roomQuestionData[that.data.nowQuestionIndex].rightAnswerID.split(',').findIndex(ele => ele == chooseItem);
-          if (chooseaRightIndex > -1) {
+          let chooseRightIndex = that.data.roomQuestionData[that.data.nowQuestionIndex].rightAnswerID.split(',').findIndex(ele => ele == chooseItem);
+          if (chooseRightIndex > -1) {
             that.setData({
               [choose]: 'correct',
             })
@@ -664,7 +589,7 @@ Page({
     }
     if (isCor){
       that.setData({
-        myScroe: that.data.myScroe+1,
+        myScore: that.data.myScore+1,
       })
     }
     //显示正确答案
@@ -686,7 +611,6 @@ Page({
   sendAnswer:function(id){
     let that = this;
     let roomId = that.data.createRoomID != '' ? that.data.createRoomID : that.data.acceptRoomID;
-    // console.log('{ "roomID": ' + roomId + ', "msgType": 2,"questionID":' + that.data.roomQuestionData[that.data.nowQuestionIndex].quesID + ',"answerID":"' + id + '"}')
     //连接成功
       wx.sendSocketMessage({
         data: '{ "roomID": ' + roomId + ', "msgType": 2,"questionID":' + that.data.roomQuestionData[that.data.nowQuestionIndex].quesID + ',"answerID":"' + id + '"}'
@@ -695,7 +619,6 @@ Page({
         that.handleAnswer(that.data.acceptData);
       } else {
         let answerTime = setInterval(function(){
-          // console.log('setInterval', that.data.acceptData)
           if (that.data.acceptData) {
             clearInterval(answerTime)
             that.handleAnswer(that.data.acceptData)
@@ -704,43 +627,11 @@ Page({
       }
   },
   handleAnswer:function(data){
-    // console.log('handleAnswer',data)
     let that = this;
-    //let isRival = true;
-    // data.answerID.split(',').forEach(function(chooseItem,chooseIndex){
-    //   let answerIndex = that.data.roomQuestionData[that.data.nowQuestionIndex].answerList.findIndex(ele => ele.ansID == chooseItem);
-    //   console.log('answerIndex', answerIndex)
-    //   if (answerIndex > -1) {
-    //     let answerChoose = "roomQuestionData[" + that.data.nowQuestionIndex + "].answerList[" + answerIndex + "].choose";
-    //     if (data.isRight == 1) {
-    //       that.setData({
-    //         [answerChoose]: 'correct',
-    //       })
-    //     } else {
-    //       that.setData({
-    //         [answerChoose]: 'wrong',
-    //       })
-    //       isRival = false;
-    //     }
-    //   }else{
-    //     isRival = false;
-    //   }
-    //   //  else {
-    //   //   that.data.roomQuestionData[that.data.nowQuestionIndex].rightAnswerID.split(',').forEach(function (rightItem, rightIndex) {
-    //   //     let correctIndex = that.data.roomQuestionData[that.data.nowQuestionIndex].answerList.findIndex(ele => ele.ansID == rightItem);
-    //   //     if (correctIndex > -1) {
-    //   //       let correctChoose = "roomQuestionData[" + that.data.nowQuestionIndex + "].answerList[" + correctIndex + "].choose";
-    //   //       that.setData({
-    //   //         [correctChoose]: 'correct'
-    //   //       })
-    //   //     }
-    //   //   })
-    //   // }
-    // })
 
     if (data.isRight == 1){
       that.setData({
-        rivalScroe: that.data.rivalScroe + 1
+        rivalScore: that.data.rivalScore + 1
       })
     }
     that.data.roomQuestionData[that.data.nowQuestionIndex].rightAnswerID.split(',').forEach(function (rightItem, rightIndex) {
@@ -770,12 +661,12 @@ Page({
         that.setData({
           step: 5
         })
-        if (that.data.myScroe < that.data.rivalScroe) {
+        if (that.data.myScore < that.data.rivalScore) {
           that.setData({
             resultIcon: '../../images/defeat.png',
             resultTitle: '挑战失败'
           })
-        } else if (that.data.myScroe > that.data.rivalScroe) {
+        } else if (that.data.myScore > that.data.rivalScore) {
           that.setData({
             resultIcon: '../../images/victory.png',
             resultTitle: '胜利'
@@ -791,17 +682,13 @@ Page({
   },
   //返回首页
   backIndex:function(){
-    var that = this;
     wx.reLaunch({
       url: '../index/index',
       success: function (res) {
-        // console.log(res)// success
       },
       fail: function () {
-        // console.log('跳转到news页面失败') // fail
       },
       complete: function () {
-        // console.log('跳转到news页面完成') // complete
       }
     })
   }
