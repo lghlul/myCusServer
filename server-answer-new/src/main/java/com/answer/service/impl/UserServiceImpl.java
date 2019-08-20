@@ -188,6 +188,11 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public Result getUserInfo(String wxSession) {
 		WXSessionCache session = this.cacheHelper.getSession(wxSession);
+		Result result = new Result();
+		if(session == null || session.getOpenID() == null){
+			result.setResultCode(Constant.returnCode.SESSOIN_TIMEOUT);
+			return result;
+		}
 		User user = this.userMapper.queryUserByOpenID(session.getOpenID());
 		user.setUserID(0);
 		user.setOpenID(null);
@@ -197,7 +202,7 @@ public class UserServiceImpl implements IUserService {
 		if(user.getUserName() == null){
 			user.setUserName("");
 		}
-		Result result = new Result();
+
 		result.setResultData(user);
 		return result;
 	}

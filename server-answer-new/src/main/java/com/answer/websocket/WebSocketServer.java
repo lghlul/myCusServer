@@ -23,7 +23,6 @@ import com.answer.mapper.RoomMapper;
 import com.answer.mapper.RoomQuestionMapper;
 import com.answer.mapper.UserMapper;
 import com.answer.utils.Constant;
-import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,8 +35,8 @@ import com.alibaba.fastjson.JSON;
  * @Date:Create：2019/8/14 11:13
  * @Modified By：
  */
-@Component
-@ServerEndpoint(value="/websocket/socketServer/{wxSession}")
+//@Component
+//@ServerEndpoint(value="/websocket/socketServer2/{wxSession}")
 public class WebSocketServer {
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
     // 当前session
@@ -46,7 +45,7 @@ public class WebSocketServer {
     private WXSessionCache wxSessionCache;
 
     //已建立连接的用户
-    private static final ConcurrentMap<String, WebSocketServer> userMap = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, Session> userMap = new ConcurrentHashMap<>();
 
     private static CacheHelper cacheHelper;
 
@@ -81,7 +80,7 @@ public class WebSocketServer {
         this.currentSession = session;
         WXSessionCache wxSessionCache = this.cacheHelper.getSession(wxSession);
         this.wxSessionCache = wxSessionCache;
-        userMap.put(wxSessionCache.getOpenID(), this);//建立链接时，缓存对象
+        userMap.put(wxSessionCache.getOpenID(), this.currentSession);//建立链接时，缓存对象
     }
     @OnClose
     public void onClose(Session session, CloseReason reason) {
@@ -129,8 +128,8 @@ public class WebSocketServer {
                 Integer type = jsonObj.getInteger("msgType");
                 Long roomID = jsonObj.getLong("roomID");
                 Room room = this.roomMapper.queryRoomById(roomID);
-                WebSocketServer otherSocketSession = null;
-                logger.info("handleTextMessage...userMap=" + JSON.toJSONString(userMap));
+                Session otherSocketSession = null;
+                logger.info("WebSocketServer...userMap=" + JSON.toJSONString(userMap));
                 //是否是房间发起人
                 boolean isCreater = true;
                 //得到另外一个人的webSocketSession
@@ -153,20 +152,20 @@ public class WebSocketServer {
                             r.setOpenID(wxSessionCache.getOpenID());
                             r.setJoinTime(System.currentTimeMillis());
                             this.roomMapper.updateRoom(r);
-                            Map<String,Object> userMap = new HashMap<>();
-                            User creater = userMapper.queryUserByOpenID(room.getCreateOpenID());
-                            userMap.put("userImg", creater.getUserImg());
-                            userMap.put("userName", creater.getUserName());
-                            userMap.put("msgType",type);
-                            result.setResultData(userMap);
-                            logger.info("socketSession...result=" + JSON.toJSONString(result));
+                            Map<String,Object> userInfoMap = new HashMap<>();
+                            User creator = userMapper.queryUserByOpenID(room.getCreateOpenID());
+                            userInfoMap.put("userImg", creator.getUserImg());
+                            userInfoMap.put("userName", creator.getUserName());
+                            userInfoMap.put("msgType",type);
+                            result.setResultData(userInfoMap);
+                            logger.info("WebSocketServer socketSession...result=" + JSON.toJSONString(result));
                             this.currentSession.getBasicRemote().sendText(JSON.toJSONString(result));
-                            userMap.put("userImg", user.getUserImg());
-                            userMap.put("userName", user.getUserName());
-                            userMap.put("msgType",type);
-                            result.setResultData(userMap);
+                            userInfoMap.put("userImg", user.getUserImg());
+                            userInfoMap.put("userName", user.getUserName());
+                            userInfoMap.put("msgType",type);
+                            result.setResultData(userInfoMap);
                             logger.info("WebSocketServer otherSocketSession...result=" + JSON.toJSONString(result));
-                            otherSocketSession.currentSession.getBasicRemote().sendText(JSON.toJSONString(result));
+                            otherSocketSession.getBasicRemote().sendText(JSON.toJSONString(result));
                             break;
                         case 2:
                             //告诉对方是否回答正确
@@ -194,7 +193,7 @@ public class WebSocketServer {
                             }
                             this.roomQuestionMapper.updateQuestionByRoom(roomQuestion);
                             logger.info("WebSocketServer otherSocketSession...result=" + JSON.toJSONString(result));
-                            otherSocketSession.currentSession.getBasicRemote().sendText(JSON.toJSONString(result));
+                            otherSocketSession.getBasicRemote().sendText(JSON.toJSONString(result));
                             result.setResultData(null);
                             //socketSession.sendMessage(new TextMessage(JSON.toJSONString(result)));
                         default:

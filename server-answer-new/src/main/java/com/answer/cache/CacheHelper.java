@@ -9,6 +9,8 @@ import com.answer.mapper.ConfigMapper;
 import com.answer.mapper.JobNumMapper;
 import com.answer.mapper.OrganizationMapper;
 import com.answer.mapper.UserMapper;
+import com.answer.websocket.WebSocketServer;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -18,10 +20,15 @@ import com.alibaba.fastjson.JSON;
 
 @Component
 public class CacheHelper {
+
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CacheHelper.class);
+
 	@Resource(name = "redisTemplate")
 	private ValueOperations<String, String> redisCacheValue;
+
 	@Resource(name = "redisTemplate")
 	public RedisTemplate<String, String> template;
+
 
 	@Autowired
 	private ConfigMapper configMapper;
@@ -49,6 +56,7 @@ public class CacheHelper {
 		if (str != null) {
 			session = JSON.parseObject(str, WXSessionCache.class);
 		}
+        logger.info("getSession wxSession=" + wxSession + ",session=" + JSON.toJSONString(session));
 		return session;
 	}
 	
@@ -131,5 +139,20 @@ public class CacheHelper {
 			config = JSON.parseObject(configStr , Config.class);
 		}
 		return config;
+	}
+
+
+	/************************对战答题************************/
+	public void set(String key , String value){
+		redisCacheValue.set(key , value);
+
+	}
+
+	public String get(String key){
+		return redisCacheValue.get(key);
+	}
+
+	public void expire(String key , long timeout, TimeUnit unit){
+		template.expire(key , timeout , unit);
 	}
 }
