@@ -34,7 +34,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		roomQuestionMapper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(RoomQuestionMapper.class);
 		userMapper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(UserMapper.class);
 		cacheHelper = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext()).getBean(CacheHelper.class);
-		this.task();
+		//this.task();
 
 	}
 

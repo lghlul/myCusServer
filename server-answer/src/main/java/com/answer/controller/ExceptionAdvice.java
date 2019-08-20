@@ -16,6 +16,7 @@ public class ExceptionAdvice {
 	@ResponseBody
 	public String handExcetion(HttpServletRequest request, Exception e) {
 		Log4jUtil.info("handExcetion start...e=" + e.getMessage());
+		Log4jUtil.info("handExcetion start...e=" + e.getStackTrace());
 		Result result = new Result();
 		e.printStackTrace();
 		result.setResultCode(Constant.returnCode.SERVER_EXCEPTION);

@@ -43,8 +43,8 @@ import com.answer.utils.Log4jUtil;
 public class WebSocketHandler extends TextWebSocketHandler{
 	  
     //已建立连接的用户  
-    private static final Map<String,WebSocketSession> userMap = new HashMap<>();  
-    
+    private static final Map<String,WebSocketSession> userMap = new HashMap<>();
+
     @Autowired
 	private CacheHelper cacheHelper;
     
@@ -93,6 +93,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		    	Long roomID = jsonObj.getLong("roomID");
 		    	Room room = this.roomMapper.queryRoomById(roomID);
 		    	WebSocketSession otherSocketSession = null;
+				Log4jUtil.info("handleTextMessage...userMap=" + JSON.toJSONString(userMap));
 		    	//是否是房间发起人
 		    	boolean isCreater = true;
 		    	//得到另外一个人的webSocketSession
@@ -177,9 +178,11 @@ public class WebSocketHandler extends TextWebSocketHandler{
      * @throws Exception 
      */  
     @Override  
-    public void afterConnectionEstablished(WebSocketSession socketSession) throws Exception { 
+    public void afterConnectionEstablished(WebSocketSession socketSession){
     	WXSessionCache session = this.cacheHelper.getSession(socketSession.getAttributes().get("WEBSOCKET_SESSION_ID").toString());
-    	userMap.put(session.getOpenID(), socketSession);
+    	Log4jUtil.info("afterConnectionEstablished...session=" + JSON.toJSONString(session));
+		userMap.put(session.getOpenID(), socketSession);
+		Log4jUtil.info("afterConnectionEstablished...userMap=" + JSON.toJSONString(userMap));
     }  
   
     /** 
@@ -190,9 +193,11 @@ public class WebSocketHandler extends TextWebSocketHandler{
      * @throws Exception 
      */  
     @Override  
-    public void afterConnectionClosed(WebSocketSession socketSession, CloseStatus status) throws Exception {  
+    public void afterConnectionClosed(WebSocketSession socketSession, CloseStatus status){
     	WXSessionCache session = this.cacheHelper.getSession(socketSession.getAttributes().get("WEBSOCKET_SESSION_ID").toString());
+		Log4jUtil.info("afterConnectionClosed...session=" + JSON.toJSONString(session));
     	userMap.remove(session.getOpenID());
+		Log4jUtil.info("afterConnectionClosed...userMap=" + JSON.toJSONString(userMap));
     }  
   
     /** 
@@ -208,7 +213,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
         	socketSession.close();  
         }  
         WXSessionCache session = this.cacheHelper.getSession(socketSession.getAttributes().get("WEBSOCKET_SESSION_ID").toString());
-    	userMap.remove(session.getOpenID());
+		Log4jUtil.info("handleTransportError...session=" + JSON.toJSONString(session));
+        userMap.remove(session.getOpenID());
+		Log4jUtil.info("handleTransportError...userMap=" + JSON.toJSONString(userMap));
     }  
   
     /** 

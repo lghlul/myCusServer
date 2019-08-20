@@ -40,7 +40,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 		if("readModuleConfig".equals(arr[arr.length-1])){
 			return true;
 		}
-		Log4jUtil.info("preHandle...wx_session=" + wx_session);
+		Log4jUtil.info("preHandle...wx_session=" + wx_session + ",url=" + url);
 		WXSessionCache session = this.cacheHelper.getSession(wx_session);
 		Log4jUtil.info("preHandle...session=" + JSON.toJSONString(session));
 		Result res = new Result();
