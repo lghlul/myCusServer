@@ -117,7 +117,7 @@ public class QuestionServiceImpl implements IQuestionService {
 			this.userAnswerMapper.addUserAnswer(userAnswer);
 			//统计得分
 			//获取练习模式配置
-			Config config = cacheHelper.getConfig(Constant.ConfigKey.PRACTISE_CONFIG);
+			Config config = cacheHelper.getConfig(Constant.ConfigKey.PRACTICE_CONFIG);
 			PractiseConfig practiseConfig = JSON.parseObject(config.getConfigValue() , PractiseConfig.class);
 			logger.info("userAnswer...practiseConfig=" + JSON.toJSONString(practiseConfig));
 			int rightCount = this.userAnswerMapper.queryAnswerRightCount(session.getOpenID());

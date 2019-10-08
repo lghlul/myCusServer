@@ -13,20 +13,20 @@
 	<update id="updateUser" parameterType="user">
 		update t_user  
 			<set>
-				<if test="score != null and score != 0">
+				<if test="score != null">
 					score = score + #{score} ,
 				</if>
 				<if test="jobNum != null and jobNum != ''">
-					jobNum = #{jobNum}
+					jobNum = #{jobNum} ,
 				</if>
 				<if test="userName != null and userName != ''">
 					userName = #{userName} ,
 				</if>
 				<if test="userImg != null and userImg != ''">
-					userImg = #{userImg}
+					userImg = #{userImg} ,
 				</if>
 				<if test="usedScore != null and usedScore != ''">
-					usedScore = usedScore + #{usedScore}
+					usedScore = usedScore + #{usedScore} ,
 				</if>
 			</set>
 		where openID = #{openID}

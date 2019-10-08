@@ -48,7 +48,7 @@
 
     <select id="queryTrainQues" parameterType="map" resultMap="questionMap">
         SELECT
-        a.quesID,a.quesDesc,b.ansID,b.ansDesc
+        a.quesID,a.quesDesc,b.ansID,b.ansDesc,a.quesType
         FROM
         (
         SELECT

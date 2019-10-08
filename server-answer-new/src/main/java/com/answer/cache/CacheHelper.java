@@ -22,11 +22,10 @@ import com.alibaba.fastjson.JSON;
 public class CacheHelper {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CacheHelper.class);
-
-	@Resource(name = "redisTemplate")
+	@Autowired
 	private ValueOperations<String, String> redisCacheValue;
 
-	@Resource(name = "redisTemplate")
+	@Autowired
 	public RedisTemplate<String, String> template;
 
 
