@@ -43,17 +43,10 @@ public abstract class CommonConstant {
 	}
 
 	public interface ConfigKey{
-		String TRAIN_CONFIG = "考试配置";
-
-
-		String PRACTISE_CONFIG = "练习配置";
-
-
-		String SIGN_CONFIG = "签到配置";
-
-		String BATTLE_CONFIG = "对战配置";
-
-
-		String GOODS_CONFIG = "奖品配置";
+		String TRAIN_CONFIG = "TRAIN_CONFIG";
+		String PRACTICE_CONFIG = "PRACTICE_CONFIG";
+		String SIGN_CONFIG = "SIGN_CONFIG";
+		String BATTLE_CONFIG = "BATTLE_CONFIG";
+		String GOODS_CONFIG = "GOODS_CONFIG";
 	}
 }

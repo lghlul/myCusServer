@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface ITUserAnswerService extends IBaseService<TUserAnswer>{
-    public List<OrgCount> indexOrgCount(Long startTime , Long endTime);
+    List<OrgCount> indexOrgCount(Long startTime , Long endTime);
 
-    public Map<String , Object> getAnswerDetailPage(AnswerDetailParam answerDetailParam);
+    Map<String , Object> getAnswerDetailPage(AnswerDetailParam answerDetailParam);
+
+    int deleteByOpenIdAndTypeId(String openID , Long typeID);
 }

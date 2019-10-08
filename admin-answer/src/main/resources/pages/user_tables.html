@@ -37,12 +37,6 @@
             </select>
             <input type="text" id="jobNum" placeholder="工号" class="form-control">
             <input type="text" id="realName" placeholder="员工姓名" class="form-control">
-        </div>
-    </div>
-    <label></label>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">日期：</label>
-        <div class="col-sm-10">
             <input placeholder="开始日期" class="form-control layer-date" id="start">
             <input placeholder="结束日期" class="form-control layer-date" id="end">
             <button class="btn btn-info " id="search" type="button"><i class="fa fa-search"></i> 搜索</button>
@@ -82,6 +76,21 @@
     </div>
 </div>
 
+<div id="initAnswerContent" style="padding:20px;display: none;">
+    <div class="form-group">
+        <span style="color: #FF0000;">注:初始化后会清空该用户在当前类型下的所有的答题记录以及错题,并且之前的答题记录不计入考核,请谨慎操作!</span>
+    </div>
+    <div class="form-group">
+        <select id="pTypeID" class="form-control">
+            <option value="">请选择</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <select id="typeID" class="form-control">
+            <option value="">请选择</option>
+        </select>
+    </div>
+</div>
 <!-- 全局js -->
 <script src="/static/pages/hAdmin/js/jquery.min.js?v=2.1.4"></script>
 <script src="/static/pages/hAdmin/js/bootstrap.min.js?v=3.3.6"></script>
@@ -106,6 +115,14 @@
 <script src="/static/pages/hAdmin/js/demo/timeutil.js"></script>
 
 <script>
+
+    $.get("/type/listByPid", {"pid": 0}, function (res) {
+        $.each(res.data, function (index, obj) {
+            $("#pTypeID").append('<option value=" ' + obj.typeID + '">' + obj.typeName + '</option>');
+        })
+    }, "json");
+
+
     $(document).ready(function () {
         $.get("/user/orgList", function (res) {
             $.each(res.data, function (index, obj) {
@@ -113,7 +130,7 @@
             })
         }, "json");
 
-        var table = $('.dataTables-example').dataTable({
+        let table = $('.dataTables-example').dataTable({
             stripeClasses: ["odd", "even"],  //为奇偶行加上样式，兼容不支持CSS伪类的场合
             serverSide: true,  //启用服务器端分
             searching: false,  //禁用原生搜索   
@@ -122,19 +139,19 @@
 
                 console.log(data);
                 //封装请求参数
-                var param = {};
+                let param = {};
 
                 param.limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
                 param.offset = (data.start / data.length) + 1;//当前页码
-                var stime = $("#start").val();
-                var etime = $("#end").val();
+                let stime = $("#start").val();
+                let etime = $("#end").val();
                 if (stime && etime) {
                     param.startTime = $.myTime.DateToUnix(stime);
                     param.endTime = $.myTime.DateToUnix(etime);
                 }
-                var orgId = $("#orgId").val().trim();
-                var jobNum = $("#jobNum").val().trim();
-                var realName = $("#realName").val().trim();
+                let orgId = $("#orgId").val().trim();
+                let jobNum = $("#jobNum").val().trim();
+                let realName = $("#realName").val().trim();
                 if (orgId)
                     param.orgID = orgId;
                 if (jobNum)
@@ -153,12 +170,11 @@
                         //console.log(result);
                         //setTimeout仅为测试延迟效果
                         //封装返回数据
-                        var returnData = {};
+                        let returnData = {};
                         returnData.draw = data.draw;//这里直接自行返回了draw计数器,应该由后台返回
                         returnData.recordsTotal = result.data.totalCount;//返回数据全部记录
                         returnData.recordsFiltered = result.data.totalCount;//后台不实现过滤功能，每次查询均视作全部结果
                         returnData.data = result.data.list;//返回的数据列表
-                        console.log(returnData);
                         //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
                         //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 
@@ -182,10 +198,11 @@
                 render: function (data, type, row, meta) {
                     return data + row.usedScore;
                 }
-            },{
+            }, {
                 targets: 8,
                 render: function (data, type, row, meta) {
-                    return '<a type="button"  href="#" openID="' + row.openID + '" class="button-info" >详情</a>';
+                    return '<a type="button"  href="#" openID="' + row.openID + '" class="button-info" >详情</a>&nbsp;' +
+                        '<a type="button"  href="#" openID="' + row.openID + '" class="button-init-answer" >初始化答题</a>';
                 }
             }]
 
@@ -194,6 +211,19 @@
         $("#search").click(function () {
             table.ajax.reload();
         })
+
+        $("body").on("change", "#pTypeID", function () {
+            let pid = $(this).val();
+            $("#typeID").html('<option value="">请选择</option>');
+            if (pid) {
+                $.get("/type/listByPid", {"pid": pid}, function (res) {
+                    $.each(res.data, function (index, obj) {
+                        $("#typeID").append('<option value=" ' + obj.typeID + '">' + obj.typeName + '</option>');
+                    })
+                }, "json");
+            }
+        });
+
         $("body").on("click", ".button-info", function () {
             localStorage.setItem("openID", $(this).attr("openID"));
             parent.layer.open({
@@ -205,9 +235,50 @@
                 content: 'toPage?page=user_info_tables' //iframe的url
             });
         })
+
+
+        $("body").on("click", ".button-init-answer", function () {
+            let openID = $(this).attr("openID");
+            console.log(openID)
+            layer.open({
+                type: 1,
+                title: '初始化答题',
+                shadeClose: true,
+                area: ['30%', '40%'],
+                content: $("#initAnswerContent"),
+                btn: ["初始化"],
+                yes: function () { // 点击确定按钮
+                    let pTypeID = $("#pTypeID").find("option:selected").val();
+                    console.log(pTypeID)
+                    let typeID = $("#typeID").find("option:selected").val();
+                    console.log(typeID)
+                    if (!typeID) {
+                        layer.msg('请选择类型');
+                        return;
+                    }
+                    let param = {};
+                    param.openID = openID;
+                    if (typeID) {
+                        param.typeID = typeID;
+                    }
+                    $.get("/user/initUseAnswer", param, function (res) {
+                        if (res.resultCode == 1) {
+                            $("#pTypeID").val('');
+                            $("#typeID").html('<option value="">请选择</option>');
+                            table.ajax.reload();
+                            layer.closeAll();
+                        }
+                    }, "json");
+                }, cancel: function () {
+                    $("#pTypeID").val('');
+                    $("#typeID").html('<option value="">请选择</option>');
+                }
+            });
+        })
+
     })
     //日期范围限制
-    var start = {
+    let start = {
         elem: '#start',
         format: 'YYYY/MM/DD',
         max: laydate.now(),
@@ -218,7 +289,7 @@
             end.start = datas //将结束日的初始值设定为开始日
         }
     };
-    var end = {
+    let end = {
         elem: '#end',
         format: 'YYYY/MM/DD',
         max: laydate.now(),
@@ -234,7 +305,7 @@
 </script>
 <style>
     .form-control {
-        width: 240px !important;
+        width: 180px !important;
     }
 </style>
 

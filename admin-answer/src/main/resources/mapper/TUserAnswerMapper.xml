@@ -393,4 +393,11 @@
         update t_user_answer set orgID = #{orgID} where openID = #{openID}
     </update>
 
+    <delete id="deleteByOpenIdAndTypeId">
+      delete from t_user_answer where openID = #{openID}
+      <if test="typeID != null">
+        and typeID = #{typeID}
+      </if>
+    </delete>
+
 </mapper>

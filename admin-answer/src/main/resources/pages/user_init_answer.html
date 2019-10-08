@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>题目 - 数据表格</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/static/pages/hAdmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/pages/hAdmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/static/pages/hAdmin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/static/pages/hAdmin/css/animate.css" rel="stylesheet">
+    <link href="/static/pages/hAdmin/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/pages/hAdmin/css/plugins/webuploader/webuploader.css">
+    <style type="text/css">
+        .form-control {
+            padding: 3px 12px !important;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+<div style="padding:20px;">
+    <div class="form-group">
+        <select id="pTypeID" class="form-control">
+            <option value="">全部</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <select id="typeID" class="form-control">
+            <option value="">全部</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-success" id="initAnswer" type="button" style="float: right;">初始化</button>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="/static/pages/hAdmin/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/pages/hAdmin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/static/pages/hAdmin/js/plugins/webuploader/webuploader.min.js"></script>
+
+
+<script src="/static/pages/hAdmin/js/plugins/jeditable/jquery.jeditable.js"></script>
+<!-- Data Tables -->
+<script src="/static/pages/hAdmin/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/pages/hAdmin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<!-- 自定义js -->
+<script src="/static/pages/hAdmin/js/content.js?v=1.0.0"></script>
+<!-- layer javascript -->
+<script src="/static/pages/hAdmin/js/plugins/layer/layer.min.js"></script>
+<!-- Page-Level Scripts -->
+<!-- layerDate plugin javascript -->
+<script src="/static/pages/hAdmin/js/plugins/layer/laydate/laydate.js"></script>
+<script src="/static/pages/hAdmin/js/demo/timeutil.js"></script>
+
+
+<script>
+
+    $.get("/type/listByPid", {"pid": 0}, function (res) {
+        $.each(res.data, function (index, obj) {
+            $("#pTypeID").append('<option value=" ' + obj.typeID + '">' + obj.typeName + '</option>');
+        })
+    }, "json");
+
+
+    $("#pTypeID").change(function () {
+        let pid = $(this).val();
+        $("#typeID").html('<option value="">全部</option>');
+        if (pid) {
+            $.get("/type/listByPid", {"pid": pid}, function (res) {
+                $.each(res.data, function (index, obj) {
+                    $("#typeID").append('<option value=" ' + obj.typeID + '">' + obj.typeName + '</option>');
+                })
+            }, "json");
+        }
+    });
+
+    $(document).ready(function () {
+        $("body").on("click", "#initAnswer", function () {
+            let openID = localStorage.getItem("openID");
+            let pTypeID = $("#pTypeID").val();
+            let typeID = $("#typeID").val();
+            if(pTypeID){
+                if(!typeID){
+                    layer.msg('请选择子类型');
+                }
+            }
+            let param = {};
+            param.openID = openID;
+            if(typeID){
+                param.typeID = typeID;
+            }
+            $.get("/user/initUseAnswer", param , function (res) {
+                if (res.resultCode == 1) {
+                    localStorage.removeItem("openID");
+                    layer.closeAll();
+                }
+            }, "json");
+        })
+
+    })
+
+
+</script>
+<style>
+    .form-group {
+        width: 240px !important;
+    }
+</style>
+</body>
+
+</html>

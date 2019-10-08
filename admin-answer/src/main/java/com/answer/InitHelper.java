@@ -48,10 +48,10 @@ public class InitHelper {
     }
 
     private void initPractiseConfig (){
-        Config config = configMapper.readByKey(CommonConstant.ConfigKey.PRACTISE_CONFIG);
+        Config config = configMapper.readByKey(CommonConstant.ConfigKey.PRACTICE_CONFIG);
         if(config == null){
             config = new Config();
-            config.setConfigKey(CommonConstant.ConfigKey.PRACTISE_CONFIG);
+            config.setConfigKey(CommonConstant.ConfigKey.PRACTICE_CONFIG);
             PractiseConfig practiseConfig = new PractiseConfig();
             practiseConfig.setQuesNum(100);
             practiseConfig.setScore(0F);

@@ -8,7 +8,7 @@ package com.answer.common;
  */
 public class CommonConfig {
     public static final String FILE_SAVE_PATH = "/data/file/";
-    // public static final String FILE_SAVE_PATH = "C:/Users/lgh_l/Desktop/";
+    //public static final String FILE_SAVE_PATH = "C:/Users/lgh_l/Desktop/";
 
     public static final String SERVER_HOST = "https://www.zgshnj.com/file/";
 }

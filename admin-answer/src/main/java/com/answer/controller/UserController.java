@@ -12,6 +12,8 @@ import com.answer.domain.query.UserQuery;
 import com.answer.service.ITOrganizationService;
 import com.answer.service.ITUserAnswerService;
 import com.answer.service.ITUserService;
+import com.answer.service.ITWrongRecordService;
+import com.answer.service.impl.TWrongRecordServiceImpl;
 import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,9 @@ public class UserController {
 
     @Autowired
     private ITOrganizationService organizationService;
+
+    @Autowired
+    private ITWrongRecordService wrongRecordService;
 
     @Autowired
     private CacheHelper cacheHelper;
@@ -114,5 +119,12 @@ public class UserController {
         pageResult.setTotalPage(page.getPages());
         pageResult.setList(page.getList());
         return ResultCodeEnum.SUCCESS.getResponse(pageResult);
+    }
+
+    @GetMapping("/initUseAnswer")
+    public Object initUseAnswer(String openID , Long typeID){
+        userAnswerService.deleteByOpenIdAndTypeId(openID , typeID);
+        wrongRecordService.deleteByOpenIdAndTypeId(openID , typeID);
+        return ResultCodeEnum.SUCCESS.getResponse();
     }
 }

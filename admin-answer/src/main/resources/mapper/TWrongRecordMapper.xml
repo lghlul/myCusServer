@@ -254,4 +254,11 @@
             where id = #{id}
         </if>
     </update>
+
+    <delete id="deleteByOpenIdAndTypeId">
+        delete from t_wrong_record where openID = #{openID}
+        <if test="typeID != null">
+            and typeID = #{typeID}
+        </if>
+    </delete>
 </mapper>

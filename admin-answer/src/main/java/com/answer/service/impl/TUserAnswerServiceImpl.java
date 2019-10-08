@@ -68,4 +68,10 @@ public class TUserAnswerServiceImpl extends BaseServiceImpl<TUserAnswer> impleme
         map.put("pageCount", pageCount);
         return map;
     }
+
+
+    @Override
+    public int deleteByOpenIdAndTypeId(String openID, Long typeID) {
+        return userAnswerMapper.deleteByOpenIdAndTypeId(openID, typeID);
+    }
 }

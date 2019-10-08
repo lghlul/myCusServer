@@ -51,19 +51,19 @@ public class ConfigController {
 
     @GetMapping("readPractiseConfig")
     public Object readPractiseConfig(){
-        //Config config = configService.readByKey(CommonConstant.ConfigKey.PRACTISE_CONFIG);
-        Config config = cacheHelper.getConfig(CommonConstant.ConfigKey.PRACTISE_CONFIG);
+        //Config config = configService.readByKey(CommonConstant.ConfigKey.PRACTICE_CONFIG);
+        Config config = cacheHelper.getConfig(CommonConstant.ConfigKey.PRACTICE_CONFIG);
         PractiseConfig practiseConfig = JSON.parseObject(config.getConfigValue(), PractiseConfig.class);
         return ResultCodeEnum.SUCCESS.getResponse(practiseConfig);
     }
 
     @PostMapping("updatePractiseConfig")
     public Object updateTrainConfig(PractiseConfig practiseConfig){
-        //Config config = configService.readByKey(CommonConstant.ConfigKey.PRACTISE_CONFIG);
-        Config config = cacheHelper.getConfig(CommonConstant.ConfigKey.PRACTISE_CONFIG);
+        //Config config = configService.readByKey(CommonConstant.ConfigKey.PRACTICE_CONFIG);
+        Config config = cacheHelper.getConfig(CommonConstant.ConfigKey.PRACTICE_CONFIG);
         config.setConfigValue(JSON.toJSONString(practiseConfig));
         configService.edit(config);
-        cacheHelper.delete(CommonConstant.ConfigKey.PRACTISE_CONFIG);
+        cacheHelper.delete(CommonConstant.ConfigKey.PRACTICE_CONFIG);
         return ResultCodeEnum.SUCCESS.getResponse();
     }
 

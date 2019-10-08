@@ -9,4 +9,6 @@ public interface ITJobnumService extends IBaseService<TJobnum>{
     PageInfo<TJobnum> list(JobNumQuery jobNumQuery);
 
     TJobnum selectByJobNum(String jobNum);
+
+
 }
