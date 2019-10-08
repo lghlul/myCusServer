@@ -7,10 +7,10 @@ Page({
     type: '',
     examId: 0,
     mistakeId: 0,
-    questionData: {},
+    questionData: {allNum:0},
     timer:'',
     examinfo:{},
-    countDownNum:600,
+    countDownNum:0,
     answerList: [],
     isDisabled: false,
     typeId:0,
@@ -32,7 +32,7 @@ Page({
     
   },
   startExam:function(e){
-    var that = this;
+    let that = this;
     let countDownNum = that.data.countDownNum;//获取倒计时初始值
     that.setData({
       startExam:true,
@@ -69,6 +69,7 @@ Page({
     })
   },
   onUnload:function(e){
+    let that = this;
     clearInterval(that.data.timer);
   },
   chooseAnswer: function (e) {
@@ -112,7 +113,7 @@ Page({
     }
     let chooseInfo = that.data.examinfo;
     let chooseanswer = [];
-    for (var i in that.data.questionData.question.answerList){
+    for (let i in that.data.questionData.question.answerList){
       if(that.data.questionData.question.answerList[i].choose == 'choose'){
         chooseanswer.push(that.data.questionData.question.answerList[i].ansID)
       }
@@ -120,7 +121,7 @@ Page({
     chooseInfo[that.data.questionData.question.quesID] = chooseanswer;
 
     let answerNum = 0;
-    for (var i in chooseInfo){
+    for (let i in chooseInfo){
       if (chooseInfo[i].length>0){
         answerNum ++;
       }
@@ -147,8 +148,20 @@ Page({
       let answerIndex = that.data.questionData.question.answerList.findIndex(ele => ele.ansID == chooseItem);
       if (answerIndex > -1) {
         let choose = "questionData.question.answerList[" + answerIndex + "].choose";
-        let chooseaRightIndex = that.data.questionData.question.rightAnswerID.split(',').findIndex(ele => ele == chooseItem);
-        if (chooseaRightIndex > -1) {
+        let chooseRightIndex = that.data.questionData.question.rightAnswerID.split(',').findIndex(ele => ele == chooseItem);
+        if(chooseRightIndex > -1){
+          if(that.data.questionData.question.answerList[chooseRightIndex].choose == 'choose'){
+            that.setData({
+              [choose]: 'choose-correct'
+            })
+          }else{
+            that.setData({
+              [choose]: 'correct'
+            })
+          }
+        }
+
+     /*   if (chooseRightIndex > -1) {
           that.setData({
             [choose]: 'correct'
           })
@@ -156,7 +169,7 @@ Page({
           that.setData({
             [choose]: 'wrong',
           })
-        }
+        }*/
       }
 
     })
@@ -283,8 +296,7 @@ Page({
     let SinopecSession = wx.getStorageSync('SinopecSession');
     
     let strList = [];
-    for(var i in that.data.examinfo){
-      console.log(i);
+    for(let i in that.data.examinfo){
       strList.push({ "quesID": i, "answerID": that.data.examinfo[i].join(",")})
     }
     wx.request({
@@ -327,7 +339,7 @@ Page({
     
   },
   getMistake: function (id, callback) {
-    var that = this;
+    let that = this;
     let questionData = that.data.questionData;
     if (questionData.currentNum==0&&id<0){
       wx.showToast({

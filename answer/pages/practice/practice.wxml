@@ -15,10 +15,6 @@
         <view wx:if="{{type=='practice'}}" class="practice-option {{item.choose}}" wx:for='{{questionData.question.answerList}}'  wx:key='item.ansID'><button disabled='{{isDisabled}}' class='practice-button' id='{{item.ansID}}' data-index='{{index}}' bindtap="chooseAnswer">{{item.ansDesc}}</button></view>
 
         <view wx:if="{{type=='mistakes'}}" class="practice-option {{item.choose}}" wx:for='{{questionData.question.answerList}}' wx:key='item.ansID'><button class='practice-button'>{{item.ansDesc}}</button></view>
-        
-         <!-- <view class='practice-option correct'>《醉翁亭记》</view>
-        <view class='practice-option wrong'>《岳阳楼记》</view>
-        <view class='practice-option'>《核舟记》</view>  -->
       </view>
     </view>
     <button class='next-error-questions' disabled='{{isDisabled}}' wx:if="{{type=='practice' && questionData.question.quesType==2}}" bindtap="putAnswer">确定</button>

@@ -57,4 +57,4 @@ text-align: center;
 .wrong::after{content: "";width:8rpx;height:42rpx;background-color: #ffffff;-webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);position: absolute;top:28rpx;right: 40rpx;z-index: 11;}
 .next-error-questions{width:710rpx;line-height: 100rpx;text-align: center;font-size: 34rpx;color: #ffffff;margin: 43rpx 0;background-color: #F5A623;border-radius: 10rpx;}
 .choose{position: relative;}
-.choose .practice-button{background-color:#80bbff;color: #ffffff;}
+.choose .practice-button,.choose .practice-button[disabled]{background-color:#4a90e2;color: #ffffff;}

@@ -1,85 +1,116 @@
 <!--logs.wxml-->
 <view class="container">
-  <view class='fighting-container' wx:if='{{showPage}}'>
-    <view class='fighting-userinfo-box'>
-      <view class='fighting-userself-box'>
-        <view class='fighting-userself-icon'>
-        <div class='answer-userinfo-avatar-box' bindtap="bindViewTap">
-          <open-data type="userAvatarUrl" class="answer-userinfo-avatar"></open-data>
-        </div>
-        </view>
-        <view class='fighting-userself-name'><open-data type="userNickName" lang="zh_CN"></open-data></view>
-        <view class='self-result-scros' wx:if='{{step==5}}'>{{myScore}}</view>
-      </view>
-      <view class='fighting-info-box'>
-        <view class='fighting-tip-title' wx:if='{{step==1}}'>邀请好友</view>
-        <view class='fighting-tip-title' wx:if='{{step==2}}'>等待好友加入…</view>
-        <view class='fighting-tip-title' wx:if='{{step==3}}'>好友 {{userInfo.nickName}} 已加入</view>
-        <view class='fighting-answer-time' wx:if='{{step==4}}'>{{answerTime}}</view>
-        <view class='fighting-count-down' wx:if='{{step==2}}'>{{countDownMinute+':'+countDownSecond}}</view>
-        <image class='fighting-result-icon' wx:if='{{step==5}}' src='{{resultIcon}}'></image>
-        <view class='fighting-result-text' wx:if='{{step==5}}'>{{resultTitle}}</view>
-      </view>
-      <view class='fighting-userrival-box'>
-        <view class='fighting-userrival-icon'><image src='{{rivalInfo.userImg}}'></image></view>
-        <view class='fighting-userrival-name'>{{rivalInfo.userName}}</view>
-        <view class='rival-result-scros' wx:if='{{step==5}}'>{{rivalScore}}</view>
-      </view>
-    </view>
-    <view class='award-container' wx:if='{{step==5}}'>
-      <view class='award-points' wx:if='{{myScore < rivalScore}}'><image src='../../images/pointsBigIcon.png'></image>-{{fightingScore}}</view>
-      <view class='award-points' wx:if='{{myScore > rivalScore}}'><image src='../../images/pointsBigIcon.png'></image>+{{fightingScore}}</view>
-      <view class='award-points' wx:if='{{myScore == rivalScore}}'><image src='../../images/pointsBigIcon.png'></image>+0</view>
-      <text class='award-classify'>初级管工</text>
-    </view>
-      <button wx:if='{{step==1 && showShareBtn}}' type='' class='abandon-btn' style='color:#F5A623;' open-type="share" hover-class="abandon-btn-hover">邀请</button>
-      <button wx:if='{{step==2}}' type='' class='abandon-btn' bindtap='abandon' hover-class="abandon-btn-hover">放弃</button>
-      <button wx:if='{{step==5}}' type='' class='abandon-btn' style='margin-top:105rpx;' hover-class="abandon-btn-hover" bindtap='backIndex'>返回首页</button>
-      <view wx:if='{{step==3}}' class='count-down-box'>
-        <view class='count-down-start'>{{countDownStart}}</view>
-        <text class='fighting-text'>每道题10s回答时间，每次对战10题</text>
-      </view>
-      <view class='fighting-question-container' wx:if='{{step==4}}'>
-        <view class='noquestion'>第{{nowQuestionIndex+1}}题</view>
-        <view class='fighting-qusetion-content'>{{roomQuestionData[nowQuestionIndex].quesType==2?'（多选）':''}}{{roomQuestionData[nowQuestionIndex].quesDesc}}</view>
-        <view class='fighting-option-content'>
-          <view class='self-scores-content'>
-            <text class='self-scores-text'>{{myScore}}</text>
-            <view class='self-scores-box'>
-              <view class='self-scores' style='height:{{myScore*10}}%'></view>
+    <view class='fighting-container' wx:if='{{showPage}}'>
+        <view class='fighting-userinfo-box'>
+            <view class='fighting-userself-box'>
+                <view class='fighting-userself-icon'>
+                    <div class='answer-userinfo-avatar-box' bindtap="bindViewTap">
+                        <open-data type="userAvatarUrl" class="answer-userinfo-avatar"></open-data>
+                    </div>
+                </view>
+                <view class='fighting-userself-name'>
+                    <open-data type="userNickName" lang="zh_CN"></open-data>
+                </view>
+                <view class='self-result-scros' wx:if='{{step==5}}'>{{myScore}}</view>
             </view>
-          </view>
-          <view class='fighting-option-box'>
-            <view class="fighting-option {{item.choose}}" wx:for='{{roomQuestionData[nowQuestionIndex].answerList}}'  wx:key='item.ansID'><button disabled='{{isDisabled}}' class='fighting-button' id='{{item.ansID}}' data-index='{{index}}' bindtap="chooseAnswer">{{item.ansDesc}}</button></view>
-          </view>
-          <view class='self-scores-content'>
-            <text class='self-scores-text'>{{rivalScore}}</text>
-            <view class='self-scores-box'>
-              <view class='self-scores' style='height:{{rivalScore*10}}%'></view>
+            <view class='fighting-info-box'>
+                <view class='fighting-tip-title' wx:if='{{step==1}}'>邀请好友</view>
+                <view class='fighting-tip-title' wx:if='{{step==2}}'>等待好友加入…</view>
+                <view class='fighting-tip-title' wx:if='{{step==3}}'>好友 {{userInfo.nickName}} 已加入</view>
+                <view class='fighting-answer-time' wx:if='{{step==4}}'>{{answerTime}}</view>
+                <view class='fighting-count-down' wx:if='{{step==2}}'>{{countDownMinute+':'+countDownSecond}}</view>
+                <image class='fighting-result-icon' wx:if='{{step==5}}' src='{{resultIcon}}'></image>
+                <view class='fighting-result-text' wx:if='{{step==5}}'>{{resultTitle}}</view>
             </view>
-          </view>
+            <view class='fighting-userrival-box'>
+                <view class='fighting-userrival-icon'>
+                    <image src='{{rivalInfo.userImg}}'></image>
+                </view>
+                <view class='fighting-userrival-name'>{{rivalInfo.userName}}</view>
+                <view class='rival-result-scros' wx:if='{{step==5}}'>{{rivalScore}}</view>
+            </view>
         </view>
-        <button disabled='{{isDisabled}}' class='next-error-questions' wx:if="{{roomQuestionData[nowQuestionIndex].quesType==2}}" bindtap="putAnswer">确定</button> 
-      </view> 
-  </view>
-  <view class='answer-login-box' wx:if='{{!hasUserInfo}}'>
-    <view class='get-user-content'>
-      <view class='get-user-box'>
-        <view class='get-user-h'>提示</view>
-        <text class='get-user-p'>请先授权登录</text>
-      </view>
-      <button type='primary' open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='answer-login-btn'>授权</button>
-    </view>
-  </view>
-  <view class='answer-login-box' wx:if='{{hasUserInfo && !hasJobNum}}'>
-    <view class='get-user-content' style='margin-bottom:{{keyHeight}}rpx;'>
-      <view class='get-user-box'>
-        <view class='get-user-h'>绑定工号</view>
-        <view class="section">
-          <input placeholder="请输入工号" type="number" focus bindinput='onInput' bindfocus='onFocus' bindblur='onBlur'/>
+        <view class='award-container' wx:if='{{step==5}}'>
+            <view class='award-points' wx:if='{{myScore < rivalScore}}'>
+                <image src='../../images/pointsBigIcon.png'></image>
+                -{{fightingScore}}
+            </view>
+            <view class='award-points' wx:if='{{myScore > rivalScore}}'>
+                <image src='../../images/pointsBigIcon.png'></image>
+                +{{fightingScore}}
+            </view>
+            <view class='award-points' wx:if='{{myScore == rivalScore}}'>
+                <image src='../../images/pointsBigIcon.png'></image>
+                +0
+            </view>
+            <text class='award-classify'>初级管工</text>
         </view>
-      </view>
-      <button type='primary' bindtap="bindJobNum" class='answer-login-btn'>确定</button>
+        <button wx:if='{{step==1 && showShareBtn}}' type='' class='abandon-btn' style='color:#F5A623;' open-type="share"
+                hover-class="abandon-btn-hover">邀请
+        </button>
+        <button wx:if='{{step==2}}' type='' class='abandon-btn' bindtap='abandon' hover-class="abandon-btn-hover">放弃
+        </button>
+        <button wx:if='{{step==5}}' type='' class='abandon-btn' style='margin-top:105rpx;'
+                hover-class="abandon-btn-hover" bindtap='backIndex'>返回首页
+        </button>
+        <view wx:if='{{step==3}}' class='count-down-box'>
+            <view class='count-down-start'>{{countDownStart}}</view>
+            <text class='fighting-text'>每道题10s回答时间，每次对战10题</text>
+        </view>
+        <view class='fighting-question-container' wx:if='{{step==4}}'>
+            <view class="fighting-content">
+                <view class='noquestion'>第{{nowQuestionIndex+1}}题</view>
+                <view class='fighting-qusetion-content'>
+                    {{roomQuestionData[nowQuestionIndex].quesType==2?'（多选）':''}}{{roomQuestionData[nowQuestionIndex].quesDesc}}
+                </view>
+                <view class='fighting-option-content'>
+                    <view class='self-scores-content'>
+                        <text class='self-scores-text'>{{myScore}}</text>
+                        <view class='self-scores-box'>
+                            <view class='self-scores' style='height:{{myScore*10}}%'></view>
+                        </view>
+                    </view>
+                    <view class='fighting-option-box'>
+                        <view class="fighting-option {{item.choose}}"
+                              wx:for='{{roomQuestionData[nowQuestionIndex].answerList}}' wx:key='item.ansID'>
+                            <button disabled='{{isDisabled}}' class='fighting-button' id='{{item.ansID}}'
+                                    data-index='{{index}}' bindtap="chooseAnswer">{{item.ansDesc}}
+                            </button>
+                        </view>
+                    </view>
+                    <view class='self-scores-content'>
+                        <text class='self-scores-text'>{{rivalScore}}</text>
+                        <view class='self-scores-box'>
+                            <view class='self-scores' style='height:{{rivalScore*10}}%'></view>
+                        </view>
+                    </view>
+                </view>
+                <button disabled='{{isDisabled}}' class='next-error-questions'
+                        wx:if="{{roomQuestionData[nowQuestionIndex].quesType==2}}" bindtap="putAnswer">确定
+                </button>
+            </view>
+        </view>
     </view>
-  </view>
+    <view class='answer-login-box' wx:if='{{!hasUserInfo}}'>
+        <view class='get-user-content'>
+            <view class='get-user-box'>
+                <view class='get-user-h'>提示</view>
+                <text class='get-user-p'>请先授权登录</text>
+            </view>
+            <button type='primary' open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='answer-login-btn'>授权
+            </button>
+        </view>
+    </view>
+    <view class='answer-login-box' wx:if='{{hasUserInfo && !hasJobNum}}'>
+        <view class='get-user-content' style='margin-bottom:{{keyHeight}}rpx;'>
+            <view class='get-user-box'>
+                <view class='get-user-h'>绑定工号</view>
+                <view class="section">
+                    <input placeholder="请输入工号" type="number" focus bindinput='onInput' bindfocus='onFocus'
+                           bindblur='onBlur'/>
+                </view>
+            </view>
+            <button type='primary' bindtap="bindJobNum" class='answer-login-btn'>确定</button>
+        </view>
+    </view>
 </view>

@@ -7,7 +7,7 @@ Page({
     type: '',
     typeId: 0,
     mistakeId: 0,
-    questionData: {},
+    questionData: {currentNum : -1},
     questionList:[],
     answerList: [],
     isDisabled: false,
@@ -94,12 +94,12 @@ Page({
     that.setData({
       isDisabled: true
     })
-    that.data.answerList.forEach(function (chooseItem, chooseIndex) {
+/*    that.data.answerList.forEach(function (chooseItem, chooseIndex) {
       let answerIndex = that.data.questionData.question.answerList.findIndex(ele => ele.ansID == chooseItem);
       if (answerIndex > -1) {
         let choose = "questionData.question.answerList[" + answerIndex + "].choose";
-        let chooseaRightIndex = that.data.questionData.question.rightAnswerID.split(',').findIndex(ele => ele == chooseItem);
-        if (chooseaRightIndex > -1) {
+        let chooseRightIndex = that.data.questionData.question.rightAnswerID.split(',').findIndex(ele => ele == chooseItem);
+        if (chooseRightIndex > -1) {
           that.setData({
             [choose]: 'correct'
           })
@@ -110,12 +110,16 @@ Page({
         }
       }
 
-    })
+    })*/
     that.data.questionData.question.rightAnswerID.split(',').forEach(function (answerItem, answerIndex) {
       let rightAnswerIndex = that.data.questionData.question.answerList.findIndex(ele => ele.ansID == answerItem);
       if (rightAnswerIndex > -1) {
         let answerChoose = "questionData.question.answerList[" + rightAnswerIndex + "].choose";
-        if (that.data.questionData.question.answerList[rightAnswerIndex].choose != 'correct') {
+        if (that.data.questionData.question.answerList[rightAnswerIndex].choose == 'choose') {
+          that.setData({
+            [answerChoose]: 'choose-correct'
+          })
+        }else{
           that.setData({
             [answerChoose]: 'correct'
           })
@@ -246,26 +250,31 @@ Page({
             question.answerList.forEach(function (item, index) {
               if(question.answerID){
                 question.answerID = question.answerID+"";
-                let wrongaIndex = question.answerID.split(',').findIndex(ele => ele == item.ansID);
-                if (wrongaIndex > -1) {
-                  item.choose = 'wrong';
+                let wrongIndex = question.answerID.split(',').findIndex(ele => ele == item.ansID);
+                if (wrongIndex > -1) {
+                  item.choose = 'choose';
                 }
               }
               let correctIndex = question.rightAnswerID.split(',').findIndex(ele => ele == item.ansID);
               if (correctIndex > -1) {
-                item.choose = 'correct';
+                if(item.choose == 'choose'){
+                  item.choose = 'choose-correct';
+                }else{
+                  item.choose = 'correct';
+                }
+
               }
             })
           })
-          let questonData = new Object();
-          questonData.answerNum = 0;
-          questonData.currentNum = 0;
-          questonData.allNum = result.data.resultData.length;
-          questonData.questions = result.data.resultData;
-          questonData.question = questonData.questions[0];
-          questonData.answerNum = 0;
+          let questionData = new Object();
+          questionData.answerNum = 0;
+          questionData.currentNum = 0;
+          questionData.allNum = result.data.resultData.length;
+          questionData.questions = result.data.resultData;
+          questionData.question = questionData.questions[0];
+          questionData.answerNum = 0;
           that.setData({
-            questionData: questonData
+            questionData: questionData
           })
           
           //console.log(that.data.questionData)

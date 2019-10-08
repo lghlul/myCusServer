@@ -2,11 +2,12 @@
  * 小程序配置文件
  */
 
-// var host = "https://www.lghll.com/server-answer"
-var host = "https://www.zgshnj.com/server-answer-new"
-//var host = "https://www.zgshnj.com/server-answer"
-var SinopecSession = wx.getStorageSync('SinopecSession') || '';
-var config = {
+let host = "https://www.zgshnj.com/server-answer-new"
+let webSocketHost = "wss://www.zgshnj.com/server-answer-new"
+//let host = "https://www.zgshnj.com/server-answer-test"
+//let webSocketHost = "wss://www.zgshnj.com/server-answer-test"
+let SinopecSession = wx.getStorageSync('SinopecSession') || '';
+let config = {
   SinopecSession,
   // 下面的地址配合云端 Server 工作
   host,
@@ -126,6 +127,8 @@ var config = {
   fScore: `${host}/config/readBattleConfig`,
   //菜单配置
   menuConfig: `${host}/config/readModuleConfig`,
+
+  websocket:`${webSocketHost}/websocket/socketServer`
   
 };
 

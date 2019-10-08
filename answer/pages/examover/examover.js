@@ -22,8 +22,6 @@ Page({
         })
       }
     })
-    
-    that.getQuestion('')
   },
 
   /**

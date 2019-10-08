@@ -187,9 +187,7 @@ Page({
     wx.closeSocket();
     //建立连接
     wx.connectSocket({
-      //url: "wss://www.zgshnj.com/server-answer-new/websocket/socketServer2/{" + SinopecSession + "}",
-      //url: "wss://www.zgshnj.com/server-answer/websocket/socketServer2/{" + SinopecSession + "}",
-      url: "wss://www.zgshnj.com/server-answer-new/websocket/socketServer?wxSession=" + SinopecSession ,
+      url: url.websocket + "?wxSession=" + SinopecSession ,
       success: function (res) {
         console.log('成功了', res);
       },
@@ -572,7 +570,7 @@ Page({
         if (answerIndex > -1) {
           let choose = "roomQuestionData["+that.data.nowQuestionIndex+"].answerList[" + answerIndex + "].choose";
           let chooseRightIndex = that.data.roomQuestionData[that.data.nowQuestionIndex].rightAnswerID.split(',').findIndex(ele => ele == chooseItem);
-          if (chooseRightIndex > -1) {
+         /* if (chooseRightIndex > -1) {
             that.setData({
               [choose]: 'correct',
             })
@@ -580,6 +578,9 @@ Page({
             that.setData({
               [choose]: 'wrong',
             })
+            isCor=false;
+          }*/
+          if (chooseRightIndex < 0) {
             isCor=false;
           }
         }
@@ -597,7 +598,16 @@ Page({
       let rightAnswerIndex = that.data.roomQuestionData[that.data.nowQuestionIndex].answerList.findIndex(ele => ele.ansID == answerItem);
       if (rightAnswerIndex > -1) {
         let answerChoose = "roomQuestionData["+that.data.nowQuestionIndex+"].answerList[" + rightAnswerIndex + "].choose";
-        if (that.data.roomQuestionData[that.data.nowQuestionIndex].answerList[rightAnswerIndex].choose != 'correct') {
+       /* if (that.data.roomQuestionData[that.data.nowQuestionIndex].answerList[rightAnswerIndex].choose != 'correct') {
+          that.setData({
+            [answerChoose]: 'correct'
+          })
+        }*/
+        if(that.data.roomQuestionData[that.data.nowQuestionIndex].answerList[rightAnswerIndex].choose == 'choose'){
+          that.setData({
+            [answerChoose]: 'choose-correct'
+          })
+        }else{
           that.setData({
             [answerChoose]: 'correct'
           })
@@ -638,9 +648,16 @@ Page({
       let correctIndex = that.data.roomQuestionData[that.data.nowQuestionIndex].answerList.findIndex(ele => ele.ansID == rightItem);
       if (correctIndex > -1) {
         let correctChoose = "roomQuestionData[" + that.data.nowQuestionIndex + "].answerList[" + correctIndex + "].choose";
-        that.setData({
-          [correctChoose]: 'correct'
-        })
+        if(that.data.roomQuestionData[that.data.nowQuestionIndex].answerList[correctIndex].choose == 'choose'){
+          that.setData({
+            [correctChoose]: 'choose-correct'
+          })
+        }else{
+          that.setData({
+            [correctChoose]: 'correct'
+          })
+        }
+
       }
     })
     
