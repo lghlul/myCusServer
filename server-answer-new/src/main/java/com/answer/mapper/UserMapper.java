@@ -6,19 +6,21 @@ import java.util.Map;
 import com.answer.domain.User;
 
 public interface UserMapper {
-	public User queryUserByOpenID(String openID);
+    User queryUserByOpenID(String openID);
 
-	public int addUser(User paramUser);
-	
-	public int updateUser(User user);
-	
-	public float queryScore(String openID);
-	
-	public List<User> queryRank(Map<String , Object> map);
-	
-	public int queryMyRank(float score);
-	
-	public int queryUserCount();
+    int addUser(User paramUser);
 
-	public List<User> queryUserByScore(float score);
+    int updateUser(User user);
+
+    float queryScore(String openID);
+
+    List<User> queryRank(Map<String, Object> map);
+
+    int queryMyRank(float score);
+
+    int queryUserCount();
+
+    List<User> queryUserByScore(float score);
+
+    void updateScore(User user);
 }

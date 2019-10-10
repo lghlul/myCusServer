@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.answer.domain.*;
 import com.answer.mapper.*;
+import com.answer.service.IUserService;
 import com.answer.utils.CommonUtil;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,10 @@ public class QuestionServiceImpl implements IQuestionService {
 	private WrongRecordMapper wrongRecordMapper;
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private IUserService userService;
+
 	@Autowired
 	private RoomQuestionMapper roomQuestionMapper;
 	
@@ -118,16 +123,14 @@ public class QuestionServiceImpl implements IQuestionService {
 			//统计得分
 			//获取练习模式配置
 			Config config = cacheHelper.getConfig(Constant.ConfigKey.PRACTICE_CONFIG);
-			PractiseConfig practiseConfig = JSON.parseObject(config.getConfigValue() , PractiseConfig.class);
-			logger.info("userAnswer...practiseConfig=" + JSON.toJSONString(practiseConfig));
-			int rightCount = this.userAnswerMapper.queryAnswerRightCount(session.getOpenID());
-			logger.info("userAnswer...rightCount=" + rightCount);
-			if(rightCount >= practiseConfig.getQuesNum()){
-				User user = new User();
-				user.setOpenID(session.getOpenID());
-				user.setScore(practiseConfig.getScore());
-				userMapper.updateUser(user);
-				this.userAnswerMapper.updateUserAnswer(session.getOpenID());
+			if(config != null){
+				PractiseConfig practiseConfig = JSON.parseObject(config.getConfigValue() , PractiseConfig.class);
+				logger.info("userAnswer...practiseConfig=" + JSON.toJSONString(practiseConfig));
+				int rightCount = this.userAnswerMapper.queryAnswerRightCount(session.getOpenID());
+				logger.info("userAnswer...rightCount=" + rightCount);
+				if(rightCount >= practiseConfig.getQuesNum()){
+					userService.updateScore(session.getOpenID() , practiseConfig.getScore() , "练习模式" , null);
+				}
 			}
 		}
 		return new Result();

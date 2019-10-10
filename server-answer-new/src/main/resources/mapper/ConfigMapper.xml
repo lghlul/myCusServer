@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.answer.mapper.ConfigMapper">
-    <select id="readByKey" parameterType="string" resultType="config">
+    <select id="readByKey" parameterType="string" resultType="com.answer.domain.Config">
         select * from t_config where configKey = #{configKey}
     </select>
     <insert id="insert" parameterType="config">

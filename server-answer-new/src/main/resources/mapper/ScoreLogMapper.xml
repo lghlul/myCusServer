@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.answer.mapper.ScoreLogMapper">
+
+    <insert id="save" parameterType="scoreLog">
+      insert into t_score_log(beginScore , modifyScore , modifyName , modifyTime ,goodsID , openID)
+      values
+      (#{beginScore} , #{modifyScore} , #{modifyName} , #{modifyTime} ,#{goodsID} , #{openID})
+    </insert>
+
+</mapper>

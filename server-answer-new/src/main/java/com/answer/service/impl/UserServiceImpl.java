@@ -1,32 +1,16 @@
 package com.answer.service.impl;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.math.BigInteger;
+import java.util.*;
 
+import com.answer.domain.*;
+import com.answer.mapper.*;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.answer.cache.CacheHelper;
-import com.answer.domain.BindRecord;
-import com.answer.domain.JobNumBean;
-import com.answer.domain.Question;
-import com.answer.domain.Result;
-import com.answer.domain.Room;
-import com.answer.domain.RoomQuestion;
-import com.answer.domain.User;
-import com.answer.domain.WXSessionCache;
-import com.answer.mapper.BindRecordMapper;
-import com.answer.mapper.JobNumMapper;
-import com.answer.mapper.QuestionMapper;
-import com.answer.mapper.RoomMapper;
-import com.answer.mapper.RoomQuestionMapper;
-import com.answer.mapper.UserMapper;
 import com.answer.service.IUserService;
 import com.answer.utils.Constant;
 
@@ -47,6 +31,10 @@ public class UserServiceImpl implements IUserService {
 	private RoomQuestionMapper roomQuestionMapper;
 	@Autowired
 	private QuestionMapper questionMapper;
+
+	@Autowired
+	private ScoreLogMapper scoreLogMapper;
+
 	public User getUserByOpenID(String openID) {
 		User user = this.userMapper.queryUserByOpenID(openID);
 		return user;
@@ -270,4 +258,27 @@ public class UserServiceImpl implements IUserService {
 		return list;
 	}
 
+
+	@Override
+	public void updateScore(String openID , Float modifyScore , String modifyName, BigInteger goodsID) {
+		if(modifyScore.floatValue() != 0){
+			User userModel = userMapper.queryUserByOpenID(openID);
+			if(userModel != null){
+				ScoreLog scoreLog = new ScoreLog();
+				scoreLog.setOpenID(openID);
+				scoreLog.setBeginScore(userModel.getScore());
+				scoreLog.setModifyName(modifyName);
+				scoreLog.setModifyTime(new Date());
+				scoreLog.setGoodsID(goodsID);
+				scoreLog.setModifyScore(modifyScore);
+				scoreLogMapper.save(scoreLog);
+
+				userModel.setScore(userModel.getScore() + modifyScore);
+				if(goodsID != null){
+					userModel.setUsedScore(userModel.getUsedScore() + Math.abs(modifyScore));
+				}
+				userMapper.updateScore(userModel);
+			}
+		}
+	}
 }

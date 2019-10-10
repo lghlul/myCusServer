@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.alibaba.fastjson.JSON;
 import com.answer.domain.*;
+import com.answer.service.IUserService;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class SignServiceImpl implements ISignService {
 	@Autowired
 	private UserMapper userMapper;
 
+	@Autowired
+	private IUserService userService;
+
 	public Result userSign(String wxSession) {
 		WXSessionCache session = this.cacheHelper.getSession(wxSession);
 		Sign sign = this.signMapper.querySignByOpenID(session.getOpenID());
@@ -39,13 +43,11 @@ public class SignServiceImpl implements ISignService {
 
 			//获取签到配置
 			Config config = cacheHelper.getConfig(Constant.ConfigKey.SIGN_CONFIG);
-			SignConfig signConfig = JSON.parseObject(config.getConfigValue() , SignConfig.class);
-			//签到加分
-			User user = new User();
-			user.setOpenID(session.getOpenID());
-			user.setScore(signConfig.getScore());
-			logger.info("userSign...user=" + JSON.toJSONString(user));
-			userMapper.updateUser(user);
+			if(config != null){
+				SignConfig signConfig = JSON.parseObject(config.getConfigValue() , SignConfig.class);
+				//签到加分
+				userService.updateScore(session.getOpenID() ,signConfig.getScore() , "签到" , null );
+			}
 		} else {
 			result.setResultCode(Constant.returnCode.SIGN_FAIL);
 		}

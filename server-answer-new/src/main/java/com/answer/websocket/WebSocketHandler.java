@@ -198,33 +198,28 @@ public class WebSocketHandler extends TextWebSocketHandler {
                                     User updateUser = new User();
                                     logger.info("battle finish=" + createRightNum + ",rightNum=" + rightNum);
                                     config = cacheHelper.getConfig(Constant.ConfigKey.BATTLE_CONFIG);
-                                    BattleConfig battleConfig = JSON.parseObject(config.getConfigValue() , BattleConfig.class);
-                                    if (createRightNum > rightNum) {
-                                        //创建人获胜
-                                        //胜者加10分
-                                        updateUser.setScore(battleConfig.getScore());
-                                        updateUser.setOpenID(room.getCreateOpenID());
-                                        userMapper.updateUser(updateUser);
-                                        //败者减10分
-                                        updateUser.setScore(-battleConfig.getScore());
-                                        updateUser.setOpenID(room.getOpenID());
-                                        userMapper.updateUser(user);
-                                    } else if (createRightNum < rightNum) {
-                                        //被邀请人获胜
-                                        //胜者加10分
-                                        updateUser.setScore(battleConfig.getScore());
-                                        updateUser.setOpenID(room.getOpenID());
-                                        userMapper.updateUser(updateUser);
-                                        //败者减10分
-                                        updateUser.setScore(-battleConfig.getScore());
-                                        updateUser.setOpenID(room.getCreateOpenID());
-                                        userMapper.updateUser(updateUser);
+                                    if(config != null){
+                                        BattleConfig battleConfig = JSON.parseObject(config.getConfigValue() , BattleConfig.class);
+                                        if (createRightNum > rightNum) {
+                                            //创建人获胜
+                                            //胜者加10分
+                                            userService.updateScore(room.getCreateOpenID() , battleConfig.getScore() , "对战胜利" , null);
+                                            //败者减10分
+                                            userService.updateScore(room.getOpenID() , -battleConfig.getScore() , "对战失败" , null);
+                                        } else if (createRightNum < rightNum) {
+                                            //被邀请人获胜
+                                            //胜者加10分
+                                            userService.updateScore(room.getOpenID() , battleConfig.getScore() , "对战胜利" , null);
+                                            //败者减10分
+                                            userService.updateScore(room.getCreateOpenID() , battleConfig.getScore() , "对战胜利" , null);
+                                        }
+                                        //修改对战状态改为已计分
+                                        Room updateRoom = new Room();
+                                        updateRoom.setRoomID(room.getRoomID());
+                                        updateRoom.setStatus(Constant.ROOM_STATUS_COUNT);
+                                        roomMapper.updateRoom(updateRoom);
                                     }
-                                    //修改对战状态改为已计分
-                                    Room updateRoom = new Room();
-                                    updateRoom.setRoomID(room.getRoomID());
-                                    updateRoom.setStatus(Constant.ROOM_STATUS_COUNT);
-                                    roomMapper.updateRoom(updateRoom);
+
                                 }
                             }
                         default:

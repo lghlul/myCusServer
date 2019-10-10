@@ -202,6 +202,7 @@
                 targets: 8,
                 render: function (data, type, row, meta) {
                     return '<a type="button"  href="#" openID="' + row.openID + '" class="button-info" >详情</a>&nbsp;' +
+                        '<a type="button"  href="#" openID="' + row.openID + '" class="button-score-log" >积分明细</a>&nbsp;' +
                         '<a type="button"  href="#" openID="' + row.openID + '" class="button-init-answer" >初始化答题</a>';
                 }
             }]
@@ -234,7 +235,18 @@
                 area: ['90%', '90%'],
                 content: 'toPage?page=user_info_tables' //iframe的url
             });
-        })
+        });
+        $("body").on("click", ".button-score-log", function () {
+            localStorage.setItem("openID", $(this).attr("openID"));
+            parent.layer.open({
+                type: 2,
+                title: '积分明细',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['90%', '90%'],
+                content: 'toPage?page=user_score_log_tables' //iframe的url
+            });
+        });
 
 
         $("body").on("click", ".button-init-answer", function () {

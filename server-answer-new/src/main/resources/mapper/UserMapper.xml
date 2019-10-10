@@ -13,9 +13,6 @@
 	<update id="updateUser" parameterType="user">
 		update t_user  
 			<set>
-				<if test="score != null">
-					score = score + #{score} ,
-				</if>
 				<if test="jobNum != null and jobNum != ''">
 					jobNum = #{jobNum} ,
 				</if>
@@ -24,9 +21,6 @@
 				</if>
 				<if test="userImg != null and userImg != ''">
 					userImg = #{userImg} ,
-				</if>
-				<if test="usedScore != null and usedScore != ''">
-					usedScore = usedScore + #{usedScore} ,
 				</if>
 			</set>
 		where openID = #{openID}
@@ -75,4 +69,20 @@
 		FROM
 			t_user where (score + usedScore) = #{score} ORDER BY createTime
 	</select>
+
+
+
+	<update id="updateScore" parameterType="user">
+		update t_user
+		<set>
+			<if test="score != null">
+				score = #{score} ,
+			</if>
+			<if test="usedScore != null and usedScore != ''">
+				usedScore = #{usedScore} ,
+			</if>
+		</set>
+		where openID = #{openID}
+	</update>
+
 </mapper>

@@ -7,6 +7,7 @@ import com.answer.mapper.QuestionMapper;
 import com.answer.mapper.TrainMapper;
 import com.answer.mapper.UserMapper;
 import com.answer.service.ITrainService;
+import com.answer.service.IUserService;
 import com.answer.thread.ThreadCache;
 import com.answer.thread.TrainThread;
 import com.answer.utils.CommonUtil;
@@ -37,6 +38,9 @@ public class TrainServiceImpl implements ITrainService {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private IUserService userService;
 
 
 
@@ -104,10 +108,6 @@ public class TrainServiceImpl implements ITrainService {
 				return result;
 			}
 
-			//获取考试配置信息
-			//获取考试配置
-			Config config = cacheHelper.getConfig(Constant.ConfigKey.TRAIN_CONFIG);
-			TrainConfig trainConfig = JSON.parseObject(config.getConfigValue() , TrainConfig.class);
 			for(TrainQuestion tq : list){
 				tq.setTrainID(trainID);
 				Question question = this.questionMapper.queryQuestionByID(tq.getQuesID());
@@ -127,15 +127,18 @@ public class TrainServiceImpl implements ITrainService {
 			train.setRightNum(rightNum);
 			trainMapper.update(train);
 
-			if(rightNum >= trainConfig.getRightNum()){
-				score = trainConfig.getScore();
+			//获取考试配置信息
+			Config config = cacheHelper.getConfig(Constant.ConfigKey.TRAIN_CONFIG);
+			TrainConfig trainConfig = JSON.parseObject(config.getConfigValue() , TrainConfig.class);
+
+			if(trainConfig != null){
+				if(rightNum >= trainConfig.getRightNum()){
+					score = trainConfig.getScore();
+				}
+				//更新用户积分
+				userService.updateScore(trainDO.getCreater() , Float.parseFloat(score + "") , "冲刺100" , null);
 			}
-			//更新用户积分
-			User user = new User();
-			user.setOpenID(trainDO.getCreater());
-			user.setScore(Float.parseFloat(score + ""));
-			logger.info("finishTrain userAnswer...考试结束计分user=" + JSON.toJSONString(user));
-			userMapper.updateUser(user);
+
 			//得分
 			dataMap.put("score" , score);
 			//正确题数

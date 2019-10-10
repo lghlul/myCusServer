@@ -1,10 +1,12 @@
 package com.answer.service.impl;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.answer.domain.*;
+import com.answer.service.IUserService;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,9 @@ import com.answer.service.IOrderService;
 import com.answer.utils.CommonUtil;
 import com.answer.utils.Constant;
 import com.answer.utils.DateUtil;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service
 public class OrderServiceImpl implements IOrderService {
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
@@ -31,6 +35,9 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private IUserService userService;
 
 	@Autowired
 	private GoodsMapper goodsMapper;
@@ -79,14 +86,10 @@ public class OrderServiceImpl implements IOrderService {
 		order.setOrderNo(orderNo);
 		logger.info("addOrder start...order=" + JSON.toJSONString(order));
 		this.orderMapper.addOrder(order);
+
 		//减去积分
-		User user = new User();
-		user.setOpenID(session.getOpenID());
-		user.setScore(-goods.getGoodsScore());
-		user.setUsedScore(goods.getGoodsScore());
-		logger.info("updateUser start...user=" + JSON.toJSONString(user));
-		userMapper.updateUser(user);
-		
+		userService.updateScore(session.getOpenID() , -goods.getGoodsScore() , "兑换奖品" , new BigInteger(goods.getGoodsID() + ""));
+
 		Map<String , Object> resultMap = new HashMap<>();
 		resultMap.put("orderNo", orderNo);
 		result.setResultData(resultMap);

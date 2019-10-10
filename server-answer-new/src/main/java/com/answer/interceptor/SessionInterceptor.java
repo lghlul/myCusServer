@@ -15,9 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
+@Component
 public class SessionInterceptor implements HandlerInterceptor {
 
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SessionInterceptor.class);
@@ -42,6 +43,9 @@ public class SessionInterceptor implements HandlerInterceptor {
 		String url = request.getRequestURI();
 		String[] arr = url.split("/");
 		if("readModuleConfig".equals(arr[arr.length-1])){
+			return true;
+		}
+		if("login".equals(arr[arr.length-1])){
 			return true;
 		}
 		logger.info("preHandle...wx_session=" + wx_session + ",url=" + url);
