@@ -12,7 +12,5 @@
         JOIN t_activity_question aq ON aua.quesID = aq.quesID
         WHERE
             aua.activityID = #{activityID}
-        ORDER BY
-            openid
     </select>
 </mapper>
