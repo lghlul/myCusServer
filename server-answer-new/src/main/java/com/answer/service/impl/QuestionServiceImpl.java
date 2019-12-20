@@ -130,6 +130,7 @@ public class QuestionServiceImpl implements IQuestionService {
 				logger.info("userAnswer...rightCount=" + rightCount);
 				if(rightCount >= practiseConfig.getQuesNum()){
 					userService.updateScore(session.getOpenID() , practiseConfig.getScore() , "练习模式" , null);
+					this.userAnswerMapper.updateUserAnswer(session.getOpenID());
 				}
 			}
 		}
