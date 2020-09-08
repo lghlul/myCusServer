@@ -86,4 +86,21 @@
 			t_question a
 		JOIN t_answer b ON a.quesID = b.quesID  and a.typeID = #{typeID} 
 	</select>
+
+
+	<select id="readNext" resultMap="questionMap">
+		select a.quesID,
+			a.quesDesc,
+			a.rightAnswerID,
+			b.ansID,
+			b.ansDesc,
+			a.quesType,
+			a.quesExplain from (
+		select * from
+		t_question where typeID = #{typeID}
+		and quesID
+		not in (select questionID from t_user_answer where openID = #{openID} and typeID = #{typeID}) limit #{offset} , 1
+		) a
+		JOIN t_answer b ON a.quesID = b.quesID
+	</select>
 </mapper>

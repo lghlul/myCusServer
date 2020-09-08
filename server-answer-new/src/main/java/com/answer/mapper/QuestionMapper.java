@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.answer.domain.Question;
+import org.apache.ibatis.annotations.Param;
 
 public interface QuestionMapper {
 	public Question queryQuestionByOne(Map<String, Object> paramMap);
@@ -17,5 +18,8 @@ public interface QuestionMapper {
 	public Question queryQuestionByIndex(Map<String, Object> paramMap);
 	
 	public List<Question> queryQuestionAll(long typeID);
+
+
+	Question readNext(@Param("typeID") long typeID , @Param("openID") String openID , @Param("offset") Integer offset);
 
 }
