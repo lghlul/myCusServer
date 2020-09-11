@@ -20,4 +20,10 @@ public interface TActivityMapper extends BaseMapper<Activity>{
 
     List<Activity> listUnFinish();
 
+
+    void delete(Long activityID);
+
+
+    Activity read(Long activityID);
+
 }

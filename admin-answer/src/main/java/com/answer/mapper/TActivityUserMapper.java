@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface TActivityUserMapper {
     List<UserAnswer4export> listUserAnswer4export(Long activityID);
+
+
+    int deleteByActivityID(Long activityID);
 }

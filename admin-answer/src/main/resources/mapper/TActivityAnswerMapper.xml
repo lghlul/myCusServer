@@ -87,4 +87,8 @@
     <delete id="deleteById" parameterType="string">
       delete from t_activity_answer where activityID = #{activityID}
     </delete>
+
+    <delete id="deleteByActivityID" parameterType="long">
+        delete from t_activity_answer where activityID = #{activityID}
+    </delete>
 </mapper>

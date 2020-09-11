@@ -100,4 +100,15 @@
         select * from t_activity
                 where activityStatus != 3 and startTime is not null and endTime is not null
     </select>
+
+
+    <delete id="delete"  parameterType="long">
+        delete from t_activity
+                where activityID = #{activityID}
+    </delete>
+
+    <select id="read"  parameterType="long" resultType="activity">
+        select * from t_activity
+                where activityID = #{activityID}
+    </select>
 </mapper>

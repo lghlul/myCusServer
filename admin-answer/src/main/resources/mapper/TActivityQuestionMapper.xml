@@ -120,4 +120,9 @@
             where quesID = #{quesID}
         </if>
     </update>
+
+
+    <delete id="deleteByActivityID" parameterType="long">
+        delete from t_activity_question where activityID = #{activityID}
+    </delete>
 </mapper>

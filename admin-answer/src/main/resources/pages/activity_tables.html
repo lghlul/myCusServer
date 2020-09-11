@@ -247,6 +247,7 @@
                            // buttons += '<a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-start" >开始</a>';
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" data-name="' + row.activityName + '"  data-status="' + row.activityStatus + '"  data-startTime="' + row.startTime + '" data-endTime="' + row.endTime + '" class="button-edit" >修改</a>';
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-import" >导入题目</a>';
+                            buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-delete" >删除</a>';
 
                         }
                         if (data == 2) {
@@ -256,6 +257,7 @@
                         if (data == 3) {
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-users" >参与成员</a>';
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-export-result" >导出结果</a>';
+                            buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-delete" >删除</a>';
                         }
                         if (row.quesNum > 0)
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-fileName="' + row.fileName + '" data-id="' + row.activityID + '" class="button-export" >导出题目</a>';
@@ -391,6 +393,28 @@
                 }
             });
         })
+
+        $("body").on("click", ".button-delete", function () {
+            let activityID = $(this).attr("data-id");
+            layer.confirm('你确定要删除吗?', {icon: 3, title:'提示'}, function(index){
+                $.ajax({
+                    type: "DELETE",
+                    url: "/activity/delete/" + activityID,
+                    cache: false,  //禁用缓存
+                    dataType: "json",
+                    success: function (result) {
+                        if(result.resultCode === 1){
+                            table.ajax.reload();
+                            layer.close(index);
+                        }else{
+                            layer.msg(result.message,{icon:5,time:1000});
+                        }
+                    }
+                });
+            })
+
+        })
+
         $("body").on("click", ".button-import", function () {
 
             activityID = $(this).attr("data-id");
@@ -503,10 +527,8 @@
                 table.ajax.reload();
                 layer.closeAll()
             });
-        } else if (response.resultCode == 1004) {
-            layer.msg("文件格式错误");
-
-
+        } else {
+            layer.msg(response.message);
         }
         $("#file-name").text("");
         uploader.reset();

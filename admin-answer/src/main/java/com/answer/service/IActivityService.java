@@ -14,12 +14,16 @@ import java.util.List;
 
 public interface IActivityService extends IBaseService<Activity>{
 
-    void insertQues(MultipartFile file, Long activityID);
+    void insertQues(MultipartFile file, Long activityID)throws Exception;
 
     PageInfo<ActivityUser> listActivityUser(ActivityUserQuery activityUserQuery);
 
     PageInfo<OrgReport> listOrgReport(OrgReportQuery orgReportQuery);
 
     PageInfo<Activity> page(ActivityQuery activityQuery);
+
+    void delete(Long activityID);
+
+    Activity read(Long activityID);
 
 }

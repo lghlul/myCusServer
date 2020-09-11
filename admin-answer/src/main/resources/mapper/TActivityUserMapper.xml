@@ -13,4 +13,7 @@
         WHERE
             aua.activityID = #{activityID}
     </select>
+    <delete id="deleteByActivityID" parameterType="long">
+        delete from t_activity_user where activityID = #{activityID}
+    </delete>
 </mapper>

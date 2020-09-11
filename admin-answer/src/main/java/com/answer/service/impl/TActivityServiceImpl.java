@@ -6,9 +6,7 @@ import com.answer.domain.*;
 import com.answer.domain.query.ActivityQuery;
 import com.answer.domain.query.ActivityUserQuery;
 import com.answer.domain.query.OrgReportQuery;
-import com.answer.mapper.TActivityAnswerMapper;
-import com.answer.mapper.TActivityMapper;
-import com.answer.mapper.TActivityQuestionMapper;
+import com.answer.mapper.*;
 import com.answer.service.IActivityService;
 import com.answer.service.ITrainConfigService;
 import com.github.pagehelper.PageHelper;
@@ -39,6 +37,12 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
     @Autowired
     TActivityQuestionMapper activityQuestionMapper;
 
+    @Autowired
+    TActivityUserMapper activityUserMapper;
+
+    @Autowired
+    TActivityUserAnswerMapper activityUserAnswerMapper;
+
 
     @Autowired
     private CacheHelper cacheHelper;
@@ -57,11 +61,10 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
 
 
     @Override
-    public void insertQues(MultipartFile file, Long activityID) {
+    public void insertQues(MultipartFile file, Long activityID) throws Exception{
         //导入前  将之前的题删除
         activityAnswerMapper.deleteById(activityID + "");
         activityQuestionMapper.deleteById(activityID + "");
-        try {
 
             int quesNum = 0;
 
@@ -170,12 +173,6 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
             activity.setQuesNum(quesNum);
             activity.setFileName(fileName);
             activityMapper.update(activity);
-
-
-        } catch (
-                Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -198,16 +195,31 @@ public class TActivityServiceImpl extends BaseServiceImpl<Activity> implements I
         if (orgReportQuery.getSortField() != null) {
             PageHelper.orderBy(orgReportQuery.getSortField() + " " + orgReportQuery.getSortDir());
         }
-        List<OrgReport> orgReports = this.activityMapper.listOrgReport(orgReportQuery );
+        List<OrgReport> orgReports = this.activityMapper.listOrgReport(orgReportQuery);
         PageInfo<OrgReport> pageInfo = new PageInfo<>(orgReports);
         if (pageInfo.getList() != null) {
-            for(OrgReport orgReport : pageInfo.getList()){
+            for (OrgReport orgReport : pageInfo.getList()) {
                 TOrganization org = cacheHelper.getOrg(orgReport.getOrgID());
-                if(org != null){
+                if (org != null) {
                     orgReport.setOrgName(org.getOrgName());
                 }
             }
         }
         return pageInfo;
+    }
+
+
+    @Override
+    public void delete(Long activityID) {
+        activityMapper.delete(activityID);
+        activityQuestionMapper.deleteByActivityID(activityID);
+        activityAnswerMapper.deleteByActivityID(activityID);
+        activityUserMapper.deleteByActivityID(activityID);
+        activityUserAnswerMapper.deleteByActivityID(activityID);
+    }
+
+    @Override
+    public Activity read(Long activityID) {
+        return activityMapper.read(activityID);
     }
 }

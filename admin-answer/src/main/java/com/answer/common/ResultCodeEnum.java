@@ -18,7 +18,9 @@ public enum ResultCodeEnum {
     ROLE_STATUS_FORBIDDEN(1007,"角色已被禁用"),
     ADMIN_NAME_REPEAT(1008,"账号重复"),
     ROLE_NAME_REPEAT(1009,"角色重复"),
-    ADMIN_STATUS_FORBIDDEN(1010,"账号已被禁用"),;
+    ADMIN_STATUS_FORBIDDEN(1010,"账号已被禁用"),
+    ACTIVITY_BEGINING(1011,"活动正在进行，不能删除"),
+    FILE_QUESTION_FORMAT_ERROR(1012,"导入格式错误，请按照模板填写"),;
 
     /**
      * 编号

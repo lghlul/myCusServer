@@ -20,10 +20,7 @@ import jxl.format.Pattern;
 import jxl.format.UnderlineStyle;
 import jxl.write.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -96,17 +93,21 @@ public class ActivityController {
     @PostMapping("importQues")
     public Object importQues(MultipartFile file, Long activityID) {
 
-        String originalFilename = file.getOriginalFilename();
-        if(originalFilename.contains("xls") || originalFilename.contains("xlsx")){
-            //判断活动状态
-            Activity activity = activityService.queryById(activityID + "");
-            if (activity.getActivityStatus() != CommonConstant.Common.ACTIVITY_STATUS_UN_START) {
-                return ResultCodeEnum.ACTIVITY_START.getResponse();
+        try{
+            String originalFilename = file.getOriginalFilename();
+            if(originalFilename.contains("xls") || originalFilename.contains("xlsx")){
+                //判断活动状态
+                Activity activity = activityService.queryById(activityID + "");
+                if (activity.getActivityStatus() != CommonConstant.Common.ACTIVITY_STATUS_UN_START) {
+                    return ResultCodeEnum.ACTIVITY_START.getResponse();
+                }
+                activityService.insertQues(file, activityID);
+                return ResultCodeEnum.SUCCESS.getResponse();
+            }else{
+                return ResultCodeEnum.FILE_FORMAT_ERROR.getResponse();
             }
-            activityService.insertQues(file, activityID);
-            return ResultCodeEnum.SUCCESS.getResponse();
-        }else{
-            return ResultCodeEnum.FILE_FORMAT_ERROR.getResponse();
+        }catch (Exception e){
+            return ResultCodeEnum.FILE_QUESTION_FORMAT_ERROR.getResponse();
         }
     }
 
@@ -184,6 +185,18 @@ public class ActivityController {
             e.printStackTrace();
         }
         return ResultCodeEnum.FAIL.getResponse();
+    }
+
+
+    @DeleteMapping("delete/{activityID}")
+    public Object delete(@PathVariable("activityID") Long activityID) {
+        Activity activity = activityService.read(activityID);
+        if(activity != null && activity.getActivityStatus().intValue() == 2){
+            return ResultCodeEnum.ACTIVITY_BEGINING.getResponse();
+        }else{
+            activityService.delete(activityID);
+            return ResultCodeEnum.SUCCESS.getResponse();
+        }
     }
 
 }
