@@ -244,14 +244,14 @@
                     render: function (data, type, row, meta) {
                         var buttons = "";
                         if (data == 1) {
-                           // buttons += '<a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-start" >开始</a>';
+                            // buttons += '<a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-start" >开始</a>';
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" data-name="' + row.activityName + '"  data-status="' + row.activityStatus + '"  data-startTime="' + row.startTime + '" data-endTime="' + row.endTime + '" class="button-edit" >修改</a>';
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-import" >导入题目</a>';
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-delete" >删除</a>';
 
                         }
                         if (data == 2) {
-                           // buttons += '<a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-end" >结束</a>';
+                            // buttons += '<a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-end" >结束</a>';
                             buttons += ' <a type="button"  href="#" openID="' + row.activityID + '" data-id="' + row.activityID + '" class="button-users" >参与成员</a>';
                         }
                         if (data == 3) {
@@ -608,6 +608,12 @@
             layer.msg('请选择活动结束时间');
             return;
         }
+
+        if ($("#form-endTime").val()<$("#form-startTime").val()) {
+            layer.msg('活动结束时间不能小于活动开始时间')
+            return;
+        }
+
         let param = {activityName: $("#form-name").val() };
         param.startTime = $.myTime.DateToUnix($("#form-startTime").val());
         param.endTime = $.myTime.DateToUnix($("#form-endTime").val());
@@ -636,25 +642,25 @@
 
     let formStartTime = {
         elem: '#form-startTime',
-        format: 'YYYY-MM-DD hh:MM:00',
+        format: 'YYYY-MM-DD hh:mm:00',
         type: 'datetime',
         istime: true,
         istoday: false,
         min: laydate.now(),
         choose: function (datas) {
-            formEndTime.min = datas; //开始日选好后，重置结束日的最小日期
-            formEndTime.start = datas //将结束日的初始值设定为开始日
+            //formEndTime.min = datas; //开始日选好后，重置结束日的最小日期
+            //formEndTime.start = datas //将结束日的初始值设定为开始日
         }
     };
     let formEndTime = {
         elem: '#form-endTime',
-        format: 'YYYY-MM-DD hh:MM:00',
+        format: 'YYYY-MM-DD hh:mm:00',
         type: 'datetime',
         istime: true,
         istoday: false,
         min: laydate.now(),
         choose: function (datas) {
-            formStartTime.max = datas; //结束日选好后，重置开始日的最大日期
+            //formStartTime.max = datas; //结束日选好后，重置开始日的最大日期
         }
     };
     laydate(formStartTime);
